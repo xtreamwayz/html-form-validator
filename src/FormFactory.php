@@ -48,7 +48,7 @@ class FormFactory
         /** @var DOMElement $element */
         foreach ($elements as $element) {
             // Set some basic vars
-            $name = ($element->getAttribute('name')) ? $element->getAttribute('name') : $element->getAttribute('id');
+            $name = $element->getAttribute('name');
             if (! $name) {
                 // Silently continue, might be a submit input
                 continue;
@@ -82,6 +82,12 @@ class FormFactory
                 $validationErrors[$error->getName()] = $error->getMessages();
             }
         }
+
+        /* TODO: Set validated values
+        foreach ($inputFilter->getValues() as $id => $value) {
+            $element = $this->document->getElementById($id);
+            $element->setAttribute('value', $value);
+        }*/
 
         // Return validation result
         return new ValidationResult($inputFilter->getRawValues(), $inputFilter->getValues(), $validationErrors);
