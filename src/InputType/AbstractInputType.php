@@ -17,6 +17,10 @@ abstract class AbstractInputType
 
         // TODO: Add custom validator(s) -> $dataValidator = $input->getAttribute('data-validator');
 
+        if ($element->hasAttribute('required')) {
+            $input->getValidatorChain()->attach(new Validator\NotEmpty());
+        }
+
         return $input;
     }
 

@@ -35,6 +35,7 @@ $htmlForm = <<<'HTML'
         value=""
         data-reuse-submitted-value="true"
         data-filters="stringtrim,alpha"
+        required
     />
     <input type="submit"/>
 </form>
