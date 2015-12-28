@@ -113,6 +113,13 @@ class FormFactory
                 }
             }
 
+            $filters = explode(',', $input->getAttribute('data-filters'));
+            foreach ($filters as $filter) {
+                if ($filter) {
+                    $validator->getFilterChain()->attachByName($filter);
+                }
+            }
+
             $inputFilter->add($validator);
         }
 

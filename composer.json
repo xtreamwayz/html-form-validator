@@ -12,7 +12,8 @@
     "require": {
         "zendframework/zend-validator": "^2.5",
         "zendframework/zend-filter": "^2.5",
-        "zendframework/zend-inputfilter": "^2.5"
+        "zendframework/zend-inputfilter": "^2.5",
+        "zendframework/zend-servicemanager": "^2.6"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.0",

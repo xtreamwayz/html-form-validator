@@ -29,6 +29,13 @@ $htmlForm = <<<'HTML'
         data-reuse-submitted-value="true"
         data-validator="between"
     />
+    <input
+        type="text"
+        name="username"
+        value=""
+        data-reuse-submitted-value="true"
+        data-filters="StringTrim"
+    />
     <input type="submit"/>
 </form>
 HTML;
@@ -37,6 +44,7 @@ $form = FormFactory::fromHtml($htmlForm);
 
 $_POST['email'] = 'test@localhost';
 $_POST['intNumber'] = 22;
+$_POST['username'] = ' xtreamwayz 22 ';
 var_dump($form->validate($_POST)); // returns form validation result VO
 
 echo $form->asString();
