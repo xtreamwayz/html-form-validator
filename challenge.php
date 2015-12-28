@@ -37,6 +37,7 @@ $htmlForm = <<<'HTML'
         data-filters="stringtrim,alpha"
         required
     />
+    <input type="text" name="country_code" pattern="[A-Za-z]{3}" />
     <input type="submit"/>
 </form>
 HTML;
@@ -46,6 +47,7 @@ $form = FormFactory::fromHtml($htmlForm);
 $_POST['email'] = 'test@localhost';
 $_POST['intNumber'] = 22;
 $_POST['username'] = ' xtreamwayz 22 ';
+$_POST['country_code'] = 'nl';
 var_dump($form->validate($_POST)); // returns form validation result VO
 
 echo $form->asString();
