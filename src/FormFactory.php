@@ -40,15 +40,17 @@ class FormFactory
         foreach ($inputs as $input) {
             // Set some basic vars
             $name = ($input->getAttribute('name')) ? $input->getAttribute('name') : $input->getAttribute('id');
+            if (!$name) {
+                // Silently continue, might be a submit input
+                continue;
+            }
+
             $value = (isset($data[$name])) ? $data[$name] : $input->getAttribute('value');
-            $dataValidator = $input->getAttribute('data-validator');
+
             $reuseSubmittedValue = filter_var(
                 $input->getAttribute('data-reuse-submitted-value'),
                 FILTER_VALIDATE_BOOLEAN
             );
-
-            // Set raw data
-            $rawInputData[$name] = $value;
 
             // Set input value
             if ($reuseSubmittedValue) {
@@ -59,6 +61,7 @@ class FormFactory
             $validator = new Input($name);
 
             // TODO: Move into it's own class
+            // TODO: Add custom validator(s) -> $dataValidator = $input->getAttribute('data-validator');
             if ($input->getAttribute('type') == 'email') {
                 $validator->getValidatorChain()
                           ->attach(

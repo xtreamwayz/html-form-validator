@@ -34,7 +34,7 @@ $htmlForm = <<<'HTML'
         name="username"
         value=""
         data-reuse-submitted-value="true"
-        data-filters="StringTrim"
+        data-filters="stringtrim,alpha"
     />
     <input type="submit"/>
 </form>
