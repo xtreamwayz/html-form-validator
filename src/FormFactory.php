@@ -4,8 +4,8 @@ namespace Xtreamwayz\HTMLFormValidator;
 
 use DOMDocument;
 use DOMElement;
+use Xtreamwayz\HTMLFormValidator\InputType;
 use Zend\Filter\Word\SeparatorToCamelCase;
-use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator;
 
@@ -17,6 +17,15 @@ class FormFactory
      * @var SeparatorToCamelCase
      */
     private $toCamelCaseFilter;
+
+    /**
+     * @var InputType\AbstractInputType[]
+     */
+    private $inputTypes = [
+        'email'  => InputType\Email::class,
+        'number' => InputType\Number::class,
+        'text'   => InputType\Text::class,
+    ];
 
     public function __construct($htmlForm)
     {
@@ -35,95 +44,33 @@ class FormFactory
     {
         $inputFilter = new InputFilter();
 
-        $inputs = $this->document->getElementsByTagName('input');
-        /** @var DOMElement $input */
-        foreach ($inputs as $input) {
+        $elements = $this->document->getElementsByTagName('input');
+        /** @var DOMElement $element */
+        foreach ($elements as $element) {
             // Set some basic vars
-            $name = ($input->getAttribute('name')) ? $input->getAttribute('name') : $input->getAttribute('id');
-            if (!$name) {
+            $name = ($element->getAttribute('name')) ? $element->getAttribute('name') : $element->getAttribute('id');
+            if (! $name) {
                 // Silently continue, might be a submit input
                 continue;
             }
 
-            $value = (isset($data[$name])) ? $data[$name] : $input->getAttribute('value');
-
-            $reuseSubmittedValue = filter_var(
-                $input->getAttribute('data-reuse-submitted-value'),
-                FILTER_VALIDATE_BOOLEAN
-            );
+            // Get element value
+            $value = (isset($data[$name])) ? $data[$name] : $element->getAttribute('value');
 
             // Set input value
+            $reuseSubmittedValue = filter_var(
+                $element->getAttribute('data-reuse-submitted-value'),
+                FILTER_VALIDATE_BOOLEAN
+            );
             if ($reuseSubmittedValue) {
-                $input->setAttribute('value', $value);
+                $element->setAttribute('value', $value);
             }
 
-            // Build input validator chain
-            $validator = new Input($name);
-
-            // TODO: Move into it's own class
-            // TODO: Add custom validator(s) -> $dataValidator = $input->getAttribute('data-validator');
-            if ($input->getAttribute('type') == 'email') {
-                $validator->getValidatorChain()
-                          ->attach(
-                              new Validator\EmailAddress(
-                                  [
-                                      'useMxCheck' => filter_var(
-                                          $input->getAttribute('data-validator-use-mx-check'),
-                                          FILTER_VALIDATE_BOOLEAN
-                                      ),
-                                  ]
-                              )
-                          )
-                ;
+            $type = $element->getAttribute('type');
+            if (isset($this->inputTypes[$type])) {
+                $validator = new $this->inputTypes[$type];
+                $inputFilter->add($validator($element));
             }
-
-            // TODO: Move into it's own class
-            if ($input->getAttribute('type') == 'number') {
-                $min = $input->getAttribute('min');
-                $max = $input->getAttribute('max');
-
-                if ($min && $max) {
-                    $validator->getValidatorChain()
-                              ->attach(
-                                  new Validator\Between(
-                                      [
-                                          'min' => $min,
-                                          'max' => $max,
-                                      ]
-                                  )
-                              )
-                    ;
-                } elseif ($min) {
-                    $validator->getValidatorChain()
-                              ->attach(
-                                  new Validator\GreaterThan(
-                                      [
-                                          'min' => $min,
-                                      ]
-                                  )
-                              )
-                    ;
-                } elseif ($max) {
-                    $validator->getValidatorChain()
-                              ->attach(
-                                  new Validator\LessThan(
-                                      [
-                                          'max' => $max,
-                                      ]
-                                  )
-                              )
-                    ;
-                }
-            }
-
-            $filters = explode(',', $input->getAttribute('data-filters'));
-            foreach ($filters as $filter) {
-                if ($filter) {
-                    $validator->getFilterChain()->attachByName($filter);
-                }
-            }
-
-            $inputFilter->add($validator);
         }
 
         $inputFilter->setData($data);
