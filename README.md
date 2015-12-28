@@ -2,8 +2,8 @@
 
 As challenged by a [tweet](https://twitter.com/Ocramius/status/680817040429592576), it should validate a html form.
 
-It's pretty crazy what you have to do to get a form build. Create a lot of php classes for elements, validation, 
-etc. So why not build a html5 form and use the element attribrutes to generate the validator and filters.
+It's pretty crazy what you have to do to get a form build. Create a lot of php classes for elements, validation,
+etc. So why not build a html5 form and use the element attributes to generate the validator and filters.
 
 ```php
 $htmlForm = <<<'HTML'
@@ -50,3 +50,7 @@ var_dump($form->validate($_POST)); // returns form validation result VO
 
 echo $form->asString();
 ```
+
+## Resources
+- http://www.w3schools.com/html/html_form_elements.asp
+- http://www.w3schools.com/tags/tag_input.asp
