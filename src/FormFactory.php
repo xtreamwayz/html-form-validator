@@ -5,18 +5,12 @@ namespace Xtreamwayz\HTMLFormValidator;
 use DOMDocument;
 use DOMElement;
 use Xtreamwayz\HTMLFormValidator\InputType;
-use Zend\Filter\Word\SeparatorToCamelCase;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator;
 
 class FormFactory
 {
     private $document;
-
-    /**
-     * @var SeparatorToCamelCase
-     */
-    private $toCamelCaseFilter;
 
     /**
      * @var InputType\AbstractInputType[]
@@ -29,10 +23,11 @@ class FormFactory
 
     public function __construct($htmlForm)
     {
+        // Create new doc
         $this->document = new DOMDocument('1.0', 'utf-8');
-        $this->document->loadHTML($htmlForm);
 
-        $this->toCamelCaseFilter = new SeparatorToCamelCase('-');
+        // Don't add missing doctype, html and body
+        $this->document->loadHTML($htmlForm, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
     }
 
     public static function fromHtml($htmlForm)
@@ -97,6 +92,6 @@ class FormFactory
     {
         $this->document->formatOutput = true;
 
-        return $this->document->saveXML();
+        return $this->document->saveHTML();
     }
 }
