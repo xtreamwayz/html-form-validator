@@ -5,9 +5,9 @@ namespace Xtreamwayz\HTMLFormValidator;
 use DOMDocument;
 use DOMElement;
 use Zend\Filter\Word\SeparatorToCamelCase;
-use Zend\Validator\ValidatorInterface;
-use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Input;
+use Zend\InputFilter\InputFilter;
+use Zend\Validator;
 
 class FormFactory
 {
@@ -17,8 +17,6 @@ class FormFactory
      * @var SeparatorToCamelCase
      */
     private $toCamelCaseFilter;
-
-    private $errors = [];
 
     public function __construct($htmlForm)
     {
@@ -35,8 +33,7 @@ class FormFactory
 
     public function validate(array $data)
     {
-        $rawInputData = [];
-        $validatedData = [];
+        $inputFilter = new InputFilter();
 
         $inputs = $this->document->getElementsByTagName('input');
         /** @var DOMElement $input */
@@ -58,37 +55,79 @@ class FormFactory
                 $input->setAttribute('value', $value);
             }
 
-            // Get validate options
-            $validateOptions = [];
-            $validateOptions['min'] = $input->getAttribute('min');
-            $validateOptions['max'] = $input->getAttribute('max');
-            $validateOptions['useMxCheck'] = filter_var(
-                $input->getAttribute('data-validator-use-mx-check'),
-                FILTER_VALIDATE_BOOLEAN
-            );
+            // Build input validator chain
+            $validator = new Input($name);
 
-            // Do some real validation
-            if ($dataValidator && $name) {
-                $validatorClass = sprintf(
-                    'Zend\\Validator\\%s',
-                    $this->toCamelCaseFilter->filter($dataValidator)
-                );
+            // TODO: Move into it's own class
+            if ($input->getAttribute('type') == 'email') {
+                $validator->getValidatorChain()
+                          ->attach(
+                              new Validator\EmailAddress(
+                                  [
+                                      'useMxCheck' => filter_var(
+                                          $input->getAttribute('data-validator-use-mx-check'),
+                                          FILTER_VALIDATE_BOOLEAN
+                                      ),
+                                  ]
+                              )
+                          )
+                ;
+            }
 
-                /** @var ValidatorInterface $validator */
-                $validator = new $validatorClass($validateOptions);
+            // TODO: Move into it's own class
+            if ($input->getAttribute('type') == 'number') {
+                $min = $input->getAttribute('min');
+                $max = $input->getAttribute('max');
 
-                if (! $validator->isValid($value)) {
-                    foreach ($validator->getMessages() as $key => $message) {
-                        $this->errors[$name][$key] = $message;
-                    }
-                } else {
-                    $validatedData[$name] = $value;
+                if ($min && $max) {
+                    $validator->getValidatorChain()
+                              ->attach(
+                                  new Validator\Between(
+                                      [
+                                          'min' => $min,
+                                          'max' => $max,
+                                      ]
+                                  )
+                              )
+                    ;
+                } elseif ($min) {
+                    $validator->getValidatorChain()
+                              ->attach(
+                                  new Validator\GreaterThan(
+                                      [
+                                          'min' => $min,
+                                      ]
+                                  )
+                              )
+                    ;
+                } elseif ($max) {
+                    $validator->getValidatorChain()
+                              ->attach(
+                                  new Validator\LessThan(
+                                      [
+                                          'max' => $max,
+                                      ]
+                                  )
+                              )
+                    ;
                 }
+            }
+
+            $inputFilter->add($validator);
+        }
+
+        $inputFilter->setData($data);
+        $validationErrors = [];
+
+        // Do some real validation
+        if (! $inputFilter->isValid()) {
+            foreach ($inputFilter->getInvalidInput() as $error) {
+                $validationErrors[$error->getName()] = $error->getMessages();
             }
         }
 
         // Return validation result
-        return new ValidationResult($rawInputData, $validatedData, $this->errors);
+        return new ValidationResult($inputFilter->getRawValues(), $inputFilter->getValues(), $validationErrors);
     }
 
     public function asString()
