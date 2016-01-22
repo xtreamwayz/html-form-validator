@@ -13,6 +13,8 @@ class FormFactory
 {
     private $document;
 
+    private $errorClass = 'has-danger';
+
     /**
      * @var InputType\AbstractInputType[]
      */
@@ -50,9 +52,15 @@ class FormFactory
         foreach ($elements as $element) {
             // Set some basic vars
             $name = $element->getAttribute('name');
-            if (! $name) {
+            if (!$name) {
                 // Silently continue, might be a submit input
                 continue;
+            }
+
+            $id = $element->getAttribute('id');
+            if (!$id) {
+                $id = $name;
+                $element->setAttribute('id', $id);
             }
 
             // Detect element type
@@ -105,8 +113,35 @@ class FormFactory
         return new ValidationResult($inputFilter->getRawValues(), $inputFilter->getValues(), $validationErrors);
     }
 
-    public function asString()
+    /**
+     * Return form as a string. Optionally inject the error messages for the result.
+     *
+     * @param ValidationResult|null $result
+     *
+     * @return string
+     */
+    public function asString(ValidationResult $result = null)
     {
+        if ($result) {
+            // Inject error messages and classes into the form
+            foreach ($result->getErrorMessages() as $id => $errors) {
+                $element = $this->document->getElementById($id);
+
+                // Set error class to parent
+                $parent = $element->parentNode;
+                $class = trim($parent->getAttribute('class') . ' ' . $this->errorClass);
+                $parent->setAttribute('class', $class);
+
+                // Inject error messages
+                foreach ($errors as $code => $message) {
+                    $div = $this->document->createElement('div');
+                    $div->setAttribute('class', 'text-danger');
+                    $div->nodeValue = $message;
+                    $element->parentNode->insertBefore($div, $element->nextSibling);
+                }
+            }
+        }
+
         $this->document->formatOutput = true;
 
         return $this->document->saveHTML();
