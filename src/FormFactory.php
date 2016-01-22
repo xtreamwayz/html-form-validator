@@ -4,6 +4,7 @@ namespace Xtreamwayz\HTMLFormValidator;
 
 use DOMDocument;
 use DOMElement;
+use DOMXPath;
 use Xtreamwayz\HTMLFormValidator\InputType;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator;
@@ -16,9 +17,10 @@ class FormFactory
      * @var InputType\AbstractInputType[]
      */
     private $inputTypes = [
-        'email'  => InputType\Email::class,
-        'number' => InputType\Number::class,
-        'text'   => InputType\Text::class,
+        'email'    => InputType\Email::class,
+        'number'   => InputType\Number::class,
+        'text'     => InputType\Text::class,
+        'textarea' => InputType\Textarea::class,
     ];
 
     public function __construct($htmlForm)
@@ -39,7 +41,11 @@ class FormFactory
     {
         $inputFilter = new InputFilter();
 
-        $elements = $this->document->getElementsByTagName('input');
+        //$elements = $this->document->getElementsByTagName('input');
+        $xpath = new DOMXPath($this->document);
+
+        $elements = $xpath->query('//input | //textarea');
+
         /** @var DOMElement $element */
         foreach ($elements as $element) {
             // Set some basic vars
@@ -47,6 +53,12 @@ class FormFactory
             if (! $name) {
                 // Silently continue, might be a submit input
                 continue;
+            }
+
+            // Detect element type
+            $type = $element->getAttribute('type');
+            if ($element->tagName == 'textarea') {
+                $type = 'textarea';
             }
 
             // Get element value
@@ -57,11 +69,16 @@ class FormFactory
                 $element->getAttribute('data-reuse-submitted-value'),
                 FILTER_VALIDATE_BOOLEAN
             );
+
             if ($reuseSubmittedValue) {
+                // Use for textarea
+                $element->nodeValue = $value;
+
+                // For other elements
                 $element->setAttribute('value', $value);
             }
 
-            $type = $element->getAttribute('type');
+            // Add validation
             if (isset($this->inputTypes[$type])) {
                 $validator = new $this->inputTypes[$type];
                 $inputFilter->add($validator($element));

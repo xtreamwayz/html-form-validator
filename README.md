@@ -1,8 +1,6 @@
 # html-form-validator
 
-*This is just a proof of concept!* 
-
-It's better to join forces with [jstoone/HTMLFormValidator](https://github.com/jstoone/HTMLFormValidator) and not create multiple projects doing the same thing.
+*This is just a proof of concept!*
 
 ---
 
