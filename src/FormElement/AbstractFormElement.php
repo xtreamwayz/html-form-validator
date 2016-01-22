@@ -1,12 +1,12 @@
 <?php
 
-namespace Xtreamwayz\HTMLFormValidator\InputType;
+namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
 use Zend\InputFilter\Input;
 use Zend\Validator;
 
-abstract class AbstractInputType
+abstract class AbstractFormElement
 {
     public function __invoke(DOMElement $element)
     {

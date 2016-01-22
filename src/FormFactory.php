@@ -5,7 +5,7 @@ namespace Xtreamwayz\HTMLFormValidator;
 use DOMDocument;
 use DOMElement;
 use DOMXPath;
-use Xtreamwayz\HTMLFormValidator\InputType;
+use Xtreamwayz\HTMLFormValidator\FormElement;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator;
 
@@ -16,13 +16,13 @@ class FormFactory
     private $errorClass = 'has-danger';
 
     /**
-     * @var InputType\AbstractInputType[]
+     * @var FormElement\AbstractFormElement[]
      */
-    private $inputTypes = [
-        'email'    => InputType\Email::class,
-        'number'   => InputType\Number::class,
-        'text'     => InputType\Text::class,
-        'textarea' => InputType\Textarea::class,
+    private $formElements = [
+        'email'    => FormElement\Email::class,
+        'number'   => FormElement\Number::class,
+        'text'     => FormElement\Text::class,
+        'textarea' => FormElement\Textarea::class,
     ];
 
     public function __construct($htmlForm)
@@ -87,8 +87,8 @@ class FormFactory
             }
 
             // Add validation
-            if (isset($this->inputTypes[$type])) {
-                $validator = new $this->inputTypes[$type];
+            if (isset($this->formElements[$type])) {
+                $validator = new $this->formElements[$type];
                 $inputFilter->add($validator($element));
             }
         }

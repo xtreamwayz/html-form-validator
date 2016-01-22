@@ -1,12 +1,12 @@
 <?php
 
-namespace Xtreamwayz\HTMLFormValidator\InputType;
+namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
 use Zend\InputFilter\Input;
 use Zend\Validator;
 
-class Textarea extends AbstractInputType
+class Text extends AbstractFormElement
 {
     public function attachValidators(Input $input, DOMElement $element)
     {
