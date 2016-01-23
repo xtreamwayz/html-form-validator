@@ -60,7 +60,7 @@ class FormFactory
 
             // Create an id if needed, this speeds up finding the element again
             if (!$id) {
-                $id = spl_object_hash($element);
+                $id = $name;
                 $element->setAttribute('id', $id);
             }
 
@@ -68,22 +68,6 @@ class FormFactory
             $type = $element->getAttribute('type');
             if ($element->tagName == 'textarea') {
                 $type = 'textarea';
-            }
-
-            // Get element value
-            $value = (isset($data[$name])) ? $data[$name] : $element->getAttribute('value');
-
-            // Set input value
-            $reuseSubmittedValue = filter_var(
-                $element->getAttribute('data-reuse-submitted-value'),
-                FILTER_VALIDATE_BOOLEAN
-            );
-
-            if ($reuseSubmittedValue) {
-                // Use for textarea
-                $element->nodeValue = $value;
-                // For other elements
-                $element->setAttribute('value', $value);
             }
 
             // Add validation
@@ -103,11 +87,29 @@ class FormFactory
             }
         }
 
-        /* TODO: Set validated values
-        foreach ($inputFilter->getValues() as $id => $value) {
-            $element = $this->document->getElementById($id);
+        $validatedValues = $inputFilter->getValues();
+
+        // Set validated values
+        foreach ($elements as $element) {
+            $reuseSubmittedValue = filter_var(
+                $element->getAttribute('data-reuse-submitted-value'),
+                FILTER_VALIDATE_BOOLEAN
+            );
+
+            if (! $reuseSubmittedValue) {
+                continue;
+            }
+
+            $id = $element->getAttribute('id');
+
+            // Get element value
+            $value = (isset($validatedValues[$id])) ? $validatedValues[$id] : $element->getAttribute('value');
+
+            // Use for textarea
+            $element->nodeValue = $value;
+            // For other elements
             $element->setAttribute('value', $value);
-        }*/
+        }
 
         // Return validation result
         return new ValidationResult($inputFilter->getRawValues(), $inputFilter->getValues(), $validationErrors);
