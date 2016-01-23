@@ -11,7 +11,7 @@ abstract class AbstractFormElement
     public function __invoke(DOMElement $element)
     {
         // Build input validator chain for element
-        $input = new Input($element->getAttribute('name'));
+        $input = new Input($element->getAttribute('id'));
         $this->attachValidators($input, $element);
         $this->attachFilters($input, $element->getAttribute('data-filters'));
 

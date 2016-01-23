@@ -52,14 +52,15 @@ class FormFactory
         foreach ($elements as $element) {
             // Set some basic vars
             $name = $element->getAttribute('name');
-            if (!$name) {
-                // Silently continue, might be a submit input
+            $id = $element->getAttribute('id');
+            if (!$name && !$id) {
+                // At least a name or id is needed. Silently continue, might be a submit button.
                 continue;
             }
 
-            $id = $element->getAttribute('id');
+            // Create an id if needed, this speeds up finding the element again
             if (!$id) {
-                $id = $name;
+                $id = spl_object_hash($element);
                 $element->setAttribute('id', $id);
             }
 
@@ -81,7 +82,6 @@ class FormFactory
             if ($reuseSubmittedValue) {
                 // Use for textarea
                 $element->nodeValue = $value;
-
                 // For other elements
                 $element->setAttribute('value', $value);
             }
