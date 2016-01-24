@@ -42,7 +42,11 @@ $htmlForm = <<<'HTML'
 </form>
 HTML;
 
-$form = FormFactory::fromHtml($htmlForm);
+//$form = FormFactory::fromHtml($htmlForm);
+$config = new \Zend\ServiceManager\Config([]);
+$inputFilterPluginManager = new \Zend\InputFilter\InputFilterPluginManager($config);
+$inputFilterFactory = new \Zend\InputFilter\Factory($inputFilterPluginManager);
+$form = new FormFactory($htmlForm, $inputFilterFactory);
 
 $_POST['email'] = 'test@localhost';
 $_POST['intNumber'] = 22;

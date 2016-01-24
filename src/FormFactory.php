@@ -6,11 +6,20 @@ use DOMDocument;
 use DOMElement;
 use DOMXPath;
 use Xtreamwayz\HTMLFormValidator\FormElement;
+use Zend\InputFilter\Factory as InputFilterFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator;
 
 class FormFactory
 {
+    /**
+     * @var InputFilterFactory
+     */
+    private $inputFilterFactory;
+
+    /**
+     * @var DOMDocument
+     */
     private $document;
 
     private $errorClass = 'has-danger';
@@ -25,8 +34,10 @@ class FormFactory
         'textarea' => FormElement\Textarea::class,
     ];
 
-    public function __construct($htmlForm)
+    public function __construct($htmlForm, InputFilterFactory $inputFilterFactory = null)
     {
+        $this->inputFilterFactory = $inputFilterFactory;
+
         // Create new doc
         $this->document = new DOMDocument('1.0', 'utf-8');
 
@@ -42,10 +53,11 @@ class FormFactory
     public function validate(array $data)
     {
         $inputFilter = new InputFilter();
+        if ($this->inputFilterFactory) {
+            $inputFilter->setFactory($this->inputFilterFactory);
+        }
 
-        //$elements = $this->document->getElementsByTagName('input');
         $xpath = new DOMXPath($this->document);
-
         $elements = $xpath->query('//input | //textarea');
 
         /** @var DOMElement $element */
