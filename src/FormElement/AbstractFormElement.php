@@ -12,8 +12,8 @@ abstract class AbstractFormElement
     /**
      * Default set of filters
      *
-     * TODO: This is a hack to get the input filter with servicemanger 3 working.
-     * TODO: Needs to fixed when zend-inputfilter 3 is released.
+     * TODO: This is a hack to get the input filter with servicemanager 3 working.
+     * TODO: Needs fix when zend-inputfilter 3 is released.
      *
      * @var array
      */
