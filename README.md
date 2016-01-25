@@ -53,6 +53,31 @@ Apply filters to the submitted value. Multiple filters can be used, separated by
 <input type="text" name="username" value="" data-filters="stringtrim,alpha" />
 ```
 
+### data-validators
+
+Add extra validators. Multiple validators can be used. The string must be a valid json object. Single quotes will be
+converted to double quotes.
+
+```html
+<input type="text" name="username" value="" data-validators="{'stringlength':[{'min':2,'max':140}]}" />
+```
+
+```json
+{
+	'stringlength': [{
+		'min': 2,
+		'max': 140
+	}],
+
+	'validator_name': [{
+		'option': 1,
+		'foo': 'bar'
+	}],
+
+	'validator_with_no_options': []
+}
+```
+
 ## Element types
 
 The form validator detects HTML5 form elements and adds default validators depending on the used attributes.

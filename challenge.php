@@ -14,8 +14,8 @@ $htmlForm = <<<'HTML'
         name="name"
         value=""
         data-reuse-submitted-value="true"
-        data-filters="alpha,stringtrim"
-        data-validators="{'StringLength':[{'min':2,'max':140}],'Test':[]}"
+        data-filters="striptags,stringtrim"
+        data-validators="{'stringlength':[{'min':2,'max':140}]}"
         required="required"
     />
     <input
@@ -82,7 +82,8 @@ $_POST['email'] = 'test@localhost';
 $_POST['subject'] = 'Message subject  ';
 $_POST['body'] = 'Body.';
 
-$form = FormFactory::fromHtml($htmlForm, new ContactFilter());
+//$form = FormFactory::fromHtml($htmlForm, new ContactFilter());
+$form = FormFactory::fromHtml($htmlForm);
 $result = $form->validate($_POST); // Returns form validation result VO
 //var_dump($result);
 
