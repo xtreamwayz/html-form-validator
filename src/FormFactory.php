@@ -7,13 +7,14 @@ use DOMElement;
 use DOMXPath;
 use Xtreamwayz\HTMLFormValidator\FormElement;
 use Zend\InputFilter\BaseInputFilter;
+use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator;
 
 class FormFactory
 {
     /**
-     * @var InputFilter
+     * @var BaseInputFilter
      */
     private $inputFilter;
 
@@ -92,7 +93,6 @@ class FormFactory
                 $element->setAttribute('id', $id);
             }
 
-            /*
             // Detect element type
             $type = $element->getAttribute('type');
             if ($element->tagName == 'textarea') {
@@ -102,9 +102,15 @@ class FormFactory
             // Add validation
             if (isset($this->formElements[$type])) {
                 $validator = new $this->formElements[$type];
-                $this->inputFilter->add($validator($element));
+                if ($this->inputFilter->has($id)) {
+                    $filter = $this->inputFilter->get($id);
+                } else {
+                    $filter = new Input($id);
+                    $this->inputFilter->add($filter);
+                }
+
+                $validator($element, $filter);
             }
-            */
         }
     }
 

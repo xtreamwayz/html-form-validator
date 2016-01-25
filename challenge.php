@@ -57,52 +57,33 @@ class ContactFilter extends BaseInputFilter
     {
         $name = new Input('name');
         $name->getValidatorChain()
-             ->attach(new Validator\NotEmpty())
              ->attach(new Validator\StringLength([
                  'encoding' => 'UTF-8',
                  'min'      => 2,
                  'max'      => 140,
              ]));
         $name->getFilterChain()
-             ->attach(new Filter\StringTrim())
              ->attach(new Filter\StripTags());
-
-        $email = new Input('email');
-        $email->getValidatorChain()
-              ->attach(new Validator\NotEmpty())
-              ->attach(new Validator\EmailAddress([
-                  //'allow' => Validator\Hostname::ALLOW_DNS,
-                  'domain'     => true,
-                  'useMxCheck' => true,
-              ]));
 
         $subject = new Input('subject');
         $subject->getValidatorChain()
-                ->attach(new Validator\NotEmpty())
                 ->attach(new Validator\StringLength([
                     'encoding' => 'UTF-8',
                     'min'      => 2,
                     'max'      => 140,
                 ]));
         $subject->getFilterChain()
-                ->attach(new Filter\StringTrim())
                 ->attach(new Filter\StripTags());
 
-        $body = new Input('body');
-        $body->getValidatorChain()
-             ->attach(new Validator\NotEmpty());
-
         $this->add($name)
-             ->add($email)
-             ->add($subject)
-             ->add($body);
+             ->add($subject);
     }
 }
 
 $_POST['name'] = 'Full Name';
 $_POST['email'] = 'test@localhost';
 $_POST['subject'] = '   Message subject    ';
-$_POST['body'] = 'Message body.';
+$_POST['body'] = '';
 
 $form = FormFactory::fromHtml($htmlForm, new ContactFilter());
 $result = $form->validate($_POST); // returns form validation result VO

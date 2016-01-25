@@ -3,12 +3,12 @@
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
-use Zend\InputFilter\Input;
+use Zend\InputFilter\InputInterface;
 use Zend\Validator;
 
 class Textarea extends AbstractFormElement
 {
-    public function attachValidators(Input $input, DOMElement $element)
+    public function attachValidators(InputInterface $input, DOMElement $element)
     {
     }
 }
