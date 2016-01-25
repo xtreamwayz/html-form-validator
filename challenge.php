@@ -14,7 +14,7 @@ $htmlForm = <<<'HTML'
         name="name"
         value=""
         data-reuse-submitted-value="true"
-        data-filters="stringtrim,alpha"
+        data-filters="alpha,stringtrim"
         required="required"
     />
     <input
@@ -33,7 +33,7 @@ $htmlForm = <<<'HTML'
         name="subject"
         value=""
         data-reuse-submitted-value="true"
-        data-filters="stringtrim"
+        data-filters="striptags,stringtrim"
         required="required"
     />
     <textarea
@@ -62,8 +62,6 @@ class ContactFilter extends BaseInputFilter
                  'min'      => 2,
                  'max'      => 140,
              ]));
-        $name->getFilterChain()
-             ->attach(new Filter\StripTags());
 
         $subject = new Input('subject');
         $subject->getValidatorChain()
@@ -72,21 +70,19 @@ class ContactFilter extends BaseInputFilter
                     'min'      => 2,
                     'max'      => 140,
                 ]));
-        $subject->getFilterChain()
-                ->attach(new Filter\StripTags());
 
         $this->add($name)
              ->add($subject);
     }
 }
 
-$_POST['name'] = 'Full Name';
+$_POST['name'] = '  Full Name  ';
 $_POST['email'] = 'test@localhost';
-$_POST['subject'] = '   Message subject    ';
-$_POST['body'] = '';
+$_POST['subject'] = 'Message subject  ';
+$_POST['body'] = 'Body.';
 
 $form = FormFactory::fromHtml($htmlForm, new ContactFilter());
-$result = $form->validate($_POST); // returns form validation result VO
+$result = $form->validate($_POST); // Returns form validation result VO
 var_dump($result);
 
 echo $form->asString($result);
