@@ -15,6 +15,7 @@ $htmlForm = <<<'HTML'
         value=""
         data-reuse-submitted-value="true"
         data-filters="alpha,stringtrim"
+        data-validators="{'StringLength':[{'min':2,'max':140}],'Test':[]}"
         required="required"
     />
     <input
@@ -83,6 +84,6 @@ $_POST['body'] = 'Body.';
 
 $form = FormFactory::fromHtml($htmlForm, new ContactFilter());
 $result = $form->validate($_POST); // Returns form validation result VO
-var_dump($result);
+//var_dump($result);
 
 echo $form->asString($result);
