@@ -7,7 +7,6 @@ use DOMElement;
 use DOMXPath;
 use Xtreamwayz\HTMLFormValidator\FormElement;
 use Zend\InputFilter\BaseInputFilter;
-use Zend\InputFilter\Factory as InputFilterFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator;
 
@@ -142,10 +141,13 @@ class FormFactory
                 continue;
             }
 
-            // Use for textarea
-            $element->nodeValue = $value;
-            // For other elements
-            $element->setAttribute('value', $value);
+            if ($element->nodeName == 'input') {
+                // Set value for input elements
+                $element->setAttribute('value', $value);
+            } else {
+                // For other elements
+                $element->nodeValue = $value;
+            }
         }
     }
 

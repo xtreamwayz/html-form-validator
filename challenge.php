@@ -36,13 +36,12 @@ $htmlForm = <<<'HTML'
         data-filters="stringtrim"
         required="required"
     />
-    <input
+    <textarea
         type="text"
         name="body"
-        value=""
         data-reuse-submitted-value="true"
         required
-    />
+    ></textarea>
     <input type="submit"/>
 </form>
 HTML;
