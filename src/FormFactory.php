@@ -147,6 +147,9 @@ class FormFactory
                 continue;
             }
 
+            // Clean up html
+            $element->removeAttribute('data-reuse-submitted-value');
+
             if ($element->nodeName == 'input') {
                 // Set value for input elements
                 $element->setAttribute('value', $value);

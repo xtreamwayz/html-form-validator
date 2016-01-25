@@ -179,8 +179,6 @@ abstract class AbstractFormElement
         $this->attachValidatorsFromDataAttribute($input, $element);
         $this->attachFilters($input, $element->getAttribute('data-filters'));
 
-        // TODO: Add custom validator(s) -> $dataValidator = $input->getAttribute('data-validator');
-
         // Can't be empty if it has a required attribute
         if ($element->hasAttribute('required')) {
             $input->getValidatorChain()->attach(new Validator\NotEmpty());
@@ -192,6 +190,10 @@ abstract class AbstractFormElement
         if ($pattern = $element->getAttribute('pattern')) {
             $input->getValidatorChain()->attach(new Validator\Regex(sprintf('/%s/', $pattern)));
         }
+
+        // Cleanup html
+        $element->removeAttribute('data-validators');
+        $element->removeAttribute('data-filters');
     }
 
     abstract function attachValidators(InputInterface $input, DOMElement $element);
