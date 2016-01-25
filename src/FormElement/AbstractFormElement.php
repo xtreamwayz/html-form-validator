@@ -208,7 +208,7 @@ abstract class AbstractFormElement
         $validators = json_decode(str_replace('\'', '"', $dataValidators));
         foreach ($validators as $validator => $options) {
             if (array_key_exists($validator, $this->validators)) {
-                $class = $this->filters[$validator];
+                $class = $this->validators[$validator];
                 $input->getValidatorChain()->attach(new $class($options));
             }
         }
