@@ -6,6 +6,7 @@ use DOMDocument;
 use DOMElement;
 use DOMXPath;
 use Xtreamwayz\HTMLFormValidator\FormElement;
+use Zend\InputFilter\BaseInputFilter;
 use Zend\InputFilter\Factory as InputFilterFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator;
@@ -13,9 +14,9 @@ use Zend\Validator;
 class FormFactory
 {
     /**
-     * @var InputFilterFactory
+     * @var InputFilter
      */
-    private $inputFilterFactory;
+    private $inputFilter;
 
     /**
      * @var DOMDocument
@@ -34,29 +35,45 @@ class FormFactory
         'textarea' => FormElement\Textarea::class,
     ];
 
-    public function __construct($htmlForm, InputFilterFactory $inputFilterFactory = null)
+    public function __construct($htmlForm, BaseInputFilter $inputFilter = null)
     {
-        $this->inputFilterFactory = $inputFilterFactory;
+        $this->inputFilter = $inputFilter ?: new InputFilter();
 
         // Create new doc
         $this->document = new DOMDocument('1.0', 'utf-8');
-
         // Don't add missing doctype, html and body
         $this->document->loadHTML($htmlForm, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
     }
 
-    public static function fromHtml($htmlForm)
+    public static function fromHtml($htmlForm, BaseInputFilter $inputFilter = null)
     {
-        return new self($htmlForm);
+        return new self($htmlForm, $inputFilter);
     }
 
     public function validate(array $data)
     {
-        $inputFilter = new InputFilter();
-        if ($this->inputFilterFactory) {
-            $inputFilter->setFactory($this->inputFilterFactory);
+        $this->preProcessForm();
+
+        $this->inputFilter->setData($data);
+        $validationErrors = [];
+
+        // Do some validation
+        if (!$this->inputFilter->isValid()) {
+            foreach ($this->inputFilter->getInvalidInput() as $error) {
+                $validationErrors[$error->getName()] = $error->getMessages();
+            }
         }
 
+        // Return validation result
+        return new ValidationResult(
+            $this->inputFilter->getRawValues(),
+            $this->inputFilter->getValues(),
+            $validationErrors
+        );
+    }
+
+    private function preProcessForm()
+    {
         $xpath = new DOMXPath($this->document);
         $elements = $xpath->query('//input | //textarea');
 
@@ -76,6 +93,7 @@ class FormFactory
                 $element->setAttribute('id', $id);
             }
 
+            /*
             // Detect element type
             $type = $element->getAttribute('type');
             if ($element->tagName == 'textarea') {
@@ -85,46 +103,10 @@ class FormFactory
             // Add validation
             if (isset($this->formElements[$type])) {
                 $validator = new $this->formElements[$type];
-                $inputFilter->add($validator($element));
+                $this->inputFilter->add($validator($element));
             }
+            */
         }
-
-        $inputFilter->setData($data);
-        $validationErrors = [];
-
-        // Do some real validation
-        if (! $inputFilter->isValid()) {
-            foreach ($inputFilter->getInvalidInput() as $error) {
-                $validationErrors[$error->getName()] = $error->getMessages();
-            }
-        }
-
-        $validatedValues = $inputFilter->getValues();
-
-        // Set validated values
-        foreach ($elements as $element) {
-            $reuseSubmittedValue = filter_var(
-                $element->getAttribute('data-reuse-submitted-value'),
-                FILTER_VALIDATE_BOOLEAN
-            );
-
-            if (! $reuseSubmittedValue) {
-                continue;
-            }
-
-            $id = $element->getAttribute('id');
-
-            // Get element value
-            $value = (isset($validatedValues[$id])) ? $validatedValues[$id] : $element->getAttribute('value');
-
-            // Use for textarea
-            $element->nodeValue = $value;
-            // For other elements
-            $element->setAttribute('value', $value);
-        }
-
-        // Return validation result
-        return new ValidationResult($inputFilter->getRawValues(), $inputFilter->getValues(), $validationErrors);
     }
 
     /**
@@ -137,27 +119,53 @@ class FormFactory
     public function asString(ValidationResult $result = null)
     {
         if ($result) {
-            // Inject error messages and classes into the form
-            foreach ($result->getErrorMessages() as $id => $errors) {
-                $element = $this->document->getElementById($id);
-
-                // Set error class to parent
-                $parent = $element->parentNode;
-                $class = trim($parent->getAttribute('class') . ' ' . $this->errorClass);
-                $parent->setAttribute('class', $class);
-
-                // Inject error messages
-                foreach ($errors as $code => $message) {
-                    $div = $this->document->createElement('div');
-                    $div->setAttribute('class', 'text-danger');
-                    $div->nodeValue = $message;
-                    $element->parentNode->insertBefore($div, $element->nextSibling);
-                }
-            }
+            $this->injectSubmittedValues($result);
+            $this->injectErrorMessages($result);
         }
 
         $this->document->formatOutput = true;
 
         return $this->document->saveHTML();
+    }
+
+    private function injectSubmittedValues(ValidationResult $result)
+    {
+        foreach ($result->getValidValues() as $id => $value) {
+            $element = $this->document->getElementById($id);
+
+            $reuseSubmittedValue = filter_var(
+                $element->getAttribute('data-reuse-submitted-value'),
+                FILTER_VALIDATE_BOOLEAN
+            );
+
+            if (!$reuseSubmittedValue) {
+                continue;
+            }
+
+            // Use for textarea
+            $element->nodeValue = $value;
+            // For other elements
+            $element->setAttribute('value', $value);
+        }
+    }
+
+    private function injectErrorMessages(ValidationResult $result)
+    {
+        foreach ($result->getErrorMessages() as $id => $errors) {
+            $element = $this->document->getElementById($id);
+
+            // Set error class to parent
+            $parent = $element->parentNode;
+            $class = trim($parent->getAttribute('class') . ' ' . $this->errorClass);
+            $parent->setAttribute('class', $class);
+
+            // Inject error messages
+            foreach ($errors as $code => $message) {
+                $div = $this->document->createElement('div');
+                $div->setAttribute('class', 'text-danger');
+                $div->nodeValue = $message;
+                $element->parentNode->insertBefore($div, $element->nextSibling);
+            }
+        }
     }
 }

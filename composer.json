@@ -14,7 +14,7 @@
         "zendframework/zend-validator": "^2.5",
         "zendframework/zend-filter": "^2.5",
         "zendframework/zend-inputfilter": "^2.5",
-        "zendframework/zend-servicemanager": "^2.6",
+        "zendframework/zend-servicemanager": "^2.6 || ^3.0",
         "zendframework/zend-i18n": "^2.5"
     },
     "require-dev": {

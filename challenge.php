@@ -7,7 +7,16 @@ use Xtreamwayz\HTMLFormValidator\FormFactory;
 
 $htmlForm = <<<'HTML'
 <form action="%s" method="post">
-    <label for="email">Email:</label>
+    <label for="name">Name:</label>
+    <input
+        type="text"
+        id="name"
+        name="name"
+        value=""
+        data-reuse-submitted-value="true"
+        data-filters="stringtrim,alpha"
+        required="required"
+    />
     <input
         type="email"
         id="email"
@@ -15,43 +24,89 @@ $htmlForm = <<<'HTML'
         value=""
         aria-describedby="email-description"
         data-reuse-submitted-value="true"
-        data-validator="email-address"
         required="required"
     />
     <span id="email-description" class="help">Enter a valid email address</span>
     <input
-        type="number"
-        id="intNumber"
-        name="intNumber"
+        type="text"
+        id="subject"
+        name="subject"
         value=""
-        min="1"
-        max="20"
         data-reuse-submitted-value="true"
-        data-validator="between"
+        data-filters="stringtrim"
+        required="required"
     />
     <input
         type="text"
-        name="username"
+        name="body"
         value=""
         data-reuse-submitted-value="true"
-        data-filters="stringtrim,alpha"
         required
     />
-    <input type="text" name="country_code" pattern="[A-Za-z]{3}" />
     <input type="submit"/>
 </form>
 HTML;
 
-//$form = FormFactory::fromHtml($htmlForm);
-$config = new \Zend\ServiceManager\Config([]);
-$inputFilterPluginManager = new \Zend\InputFilter\InputFilterPluginManager($config);
-$inputFilterFactory = new \Zend\InputFilter\Factory($inputFilterPluginManager);
-$form = new FormFactory($htmlForm, $inputFilterFactory);
+use Zend\Filter;
+use Zend\InputFilter\BaseInputFilter;
+use Zend\InputFilter\Input;
+use Zend\Validator;
 
+class ContactFilter extends BaseInputFilter
+{
+    public function __construct()
+    {
+        $name = new Input('name');
+        $name->getValidatorChain()
+             ->attach(new Validator\NotEmpty())
+             ->attach(new Validator\StringLength([
+                 'encoding' => 'UTF-8',
+                 'min'      => 2,
+                 'max'      => 140,
+             ]));
+        $name->getFilterChain()
+             ->attach(new Filter\StringTrim())
+             ->attach(new Filter\StripTags());
+
+        $email = new Input('email');
+        $email->getValidatorChain()
+              ->attach(new Validator\NotEmpty())
+              ->attach(new Validator\EmailAddress([
+                  //'allow' => Validator\Hostname::ALLOW_DNS,
+                  'domain'     => true,
+                  'useMxCheck' => true,
+              ]));
+
+        $subject = new Input('subject');
+        $subject->getValidatorChain()
+                ->attach(new Validator\NotEmpty())
+                ->attach(new Validator\StringLength([
+                    'encoding' => 'UTF-8',
+                    'min'      => 2,
+                    'max'      => 140,
+                ]));
+        $subject->getFilterChain()
+                ->attach(new Filter\StringTrim())
+                ->attach(new Filter\StripTags());
+
+        $body = new Input('body');
+        $body->getValidatorChain()
+             ->attach(new Validator\NotEmpty());
+
+        $this->add($name)
+             ->add($email)
+             ->add($subject)
+             ->add($body);
+    }
+}
+
+$_POST['name'] = 'Full Name';
 $_POST['email'] = 'test@localhost';
-$_POST['intNumber'] = 22;
-$_POST['username'] = ' xtreamwayz 22 ';
-$_POST['country_code'] = 'nl';
-var_dump($form->validate($_POST)); // returns form validation result VO
+$_POST['subject'] = '   Message subject    ';
+$_POST['body'] = 'Message body.';
 
-echo $form->asString();
+$form = FormFactory::fromHtml($htmlForm, new ContactFilter());
+$result = $form->validate($_POST); // returns form validation result VO
+var_dump($result);
+
+echo $form->asString($result);
