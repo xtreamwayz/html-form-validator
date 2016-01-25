@@ -181,9 +181,12 @@ abstract class AbstractFormElement
 
         // Can't be empty if it has a required attribute
         if ($element->hasAttribute('required')) {
+            $input->setRequired(true);
+            $input->setAllowEmpty(false);
             $input->getValidatorChain()->attach(new Validator\NotEmpty());
         } else {
             $input->setRequired(false);
+            $input->setAllowEmpty(true);
         }
 
         // Validate regex patter

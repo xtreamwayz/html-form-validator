@@ -41,7 +41,6 @@ $htmlForm = <<<'HTML'
         name="body"
         data-reuse-submitted-value="true"
         required
-        data-validators="{'stringlength':[{'min':10}]}"
     ></textarea>
     <input type="submit"/>
 </form>

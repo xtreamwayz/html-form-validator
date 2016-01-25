@@ -106,6 +106,8 @@ class FormFactory
                     $filter = $this->inputFilter->get($id);
                 } else {
                     $filter = new Input($id);
+                    $filter->setRequired(false);
+                    $filter->setAllowEmpty(true);
                     $this->inputFilter->add($filter);
                 }
 
