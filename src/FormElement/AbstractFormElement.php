@@ -201,15 +201,15 @@ abstract class AbstractFormElement
     public function attachValidatorsFromDataAttribute(InputInterface $input, DOMElement $element)
     {
         $dataValidators = $element->getAttribute('data-validators');
-        if (! $dataValidators) {
+        if (!$dataValidators) {
             return;
         }
 
-        $validators = json_decode(str_replace('\'', '"', $dataValidators));
+        $validators = json_decode(str_replace('\'', '"', $dataValidators), true);
         foreach ($validators as $validator => $options) {
             if (array_key_exists($validator, $this->validators)) {
                 $class = $this->validators[$validator];
-                $input->getValidatorChain()->attach(new $class($options));
+                $input->getValidatorChain()->attach(new $class($options[0]));
             }
         }
     }
