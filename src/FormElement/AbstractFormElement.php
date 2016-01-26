@@ -177,7 +177,7 @@ abstract class AbstractFormElement
         // Build input validator chain for element
         $this->attachValidators($input, $element);
         $this->attachValidatorsFromDataAttribute($input, $element);
-        $this->attachFilters($input, $element->getAttribute('data-filters'));
+        $this->attachFilters($input, $element);
 
         // Can't be empty if it has a required attribute
         if ($element->hasAttribute('required')) {
@@ -217,8 +217,9 @@ abstract class AbstractFormElement
         }
     }
 
-    public function attachFilters(InputInterface $input, $filters)
+    public function attachFilters(InputInterface $input, DOMElement $element)
     {
+        $filters = $element->getAttribute('data-filters');
         $filters = explode(',', $filters);
         foreach ($filters as $filter) {
             // TODO: Needs to fixed when zend-inputfilter 3 is released.
