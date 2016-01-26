@@ -81,6 +81,14 @@ abstract class AbstractFormElement
         'wordunderscoretoseparator'  => 'Zend\Filter\Word\UnderscoreToSeparator',
     ];
 
+    /**
+     * Default set of validators
+     *
+     * TODO: This is a hack to get the input filter with servicemanager 3 working.
+     * TODO: Needs fix when zend-inputfilter 3 is released.
+     *
+     * @var array
+     */
     protected $validators = [
         'alnum'                    => 'Zend\I18n\Validator\Alnum',
         'alpha'                    => 'Zend\I18n\Validator\Alpha',
@@ -172,36 +180,58 @@ abstract class AbstractFormElement
         'uri'                      => 'Zend\Validator\Uri',
     ];
 
+    /**
+     * Process element and attach validators and filters
+     *
+     * @param DOMElement     $element
+     * @param InputInterface $input
+     */
     public function __invoke(DOMElement $element, InputInterface $input)
     {
         // Build input validator chain for element
+        $this->attachDefaultValidators($input, $element);
         $this->attachValidators($input, $element);
-        $this->attachValidatorsFromDataAttribute($input, $element);
         $this->attachFilters($input, $element);
 
-        // Can't be empty if it has a required attribute
+        // Enforce required and allow empty properties
         if ($element->hasAttribute('required')) {
             $input->setRequired(true);
             $input->setAllowEmpty(false);
+            // Attach NotEmpty validator manually so it won't use the plugin manager, which fails for servicemanager 3
             $input->getValidatorChain()->attach(new Validator\NotEmpty());
         } else {
+            // Enforce properties so it doesn't try to load NotEmpty, which fails for servicemanager 3
             $input->setRequired(false);
             $input->setAllowEmpty(true);
         }
 
-        // Validate regex patter
+        // Validate regex pattern
         if ($pattern = $element->getAttribute('pattern')) {
             $input->getValidatorChain()->attach(new Validator\Regex(sprintf('/%s/', $pattern)));
         }
 
-        // Cleanup html
+        // Always remove element data attributes in case there is sensitive data passed as an option
         $element->removeAttribute('data-validators');
         $element->removeAttribute('data-filters');
     }
 
-    abstract function attachValidators(InputInterface $input, DOMElement $element);
+    /**
+     * Attach default validators for specific form element
+     *
+     * @param InputInterface $input
+     * @param DOMElement     $element
+     *
+     * @return void
+     */
+    abstract protected function attachDefaultValidators(InputInterface $input, DOMElement $element);
 
-    public function attachValidatorsFromDataAttribute(InputInterface $input, DOMElement $element)
+    /**
+     * Attach validators from data-validators attribute
+     *
+     * @param InputInterface $input
+     * @param DOMElement     $element
+     */
+    protected function attachValidators(InputInterface $input, DOMElement $element)
     {
         $dataValidators = $element->getAttribute('data-validators');
         if (!$dataValidators) {
@@ -217,7 +247,13 @@ abstract class AbstractFormElement
         }
     }
 
-    public function attachFilters(InputInterface $input, DOMElement $element)
+    /**
+     * Attach filters from data-filters attribute
+     *
+     * @param InputInterface $input
+     * @param DOMElement     $element
+     */
+    protected function attachFilters(InputInterface $input, DOMElement $element)
     {
         $filters = $element->getAttribute('data-filters');
         $filters = explode(',', $filters);

@@ -35,6 +35,12 @@ class FormFactory
         'textarea' => FormElement\Textarea::class,
     ];
 
+    /**
+     * FormFactory constructor: Load html form and optionally set an InputFilter
+     *
+     * @param                      $htmlForm
+     * @param BaseInputFilter|null $inputFilter
+     */
     public function __construct($htmlForm, BaseInputFilter $inputFilter = null)
     {
         $this->inputFilter = $inputFilter ?: new InputFilter();
@@ -45,11 +51,26 @@ class FormFactory
         $this->document->loadHTML($htmlForm, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
     }
 
+    /**
+     * Load html form and optionally set an InputFilter
+     *
+     * @param                      $htmlForm
+     * @param BaseInputFilter|null $inputFilter
+     *
+     * @return FormFactory
+     */
     public static function fromHtml($htmlForm, BaseInputFilter $inputFilter = null)
     {
         return new self($htmlForm, $inputFilter);
     }
 
+    /**
+     * Validate the loaded form with the data
+     *
+     * @param array $data
+     *
+     * @return ValidationResult
+     */
     public function validate(array $data)
     {
         $this->preProcessForm();
@@ -72,6 +93,9 @@ class FormFactory
         );
     }
 
+    /**
+     * Pre-process form: set id if needed and  and set
+     */
     private function preProcessForm()
     {
         $xpath = new DOMXPath($this->document);
@@ -103,15 +127,19 @@ class FormFactory
             if (isset($this->formElements[$type])) {
                 $validator = new $this->formElements[$type];
                 if ($this->inputFilter->has($id)) {
-                    $filter = $this->inputFilter->get($id);
+                    $input = $this->inputFilter->get($id);
                 } else {
-                    $filter = new Input($id);
-                    $filter->setRequired(false);
-                    $filter->setAllowEmpty(true);
-                    $this->inputFilter->add($filter);
+                    // No input find for element, create a new one
+                    $input = new Input($id);
+                    // Enforce properties so the NotEmpty validator is automatically added,
+                    // we'll take care of this later.
+                    $input->setRequired(false);
+                    $input->setAllowEmpty(true);
+                    $this->inputFilter->add($input);
                 }
 
-                $validator($element, $filter);
+                // Process element and attach filters and validators
+                $validator($element, $input);
             }
         }
     }
@@ -126,6 +154,7 @@ class FormFactory
     public function asString(ValidationResult $result = null)
     {
         if ($result) {
+            // Inject data if a result is set
             $this->injectSubmittedValues($result);
             $this->injectErrorMessages($result);
         }
@@ -135,6 +164,11 @@ class FormFactory
         return $this->document->saveHTML();
     }
 
+    /**
+     * Inject submitted filtered values into the form, bootstrap style
+     *
+     * @param ValidationResult $result
+     */
     private function injectSubmittedValues(ValidationResult $result)
     {
         foreach ($result->getValidValues() as $id => $value) {
@@ -162,6 +196,11 @@ class FormFactory
         }
     }
 
+    /**
+     * Inject error messages into the form, bootstrap style
+     *
+     * @param ValidationResult $result
+     */
     private function injectErrorMessages(ValidationResult $result)
     {
         foreach ($result->getErrorMessages() as $id => $errors) {

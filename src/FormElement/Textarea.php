@@ -8,7 +8,10 @@ use Zend\Validator;
 
 class Textarea extends AbstractFormElement
 {
-    public function attachValidators(InputInterface $input, DOMElement $element)
+    /**
+     * @inheritdoc
+     */
+    protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
     }
 }

@@ -8,7 +8,10 @@ use Zend\Validator;
 
 class Number extends AbstractFormElement
 {
-    public function attachValidators(InputInterface $input, DOMElement $element)
+    /**
+     * @inheritdoc
+     */
+    protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
         $min = $element->getAttribute('min');
         $max = $element->getAttribute('max');
