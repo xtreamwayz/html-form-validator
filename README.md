@@ -47,35 +47,21 @@ Reuse the submitted value and inject it as a value.
 
 ### data-filters
 
-Apply filters to the submitted value. Multiple filters can be used, separated by a comma.
+Apply filters to the submitted value. Multiple filters can be used, separated by a vertical bar.
+Options can be set with ``{key:value,min:2,max:140}``.
 
 ```html
-<input type="text" name="username" value="" data-filters="stringtrim,alpha" />
+<input type="text" name="username" value="" data-filters="stringtrim|alpha" />
 ```
 
 ### data-validators
 
-Add extra validators. Multiple validators can be used. The string must be a valid json object. Single quotes will be
-converted to double quotes.
+Add extra validators. Multiple validators can be used, separated by a vertical bar.
+Options can be set with ``{key:value,min:2,max:140}``.
 
 ```html
-<input type="text" name="username" value="" data-validators="{'stringlength':[{'min':2,'max':140}]}" />
-```
-
-```json
-{
-	'stringlength': [{
-		'min': 2,
-		'max': 140
-	}],
-
-	'validator_name': [{
-		'option': 1,
-		'foo': 'bar'
-	}],
-
-	'validator_with_no_options': []
-}
+<input type="text" name="username" value=""
+       data-validators="stringlength{min:2,max:140}|validator{key:val,foo:bar}|notempty" />
 ```
 
 ## Element types

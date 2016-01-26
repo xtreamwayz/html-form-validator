@@ -238,11 +238,11 @@ abstract class AbstractFormElement
             return;
         }
 
-        $validators = json_decode(str_replace('\'', '"', $dataValidators), true);
+        $validators = $this->parseDataAttribute($dataValidators);
         foreach ($validators as $validator => $options) {
             if (array_key_exists($validator, $this->validators)) {
                 $class = $this->validators[$validator];
-                $input->getValidatorChain()->attach(new $class($options[0]));
+                $input->getValidatorChain()->attach(new $class($options));
             }
         }
     }
@@ -255,14 +255,48 @@ abstract class AbstractFormElement
      */
     protected function attachFilters(InputInterface $input, DOMElement $element)
     {
-        $filters = $element->getAttribute('data-filters');
-        $filters = explode(',', $filters);
-        foreach ($filters as $filter) {
+        $dataFilters = $element->getAttribute('data-filters');
+        if (!$dataFilters) {
+            return;
+        }
+
+        $filters = $this->parseDataAttribute($dataFilters);
+        foreach ($filters as $filter => $options) {
             // TODO: Needs to fixed when zend-inputfilter 3 is released.
             if (array_key_exists($filter, $this->filters)) {
                 $class = $this->filters[$filter];
-                $input->getFilterChain()->attach(new $class);
+                $input->getFilterChain()->attach(new $class($options));
             }
         }
+    }
+
+    /**
+     * Parse data attribute values for validators, filters and options
+     *
+     * @param $value
+     *
+     * @return array
+     */
+    protected function parseDataAttribute($value)
+    {
+        preg_match_all("/([a-zA-Z]+)([^|]*)/", $value, $matches, PREG_SET_ORDER);
+
+        $validators = [];
+        foreach ($matches as $match) {
+            $validator = $match[1];
+            $options = [];
+
+            if ($match[2]) {
+                $allOptions = explode(',', $match[2]);
+                foreach ($allOptions as $option) {
+                    $option = explode(':', $option);
+                    $options[trim($option[0], ' {}\'\"')] = trim($option[1], ' {}\'\"');
+                }
+            }
+
+            $validators[$validator] = $options;
+        }
+
+        return $validators;
     }
 }

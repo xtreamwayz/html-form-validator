@@ -14,8 +14,8 @@ $htmlForm = <<<'HTML'
         name="name"
         value=""
         data-reuse-submitted-value="true"
-        data-filters="striptags,stringtrim"
-        data-validators="{'stringlength':[{'min':2,'max':140}]}"
+        data-filters="striptags|stringtrim"
+        data-validators="stringlength{min:2,max:140}"
         required="required"
     />
     <input
@@ -34,7 +34,7 @@ $htmlForm = <<<'HTML'
         name="subject"
         value=""
         data-reuse-submitted-value="true"
-        data-filters="striptags,stringtrim"
+        data-filters="striptags|stringtrim"
         required="required"
     />
     <textarea
