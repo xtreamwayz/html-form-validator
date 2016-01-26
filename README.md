@@ -47,8 +47,9 @@ Reuse the submitted value and inject it as a value.
 
 ### data-filters
 
-Apply filters to the submitted value. Multiple filters can be used, separated by a vertical bar.
-Options can be set with ``{key:value,min:2,max:140}``.
+Apply filters to the submitted value. Multiple
+[standard filters](http://framework.zend.com/manual/current/en/modules/zend.filter.set.html)
+can be used, separated by a vertical bar. Options can be set with ``{key:value,min:2,max:140}``.
 
 ```html
 <input type="text" name="username" value="" data-filters="stringtrim|alpha" />
@@ -56,8 +57,9 @@ Options can be set with ``{key:value,min:2,max:140}``.
 
 ### data-validators
 
-Add extra validators. Multiple validators can be used, separated by a vertical bar.
-Options can be set with ``{key:value,min:2,max:140}``.
+Add extra validators. Multiple
+[standard validators](http://framework.zend.com/manual/current/en/modules/zend.validator.set.html)
+can be used, separated by a vertical bar. Options can be set with ``{key:value,min:2,max:140}``.
 
 ```html
 <input type="text" name="username" value=""
