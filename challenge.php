@@ -40,7 +40,7 @@ $htmlForm = <<<'HTML'
     <textarea
         name="body"
         data-reuse-submitted-value="true"
-        _required
+        required
     ></textarea>
     <input type="submit"/>
 </form>
@@ -86,4 +86,5 @@ $form = FormFactory::fromHtml($htmlForm, ['body' => 'default value']);
 echo $form->asString();
 
 $result = $form->validate($_POST); // Returns form validation result VO
+var_dump($result);
 echo $form->asString($result);

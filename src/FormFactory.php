@@ -43,16 +43,6 @@ class FormFactory
     /**
      * FormFactory constructor: Load html form and optionally set an InputFilter
      *
-     * TODO: REFACTOR!!!!
-     *
-     * Don't create a new input filter unless needed.
-     * Prepare form.
-     * Allow default values to be set. (pre-populate from database)
-     *
-     * Either display form or validate it.
-     *
-     * Display form, optionally inject validation result.
-     *
      * @param                      $htmlForm
      * @param array                $defaultValues
      * @param BaseInputFilter|null $inputFilter
@@ -93,8 +83,12 @@ class FormFactory
      */
     public function validate(array $data)
     {
-        $this->inputFilter->setData($data);
+        if (!$this->inputFilter) {
+            $this->inputFilter = new InputFilter();
+        }
+
         $this->prepareValidatorsAndFilters();
+        $this->inputFilter->setData($data);
         $validationErrors = [];
 
         // Do some validation
@@ -144,11 +138,9 @@ class FormFactory
             $element = $this->document->getElementById($id);
 
             if ($element->nodeName == 'input') {
-                var_dump(__LINE__, $id);
                 // Set value for input elements
                 $element->setAttribute('value', $value);
             } else {
-                var_dump(__LINE__, $id);
                 // For other elements
                 $element->nodeValue = $value;
             }
