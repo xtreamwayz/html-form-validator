@@ -23,6 +23,11 @@ class FormFactory
      */
     private $document;
 
+    /**
+     * @var array
+     */
+    private $defaultValues;
+
     private $errorClass = 'has-danger';
 
     /**
@@ -38,30 +43,45 @@ class FormFactory
     /**
      * FormFactory constructor: Load html form and optionally set an InputFilter
      *
+     * TODO: REFACTOR!!!!
+     *
+     * Don't create a new input filter unless needed.
+     * Prepare form.
+     * Allow default values to be set. (pre-populate from database)
+     *
+     * Either display form or validate it.
+     *
+     * Display form, optionally inject validation result.
+     *
      * @param                      $htmlForm
+     * @param array                $defaultValues
      * @param BaseInputFilter|null $inputFilter
      */
-    public function __construct($htmlForm, BaseInputFilter $inputFilter = null)
+    public function __construct($htmlForm, array $defaultValues = [], BaseInputFilter $inputFilter = null)
     {
         $this->inputFilter = $inputFilter ?: new InputFilter();
+        $this->defaultValues = $defaultValues;
 
         // Create new doc
         $this->document = new DOMDocument('1.0', 'utf-8');
         // Don't add missing doctype, html and body
         $this->document->loadHTML($htmlForm, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $this->preProcessForm();
+        $this->injectDefaultValues($defaultValues);
     }
 
     /**
-     * Load html form and optionally set an InputFilter
+     * Load html form and optionally set default data
      *
-     * @param                      $htmlForm
-     * @param BaseInputFilter|null $inputFilter
+     * @param       $htmlForm
+     * @param array $defaultValues
      *
      * @return FormFactory
      */
-    public static function fromHtml($htmlForm, BaseInputFilter $inputFilter = null)
+    public static function fromHtml($htmlForm, array $defaultValues = [])
     {
-        return new self($htmlForm, $inputFilter);
+        return new self($htmlForm, $defaultValues);
     }
 
     /**
@@ -73,9 +93,8 @@ class FormFactory
      */
     public function validate(array $data)
     {
-        $this->preProcessForm();
-
         $this->inputFilter->setData($data);
+        $this->prepareValidatorsAndFilters();
         $validationErrors = [];
 
         // Do some validation
@@ -106,16 +125,44 @@ class FormFactory
             // Set some basic vars
             $name = $element->getAttribute('name');
             $id = $element->getAttribute('id');
-            if (!$name && !$id) {
+            if (! $name && ! $id) {
                 // At least a name or id is needed. Silently continue, might be a submit button.
                 continue;
             }
 
             // Create an id if needed, this speeds up finding the element again
-            if (!$id) {
+            if (! $id) {
                 $id = $name;
                 $element->setAttribute('id', $id);
             }
+        }
+    }
+
+    private function injectDefaultValues(array $data)
+    {
+        foreach ($data as $id => $value) {
+            $element = $this->document->getElementById($id);
+
+            if ($element->nodeName == 'input') {
+                var_dump(__LINE__, $id);
+                // Set value for input elements
+                $element->setAttribute('value', $value);
+            } else {
+                var_dump(__LINE__, $id);
+                // For other elements
+                $element->nodeValue = $value;
+            }
+        }
+    }
+
+    private function prepareValidatorsAndFilters()
+    {
+        $xpath = new DOMXPath($this->document);
+        $elements = $xpath->query('//input | //textarea');
+
+        /** @var DOMElement $element */
+        foreach ($elements as $element) {
+            $id = $element->getAttribute('id');
 
             // Detect element type
             $type = $element->getAttribute('type');

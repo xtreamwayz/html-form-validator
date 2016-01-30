@@ -40,7 +40,7 @@ $htmlForm = <<<'HTML'
     <textarea
         name="body"
         data-reuse-submitted-value="true"
-        required
+        _required
     ></textarea>
     <input type="submit"/>
 </form>
@@ -82,8 +82,8 @@ $_POST['subject'] = 'Message subject  ';
 $_POST['body'] = 'Body.';
 
 //$form = FormFactory::fromHtml($htmlForm, new ContactFilter());
-$form = FormFactory::fromHtml($htmlForm);
-$result = $form->validate($_POST); // Returns form validation result VO
-//var_dump($result);
+$form = FormFactory::fromHtml($htmlForm, ['body' => 'default value']);
+echo $form->asString();
 
+$result = $form->validate($_POST); // Returns form validation result VO
 echo $form->asString($result);
