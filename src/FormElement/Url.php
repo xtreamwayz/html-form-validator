@@ -4,9 +4,9 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
 use Zend\InputFilter\InputInterface;
-use Zend\I18n\Validator\PhoneNumber;
+use Zend\Validator\Uri;
 
-class Tel extends AbstractFormElement
+class Url extends AbstractFormElement
 {
     /**
      * @inheritdoc
@@ -14,6 +14,6 @@ class Tel extends AbstractFormElement
     protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
         $input->getValidatorChain()
-              ->attach(new PhoneNumber());
+              ->attach(new Uri());
     }
 }

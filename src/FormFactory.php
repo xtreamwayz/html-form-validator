@@ -34,10 +34,12 @@ class FormFactory
      * @var FormElement\AbstractFormElement[]
      */
     private $formElements = [
-        'text'     => FormElement\Text::class,
         'email'    => FormElement\Email::class,
         'number'   => FormElement\Number::class,
+        'tel'      => FormElement\Tel::class,
+        'text'     => FormElement\Text::class,
         'textarea' => FormElement\Textarea::class,
+        'url'      => FormElement\Url::class,
     ];
 
     private $nameIdXref = [];
