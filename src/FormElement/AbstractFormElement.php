@@ -178,6 +178,7 @@ abstract class AbstractFormElement
         'step'                     => 'Zend\Validator\Step',
         'timezone'                 => 'Zend\Validator\Timezone',
         'uri'                      => 'Zend\Validator\Uri',
+        'recaptcha'                => 'Xtreamwayz\HTMLFormValidator\Validator\RecaptchaValidator',
     ];
 
     /**
