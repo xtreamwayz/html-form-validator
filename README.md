@@ -20,7 +20,7 @@ The type triggers the predefined validators.
 <input type="email" />
 ```
 
-### name *(required)*
+### name / data-input-name="name" *(required)*
 
 The name is required to link validation messages and request data.
 
@@ -28,13 +28,14 @@ The name is required to link validation messages and request data.
 <input type="email" name="email" />
 ```
 
-### required
+### required / aria-required="true"
 
 The required attribute triggers the not empty validation.
 
 ```html
 <input type="email" name="email" required />
 <input type="email" name="email" required="required" />
+<input type="email" name="email" aria-required="true" />
 ```
 
 ### data-reuse-submitted-value
@@ -64,6 +65,17 @@ can be used, separated by a vertical bar. Options can be set with ``{key:value,m
 ```html
 <input type="text" name="username" value=""
        data-validators="stringlength{min:2,max:140}|validator{key:val,foo:bar}|notempty" />
+```
+
+### Custom validation
+
+Sometimes you need to validate javascript generated from fields. This is easy with the ``data-input-name`` and
+``data-validators`` attributes.
+
+```html
+<div class="form-group g-recaptcha" aria-required="true"
+     data-input-name="g-recaptcha-response" data-validators="recaptcha{key:{{ recaptcha_priv_key }}}"
+     data-sitekey="{{ recaptcha_pub_key }}" data-theme="light"></div>
 ```
 
 ## Element types

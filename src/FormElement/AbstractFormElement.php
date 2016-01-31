@@ -195,7 +195,7 @@ abstract class AbstractFormElement
         $this->attachFilters($input, $element);
 
         // Enforce required and allow empty properties
-        if ($element->hasAttribute('required')) {
+        if ($element->hasAttribute('required') || $element->getAttribute('aria-required') == 'true') {
             $input->setRequired(true);
             $input->setAllowEmpty(false);
             // Attach NotEmpty validator manually so it won't use the plugin manager, which fails for servicemanager 3
