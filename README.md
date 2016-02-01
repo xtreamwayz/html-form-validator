@@ -10,6 +10,8 @@ It's pretty crazy what you have to do to get a form build. Create a lot of php c
 etc. So why not build a html5 form and use the standard element attributes to generate the validator and filters.
 Together with some powerful html compliant data attributes you can create forms, validation and filters in one place.
 
+A prototype can be seen in action over [here](https://github.com/xtreamwayz/xtreamwayz.com/blob/master/src/App/Action/ContactAction.php).
+
 ## Element attributes
 
 ### type *(required)*
