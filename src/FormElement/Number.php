@@ -18,16 +18,13 @@ class Number extends AbstractFormElement
 
         if ($min && $max) {
             $input->getValidatorChain()
-                  ->attach(new Validator\Between(['min' => $min, 'max' => $max]))
-            ;
+                  ->attach(new Validator\Between(['min' => $min, 'max' => $max]));
         } elseif ($min) {
             $input->getValidatorChain()
-                  ->attach(new Validator\GreaterThan(['min' => $min]))
-            ;
+                  ->attach(new Validator\GreaterThan(['min' => $min]));
         } elseif ($max) {
             $input->getValidatorChain()
-                  ->attach(new Validator\LessThan(['max' => $max]))
-            ;
+                  ->attach(new Validator\LessThan(['max' => $max]));
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
 use Zend\InputFilter\InputInterface;
-use Zend\Validator\Uri;
+use Zend\Validator;
 
 class Url extends AbstractFormElement
 {
@@ -14,6 +14,6 @@ class Url extends AbstractFormElement
     protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
         $input->getValidatorChain()
-              ->attach(new Uri());
+              ->attach(new Validator\Uri());
     }
 }

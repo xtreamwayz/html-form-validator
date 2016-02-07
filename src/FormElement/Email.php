@@ -15,15 +15,12 @@ class Email extends AbstractFormElement
     {
         $input->getValidatorChain()
               ->attach(
-                  new Validator\EmailAddress(
-                      [
-                          'useMxCheck' => filter_var(
-                              $element->getAttribute('data-validator-use-mx-check'),
-                              FILTER_VALIDATE_BOOLEAN
-                          ),
-                      ]
-                  )
-              )
-        ;
+                  new Validator\EmailAddress([
+                      'useMxCheck' => filter_var(
+                          $element->getAttribute('data-validator-use-mx-check'),
+                          FILTER_VALIDATE_BOOLEAN
+                      ),
+                  ])
+              );
     }
 }

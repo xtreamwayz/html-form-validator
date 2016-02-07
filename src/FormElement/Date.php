@@ -3,10 +3,10 @@
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
-use Zend\I18n\Validator;
 use Zend\InputFilter\InputInterface;
+use Zend\Validator;
 
-class Tel extends AbstractFormElement
+class Date extends AbstractFormElement
 {
     /**
      * @inheritdoc
@@ -14,6 +14,6 @@ class Tel extends AbstractFormElement
     protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
         $input->getValidatorChain()
-              ->attach(new Validator\PhoneNumber());
+              ->attach(new Validator\Date());
     }
 }
