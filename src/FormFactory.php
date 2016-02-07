@@ -46,6 +46,7 @@ class FormFactory
         'time'           => FormElement\Time::class,
         'datetime-local' => FormElement\DateTimeLocal::class,
         'color'          => FormElement\Color::class,
+        'range'          => FormElement\Range::class,
     ];
 
     private $nameIdXref = [];

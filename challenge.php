@@ -48,7 +48,8 @@ $htmlForm = <<<'HTML'
     <input type="time" name="time" data-reuse-submitted-value="true" />
     <input type="datetime-local" name="datetime-local" data-reuse-submitted-value="true" />
     <input type="color" name="color" data-reuse-submitted-value="true" />
-    <input type="submit"/>
+    <input type="range" name="range" min="0" max="10" data-reuse-submitted-value="true" />
+    <input type="submit" />
 </form>
 HTML;
 
@@ -92,6 +93,7 @@ $_POST['week'] = date('Y-\WW');
 $_POST['time'] = date('H:i');
 $_POST['datetime-local'] = date('Y-m-d\TH:i');
 $_POST['color'] = '#fefefe';
+$_POST['range'] = '10';
 
 //$form = FormFactory::fromHtml($htmlForm, new ContactFilter());
 $form = FormFactory::fromHtml($htmlForm, ['body' => 'default value']);
