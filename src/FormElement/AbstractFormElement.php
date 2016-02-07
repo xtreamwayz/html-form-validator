@@ -94,11 +94,7 @@ abstract class AbstractFormElement
 
         $filters = $this->parseDataAttribute($dataFilters);
         foreach ($filters as $filter => $options) {
-            // TODO: Needs to fixed when zend-inputfilter works with servicemanager 3
-            if (FilterManager::hasFilter($filter)) {
-                $class = FilterManager::getFilter($filter);
-                $input->getFilterChain()->attach(new $class($options));
-            }
+            $input->getFilterChain()->attachByName($filter, $options);
         }
     }
 
