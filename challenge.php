@@ -42,7 +42,8 @@ $htmlForm = <<<'HTML'
         data-reuse-submitted-value="true"
         required
     ></textarea>
-    <input type="date" name="date" />
+    <input type="date" name="date" data-reuse-submitted-value="true" />
+    <input type="month" name="month" data-reuse-submitted-value="true" />
     <input type="submit"/>
 </form>
 HTML;
@@ -81,7 +82,8 @@ $_POST['name'] = '  Full Name  ';
 $_POST['email'] = 'test@localhost';
 $_POST['subject'] = 'Message subject  ';
 $_POST['body'] = 'Body.';
-$_POST['date'] = '2016-02-07';
+$_POST['date'] = date('Y-m-d');
+$_POST['month'] = date('Y-m');
 
 //$form = FormFactory::fromHtml($htmlForm, new ContactFilter());
 $form = FormFactory::fromHtml($htmlForm, ['body' => 'default value']);

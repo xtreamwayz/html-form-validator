@@ -40,6 +40,8 @@ class FormFactory
         'text'     => FormElement\Text::class,
         'textarea' => FormElement\Textarea::class,
         'url'      => FormElement\Url::class,
+        'date'     => FormElement\Date::class,
+        'month'    => FormElement\Month::class,
     ];
 
     private $nameIdXref = [];
