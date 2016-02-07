@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^5.5.9 || ^7.0",
+        "php": "^7.0",
         "zendframework/zend-validator": "^2.5",
         "zendframework/zend-filter": "^2.5",
         "zendframework/zend-inputfilter": "^2.5",
