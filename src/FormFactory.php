@@ -34,17 +34,18 @@ class FormFactory
      * @var FormElement\AbstractFormElement[]
      */
     private $formElements = [
-        'email'    => FormElement\Email::class,
-        'number'   => FormElement\Number::class,
-        'tel'      => FormElement\Tel::class,
-        'text'     => FormElement\Text::class,
-        'textarea' => FormElement\Textarea::class,
-        'url'      => FormElement\Url::class,
-        'date'     => FormElement\Date::class,
-        'month'    => FormElement\Month::class,
-        'week'     => FormElement\Week::class,
-        'time'     => FormElement\Time::class,
+        'email'          => FormElement\Email::class,
+        'number'         => FormElement\Number::class,
+        'tel'            => FormElement\Tel::class,
+        'text'           => FormElement\Text::class,
+        'textarea'       => FormElement\Textarea::class,
+        'url'            => FormElement\Url::class,
+        'date'           => FormElement\Date::class,
+        'month'          => FormElement\Month::class,
+        'week'           => FormElement\Week::class,
+        'time'           => FormElement\Time::class,
         'datetime-local' => FormElement\DateTimeLocal::class,
+        'color'          => FormElement\Color::class,
     ];
 
     private $nameIdXref = [];
