@@ -46,6 +46,7 @@ $htmlForm = <<<'HTML'
     <input type="month" name="month" data-reuse-submitted-value="true" />
     <input type="week" name="week" data-reuse-submitted-value="true" />
     <input type="time" name="time" data-reuse-submitted-value="true" />
+    <input type="datetime-local" name="datetime-local" data-reuse-submitted-value="true" />
     <input type="submit"/>
 </form>
 HTML;
@@ -88,6 +89,7 @@ $_POST['date'] = date('Y-m-d');
 $_POST['month'] = date('Y-m');
 $_POST['week'] = date('Y-\WW');
 $_POST['time'] = date('H:i');
+$_POST['datetime-local'] = date('Y-m-d\TH:i');
 
 //$form = FormFactory::fromHtml($htmlForm, new ContactFilter());
 $form = FormFactory::fromHtml($htmlForm, ['body' => 'default value']);

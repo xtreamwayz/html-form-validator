@@ -44,6 +44,7 @@ class FormFactory
         'month'    => FormElement\Month::class,
         'week'     => FormElement\Week::class,
         'time'     => FormElement\Time::class,
+        'datetime-local' => FormElement\DateTimeLocal::class,
     ];
 
     private $nameIdXref = [];
