@@ -14,6 +14,6 @@ class Date extends AbstractFormElement
     protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
         $input->getValidatorChain()
-              ->attach(new Validator\Date());
+              ->attach(new Validator\Date(['format' => 'Y-m-d']));
     }
 }
