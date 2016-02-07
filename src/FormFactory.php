@@ -43,6 +43,7 @@ class FormFactory
         'date'     => FormElement\Date::class,
         'month'    => FormElement\Month::class,
         'week'     => FormElement\Week::class,
+        'time'     => FormElement\Time::class,
     ];
 
     private $nameIdXref = [];
