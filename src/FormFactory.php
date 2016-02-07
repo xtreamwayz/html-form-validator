@@ -130,32 +130,7 @@ class FormFactory
      */
     private function preProcessForm()
     {
-        $xpath = new DOMXPath($this->document);
-        $elements = $xpath->query('//input | //textarea | //div[@data-input-name]');
-
-        /** @var DOMElement $element */
-        foreach ($elements as $element) {
-            // Set some basic vars
-            $name = $element->getAttribute('name');
-            if (!$name) {
-                $name = $element->getAttribute('data-input-name');
-            }
-
-            if (!$name) {
-                // At least a name is needed to submit a value.
-                // Silently continue, might be a submit button.
-                continue;
-            }
-
-            // Create an id if needed, this speeds up finding the element again
-            $id = $element->getAttribute('id');
-            if (!$id) {
-                $id = md5(spl_object_hash($element));
-                $element->setAttribute('id', $id);
-            }
-
-            $this->nameIdXref[$name] = $id;
-
+        foreach ($this->getFormInputs() as $name => $element) {
             // Detect element type
             $type = $element->getAttribute('type');
             if ($element->tagName == 'textarea') {
@@ -184,6 +159,42 @@ class FormFactory
 
             // Process element and attach filters and validators
             $validator($element, $input);
+        }
+    }
+
+    /**
+     * Get form elements and create an id if needed
+     */
+    private function getFormInputs()
+    {
+        $xpath = new DOMXPath($this->document);
+        $elements = $xpath->query('//input | //textarea | //div[@data-input-name]');
+
+        /** @var DOMElement $element */
+        foreach ($elements as $element) {
+            // Set some basic vars
+            $name = $element->getAttribute('name');
+            if (!$name) {
+                $name = $element->getAttribute('data-input-name');
+            }
+
+            if (!$name) {
+                // At least a name is needed to submit a value.
+                // Silently continue, might be a submit button.
+                continue;
+            }
+
+            // Create an id if needed, this speeds up finding the element again
+            $id = $element->getAttribute('id');
+            if (!$id) {
+                $id = md5(spl_object_hash($element));
+                $element->setAttribute('id', $id);
+            }
+
+            // Store id reference
+            $this->nameIdXref[$name] = $id;
+
+            yield $name => $element;
         }
     }
 

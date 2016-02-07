@@ -3,7 +3,6 @@
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
-use Xtreamwayz\HTMLFormValidator\FilterManager;
 use Xtreamwayz\HTMLFormValidator\ValidatorManager;
 use Zend\Filter;
 use Zend\InputFilter\InputInterface;
@@ -69,9 +68,8 @@ abstract class AbstractFormElement
             return;
         }
 
-        $validators = $this->parseDataAttribute($dataValidators);
-        foreach ($validators as $validator => $options) {
-            // TODO: Needs to fixed when zend-validator works with servicemanager 3
+        foreach ($this->parseDataAttribute($dataValidators) as $validator => $options) {
+            // TODO: Needs a fix when zend-validator works with servicemanager 3
             if (ValidatorManager::hasValidator($validator)) {
                 $class = ValidatorManager::getValidator($validator);
                 $input->getValidatorChain()->attach(new $class($options));
@@ -92,14 +90,13 @@ abstract class AbstractFormElement
             return;
         }
 
-        $filters = $this->parseDataAttribute($dataFilters);
-        foreach ($filters as $filter => $options) {
+        foreach ($this->parseDataAttribute($dataFilters) as $filter => $options) {
             $input->getFilterChain()->attachByName($filter, $options);
         }
     }
 
     /**
-     * Parse data attribute values for validators, filters and options
+     * Parse data attribute value for validators, filters and options
      *
      * @param $value
      *
@@ -109,7 +106,6 @@ abstract class AbstractFormElement
     {
         preg_match_all("/([a-zA-Z]+)([^|]*)/", $value, $matches, PREG_SET_ORDER);
 
-        $validators = [];
         foreach ($matches as $match) {
             $validator = $match[1];
             $options = [];
@@ -122,9 +118,7 @@ abstract class AbstractFormElement
                 }
             }
 
-            $validators[$validator] = $options;
+            yield $validator => $options;
         }
-
-        return $validators;
     }
 }
