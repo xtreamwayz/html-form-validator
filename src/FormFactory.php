@@ -42,6 +42,7 @@ class FormFactory
         'url'      => FormElement\Url::class,
         'date'     => FormElement\Date::class,
         'month'    => FormElement\Month::class,
+        'week'     => FormElement\Week::class,
     ];
 
     private $nameIdXref = [];

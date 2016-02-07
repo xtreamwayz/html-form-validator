@@ -44,6 +44,7 @@ $htmlForm = <<<'HTML'
     ></textarea>
     <input type="date" name="date" data-reuse-submitted-value="true" />
     <input type="month" name="month" data-reuse-submitted-value="true" />
+    <input type="week" name="week" data-reuse-submitted-value="true" />
     <input type="submit"/>
 </form>
 HTML;
@@ -84,6 +85,7 @@ $_POST['subject'] = 'Message subject  ';
 $_POST['body'] = 'Body.';
 $_POST['date'] = date('Y-m-d');
 $_POST['month'] = date('Y-m');
+$_POST['week'] = date('Y-\WW');
 
 //$form = FormFactory::fromHtml($htmlForm, new ContactFilter());
 $form = FormFactory::fromHtml($htmlForm, ['body' => 'default value']);
