@@ -1,11 +1,10 @@
 --TEST--
-<test description>
+Test data filters attribute with reusing submitted values
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="text" id="name" name="name" required
+    <input type="text" id="name" name="name"
         data-reuse-submitted-value="true"
         data-filters="striptags|stringtrim"
-        data-validators="stringlength{min:2,max:140}"
     />
 </form>
 --DEFAULT-VALUES--
@@ -22,8 +21,8 @@
 }
 --EXPECTED-FORM--
 <form action="/" method="post">
-    <input type="text" id="name" name="name" required
-        data-reuse-submitted-value="true" value="Full Name"
+    <input type="text" id="name" name="name"
+           data-reuse-submitted-value="true" value="Full Name"
     />
 </form>
 --EXPECTED-ERRORS--

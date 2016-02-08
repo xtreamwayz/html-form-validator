@@ -1,5 +1,5 @@
 --TEST--
-Test aria-required="true" attribute
+Test aria-required="false" attribute
 --HTML-FORM--
 <form action="/" method="post">
     <input type="text" id="name" name="name" aria-required="false" />
