@@ -1,0 +1,21 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="month" name="month" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "month": "2016-02"
+}
+--EXPECTED-VALUES--
+{
+    "month": "2016-02"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}

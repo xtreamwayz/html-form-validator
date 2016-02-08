@@ -1,0 +1,21 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="week" name="week" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "week": "2016-W05"
+}
+--EXPECTED-VALUES--
+{
+    "week": "2016-W05"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}

@@ -1,0 +1,21 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="time" name="time" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "time": "22:00"
+}
+--EXPECTED-VALUES--
+{
+    "time": "22:00"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}

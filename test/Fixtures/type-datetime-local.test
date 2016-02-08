@@ -1,0 +1,21 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="datetime-local" name="datetime-local" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "datetime-local": "2016-02-08T22:00"
+}
+--EXPECTED-VALUES--
+{
+    "datetime-local": "2016-02-08T22:00"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}

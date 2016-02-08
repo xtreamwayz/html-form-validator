@@ -1,0 +1,21 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="date" name="date" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "date": "2016-02-08"
+}
+--EXPECTED-VALUES--
+{
+    "date": "2016-02-08"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}
