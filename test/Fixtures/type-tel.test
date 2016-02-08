@@ -1,0 +1,21 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="tel" name="tel" data-country="es" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "tel": "+34555666777"
+}
+--EXPECTED-VALUES--
+{
+    "tel": "+34555666777"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}
