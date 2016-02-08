@@ -51,6 +51,7 @@ class FormFactory
         'checkbox'       => FormElement\Checkbox::class,
         'radio'          => FormElement\Radio::class,
         'file'           => FormElement\File::class,
+        'select'         => FormElement\Select::class,
     ];
 
     /**
@@ -147,6 +148,8 @@ class FormFactory
             $type = $element->getAttribute('type');
             if ($element->tagName == 'textarea') {
                 $type = 'textarea';
+            } elseif ($element->tagName == 'select') {
+                $type = 'select';
             }
 
             // Add validation
@@ -180,7 +183,7 @@ class FormFactory
     private function getFormElements()
     {
         $xpath = new DOMXPath($this->document);
-        $elements = $xpath->query('//input | //textarea | //div[@data-input-name]');
+        $elements = $xpath->query('//input | //textarea | //select | //div[@data-input-name]');
 
         /** @var DOMElement $element */
         foreach ($elements as $element) {
@@ -237,6 +240,15 @@ class FormFactory
                     $element->setAttribute('checked', 'checked');
                 } else {
                     $element->removeAttribute('checked');
+                }
+            } elseif ($element->nodeName == 'select') {
+                /** @var DOMElement $node */
+                foreach($element->getElementsByTagName('option') as $node){
+                    if ($value == $node->getAttribute('value')) {
+                        $node->setAttribute('selected', 'selected');
+                    } else {
+                        $node->removeAttribute('selected');
+                    }
                 }
             } elseif ($element->nodeName == 'input') {
                 // Set value for input elements

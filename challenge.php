@@ -67,6 +67,12 @@ $htmlForm = <<<'HTML'
 
     <input type="file" name="file" />
 
+    <select name="select" required data-reuse-submitted-value="true">
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+    </select>
+
     <input type="submit" />
 </form>
 HTML;
@@ -116,9 +122,10 @@ $_POST['password'] = '123456';
 $_POST['password-confirm'] = '123456';
 $_POST['checkbox'] = 'value';
 $_POST['radio'] = 'value1';
+$_POST['select'] = 'option2';
 
 //$form = FormFactory::fromHtml($htmlForm, new ContactFilter());
-$form = FormFactory::fromHtml($htmlForm, ['body' => 'default value', 'radio' => 'value1']);
+$form = FormFactory::fromHtml($htmlForm, ['body' => 'default value', 'radio' => 'value1', 'select' => 'option1']);
 //echo $form->asString();
 
 $result = $form->validate($_POST); // Returns form validation result VO
