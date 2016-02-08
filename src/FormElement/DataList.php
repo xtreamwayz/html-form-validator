@@ -22,7 +22,7 @@ class DataList extends AbstractFormElement
         }
 
         /** @var DOMElement $node */
-        foreach($dataList->getElementsByTagName('option') as $node){
+        foreach ($dataList->getElementsByTagName('option') as $node) {
             $haystack[] = $node->getAttribute('value');
         }
 
