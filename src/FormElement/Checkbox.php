@@ -13,5 +13,10 @@ class Checkbox extends AbstractFormElement
      */
     protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
+        // Make sure the submitted value is the same as the original
+        if ($element->hasAttribute('checked')) {
+            $input->getValidatorChain()
+                  ->attach(new Validator\Identical($element->getAttribute('value')));
+        }
     }
 }
