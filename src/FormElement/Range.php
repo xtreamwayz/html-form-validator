@@ -13,11 +13,13 @@ class Range extends AbstractFormElement
      */
     protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
+        $baseValue = 0;
         $min = $element->getAttribute('min');
         $max = $element->getAttribute('max');
         $step = $element->getAttribute('step');
 
         if ($min && $max) {
+            $baseValue = $min;
             $input->getValidatorChain()
                   ->attach(new Validator\Between([
                       'min' => $min,
@@ -25,6 +27,7 @@ class Range extends AbstractFormElement
                       'inclusive' => true
                   ]));
         } elseif ($min) {
+            $baseValue = $min;
             $input->getValidatorChain()
                   ->attach(new Validator\GreaterThan([
                       'min' => $min,
@@ -40,7 +43,10 @@ class Range extends AbstractFormElement
 
         if ($step) {
             $input->getValidatorChain()
-                  ->attach(new Validator\Step(['step' => $step]));
+                  ->attach(new Validator\Step([
+                      'step' => $step,
+                      'baseValue' => $baseValue
+                  ]));
         }
     }
 }
