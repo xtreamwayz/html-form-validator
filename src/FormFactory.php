@@ -243,7 +243,7 @@ class FormFactory
                 }
             } elseif ($element->nodeName == 'select') {
                 /** @var DOMElement $node */
-                foreach($element->getElementsByTagName('option') as $node){
+                foreach ($element->getElementsByTagName('option') as $node) {
                     if ($value == $node->getAttribute('value')) {
                         $node->setAttribute('selected', 'selected');
                     } else {

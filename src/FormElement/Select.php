@@ -20,8 +20,6 @@ class Select extends AbstractFormElement
             $haystack[] = $node->getAttribute('value');
         }
 
-        var_dump($haystack);
-
         $input->getValidatorChain()
               ->attach(new Validator\InArray([
                   'haystack' => $haystack,

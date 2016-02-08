@@ -73,6 +73,17 @@ $htmlForm = <<<'HTML'
         <option value="option3">Option 3</option>
     </select>
 
+    <select name="cars" data-reuse-submitted-value="true">
+        <optgroup label="Swedish Cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+        </optgroup>
+        <optgroup label="German Cars">
+            <option value="volkswagen">Volkswagen</option>
+            <option value="audi">Audi</option>
+        </optgroup>
+    </select>
+
     <input type="submit" />
 </form>
 HTML;
@@ -123,9 +134,15 @@ $_POST['password-confirm'] = '123456';
 $_POST['checkbox'] = 'value';
 $_POST['radio'] = 'value1';
 $_POST['select'] = 'option2';
+$_POST['cars'] = 'volkswagen';
 
 //$form = FormFactory::fromHtml($htmlForm, new ContactFilter());
-$form = FormFactory::fromHtml($htmlForm, ['body' => 'default value', 'radio' => 'value1', 'select' => 'option1']);
+$form = FormFactory::fromHtml($htmlForm, [
+    'body' => 'default value',
+    'radio' => 'value1',
+    'select' => 'option1',
+    'cars' => 'audi'
+]);
 //echo $form->asString();
 
 $result = $form->validate($_POST); // Returns form validation result VO
