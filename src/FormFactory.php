@@ -50,6 +50,7 @@ class FormFactory
         'password'       => FormElement\Password::class,
         'checkbox'       => FormElement\Checkbox::class,
         'radio'          => FormElement\Radio::class,
+        'file'           => FormElement\File::class,
     ];
 
     /**
@@ -264,9 +265,10 @@ class FormFactory
 
             $errors = $data[$name];
 
-            // Set error class to parent
+            /** @var DOMElement $parent */
             $parent = $element->parentNode;
             $class = trim($parent->getAttribute('class') . ' ' . $this->errorClass);
+            // Set error class to parent
             $parent->setAttribute('class', $class);
 
             // Inject error messages

@@ -65,6 +65,8 @@ $htmlForm = <<<'HTML'
     <input type="radio" name="radio" value="value2" data-reuse-submitted-value="true" />
     <input type="radio" name="radio" value="value3" data-reuse-submitted-value="true" />
 
+    <input type="file" name="file" />
+
     <input type="submit" />
 </form>
 HTML;
