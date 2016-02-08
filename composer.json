@@ -28,7 +28,8 @@
         ],
         "cs": "php vendor/squizlabs/php_codesniffer/scripts/phpcs",
         "fix": "php vendor/squizlabs/php_codesniffer/scripts/phpcbf",
-        "test": "php vendor/phpunit/phpunit/phpunit"
+        "test": "php vendor/phpunit/phpunit/phpunit",
+        "coverage": "phpdbg -qrr vendor/phpunit/phpunit/phpunit --coverage-html ./test/coverage"
     },
     "autoload": {
         "psr-4": {
