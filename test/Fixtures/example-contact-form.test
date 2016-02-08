@@ -1,0 +1,64 @@
+--TEST--
+Example contact form
+--HTML-FORM--
+<form action="{{ path() }}" method="post">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-control-label" for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required
+                       data-reuse-submitted-value="true" data-filters="striptags|stringtrim"
+                       class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-control-label" for="email">Email address</label>
+                <input type="email" id="email" name="email" placeholder="Your email address" required
+                       data-reuse-submitted-value="true" data-filters="striptags|stringtrim"
+                       class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-control-label" for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="Subject" required
+               data-reuse-submitted-value="true" data-filters="striptags|stringtrim"
+               class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-control-label" for="body">Message</label>
+        <textarea id="body" name="body" rows="5" required
+                  data-reuse-submitted-value="true" data-filters="stringtrim"
+                  class="form-control" placeholder="Message"></textarea>
+    </div>
+
+    <input type="hidden" name="token" value="1d79414c" data-validators="identical{token:1d79414c}" required />
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "name": "  John Doe  ",
+    "email": "john.doe@example.com",
+    "subject": "Subject",
+    "body": "Message body",
+    "token": "1d79414c"
+}
+--EXPECTED-VALUES--
+{
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "subject": "Subject",
+    "body": "Message body",
+    "token": "1d79414c"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}
