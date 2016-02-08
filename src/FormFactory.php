@@ -49,14 +49,8 @@ class FormFactory
         'range'          => FormElement\Range::class,
         'password'       => FormElement\Password::class,
         'checkbox'       => FormElement\Checkbox::class,
+        'radio'          => FormElement\Radio::class,
     ];
-
-    /**
-     * Internal reference array for input names and their ids
-     *
-     * @var array
-     */
-    private $nameIdXref = [];
 
     /**
      * FormFactory constructor: Load html form and optionally set an InputFilter
@@ -201,23 +195,8 @@ class FormFactory
                 continue;
             }
 
-            // Create an id if needed, this speeds up finding the element again
-            $id = $element->getAttribute('id');
-            if (!$id) {
-                $id = md5(spl_object_hash($element));
-                $element->setAttribute('id', $id);
-            }
-
-            // Store id reference
-            $this->nameIdXref[$name] = $id;
-
             yield $name => $element;
         }
-    }
-
-    private function getElementByName($name)
-    {
-        return $this->document->getElementById($this->nameIdXref[$name]);
     }
 
     /**
@@ -228,36 +207,42 @@ class FormFactory
      */
     private function injectValues(array $data, $force = false)
     {
-        foreach ($data as $name => $value) {
-            var_dump($name, $value);
-            $element = $this->getElementByName($name);
+        foreach ($this->getFormElements() as $name => $element) {
+            if (!isset($data[$name])) {
+                // No value set for this element
+                continue;
+            }
+
+            $value = $data[$name];
 
             $reuseSubmittedValue = filter_var(
                 $element->getAttribute('data-reuse-submitted-value'),
                 FILTER_VALIDATE_BOOLEAN
             );
 
+            if (!$reuseSubmittedValue && $force === false) {
+                // Don't need to set the value
+                continue;
+            }
+
             if ($element->getAttribute('type') == 'checkbox') {
-                var_dump(__LINE__);
                 if ($value == $element->getAttribute('value')) {
-                    var_dump(__LINE__);
                     $element->setAttribute('checked', 'checked');
                 } else {
-                    var_dump(__LINE__);
+                    $element->removeAttribute('checked');
+                }
+            } elseif ($element->getAttribute('type') == 'radio') {
+                if ($value == $element->getAttribute('value')) {
+                    $element->setAttribute('checked', 'checked');
+                } else {
                     $element->removeAttribute('checked');
                 }
             } elseif ($element->nodeName == 'input') {
-                if (!$reuseSubmittedValue && $force === false) {
-                    continue;
-                }
                 // Set value for input elements
                 $element->setAttribute('value', $value);
             } elseif ($element->nodeName == 'div') {
                 // Do nothing
             } else {
-                if (!$reuseSubmittedValue && $force === false) {
-                    continue;
-                }
                 // For other elements
                 $element->nodeValue = $value;
             }
@@ -271,8 +256,13 @@ class FormFactory
      */
     private function injectErrorMessages(array $data)
     {
-        foreach ($data as $name => $errors) {
-            $element = $this->getElementByName($name);
+        foreach ($this->getFormElements() as $name => $element) {
+            if (!isset($data[$name])) {
+                // No errors set for this element
+                continue;
+            }
+
+            $errors = $data[$name];
 
             // Set error class to parent
             $parent = $element->parentNode;

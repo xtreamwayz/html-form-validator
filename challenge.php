@@ -61,6 +61,10 @@ $htmlForm = <<<'HTML'
 
     <input type="checkbox" name="checkbox" value="value" />
 
+    <input type="radio" name="radio" value="value1" data-reuse-submitted-value="true" />
+    <input type="radio" name="radio" value="value2" data-reuse-submitted-value="true" />
+    <input type="radio" name="radio" value="value3" data-reuse-submitted-value="true" />
+
     <input type="submit" />
 </form>
 HTML;
@@ -109,9 +113,10 @@ $_POST['range'] = '10';
 $_POST['password'] = '123456';
 $_POST['password-confirm'] = '123456';
 $_POST['checkbox'] = 'value';
+$_POST['radio'] = 'value1';
 
 //$form = FormFactory::fromHtml($htmlForm, new ContactFilter());
-$form = FormFactory::fromHtml($htmlForm, ['body' => 'default value']);
+$form = FormFactory::fromHtml($htmlForm, ['body' => 'default value', 'radio' => 'value1']);
 //echo $form->asString();
 
 $result = $form->validate($_POST); // Returns form validation result VO
