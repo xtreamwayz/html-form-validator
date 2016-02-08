@@ -52,6 +52,7 @@ class FormFactory
         'radio'          => FormElement\Radio::class,
         'file'           => FormElement\File::class,
         'select'         => FormElement\Select::class,
+        'list'           => FormElement\DataList::class,
     ];
 
     /**
@@ -69,7 +70,9 @@ class FormFactory
         // Create new doc
         $this->document = new DOMDocument('1.0', 'utf-8');
         // Don't add missing doctype, html and body
+        libxml_use_internal_errors(true);
         $this->document->loadHTML($htmlForm, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_use_internal_errors(false);
 
         // Add all validators and filters to the InputFilter
         $this->buildInputFilterFromForm();
@@ -150,6 +153,8 @@ class FormFactory
                 $type = 'textarea';
             } elseif ($element->tagName == 'select') {
                 $type = 'select';
+            } elseif ($element->hasAttribute('list')) {
+                $type = 'list';
             }
 
             // Add validation
@@ -173,7 +178,7 @@ class FormFactory
             }
 
             // Process element and attach filters and validators
-            $validator($element, $input);
+            $validator($element, $input, $this->document);
         }
     }
 
@@ -229,18 +234,14 @@ class FormFactory
                 continue;
             }
 
-            if ($element->getAttribute('type') == 'checkbox') {
+            if ($element->getAttribute('type') == 'checkbox' || $element->getAttribute('type') == 'radio') {
                 if ($value == $element->getAttribute('value')) {
                     $element->setAttribute('checked', 'checked');
                 } else {
                     $element->removeAttribute('checked');
                 }
-            } elseif ($element->getAttribute('type') == 'radio') {
-                if ($value == $element->getAttribute('value')) {
-                    $element->setAttribute('checked', 'checked');
-                } else {
-                    $element->removeAttribute('checked');
-                }
+            } elseif ($element->hasAttribute('list')) {
+                // Do nothing
             } elseif ($element->nodeName == 'select') {
                 /** @var DOMElement $node */
                 foreach ($element->getElementsByTagName('option') as $node) {

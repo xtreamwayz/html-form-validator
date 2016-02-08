@@ -3,6 +3,7 @@
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
+use DOMDocument;
 use Xtreamwayz\HTMLFormValidator\ValidatorManager;
 use Zend\Filter;
 use Zend\InputFilter\InputInterface;
@@ -11,13 +12,21 @@ use Zend\Validator;
 abstract class AbstractFormElement
 {
     /**
+     * @var DOMDocument
+     */
+    protected $document;
+
+    /**
      * Process element and attach validators and filters
      *
      * @param DOMElement     $element
      * @param InputInterface $input
+     * @param DOMDocument    $document
      */
-    public function __invoke(DOMElement $element, InputInterface $input)
+    public function __invoke(DOMElement $element, InputInterface $input, DOMDocument $document)
     {
+        $this->document = $document;
+
         // Build input validator chain for element
         $this->attachDefaultValidators($input, $element);
         $this->attachValidators($input, $element);

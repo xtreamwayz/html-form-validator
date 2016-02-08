@@ -84,6 +84,15 @@ $htmlForm = <<<'HTML'
         </optgroup>
     </select>
 
+    <input list="browsers" name="browser" required />
+    <datalist id="browsers">
+        <option value="Internet Explorer" />
+        <option value="Firefox" />
+        <option value="Chrome" />
+        <option value="Opera" />
+        <option value="Safari" />
+    </datalist>
+
     <input type="submit" />
 </form>
 HTML;
@@ -135,13 +144,15 @@ $_POST['checkbox'] = 'value';
 $_POST['radio'] = 'value1';
 $_POST['select'] = 'option2';
 $_POST['cars'] = 'volkswagen';
+$_POST['browser'] = 'FireFoxxxxx';
 
 //$form = FormFactory::fromHtml($htmlForm, new ContactFilter());
 $form = FormFactory::fromHtml($htmlForm, [
     'body' => 'default value',
     'radio' => 'value1',
     'select' => 'option1',
-    'cars' => 'audi'
+    'cars' => 'audi',
+    'browser' => 'Chrome',
 ]);
 //echo $form->asString();
 
