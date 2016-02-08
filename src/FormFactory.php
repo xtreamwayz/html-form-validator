@@ -47,8 +47,14 @@ class FormFactory
         'datetime-local' => FormElement\DateTimeLocal::class,
         'color'          => FormElement\Color::class,
         'range'          => FormElement\Range::class,
+        'password'       => FormElement\Password::class,
     ];
 
+    /**
+     * Internal reference array for input names and their ids
+     *
+     * @var array
+     */
     private $nameIdXref = [];
 
     /**

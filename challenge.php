@@ -42,13 +42,20 @@ $htmlForm = <<<'HTML'
         data-reuse-submitted-value="true"
         required
     ></textarea>
+
     <input type="date" name="date" data-reuse-submitted-value="true" />
     <input type="month" name="month" data-reuse-submitted-value="true" />
     <input type="week" name="week" data-reuse-submitted-value="true" />
     <input type="time" name="time" data-reuse-submitted-value="true" />
     <input type="datetime-local" name="datetime-local" data-reuse-submitted-value="true" />
+
     <input type="color" name="color" data-reuse-submitted-value="true" />
+
     <input type="range" name="range" min="0" max="10" data-reuse-submitted-value="true" />
+
+    <input type="password" name="password" required />
+    <input type="password" name="password-confirm" required data-validators="identical{token:password}" />
+
     <input type="submit" />
 </form>
 HTML;
@@ -94,6 +101,8 @@ $_POST['time'] = date('H:i');
 $_POST['datetime-local'] = date('Y-m-d\TH:i');
 $_POST['color'] = '#fefefe';
 $_POST['range'] = '10';
+$_POST['password'] = '123456';
+$_POST['password-confirm'] = '123456';
 
 //$form = FormFactory::fromHtml($htmlForm, new ContactFilter());
 $form = FormFactory::fromHtml($htmlForm, ['body' => 'default value']);
