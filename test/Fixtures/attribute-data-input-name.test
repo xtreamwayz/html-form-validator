@@ -1,0 +1,26 @@
+--TEST--
+Test data-input-name for custom elements
+--HTML-FORM--
+<form action="/" method="post">
+    <div data-input-name="token" data-validators="identical{token:1d79414c}" aria-required="true"></div>
+    <input type="submit" value="Submit" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "token": "1d79414c"
+}
+--EXPECTED-VALUES--
+{
+    "token": "1d79414c"
+}
+--EXPECTED-FORM--
+<form action="/" method="post">
+    <div data-input-name="token" aria-required="true"></div>
+    <input type="submit" value="Submit" />
+</form>
+--EXPECTED-ERRORS--
+{
+}
