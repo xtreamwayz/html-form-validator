@@ -23,6 +23,3 @@ install:
 script:
   - composer test
   - if [[ $EXECUTE_CS_CHECK == 'true' ]]; then composer cs ; fi
-
-notifications:
-  email: true

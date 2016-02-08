@@ -41,9 +41,10 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
     {
         $fixturesDir = realpath(__DIR__ . '/Fixtures/');
 
-        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($fixturesDir),
-            \RecursiveIteratorIterator::LEAVES_ONLY) as $file
-        ) {
+        foreach (new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($fixturesDir),
+            \RecursiveIteratorIterator::LEAVES_ONLY
+        ) as $file) {
             if (!preg_match('/\.test$/', $file)) {
                 continue;
             }
@@ -99,7 +100,8 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
 
     protected function readTestFile(\SplFileInfo $file, $fixturesDir)
     {
-        $tokens = preg_split('#(?:^|\n*)--([A-Z-]+)--\n#',
+        $tokens = preg_split(
+            '#(?:^|\n*)--([A-Z-]+)--\n#',
             file_get_contents($file->getRealPath()),
             null,
             PREG_SPLIT_DELIM_CAPTURE
@@ -157,7 +159,8 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             $this->getDomDocument($expected),
             $this->getDomDocument($actual),
-            'The form is not rendered correctly.');
+            'The form is not rendered correctly.'
+        );
     }
 
     private function getDomDocument($html)
