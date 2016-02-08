@@ -23,8 +23,9 @@ Test data validators attribute
 --EXPECTED-FORM--
 <form action="/" method="post">
     <div class="input-group has-danger">
-        <input type="text" id="name" name="name" value="Bruce Wayne" /><div class="text-danger">The input contains non alphabetic characters</div>
-<div class="text-danger">The input is less than 32 characters long</div>
+        <input type="text" id="name" name="name" value="Bruce Wayne" />
+        <div class="text-danger">The input contains non alphabetic characters</div>
+        <div class="text-danger">The input is less than 32 characters long</div>
     </div>
 </form>
 --EXPECTED-ERRORS--

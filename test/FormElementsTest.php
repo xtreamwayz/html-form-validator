@@ -194,11 +194,14 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
     private function getDomDocument($html)
     {
         $doc = new \DOMDocument('1.0', 'utf-8');
-        // Don't add missing doctype, html and body
-        libxml_use_internal_errors(true);
-        $doc->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        libxml_use_internal_errors(false);
+        $doc->preserveWhiteSpace = false;
 
-        return $doc;
+        // Don't add missing doctype, html and body
+        //libxml_use_internal_errors(true);
+        $doc->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOBLANKS);
+        //libxml_use_internal_errors(false);
+
+        // Remove whitespace for better comparison
+        return preg_replace('~\s+~i', ' ', $doc->saveHTML());
     }
 }

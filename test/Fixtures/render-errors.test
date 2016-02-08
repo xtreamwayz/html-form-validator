@@ -20,7 +20,8 @@
 --EXPECTED-FORM--
 <form action="/" method="post">
     <div class="input-group has-danger">
-        <input type="text" id="name" name="name" required /><div class="text-danger">Value is required and can't be empty</div>
+        <input type="text" id="name" name="name" required />
+        <div class="text-danger">Value is required and can't be empty</div>
     </div>
 </form>
 --EXPECTED-ERRORS--
