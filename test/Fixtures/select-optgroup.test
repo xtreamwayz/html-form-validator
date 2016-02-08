@@ -1,0 +1,43 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <select name="car">
+        <optgroup label="Swedish Cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+        </optgroup>
+        <optgroup label="German Cars">
+            <option value="volkswagen">Volkswagen</option>
+            <option value="audi">Audi</option>
+        </optgroup>
+    </select>
+</form>
+--DEFAULT-VALUES--
+{
+    "car": "audi"
+}
+--SUBMITTED-VALUES--
+{
+    "car": ""
+}
+--EXPECTED-VALUES--
+{
+    "car": ""
+}
+--EXPECTED-FORM--
+<form action="/" method="post">
+    <select name="car">
+        <optgroup label="Swedish Cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+        </optgroup>
+        <optgroup label="German Cars">
+            <option value="volkswagen">Volkswagen</option>
+            <option value="audi" selected>Audi</option>
+        </optgroup>
+    </select>
+</form>
+--EXPECTED-ERRORS--
+{
+}

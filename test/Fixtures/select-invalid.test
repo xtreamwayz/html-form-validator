@@ -1,0 +1,30 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <select name="car">
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option>
+    </select>
+</form>
+--DEFAULT-VALUES--
+{
+    "car": "audi"
+}
+--SUBMITTED-VALUES--
+{
+    "car": "ferrari"
+}
+--EXPECTED-VALUES--
+{
+    "car": "ferrari"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+    "car": [
+        "notInArray"
+    ]
+}
