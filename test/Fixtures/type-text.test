@@ -1,0 +1,22 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="text" id="name" name="name" />
+</form>
+--DEFAULT-VALUES--
+{
+    "name": "Bruce Wayne"
+}
+--SUBMITTED-VALUES--
+{
+    "name": "Batman"
+}
+--EXPECTED-VALUES--
+{
+    "name": "Batman"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}

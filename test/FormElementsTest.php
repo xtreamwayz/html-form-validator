@@ -34,9 +34,11 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
             $this->assertEqualForms($expectedForm, $form->asString($result));
         }
 
-        if (empty($expectedErrors)) {
+        if (empty($expectedErrors) && empty($result->getErrorMessages())) {
             $this->assertTrue($result->isValid(), "Failed asserting the validation result is valid.");
+            $this->assertEqualErrors($expectedErrors, $result->getErrorMessages());
         } else {
+            //var_dump($result->getErrorMessages());
             $this->assertFalse($result->isValid(), "Failed asserting the validation result is invalid.");
             $this->assertEqualErrors($expectedErrors, $result->getErrorMessages());
         }
@@ -185,7 +187,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             $this->getDomDocument($expected),
             $this->getDomDocument($actual),
-            'The form is not rendered correctly.'
+            'Failed asserting that the form is rendered correctly.'
         );
     }
 

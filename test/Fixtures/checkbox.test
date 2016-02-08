@@ -1,0 +1,24 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="checkbox" name="checkbox" value="value" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "checkbox": "value"
+}
+--EXPECTED-VALUES--
+{
+    "checkbox": "value"
+}
+--EXPECTED-FORM--
+<form action="/" method="post">
+    <input type="checkbox" name="checkbox" value="value" />
+</form>
+--EXPECTED-ERRORS--
+{
+}
