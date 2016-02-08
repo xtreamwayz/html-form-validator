@@ -48,6 +48,7 @@ class FormFactory
         'color'          => FormElement\Color::class,
         'range'          => FormElement\Range::class,
         'password'       => FormElement\Password::class,
+        'checkbox'       => FormElement\Checkbox::class,
     ];
 
     /**
@@ -74,7 +75,10 @@ class FormFactory
         // Don't add missing doctype, html and body
         $this->document->loadHTML($htmlForm, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
-        $this->preProcessForm();
+        // Add all validators and filters to the InputFilter
+        $this->buildInputFilterFromForm();
+
+        // Inject default values (from models etc)
         $this->injectValues($defaultValues, true);
     }
 
@@ -139,11 +143,11 @@ class FormFactory
     }
 
     /**
-     * Pre-process form: set id if needed and  and set
+     * Build the InputFilter, validators and filters from form fields
      */
-    private function preProcessForm()
+    private function buildInputFilterFromForm()
     {
-        foreach ($this->getFormInputs() as $name => $element) {
+        foreach ($this->getFormElements() as $name => $element) {
             // Detect element type
             $type = $element->getAttribute('type');
             if ($element->tagName == 'textarea') {
@@ -178,7 +182,7 @@ class FormFactory
     /**
      * Get form elements and create an id if needed
      */
-    private function getFormInputs()
+    private function getFormElements()
     {
         $xpath = new DOMXPath($this->document);
         $elements = $xpath->query('//input | //textarea | //div[@data-input-name]');
@@ -225,6 +229,7 @@ class FormFactory
     private function injectValues(array $data, $force = false)
     {
         foreach ($data as $name => $value) {
+            var_dump($name, $value);
             $element = $this->getElementByName($name);
 
             $reuseSubmittedValue = filter_var(
@@ -232,16 +237,27 @@ class FormFactory
                 FILTER_VALIDATE_BOOLEAN
             );
 
-            if (!$reuseSubmittedValue && $force === false) {
-                continue;
-            }
-
-            if ($element->nodeName == 'input') {
+            if ($element->getAttribute('type') == 'checkbox') {
+                var_dump(__LINE__);
+                if ($value == $element->getAttribute('value')) {
+                    var_dump(__LINE__);
+                    $element->setAttribute('checked', 'checked');
+                } else {
+                    var_dump(__LINE__);
+                    $element->removeAttribute('checked');
+                }
+            } elseif ($element->nodeName == 'input') {
+                if (!$reuseSubmittedValue && $force === false) {
+                    continue;
+                }
                 // Set value for input elements
                 $element->setAttribute('value', $value);
             } elseif ($element->nodeName == 'div') {
                 // Do nothing
             } else {
+                if (!$reuseSubmittedValue && $force === false) {
+                    continue;
+                }
                 // For other elements
                 $element->nodeValue = $value;
             }

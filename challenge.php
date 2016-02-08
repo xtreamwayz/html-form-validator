@@ -16,8 +16,9 @@ $htmlForm = <<<'HTML'
         data-reuse-submitted-value="true"
         data-filters="striptags|stringtrim"
         data-validators="stringlength{min:2,max:140}"
-        required="required"
+        required
     />
+
     <input
         type="email"
         id="email"
@@ -28,6 +29,7 @@ $htmlForm = <<<'HTML'
         required="required"
     />
     <span id="email-description" class="help">Enter a valid email address</span>
+
     <input
         type="text"
         id="subject"
@@ -35,8 +37,9 @@ $htmlForm = <<<'HTML'
         value=""
         data-reuse-submitted-value="true"
         data-filters="striptags|stringtrim"
-        required="required"
+        aria-required="true"
     />
+
     <textarea
         name="body"
         data-reuse-submitted-value="true"
@@ -55,6 +58,8 @@ $htmlForm = <<<'HTML'
 
     <input type="password" name="password" required />
     <input type="password" name="password-confirm" required data-validators="identical{token:password}" />
+
+    <input type="checkbox" name="checkbox" value="value" />
 
     <input type="submit" />
 </form>
@@ -103,11 +108,12 @@ $_POST['color'] = '#fefefe';
 $_POST['range'] = '10';
 $_POST['password'] = '123456';
 $_POST['password-confirm'] = '123456';
+$_POST['checkbox'] = 'value';
 
 //$form = FormFactory::fromHtml($htmlForm, new ContactFilter());
 $form = FormFactory::fromHtml($htmlForm, ['body' => 'default value']);
-echo $form->asString();
+//echo $form->asString();
 
 $result = $form->validate($_POST); // Returns form validation result VO
-var_dump($result);
+//var_dump($result);
 echo $form->asString($result);
