@@ -1,0 +1,21 @@
+--TEST--
+Test aria-required="true" attribute
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="text" id="name" name="name" aria-required="true" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "name": "Full Name"
+}
+--EXPECTED-VALUES--
+{
+    "name": "Full Name"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}

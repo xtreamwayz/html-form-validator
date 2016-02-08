@@ -1,0 +1,31 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="text" id="name" name="name" required
+        data-reuse-submitted-value="true"
+        data-filters="striptags|stringtrim"
+        data-validators="stringlength{min:2,max:140}"
+    />
+</form>
+--DEFAULT-VALUES--
+{
+    "name": "default value"
+}
+--SUBMITTED-VALUES--
+{
+    "name": "  Full Name  "
+}
+--EXPECTED-VALUES--
+{
+    "name": "Full Name"
+}
+--EXPECTED-FORM--
+<form action="/" method="post">
+    <input type="text" id="name" name="name" required
+        data-reuse-submitted-value="true" value="Full Name"
+    />
+</form>
+--EXPECTED-ERRORS--
+{
+}
