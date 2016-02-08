@@ -1,0 +1,28 @@
+sudo: false
+
+language: php
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+    - vendor
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 7
+      env:
+        - EXECUTE_CS_CHECK=true
+
+before_install:
+  - composer self-update
+
+install:
+  - travis_retry composer install --no-interaction
+
+script:
+  - composer test
+  - if [[ $EXECUTE_CS_CHECK == 'true' ]]; then composer cs ; fi
+
+notifications:
+  email: true
