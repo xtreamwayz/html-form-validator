@@ -18,7 +18,7 @@ Test aria-required="true" attribute should throw error on empty submit
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-	"name": [{
-		"isEmpty": "Value is required and can't be empty"
-	}]
+	"name": [
+		"isEmpty"
+	]
 }

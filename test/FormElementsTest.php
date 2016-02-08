@@ -23,17 +23,22 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         $result = $form->validate($submittedValues);
 
         $this->assertInstanceOf(ValidationResult::class, $result);
-        $this->assertEquals($submittedValues, $result->getRawInputValues(), 'Invalid submitted values.');
-        $this->assertEquals($expectedValues, $result->getValidValues(), 'Invalid filtered values.');
+        $this->assertEquals(
+            $submittedValues,
+            $result->getRawInputValues(),
+            "Failed asserting submitted values are equal."
+        );
+        $this->assertEquals($expectedValues, $result->getValidValues(), "Failed asserting filtered values are equal.");
 
         if ($expectedForm) {
             $this->assertEqualForms($expectedForm, $form->asString($result));
         }
 
         if (empty($expectedErrors)) {
-            $this->assertTrue($result->isValid(), 'Expected the form to be valid.');
+            $this->assertTrue($result->isValid(), "Failed asserting the validation result is valid.");
         } else {
-            $this->assertFalse($result->isValid(), 'Expected the form to be invalid.');
+            $this->assertFalse($result->isValid(), "Failed asserting the validation result is invalid.");
+            $this->assertEqualErrors($expectedErrors, $result->getErrorMessages());
         }
     }
 
@@ -152,6 +157,27 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         }
 
         return $data;
+    }
+
+    private function assertEqualErrors(array $expected, array $actual)
+    {
+        $this->assertEquals(count($expected), count($actual), "Failed asserting that errors are equal.");
+
+        foreach ($expected as $name => $errorCodes) {
+            $this->assertArrayHasKey(
+                $name,
+                $actual,
+                sprintf("Failed asserting that input name '%s' has an error.", $name)
+            );
+
+            foreach ($errorCodes as $errorCode) {
+                $this->assertArrayHasKey(
+                    $errorCode,
+                    $actual[$name],
+                    sprintf("Failed asserting that input name '%s' has error code '%s'.", $name, $errorCode)
+                );
+            }
+        }
     }
 
     private function assertEqualForms($expected, $actual)
