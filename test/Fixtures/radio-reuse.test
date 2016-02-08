@@ -1,0 +1,29 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="radio" name="gender" value="male" data-reuse-submitted-value="true" /> Male<br />
+    <input type="radio" name="gender" value="female" data-reuse-submitted-value="true" /> Female<br />
+    <input type="radio" name="gender" value="other" data-reuse-submitted-value="true" /> Other
+</form>
+--DEFAULT-VALUES--
+{
+    "gender": "male"
+}
+--SUBMITTED-VALUES--
+{
+    "gender": "female"
+}
+--EXPECTED-VALUES--
+{
+    "gender": "female"
+}
+--EXPECTED-FORM--
+<form action="/" method="post">
+    <input type="radio" name="gender" value="male" data-reuse-submitted-value="true" /> Male<br />
+    <input type="radio" name="gender" value="female" data-reuse-submitted-value="true" checked /> Female<br />
+    <input type="radio" name="gender" value="other" data-reuse-submitted-value="true" /> Other
+</form>
+--EXPECTED-ERRORS--
+{
+}
