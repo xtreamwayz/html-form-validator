@@ -81,7 +81,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
                 }
 
                 if (!empty($testData['EXPECTED-FORM'])) {
-                    $expectedForm = json_decode($testData['EXPECTED-FORM'], true);
+                    $expectedForm = $testData['EXPECTED-FORM'];
                 }
 
                 if (!empty($testData['EXPECTED-ERRORS'])) {
@@ -118,7 +118,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
             'DEFAULT-VALUES'   => false,
             'SUBMITTED-VALUES' => false,
             'EXPECTED-VALUES'  => false,
-            'EXPECTED-FORM'    => true,
+            'EXPECTED-FORM'    => false,
             'EXPECTED-ERRORS'  => false,
         ];
 
