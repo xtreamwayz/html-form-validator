@@ -1,0 +1,21 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="file" name="file" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "file": ""
+}
+--EXPECTED-VALUES--
+{
+    "file": ""
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}
