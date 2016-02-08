@@ -12,6 +12,12 @@ Together with some powerful html compliant data attributes you can create forms,
 
 A prototype can be seen in action over [here](https://github.com/xtreamwayz/xtreamwayz.com/blob/master/src/App/Action/ContactAction.php).
 
+## Installation
+
+```bash
+$ composer require xtreamwayz/html-form-validator
+```
+
 ## Element attributes
 
 ### type *(required)*
