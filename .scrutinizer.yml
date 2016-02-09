@@ -14,8 +14,6 @@ checks:
         remove_trailing_whitespace: true
         return_doc_comments: true
         properties_in_camelcaps: true
-        custom_coding_standard:
-            ruleset_path: phpcs.xml
         avoid_todo_comments: true
         avoid_fixme_comments: true
         line_length:
