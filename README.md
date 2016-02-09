@@ -2,10 +2,6 @@
 
 [![Build Status](https://travis-ci.org/xtreamwayz/html-form-validator.svg?branch=master)](https://travis-ci.org/xtreamwayz/html-form-validator)
 
-*This is just a proof of concept!*
-
----
-
 As challenged by a [tweet](https://twitter.com/Ocramius/status/680817040429592576), this should validate a html form.
 
 It's pretty crazy what you have to do to get a form build. Create a lot of php classes for elements, validation,
@@ -35,7 +31,7 @@ The type triggers the predefined validators.
 The name is required to link validation messages and request data.
 
 ```html
-<input type="email" name="email" />
+<input type="email" name="email_address" />
 ```
 
 ### required / aria-required="true"
@@ -43,9 +39,9 @@ The name is required to link validation messages and request data.
 The required attribute triggers the not empty validation.
 
 ```html
-<input type="email" name="email" required />
-<input type="email" name="email" required="required" />
-<input type="email" name="email" aria-required="true" />
+<input type="email" name="email_address" required />
+<input type="email" name="email_address" required="required" />
+<input type="email" name="email_address" aria-required="true" />
 ```
 
 ### data-reuse-submitted-value
@@ -53,7 +49,7 @@ The required attribute triggers the not empty validation.
 Reuse the submitted value and inject it as a value.
 
 ```html
-<input type="text" name="username" data-reuse-submitted-value="true" value="submitted-user-name" />
+<input type="text" name="username" data-reuse-submitted-value="true" value="xtreamwayz" />
 ```
 
 ### data-filters
@@ -94,92 +90,126 @@ Sometimes you need to validate javascript generated from fields. This is easy wi
 
 The form validator detects HTML5 form elements and adds default validators depending on the used attributes.
 
-### Element: input [type="text"]
-
-No default validators.
-
 ```html
-<input type="text" name="firstName" value="" />
+<form action="/" method="post">
+    <input type="checkbox" name="checkbox" value="value" />
+
+    <input type="color" name="color" />
+
+    <input type="date" name="date" />
+
+    <input type="datetime-local" name="datetime-local" />
+
+    <input type="email" name="email" data-validator-use-mx-check="true" />
+
+    <input type="file" name="file" />
+
+    <input list="browsers" name="browser" />
+    <datalist id="browsers">
+        <option value="Edge" />
+        <option value="Firefox" />
+        <option value="Chrome" />
+        <option value="Opera" />
+        <option value="Safari" />
+    </datalist>
+
+    <input type="month" name="month" />
+
+    <input type="number" name="number" min="1" max="5" />
+
+    <input type="password" name="password" required />
+    <input type="password" name="password-confirm" required data-validators="identical{token:password}" />
+
+    <input type="radio" name="gender" value="male" /> Male<br />
+    <input type="radio" name="gender" value="female" /> Female<br />
+    <input type="radio" name="gender" value="other" /> Other
+
+    <input type="range" name="range" min="1" max="10" step="2" />
+
+    <input type="tel" name="tel" data-country="es" />
+
+    <input type="text" name="name" />
+
+    <input type="time" name="time" />
+
+    <input type="url" name="url" />
+
+    <input type="week" name="week" />
+
+    <select name="car">
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option>
+    </select>
+
+    <textarea name="textarea"></textarea>
+</form>
 ```
 
-### Element: input [type="email"]
+## Examples
 
-Default email validator.
-
-```html
-<input type="email" name="email" value="" data-validator-use-mx-check="true" />
-```
-
-- Attribute: *data-validator-use-mx-check*
-
-  Use mx check to validate the domain.
-
-### Element: input [type="number"]
-
-The validator that is applied depends on if ``min`` and / or ``max`` is set.
-
-```html
-<input type="number" name="rating" value="" min="1" max="10" />
-```
-
-- Attribute: *min && max*
-
-  The submitted value must be between the set min and max.
-
-- Attribute: *min*
-
-  The submitted value must be equal or greater than the set min.
-
-- Attribute: *max*
-
-  The submitted value must be equal or lower than the set max.
-
-## Example
+This is a basic contact form. A lot more examples can be found in the
+[test/Fixtures](https://github.com/xtreamwayz/html-form-validator/tree/master/test/Fixtures) dir.
 
 ```php
 $htmlForm = <<<'HTML'
-<form action="%s" method="post">
-    <label for="email">Email:</label>
-    <input
-        type="email"
-        id="email"
-        name="email"
-        value=""
-        aria-describedby="email-description"
-        data-reuse-submitted-value="true"
-        data-validator="email-address"
-        required="required"
-    />
-    <span id="email-description" class="help">Enter a valid email address</span>
-    <input
-        type="number"
-        id="intNumber"
-        name="intNumber"
-        value=""
-        min="1"
-        max="20"
-        data-reuse-submitted-value="true"
-        data-validator="between"
-    />
-    <input
-        type="text"
-        name="username"
-        value=""
-        data-reuse-submitted-value="true"
-        data-filters="stringtrim,alpha"
-    />
-    <input type="submit"/>
+<form action="{{ path() }}" method="post">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-control-label" for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required
+                       data-reuse-submitted-value="true" data-filters="striptags|stringtrim"
+                       class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-control-label" for="email">Email address</label>
+                <input type="email" id="email" name="email" placeholder="Your email address" required
+                       data-reuse-submitted-value="true" data-filters="striptags|stringtrim"
+                       class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-control-label" for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="Subject" required
+               data-reuse-submitted-value="true" data-filters="striptags|stringtrim"
+               class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-control-label" for="body">Message</label>
+        <textarea id="body" name="body" rows="5" required
+                  data-reuse-submitted-value="true" data-filters="stringtrim"
+                  class="form-control" placeholder="Message"></textarea>
+    </div>
+
+    <input type="hidden" name="token" value="{{ csrf-token }}"
+           data-validators="identical{token:{{ csrf-token }}}" required />
+
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 HTML;
 
-$form = FormFactory::fromHtml($htmlForm);
+// Create form validator from a twig rendered form template
+$form = FormFactory::fromHtml($template->render($htmlForm, [
+    'csrf-token' => '123456'
+]));
 
-$_POST['email'] = 'test@localhost';
-$_POST['intNumber'] = 22;
-$_POST['username'] = ' xtreamwayz 22 ';
-var_dump($form->validate($_POST)); // returns form validation result VO
+$_POST['name'] = 'John Doe';
+$_POST['email'] = 'john.doe@example.com';
+$_POST['subject'] = 'Subject of message';
+$_POST['body'] = 'ow are you doing.';
 
-echo $form->asString();
+// Validate form and return form validation result object
+$result = $form->validate($_POST);
+
+// Inject error messages and filtered values from the result object
+echo $form->asString($result);
 ```
 
 ## Resources
