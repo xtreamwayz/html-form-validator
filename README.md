@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.org/xtreamwayz/html-form-validator.svg?branch=master)](https://travis-ci.org/xtreamwayz/html-form-validator)
 
+**NOTE: This is a proof of concept. Use at your own risk!**
+
+---
+
 As challenged by a [tweet](https://twitter.com/Ocramius/status/680817040429592576), this should validate a html form.
 
 It's pretty crazy what you have to do to get a form build. Create a lot of php classes for elements, validation,
@@ -16,15 +20,14 @@ A prototype can be seen in action over [here](https://github.com/xtreamwayz/xtre
 $ composer require xtreamwayz/html-form-validator
 ```
 
+## How does it work?
+
+A html form is loaded into the FormFactory. It creates validation and filters for all input elements in the form.
+Default validators for standard HTML5 form elements are created for you. Optionally default form values can be set,
+which will be injected into the form. Next the form can be validated against user submitted data. Finally the form
+can be rendered as a string and even the error messages and submitted values can optionally be injected.
+
 ## Element attributes
-
-### type *(required)*
-
-The type triggers the predefined validators.
-
-```html
-<input type="email" />
-```
 
 ### name / data-input-name="name" *(required)*
 
