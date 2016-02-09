@@ -1,6 +1,6 @@
 <?php
 
-namespace demo;
+namespace XtreamwayzTest\HTMLFormValidator\Validator;
 
 use AspectMock\Test as test;
 use InvalidArgumentException;

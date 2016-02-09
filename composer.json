@@ -40,7 +40,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Xtreamwayz\\HTMLFormValidatorTest\\": "test/"
+            "XtreamwayzTest\\HTMLFormValidator\\": "test/"
         }
     }
 }

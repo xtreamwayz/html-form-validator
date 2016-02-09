@@ -1,6 +1,6 @@
 <?php
 
-namespace Xtreamwayz\HTMLFormValidatorTest;
+namespace XtreamwayzTest\HTMLFormValidator;
 
 use Xtreamwayz\HTMLFormValidator\FormFactory;
 use Xtreamwayz\HTMLFormValidator\ValidationResult;
