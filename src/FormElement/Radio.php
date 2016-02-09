@@ -14,8 +14,6 @@ class Radio extends AbstractFormElement
      */
     protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
-        // TODO: Errors should attach only to one radio element
-
         $haystack = [];
         $name = $element->getAttribute('name');
         $xpath = new DOMXPath($this->document);
