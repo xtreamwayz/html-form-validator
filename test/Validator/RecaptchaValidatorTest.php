@@ -27,7 +27,8 @@ class RecaptchaValidatorTest extends \PHPUnit_Framework_TestCase
         $this->validator = new Validator\RecaptchaValidator(['key' => $this->privKey]);
     }
 
-    protected function tearDown() {
+    protected function tearDown()
+    {
         test::clean();
     }
 
