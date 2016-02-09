@@ -1,4 +1,4 @@
-<phpunit bootstrap="./vendor/autoload.php" colors="true">
+<phpunit bootstrap="./test/bootstrap.php" colors="true" backupGlobals="false">
     <testsuites>
         <testsuite name="Xtreamwayz\\HTMLFormValidatorTests">
             <directory>./test</directory>
