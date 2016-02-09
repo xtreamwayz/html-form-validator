@@ -21,5 +21,9 @@ install:
   - travis_retry composer install --no-interaction --prefer-source
 
 script:
-  - composer test
-  - if [[ $EXECUTE_CS_CHECK == 'true' ]]; then composer cs ; fi
+  - vendor/bin/phpcs
+  - vendor/bin/phpunit --disallow-test-output --report-useless-tests --coverage-clover clover.xml --group=Coverage
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover clover.xml

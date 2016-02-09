@@ -3,9 +3,9 @@
 namespace Xtreamwayz\HTMLFormValidator\Validator;
 
 use InvalidArgumentException;
-use Zend\Validator\AbstractValidator;
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
+use Zend\Validator\AbstractValidator;
 
 class RecaptchaValidator extends AbstractValidator
 {
@@ -14,7 +14,7 @@ class RecaptchaValidator extends AbstractValidator
     const INVALID = 'recaptcha';
 
     protected $messageTemplates = [
-        self::INVALID => "ReCaptcha was invalid!"
+        self::INVALID => "ReCaptcha was invalid!",
     ];
 
     protected $options = [
@@ -44,6 +44,7 @@ class RecaptchaValidator extends AbstractValidator
     public function setKey($key)
     {
         $this->options['key'] = $key;
+
         return $this;
     }
 
@@ -53,7 +54,7 @@ class RecaptchaValidator extends AbstractValidator
         $json = file_get_contents($uri);
         $response = json_decode($json);
 
-        if (! isset($response->success) || $response->success !== true) {
+        if (!isset($response->success) || $response->success !== true) {
             $this->error(self::INVALID);
 
             return false;

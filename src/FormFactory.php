@@ -9,7 +9,6 @@ use Xtreamwayz\HTMLFormValidator\FormElement;
 use Zend\InputFilter\BaseInputFilter;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
-use Zend\Validator;
 
 class FormFactory
 {

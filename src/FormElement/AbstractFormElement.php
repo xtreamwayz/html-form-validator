@@ -2,10 +2,9 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use DOMElement;
 use DOMDocument;
+use DOMElement;
 use Xtreamwayz\HTMLFormValidator\ValidatorManager;
-use Zend\Filter;
 use Zend\InputFilter\InputInterface;
 use Zend\Validator;
 
@@ -103,9 +102,9 @@ abstract class AbstractFormElement
     /**
      * Parse data attribute value for validators, filters and options
      *
-     * @param $value
+     * @param string $value
      *
-     * @return array
+     * @return \Generator
      */
     protected function parseDataAttribute($value)
     {
