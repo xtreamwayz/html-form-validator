@@ -1,3 +1,4 @@
 /data
 /composer.lock
 /vendor
+/clover.xml
