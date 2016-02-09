@@ -17,8 +17,13 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         $submittedValues,
         $expectedValues,
         $expectedForm,
-        $expectedErrors
+        $expectedErrors,
+        $expectedException
     ) {
+        if ($expectedException) {
+            $this->expectException($expectedException);
+        }
+
         $form = FormFactory::fromHtml($htmlForm, $defaultValues);
         $result = $form->validate($submittedValues);
 
@@ -38,7 +43,6 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue($result->isValid(), "Failed asserting the validation result is valid.");
             $this->assertEqualErrors($expectedErrors, $result->getErrorMessages());
         } else {
-            //var_dump($result->getErrorMessages());
             $this->assertFalse($result->isValid(), "Failed asserting the validation result is invalid.");
             $this->assertEqualErrors($expectedErrors, $result->getErrorMessages());
         }
@@ -65,6 +69,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
             $expectedValues = [];
             $expectedForm = '';
             $expectedErrors = [];
+            $expectedException = '';
 
             try {
                 $message = $testData['TEST'];
@@ -89,6 +94,10 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
                 if (!empty($testData['EXPECTED-ERRORS'])) {
                     $expectedErrors = json_decode($testData['EXPECTED-ERRORS'], true);
                 }
+
+                if (!empty($testData['EXPECTED-EXCEPTION'])) {
+                    $expectedException = trim($testData['EXPECTED-EXCEPTION']);
+                }
             } catch (\Exception $e) {
                 die(sprintf('Test "%s" is not valid: ' . $e->getMessage(), str_replace($fixturesDir . '/', '', $file)));
             }
@@ -101,6 +110,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
                 $expectedValues,
                 $expectedForm,
                 $expectedErrors,
+                $expectedException,
             ];
         }
     }
@@ -115,13 +125,14 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         );
 
         $sectionInfo = [
-            'TEST'             => true,
-            'HTML-FORM'        => true,
-            'DEFAULT-VALUES'   => false,
-            'SUBMITTED-VALUES' => false,
-            'EXPECTED-VALUES'  => false,
-            'EXPECTED-FORM'    => false,
-            'EXPECTED-ERRORS'  => false,
+            'TEST'               => true,
+            'HTML-FORM'          => true,
+            'DEFAULT-VALUES'     => false,
+            'SUBMITTED-VALUES'   => false,
+            'EXPECTED-VALUES'    => false,
+            'EXPECTED-FORM'      => false,
+            'EXPECTED-ERRORS'    => false,
+            'EXPECTED-EXCEPTION' => false,
         ];
 
         $data = [];

@@ -18,7 +18,7 @@ class DataList extends AbstractFormElement
         $list = $element->getAttribute('list');
         $dataList = $this->document->getElementById($list);
         if (!$dataList) {
-            throw new \OutOfRangeException('Cannot find DataList element with id: ' . $list);
+            throw new \InvalidArgumentException(sprintf("Cannot find DataList element with '%s' id.", $list));
         }
 
         /** @var DOMElement $node */

@@ -28,3 +28,5 @@
 {
     "name": "Not found"
 }
+--EXPECTED-EXCEPTION--
+Exception

@@ -1,0 +1,23 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input list="browsers" name="browser" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "browser": "Chrome"
+}
+--EXPECTED-VALUES--
+{
+    "browser": "Chrome"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}
+--EXPECTED-EXCEPTION--
+InvalidArgumentException
