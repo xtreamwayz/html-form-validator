@@ -27,6 +27,7 @@ checks:
         fix_php_opening_tag: true
         fix_linefeed: true
         fix_line_ending: true
+        fix_identation_4spaces: false
         phpunit_assertions: true
         simplify_boolean_return: true
         use_self_instead_of_fqcn: true
@@ -35,6 +36,3 @@ checks:
 tools:
     external_code_coverage:
         timeout: 600
-    php_code_coverage:
-        enabled: true
-    sensiolabs_security_checker: true
