@@ -22,10 +22,15 @@ $ composer require xtreamwayz/html-form-validator
 
 ## How does it work?
 
-A html form is loaded into the FormFactory. It creates validation and filters for all input elements in the form.
-Default validators for standard HTML5 form elements are created for you. Optionally default form values can be set,
-which will be injected into the form. Next the form can be validated against user submitted data. Finally the form
-can be rendered as a string and even the error messages and submitted values can optionally be injected.
+1. **Load the html form into the FormFactory.**
+    - The FormFactory automatically creates default validators and filters for all input elements.
+    - The FormFactory creates additional validators and filters set by you inside the form with specific data
+    attributes.
+    - The FormFactory optionally injects default data into the form input elements.
+2. **Validate the form against submitted data.**
+3. **Render the form.**
+    - The FormFactory optionally injects filtered submitted data into the input elements.
+    - The FormFactory optionally adds error messages next to the input elements.
 
 ## Element attributes
 
