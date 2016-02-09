@@ -25,6 +25,7 @@ Nothing.
 - [#7](https://github.com/xtreamwayz/html-form-validator/pull/7) adds missing zend-uri dependency.
 - [#7](https://github.com/xtreamwayz/html-form-validator/pull/7) fixes range step having min as a base value,
   otherwise it's 0.
+- [#7](https://github.com/xtreamwayz/html-form-validator/pull/7) fixes pattern attribute regex.
 
 ## 0.1.0 - 2016-02-08
 

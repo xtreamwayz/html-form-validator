@@ -1,0 +1,26 @@
+--TEST--
+Pattern attribute test
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="text" name="country_code" pattern="[A-Za-z]{3}" title="Three letter country code" />
+    <input type="submit" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "country_code": "NED"
+}
+--EXPECTED-VALUES--
+{
+    "country_code": "NED"
+}
+--EXPECTED-FORM--
+<form action="/" method="post">
+    <input type="text" name="country_code" pattern="[A-Za-z]{3}" title="Three letter country code" />
+    <input type="submit" />
+</form>
+--EXPECTED-ERRORS--
+{
+}
