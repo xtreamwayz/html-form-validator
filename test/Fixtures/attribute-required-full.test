@@ -1,0 +1,24 @@
+--TEST--
+Test required="required" attribute
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="text" id="name" name="name" required="required" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "name": "Full Name"
+}
+--EXPECTED-VALUES--
+{
+    "name": "Full Name"
+}
+--EXPECTED-FORM--
+<form action="/" method="post">
+    <input type="text" id="name" name="name" required="required" />
+</form>
+--EXPECTED-ERRORS--
+{
+}

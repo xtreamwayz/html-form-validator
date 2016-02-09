@@ -1,0 +1,21 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="url" name="url" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "url": "https://example.com/foo/bar"
+}
+--EXPECTED-VALUES--
+{
+    "url": "https://example.com/foo/bar"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}

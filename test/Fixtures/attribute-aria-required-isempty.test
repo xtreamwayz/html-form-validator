@@ -1,0 +1,24 @@
+--TEST--
+Test aria-required="true" attribute should throw error on empty submit
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="text" id="name" name="name" aria-required="true" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "name": ""
+}
+--EXPECTED-VALUES--
+{
+    "name": ""
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+	"name": [
+		"isEmpty"
+	]
+}

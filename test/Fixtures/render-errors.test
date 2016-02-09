@@ -1,0 +1,32 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <div class="input-group">
+        <input type="text" id="name" name="name" required />
+    </div>
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "name": ""
+}
+--EXPECTED-VALUES--
+{
+    "name": ""
+}
+--EXPECTED-FORM--
+<form action="/" method="post">
+    <div class="input-group has-danger">
+        <input type="text" id="name" name="name" required />
+        <div class="text-danger">Value is required and can't be empty</div>
+    </div>
+</form>
+--EXPECTED-ERRORS--
+{
+	"name": [
+		"isEmpty"
+	]
+}

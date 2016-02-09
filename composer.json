@@ -15,10 +15,12 @@
         "zendframework/zend-filter": "^2.6",
         "zendframework/zend-inputfilter": "^2.5",
         "zendframework/zend-servicemanager": "^3.0",
-        "zendframework/zend-i18n": "^2.5"
+        "zendframework/zend-i18n": "^2.5",
+        "zendframework/zend-uri": "^2.5"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.0",
+        "codeception/aspect-mock": "*",
         "squizlabs/php_codesniffer": "^2.3"
     },
     "scripts": {
@@ -27,7 +29,9 @@
             "@test"
         ],
         "cs": "php vendor/squizlabs/php_codesniffer/scripts/phpcs",
-        "test": "php vendor/phpunit/phpunit/phpunit"
+        "fix": "php vendor/squizlabs/php_codesniffer/scripts/phpcbf",
+        "test": "php vendor/phpunit/phpunit/phpunit",
+        "coverage": "phpdbg -qrr vendor/phpunit/phpunit/phpunit --coverage-html ./data/coverage"
     },
     "autoload": {
         "psr-4": {

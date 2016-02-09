@@ -1,0 +1,21 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="number" name="number" max="5" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "number": "3"
+}
+--EXPECTED-VALUES--
+{
+    "number": "3"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}

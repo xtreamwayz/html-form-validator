@@ -1,0 +1,19 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="email" name="email" />
+</form>
+--DEFAULT-VALUES--
+--SUBMITTED-VALUES--
+{
+    "email": "john.doe@example.com"
+}
+--EXPECTED-VALUES--
+{
+    "email": "john.doe@example.com"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}

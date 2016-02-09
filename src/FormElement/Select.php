@@ -16,7 +16,7 @@ class Select extends AbstractFormElement
         $haystack = [];
 
         /** @var DOMElement $node */
-        foreach($element->getElementsByTagName('option') as $node){
+        foreach ($element->getElementsByTagName('option') as $node) {
             $haystack[] = $node->getAttribute('value');
         }
 

@@ -46,12 +46,8 @@ abstract class AbstractFormElement
 
         // Validate regex pattern
         if ($pattern = $element->getAttribute('pattern')) {
-            $input->getValidatorChain()->attach(new Validator\Regex(sprintf('/%s/', $pattern)));
+            $input->getValidatorChain()->attach(new Validator\Regex(sprintf('/^%s$/', $pattern)));
         }
-
-        // Always remove element data attributes in case there is sensitive data passed as an option
-        $element->removeAttribute('data-validators');
-        $element->removeAttribute('data-filters');
     }
 
     /**

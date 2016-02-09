@@ -13,7 +13,9 @@ class Tel extends AbstractFormElement
      */
     protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
+        $country = $element->getAttribute('data-country');
+
         $input->getValidatorChain()
-              ->attach(new Validator\PhoneNumber());
+              ->attach(new Validator\PhoneNumber(['country' => $country]));
     }
 }

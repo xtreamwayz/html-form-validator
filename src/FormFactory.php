@@ -136,6 +136,15 @@ class FormFactory
             $this->injectErrorMessages($result->getErrorMessages());
         }
 
+        // Always remove form validator specific attributes before rendering the form
+        // to clean it up and remove possible sensitive data
+        foreach ($this->getFormElements() as $name => $element) {
+            $element->removeAttribute('data-reuse-submitted-value');
+            $element->removeAttribute('data-input-name');
+            $element->removeAttribute('data-validators');
+            $element->removeAttribute('data-filters');
+        }
+
         $this->document->formatOutput = true;
 
         return $this->document->saveHTML();

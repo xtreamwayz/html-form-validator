@@ -1,0 +1,21 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="color" name="color" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "color": "#fefefe"
+}
+--EXPECTED-VALUES--
+{
+    "color": "#fefefe"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}

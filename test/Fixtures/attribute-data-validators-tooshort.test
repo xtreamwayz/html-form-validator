@@ -1,0 +1,27 @@
+--TEST--
+Test data validators attribute where the value is too short
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="text" id="name" name="name"
+           data-validators="stringlength{min:2,max:4}"
+    />
+</form>
+--DEFAULT-VALUES--
+{
+    "name": "Bruce Wayne"
+}
+--SUBMITTED-VALUES--
+{
+    "name": "B"
+}
+--EXPECTED-VALUES--
+{
+    "name": "B"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+    "name": [
+        "stringLengthTooShort"
+    ]
+}
