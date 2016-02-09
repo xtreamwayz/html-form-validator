@@ -22,7 +22,7 @@ install:
 
 script:
   - vendor/bin/phpcs
-  - vendor/bin/phpunit --disallow-test-output --report-useless-tests --coverage-clover clover.xml --group=Coverage
+  - vendor/bin/phpunit --disallow-test-output --report-useless-tests --coverage-clover clover.xml
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
