@@ -22,9 +22,7 @@
 }
 --EXPECTED-FORM--
 <form action="/" method="post">
-    <input type="text" id="name" name="name" required
-        data-reuse-submitted-value="true"
-    />
+    <input type="text" id="name" name="name" required />
 </form>
 --EXPECTED-ERRORS--
 {

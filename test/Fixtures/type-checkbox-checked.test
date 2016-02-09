@@ -17,7 +17,7 @@
 }
 --EXPECTED-FORM--
 <form action="/" method="post">
-    <input type="checkbox" name="checkbox" value="value" data-reuse-submitted-value="true" checked="checked" />
+    <input type="checkbox" name="checkbox" value="value" checked />
 </form>
 --EXPECTED-ERRORS--
 {

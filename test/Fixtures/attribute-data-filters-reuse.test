@@ -21,9 +21,7 @@ Test data filters attribute with reusing submitted values
 }
 --EXPECTED-FORM--
 <form action="/" method="post">
-    <input type="text" id="name" name="name"
-           data-reuse-submitted-value="true" value="Full Name"
-    />
+    <input type="text" id="name" name="name" value="Full Name" />
 </form>
 --EXPECTED-ERRORS--
 {

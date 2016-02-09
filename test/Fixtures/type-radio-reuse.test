@@ -20,9 +20,9 @@
 }
 --EXPECTED-FORM--
 <form action="/" method="post">
-    <input type="radio" name="gender" value="male" data-reuse-submitted-value="true" /> Male<br />
-    <input type="radio" name="gender" value="female" data-reuse-submitted-value="true" checked /> Female<br />
-    <input type="radio" name="gender" value="other" data-reuse-submitted-value="true" /> Other
+    <input type="radio" name="gender" value="male" /> Male<br />
+    <input type="radio" name="gender" value="female" checked /> Female<br />
+    <input type="radio" name="gender" value="other" /> Other
 </form>
 --EXPECTED-ERRORS--
 {
