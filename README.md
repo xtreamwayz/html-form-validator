@@ -1,6 +1,8 @@
 # html-form-validator
 
 [![Build Status](https://travis-ci.org/xtreamwayz/html-form-validator.svg?branch=master)](https://travis-ci.org/xtreamwayz/html-form-validator)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/?branch=master)
 
 **NOTE: This is a proof of concept. Use at your own risk!**
 
