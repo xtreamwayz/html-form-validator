@@ -51,7 +51,6 @@ class FormFactory
         'radio'          => FormElement\Radio::class,
         'file'           => FormElement\File::class,
         'select'         => FormElement\Select::class,
-        'list'           => FormElement\DataList::class,
     ];
 
     /**
