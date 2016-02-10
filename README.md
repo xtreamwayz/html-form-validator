@@ -223,6 +223,7 @@ echo $form->asString($result);
 ```
 
 ## Resources
+- https://www.w3.org/TR/html5/forms.html
 - https://www.w3.org/wiki/HTML/Elements/input
 - http://www.w3schools.com/html/html_form_elements.asp
 - http://www.w3schools.com/tags/tag_input.asp
