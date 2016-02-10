@@ -102,23 +102,29 @@ abstract class AbstractFormElement
     /**
      * Parse data attribute value for validators, filters and options
      *
-     * @param string $value
+     * @param $dataAttribute
      *
      * @return \Generator
      */
-    protected function parseDataAttribute($value)
+    protected function parseDataAttribute($dataAttribute)
     {
-        preg_match_all("/([a-zA-Z]+)([^|]*)/", $value, $matches, PREG_SET_ORDER);
+        preg_match_all("/([a-zA-Z]+)([^|]*)/", $dataAttribute, $matches, PREG_SET_ORDER);
+
+        if (!is_array($matches) || empty($matches)) {
+            return;
+        }
 
         foreach ($matches as $match) {
             $validator = $match[1];
             $options = [];
 
-            if ($match[2]) {
+            if (isset($match[2])) {
                 $allOptions = explode(',', $match[2]);
                 foreach ($allOptions as $option) {
                     $option = explode(':', $option);
-                    $options[trim($option[0], ' {}\'\"')] = trim($option[1], ' {}\'\"');
+                    if (isset($option[0]) && isset($option[1])) {
+                        $options[trim($option[0], ' {}\'\"')] = trim($option[1], ' {}\'\"');
+                    }
                 }
             }
 

@@ -1,0 +1,24 @@
+--TEST--
+Test data validators attribute
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="text" id="name" name="name"
+           data-validators=""
+    />
+</form>
+--DEFAULT-VALUES--
+{
+    "name": "Bruce Wayne"
+}
+--SUBMITTED-VALUES--
+{
+    "name": "  Batman  "
+}
+--EXPECTED-VALUES--
+{
+    "name": "  Batman  "
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}

@@ -5,6 +5,7 @@ namespace XtreamwayzTest\HTMLFormValidator\Validator;
 use AspectMock\Test as test;
 use InvalidArgumentException;
 use Xtreamwayz\HTMLFormValidator\Validator;
+use ArrayIterator;
 
 class RecaptchaValidatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,6 +31,21 @@ class RecaptchaValidatorTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         test::clean();
+    }
+
+    public function testOptionsIteratorToArray()
+    {
+        $options = ['key' => $this->privKey];
+        $iterator = new ArrayIterator($options);
+        $this->validator = new Validator\RecaptchaValidator($iterator);
+
+        $reflectionClass = new \ReflectionClass(Validator\RecaptchaValidator::class);
+
+        $reflectionProperty = $reflectionClass->getProperty('options');
+        $reflectionProperty->setAccessible(true);
+        $actualOptions = $reflectionProperty->getValue($this->validator);
+
+        $this->assertEquals($options, $actualOptions);
     }
 
     public function testMissingKeyOptionThrowsInvalidArgumentException()

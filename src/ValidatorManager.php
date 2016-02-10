@@ -5,8 +5,9 @@ namespace Xtreamwayz\HTMLFormValidator;
 use InvalidArgumentException;
 
 /**
- * TODO: This is a hack to get the input filter with servicemanager 3 working.
- * TODO: Needs fix when zend-inputfilter 3 is released.
+ * TODO: This is a hack to make validators work with servicemanager 3. Needs fix when zend-validator 3 is released.
+ *
+ * @codeCoverageIgnore
  */
 class ValidatorManager
 {
