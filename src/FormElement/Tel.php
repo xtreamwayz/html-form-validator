@@ -13,6 +13,12 @@ class Tel extends AbstractFormElement
      */
     protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
+        if ($element->hasAttribute('maxlength')) {
+            $this->attachValidatorByName($input, 'stringlength', [
+                'max' => $element->getAttribute('maxlength'),
+            ]);
+        }
+
         $country = $element->getAttribute('data-country');
 
         $input->getValidatorChain()

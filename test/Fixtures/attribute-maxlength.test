@@ -1,0 +1,36 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="text" name="text" maxlength="32" />
+    <input type="search" name="search" maxlength="32" />
+    <input type="url" name="url" maxlength="32" />
+    <input type="tel" name="tel" data-country="es" maxlength="32" />
+    <input type="email" name="email" maxlength="32" />
+    <input type="password" name="password" maxlength="32" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "text": "example text",
+    "search": "example text",
+    "url": "http://example.com/",
+    "tel":  "+34555666777",
+    "email": "email@example.com",
+    "password": "my secret password"
+}
+--EXPECTED-VALUES--
+{
+    "text": "example text",
+    "search": "example text",
+    "url": "http://example.com/",
+    "tel":  "+34555666777",
+    "email": "email@example.com",
+    "password": "my secret password"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}

@@ -73,11 +73,22 @@ abstract class AbstractFormElement
         }
 
         foreach ($this->parseDataAttribute($dataValidators) as $validator => $options) {
-            // TODO: Needs a fix when zend-validator works with servicemanager 3
-            if (ValidatorManager::hasValidator($validator)) {
-                $class = ValidatorManager::getValidator($validator);
-                $input->getValidatorChain()->attach(new $class($options));
-            }
+            $this->attachValidatorByName($input, $validator, $options);
+        }
+    }
+
+    /**
+     * Attach validator to input
+     *
+     * @param InputInterface $input
+     * @param                $validator
+     * @param array          $options
+     */
+    protected function attachValidatorByName(InputInterface $input, $validator, array $options = [])
+    {
+        if (ValidatorManager::hasValidator($validator)) {
+            $class = ValidatorManager::getValidator($validator);
+            $input->getValidatorChain()->attach(new $class($options));
         }
     }
 
