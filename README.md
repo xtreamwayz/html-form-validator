@@ -114,15 +114,6 @@ The form validator detects HTML5 form elements and adds default validators depen
 
     <input type="file" name="file" />
 
-    <input list="browsers" name="browser" />
-    <datalist id="browsers">
-        <option value="Edge" />
-        <option value="Firefox" />
-        <option value="Chrome" />
-        <option value="Opera" />
-        <option value="Safari" />
-    </datalist>
-
     <input type="month" name="month" />
 
     <input type="number" name="number" min="1" max="5" />
@@ -139,6 +130,15 @@ The form validator detects HTML5 form elements and adds default validators depen
     <input type="tel" name="tel" data-country="es" />
 
     <input type="text" name="name" />
+
+    <input type="text" name="browser" list="browsers" />
+    <datalist id="browsers">
+        <option value="Edge" />
+        <option value="Firefox" />
+        <option value="Chrome" />
+        <option value="Opera" />
+        <option value="Safari" />
+    </datalist>
 
     <input type="time" name="time" />
 
