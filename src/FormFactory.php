@@ -242,14 +242,17 @@ class FormFactory
                 continue;
             }
 
+            if ($element->hasAttribute('list')) {
+                // Skip datalists
+                continue;
+            }
+
             if ($element->getAttribute('type') == 'checkbox' || $element->getAttribute('type') == 'radio') {
                 if ($value == $element->getAttribute('value')) {
                     $element->setAttribute('checked', 'checked');
                 } else {
                     $element->removeAttribute('checked');
                 }
-            } elseif ($element->hasAttribute('list')) {
-                // Do nothing
             } elseif ($element->nodeName == 'select') {
                 /** @var DOMElement $node */
                 foreach ($element->getElementsByTagName('option') as $node) {
@@ -262,10 +265,7 @@ class FormFactory
             } elseif ($element->nodeName == 'input') {
                 // Set value for input elements
                 $element->setAttribute('value', $value);
-            } elseif ($element->nodeName == 'div') {
-                // Do nothing
-            } else {
-                // For other elements
+            } elseif ($element->nodeName == 'textarea') {
                 $element->nodeValue = $value;
             }
         }
