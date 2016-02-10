@@ -110,6 +110,10 @@ abstract class AbstractFormElement
     {
         preg_match_all("/([a-zA-Z]+)([^|]*)/", $dataAttribute, $matches, PREG_SET_ORDER);
 
+        if (!is_array($matches) || empty($matches)) {
+            return;
+        }
+
         foreach ($matches as $match) {
             $validator = $match[1];
             $options = [];
