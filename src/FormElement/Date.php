@@ -13,7 +13,13 @@ class Date extends AbstractFormElement
      */
     protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
+
+        $defaultDateFormat = 'Y-m-d';
+        $dateFormat = !empty($element->getAttribute('date-format')) ?
+            $element->getAttribute('date-format') :
+            $defaultDateFormat;
+
         $input->getValidatorChain()
-              ->attach(new Validator\Date(['format' => 'Y-m-d']));
+            ->attach(new Validator\Date(['format' => $dateFormat]));
     }
 }
