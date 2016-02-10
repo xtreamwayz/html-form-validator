@@ -19,6 +19,12 @@ class Email extends AbstractFormElement
             ]);
         }
 
+        if ($element->hasAttribute('pattern')) {
+            $this->attachValidatorByName($input, 'regex', [
+                'pattern' => sprintf('/%s/', $element->getAttribute('pattern')),
+            ]);
+        }
+
         $input->getValidatorChain()
               ->attach(
                   new Validator\EmailAddress([

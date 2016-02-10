@@ -19,6 +19,12 @@ class Tel extends AbstractFormElement
             ]);
         }
 
+        if ($element->hasAttribute('pattern')) {
+            $this->attachValidatorByName($input, 'regex', [
+                'pattern' => sprintf('/%s/', $element->getAttribute('pattern')),
+            ]);
+        }
+
         $country = $element->getAttribute('data-country');
 
         $input->getValidatorChain()

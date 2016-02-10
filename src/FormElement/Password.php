@@ -18,5 +18,11 @@ class Password extends AbstractFormElement
                 'max' => $element->getAttribute('maxlength'),
             ]);
         }
+
+        if ($element->hasAttribute('pattern')) {
+            $this->attachValidatorByName($input, 'regex', [
+                'pattern' => sprintf('/%s/', $element->getAttribute('pattern')),
+            ]);
+        }
     }
 }
