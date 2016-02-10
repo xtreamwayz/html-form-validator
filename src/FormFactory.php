@@ -161,8 +161,6 @@ class FormFactory
                 $type = 'textarea';
             } elseif ($element->tagName == 'select') {
                 $type = 'select';
-            } elseif ($element->hasAttribute('list')) {
-                $type = 'list';
             }
 
             // Add validation
@@ -239,11 +237,6 @@ class FormFactory
 
             if (!$reuseSubmittedValue && $force === false) {
                 // Don't need to set the value
-                continue;
-            }
-
-            if ($element->hasAttribute('list')) {
-                // Skip datalists
                 continue;
             }
 
