@@ -22,3 +22,5 @@ Test data validators attribute
 --EXPECTED-ERRORS--
 {
 }
+--EXPECTED-EXCEPTION--
+InvalidArgumentException

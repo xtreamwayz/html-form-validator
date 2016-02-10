@@ -3,7 +3,6 @@
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
-use Zend\I18n\Validator;
 use Zend\InputFilter\InputInterface;
 
 class Tel extends AbstractFormElement
@@ -25,9 +24,8 @@ class Tel extends AbstractFormElement
             ]);
         }
 
-        $country = $element->getAttribute('data-country');
-
-        $input->getValidatorChain()
-              ->attach(new Validator\PhoneNumber(['country' => $country]));
+        $this->attachValidatorByName($input, 'phonenumber', [
+            'country' => $element->getAttribute('data-country'),
+        ]);
     }
 }

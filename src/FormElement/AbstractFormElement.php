@@ -6,7 +6,6 @@ use DOMDocument;
 use DOMElement;
 use Xtreamwayz\HTMLFormValidator\ValidatorManager;
 use Zend\InputFilter\InputInterface;
-use Zend\Validator;
 
 abstract class AbstractFormElement
 {
@@ -36,7 +35,7 @@ abstract class AbstractFormElement
             $input->setRequired(true);
             $input->setAllowEmpty(false);
             // Attach NotEmpty validator manually so it won't use the plugin manager, which fails for servicemanager 3
-            $input->getValidatorChain()->attach(new Validator\NotEmpty());
+            $this->attachValidatorByName($input, 'notempty');
         } else {
             // Enforce properties so it doesn't try to load NotEmpty, which fails for servicemanager 3
             $input->setRequired(false);
@@ -76,15 +75,13 @@ abstract class AbstractFormElement
      * Attach validator to input
      *
      * @param InputInterface $input
-     * @param                $validator
+     * @param                $name
      * @param array          $options
      */
-    protected function attachValidatorByName(InputInterface $input, $validator, array $options = [])
+    protected function attachValidatorByName(InputInterface $input, $name, array $options = [])
     {
-        if (ValidatorManager::hasValidator($validator)) {
-            $class = ValidatorManager::getValidator($validator);
-            $input->getValidatorChain()->attach(new $class($options));
-        }
+        $class = ValidatorManager::getValidator($name);
+        $input->getValidatorChain()->attach(new $class($options));
     }
 
     /**
