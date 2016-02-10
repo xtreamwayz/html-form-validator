@@ -4,7 +4,6 @@ namespace Xtreamwayz\HTMLFormValidator\Validator;
 
 use InvalidArgumentException;
 use Traversable;
-use Zend\Stdlib\ArrayUtils;
 use Zend\Validator\AbstractValidator;
 
 class RecaptchaValidator extends AbstractValidator
@@ -31,7 +30,7 @@ class RecaptchaValidator extends AbstractValidator
     public function __construct($options = null)
     {
         if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
+            $options = iterator_to_array($options);
         }
 
         if (!is_array($options) || !isset($options['key'])) {
