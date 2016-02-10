@@ -95,6 +95,17 @@ class AbstractFormElementTest extends \PHPUnit_Framework_TestCase
                     ],
                 ],
             ],
+            'invalid-filter'                              => [
+                'invalid filter ++',
+                [
+                    'invalid' => [],
+                ],
+            ],
+            'empty-filter'                                => [
+                '',
+                [
+                ],
+            ],
         ];
     }
 
