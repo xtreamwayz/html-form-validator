@@ -18,7 +18,8 @@ Nothing.
 
 ### Fixed
 
-Nothing.
+- [#14](https://github.com/xtreamwayz/html-form-validator/pull/14) removes list and datalist checks since it is a
+  global attribute that suggests values, not restrict to a value from the list.
 
 ## 0.1.1 - 2016-02-09
 
