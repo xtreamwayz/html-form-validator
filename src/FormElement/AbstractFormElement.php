@@ -6,7 +6,6 @@ use DOMDocument;
 use DOMElement;
 use Xtreamwayz\HTMLFormValidator\ValidatorManager;
 use Zend\InputFilter\InputInterface;
-use Zend\Validator;
 
 abstract class AbstractFormElement
 {
@@ -36,16 +35,11 @@ abstract class AbstractFormElement
             $input->setRequired(true);
             $input->setAllowEmpty(false);
             // Attach NotEmpty validator manually so it won't use the plugin manager, which fails for servicemanager 3
-            $input->getValidatorChain()->attach(new Validator\NotEmpty());
+            $this->attachValidatorByName($input, 'notempty');
         } else {
             // Enforce properties so it doesn't try to load NotEmpty, which fails for servicemanager 3
             $input->setRequired(false);
             $input->setAllowEmpty(true);
-        }
-
-        // Validate regex pattern
-        if ($pattern = $element->getAttribute('pattern')) {
-            $input->getValidatorChain()->attach(new Validator\Regex(sprintf('/^%s$/', $pattern)));
         }
     }
 
@@ -73,12 +67,21 @@ abstract class AbstractFormElement
         }
 
         foreach ($this->parseDataAttribute($dataValidators) as $validator => $options) {
-            // TODO: Needs a fix when zend-validator works with servicemanager 3
-            if (ValidatorManager::hasValidator($validator)) {
-                $class = ValidatorManager::getValidator($validator);
-                $input->getValidatorChain()->attach(new $class($options));
-            }
+            $this->attachValidatorByName($input, $validator, $options);
         }
+    }
+
+    /**
+     * Attach validator to input
+     *
+     * @param InputInterface $input
+     * @param                $name
+     * @param array          $options
+     */
+    protected function attachValidatorByName(InputInterface $input, $name, array $options = [])
+    {
+        $class = ValidatorManager::getValidator($name);
+        $input->getValidatorChain()->attach(new $class($options));
     }
 
     /**

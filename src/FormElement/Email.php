@@ -4,7 +4,6 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
 use Zend\InputFilter\InputInterface;
-use Zend\Validator;
 
 class Email extends AbstractFormElement
 {
@@ -13,14 +12,23 @@ class Email extends AbstractFormElement
      */
     protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
-        $input->getValidatorChain()
-              ->attach(
-                  new Validator\EmailAddress([
-                      'useMxCheck' => filter_var(
-                          $element->getAttribute('data-validator-use-mx-check'),
-                          FILTER_VALIDATE_BOOLEAN
-                      ),
-                  ])
-              );
+        if ($element->hasAttribute('maxlength')) {
+            $this->attachValidatorByName($input, 'stringlength', [
+                'max' => $element->getAttribute('maxlength'),
+            ]);
+        }
+
+        if ($element->hasAttribute('pattern')) {
+            $this->attachValidatorByName($input, 'regex', [
+                'pattern' => sprintf('/%s/', $element->getAttribute('pattern')),
+            ]);
+        }
+
+        $this->attachValidatorByName($input, 'emailaddress', [
+            'useMxCheck' => filter_var(
+                $element->getAttribute('data-validator-use-mx-check'),
+                FILTER_VALIDATE_BOOLEAN
+            ),
+        ]);
     }
 }

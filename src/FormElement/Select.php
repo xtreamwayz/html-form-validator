@@ -4,7 +4,6 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
 use Zend\InputFilter\InputInterface;
-use Zend\Validator;
 
 class Select extends AbstractFormElement
 {
@@ -20,9 +19,8 @@ class Select extends AbstractFormElement
             $haystack[] = $node->getAttribute('value');
         }
 
-        $input->getValidatorChain()
-              ->attach(new Validator\InArray([
-                  'haystack' => $haystack,
-              ]));
+        $this->attachValidatorByName($input, 'inarray', [
+            'haystack' => $haystack,
+        ]);
     }
 }

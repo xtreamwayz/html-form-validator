@@ -5,7 +5,6 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 use DOMElement;
 use DOMXPath;
 use Zend\InputFilter\InputInterface;
-use Zend\Validator;
 
 class Radio extends AbstractFormElement
 {
@@ -23,9 +22,8 @@ class Radio extends AbstractFormElement
             $haystack[] = $node->getAttribute('value');
         }
 
-        $input->getValidatorChain()
-              ->attach(new Validator\InArray([
-                  'haystack' => $haystack,
-              ]));
+        $this->attachValidatorByName($input, 'inarray', [
+            'haystack' => $haystack,
+        ]);
     }
 }

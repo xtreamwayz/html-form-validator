@@ -4,7 +4,6 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
 use Zend\InputFilter\InputInterface;
-use Zend\Validator;
 
 class Range extends AbstractFormElement
 {
@@ -20,33 +19,29 @@ class Range extends AbstractFormElement
 
         if ($min && $max) {
             $baseValue = $min;
-            $input->getValidatorChain()
-                  ->attach(new Validator\Between([
-                      'min' => $min,
-                      'max' => $max,
-                      'inclusive' => true
-                  ]));
+            $this->attachValidatorByName($input, 'between', [
+                'min'       => $min,
+                'max'       => $max,
+                'inclusive' => true,
+            ]);
         } elseif ($min) {
             $baseValue = $min;
-            $input->getValidatorChain()
-                  ->attach(new Validator\GreaterThan([
-                      'min' => $min,
-                      'inclusive' => true
-                  ]));
+            $this->attachValidatorByName($input, 'greaterthan', [
+                'min'       => $min,
+                'inclusive' => true,
+            ]);
         } elseif ($max) {
-            $input->getValidatorChain()
-                  ->attach(new Validator\LessThan([
-                      'max' => $max,
-                      'inclusive' => true
-                  ]));
+            $this->attachValidatorByName($input, 'lessthan', [
+                'max'       => $max,
+                'inclusive' => true,
+            ]);
         }
 
         if ($step) {
-            $input->getValidatorChain()
-                  ->attach(new Validator\Step([
-                      'step' => $step,
-                      'baseValue' => $baseValue
-                  ]));
+            $this->attachValidatorByName($input, 'step', [
+                'step'      => $step,
+                'baseValue' => $baseValue,
+            ]);
         }
     }
 }

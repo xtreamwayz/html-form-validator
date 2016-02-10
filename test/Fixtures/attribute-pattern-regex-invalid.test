@@ -1,0 +1,54 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="text" name="text" pattern="^[0-9]{4}$" />
+    <input type="search" name="search" pattern="^[0-9]{4}$" />
+    <input type="url" name="url" pattern="^[0-9]{4}$" />
+    <input type="tel" name="tel" data-country="es" pattern="^[0-9]{4}$" />
+    <input type="email" name="email" pattern="^[0-9]{4}$" />
+    <input type="password" name="password" pattern="^[0-9]{4}$" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "text": "example text",
+    "search": "example text",
+    "url": "http://example.com/",
+    "tel":  "+34555666777",
+    "email": "email@example.com",
+    "password": "my secret password"
+}
+--EXPECTED-VALUES--
+{
+    "text": "example text",
+    "search": "example text",
+    "url": "http://example.com/",
+    "tel":  "+34555666777",
+    "email": "email@example.com",
+    "password": "my secret password"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+    "text": [
+        "regexNotMatch"
+    ],
+    "search": [
+        "regexNotMatch"
+    ],
+    "url": [
+        "regexNotMatch"
+    ],
+    "tel": [
+        "regexNotMatch"
+    ],
+    "email": [
+        "regexNotMatch"
+    ],
+    "password": [
+        "regexNotMatch"
+    ]
+}

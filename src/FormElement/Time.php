@@ -4,7 +4,6 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
 use Zend\InputFilter\InputInterface;
-use Zend\Validator;
 
 class Time extends AbstractFormElement
 {
@@ -13,7 +12,8 @@ class Time extends AbstractFormElement
      */
     protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
-        $input->getValidatorChain()
-              ->attach(new Validator\Date(['format' => 'H:i']));
+        $this->attachValidatorByName($input, 'date', [
+            'format' => 'H:i',
+        ]);
     }
 }

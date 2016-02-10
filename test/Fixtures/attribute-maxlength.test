@@ -2,12 +2,12 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="text" name="text" pattern=".*" />
-    <input type="search" name="search" pattern=".*" />
-    <input type="url" name="url" pattern=".*" />
-    <input type="tel" name="tel" data-country="es" pattern=".*" />
-    <input type="email" name="email" pattern=".*" />
-    <input type="password" name="password" pattern=".*" />
+    <input type="text" name="text" maxlength="32" />
+    <input type="search" name="search" maxlength="32" />
+    <input type="url" name="url" maxlength="32" />
+    <input type="tel" name="tel" data-country="es" maxlength="32" />
+    <input type="email" name="email" maxlength="32" />
+    <input type="password" name="password" maxlength="32" />
 </form>
 --DEFAULT-VALUES--
 {

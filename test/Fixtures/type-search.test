@@ -1,0 +1,21 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="search" name="query" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "query": "Batman"
+}
+--EXPECTED-VALUES--
+{
+    "query": "Batman"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+}

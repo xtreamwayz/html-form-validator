@@ -5,7 +5,7 @@ namespace Xtreamwayz\HTMLFormValidator;
 use InvalidArgumentException;
 
 /**
- * TODO: This is a hack to make validators work with servicemanager 3. Needs fix when zend-validator 3 is released.
+ * This is a hack to make validators work with servicemanager 3. Needs fix when zend-validator 3 is released.
  *
  * @codeCoverageIgnore
  */
@@ -111,7 +111,7 @@ class ValidatorManager
     public static function getValidator($name)
     {
         if (!self::hasValidator($name)) {
-            throw new InvalidArgumentException('Filter not found');
+            throw new InvalidArgumentException('Validator not found');
         }
 
         return self::$validators[$name];

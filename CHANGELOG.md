@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-Nothing.
+- [#15](https://github.com/xtreamwayz/html-form-validator/pull/15) adds support for the maxlength attribute for
+  specifc elements.
 
 ### Deprecated
 
@@ -14,12 +15,13 @@ Nothing.
 
 ### Removed
 
-Nothing.
+- [#14](https://github.com/xtreamwayz/html-form-validator/pull/14) removes list and datalist checks since it is a
+  global attribute that suggests values, not restrict to a value from the list.
 
 ### Fixed
 
-- [#14](https://github.com/xtreamwayz/html-form-validator/pull/14) removes list and datalist checks since it is a
-  global attribute that suggests values, not restrict to a value from the list.
+- [#15](https://github.com/xtreamwayz/html-form-validator/pull/15) makes the pattern attribute trigger the regex
+  plugin only for specific elements.
 
 ## 0.1.1 - 2016-02-09
 

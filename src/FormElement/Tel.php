@@ -3,7 +3,6 @@
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
-use Zend\I18n\Validator;
 use Zend\InputFilter\InputInterface;
 
 class Tel extends AbstractFormElement
@@ -13,9 +12,20 @@ class Tel extends AbstractFormElement
      */
     protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
-        $country = $element->getAttribute('data-country');
+        if ($element->hasAttribute('maxlength')) {
+            $this->attachValidatorByName($input, 'stringlength', [
+                'max' => $element->getAttribute('maxlength'),
+            ]);
+        }
 
-        $input->getValidatorChain()
-              ->attach(new Validator\PhoneNumber(['country' => $country]));
+        if ($element->hasAttribute('pattern')) {
+            $this->attachValidatorByName($input, 'regex', [
+                'pattern' => sprintf('/%s/', $element->getAttribute('pattern')),
+            ]);
+        }
+
+        $this->attachValidatorByName($input, 'phonenumber', [
+            'country' => $element->getAttribute('data-country'),
+        ]);
     }
 }

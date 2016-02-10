@@ -5,7 +5,7 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 use DOMElement;
 use Zend\InputFilter\InputInterface;
 
-class Password extends AbstractFormElement
+class Search extends AbstractFormElement
 {
     /**
      * @inheritdoc
