@@ -287,6 +287,9 @@ class FormFactory
                 $parent->setAttribute('class', $class);
             }
 
+            // Set aria-invalid attribute on element
+            $element->setAttribute('aria-invalid', 'true');
+
             // Inject error messages
             foreach ($errors as $code => $message) {
                 $div = $this->document->createElement('div');

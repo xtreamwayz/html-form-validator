@@ -25,14 +25,21 @@ $ composer require xtreamwayz/html-form-validator
 ## How does it work?
 
 1. **Load the html form into the FormFactory.**
+
     - The FormFactory automatically creates default validators and filters for all input elements.
     - The FormFactory creates additional validators and filters set by you inside the form with specific data
     attributes.
     - The FormFactory optionally injects default data into the form input elements.
+
 2. **Validate the form against submitted data.**
+
 3. **Render the form.**
-    - The FormFactory optionally injects filtered submitted data into the input elements.
-    - The FormFactory optionally adds error messages next to the input elements.
+
+   The FormFactory runs the following tasks if the validation result object is injected into the form renderer
+   ``$form->asString($validationResult)``:
+    - Inject filtered submitted data into the input elements.
+    - Add error messages next to the input elements.
+    - Set the ``aria-invalid="true"`` attribute for invalid input elements.
 
 ## Element attributes
 
