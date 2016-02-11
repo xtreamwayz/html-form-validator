@@ -1,0 +1,82 @@
+--TEST--
+Tests the number input type. The range input type works exactly the same.
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="number" name="valid" />
+    <input type="number" name="valid_min" min="4" />
+    <input type="number" name="valid_max" max="8" />
+    <input type="number" name="valid_between" min="4" max="8" />
+    <input type="number" name="valid_step" step="2" />
+    <input type="number" name="valid_between_step" min="4" max="8" step="2" />
+
+    <input type="number" name="invalid" />
+    <input type="number" name="invalid_min" min="4" />
+    <input type="number" name="invalid_max" max="8" />
+    <input type="number" name="invalid_between_low" min="4" max="8" />
+    <input type="number" name="invalid_between_high" min="4" max="8" />
+    <input type="number" name="invalid_step" step="2" />
+    <input type="number" name="invalid_between_step" min="4" max="8" step="2" />
+</form>
+--DEFAULT-VALUES--
+{
+}
+--SUBMITTED-VALUES--
+{
+    "valid": "6",
+    "valid_min": "6",
+    "valid_max": "6",
+    "valid_between": "6",
+    "valid_step": "6",
+    "valid_between_step": "6",
+
+    "invalid": "abcd",
+    "invalid_min": "2",
+    "invalid_max": "10",
+    "invalid_between_low": "2",
+    "invalid_between_high": "10",
+    "invalid_step": "1",
+    "invalid_between_step": "3"
+}
+--EXPECTED-VALUES--
+{
+    "valid": "6",
+    "valid_min": "6",
+    "valid_max": "6",
+    "valid_between": "6",
+    "valid_step": "6",
+    "valid_between_step": "6",
+
+    "invalid": "abcd",
+    "invalid_min": "2",
+    "invalid_max": "10",
+    "invalid_between_low": "2",
+    "invalid_between_high": "10",
+    "invalid_step": "1",
+    "invalid_between_step": "3"
+}
+--EXPECTED-FORM--
+--EXPECTED-ERRORS--
+{
+    "invalid": [
+        "notInt"
+    ],
+    "invalid_min": [
+        "notGreaterThanInclusive"
+    ],
+    "invalid_max": [
+        "notLessThanInclusive"
+    ],
+    "invalid_between_low": [
+        "notBetween"
+    ],
+    "invalid_between_high": [
+        "notBetween"
+    ],
+    "invalid_step": [
+        "stepInvalid"
+    ],
+    "invalid_between_step": [
+        "notBetween",
+        "stepInvalid"
+    ]
+}
