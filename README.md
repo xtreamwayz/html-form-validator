@@ -11,10 +11,8 @@
 As challenged by a [tweet](https://twitter.com/Ocramius/status/680817040429592576), this should validate a html form.
 
 It's pretty crazy what you have to do to get a form build. Create a lot of php classes for elements, validation,
-etc. So why not build a html5 form and use the standard element attributes to generate the validator and filters.
+etc. So why not build a html form and use the standard element attributes to extract the validation rules and filters.
 Together with some powerful html compliant data attributes you can create forms, validation and filters in one place.
-
-A prototype can be seen in action over [here](https://github.com/xtreamwayz/xtreamwayz.com/blob/master/src/App/Action/ContactAction.php).
 
 ## Installation
 
@@ -24,22 +22,102 @@ $ composer require xtreamwayz/html-form-validator
 
 ## How does it work?
 
-1. **Load the html form into the FormFactory.**
+1. **Load the html form into the FormFactory**
+
+    ```php
+    $form = FormFactory::fromHtml($htmlForm, $defaultValues);
+    ```
 
     - The FormFactory automatically creates default validators and filters for all input elements.
-    - The FormFactory creates additional validators and filters set by you inside the form with specific data
-    attributes.
+    - The FormFactory extracts additional custom validation rules and filters from the form.
     - The FormFactory optionally injects default data into the form input elements.
 
-2. **Validate the form against submitted data.**
+2. **Validate the form against submitted data**
 
-3. **Render the form.**
+    ```php
+    $result = $form->validate($_POST);
+    ```
 
-   The FormFactory runs the following tasks if the validation result object is injected into the form renderer
-   ``$form->asString($validationResult)``:
-    - Inject filtered submitted data into the input elements.
-    - Add error messages next to the input elements.
-    - Set the ``aria-invalid="true"`` attribute for invalid input elements.
+    Under the hood it uses [zend-inputfilter](https://github.com/zendframework/zend-inputfilter) which makes all its
+    [validators](http://framework.zend.com/manual/current/en/modules/zend.validator.set.html) and
+    [filters](http://framework.zend.com/manual/current/en/modules/zend.filter.set.html) available to you.
+
+3. **Render the form**
+
+    ```php
+    echo $form->asString($validationResult);
+    ```
+
+    The ``$validationResult`` is optional and triggers the following tasks:
+    - The FormFactory injects filtered submitted data into the input elements.
+    - The FormFactory adds error messages next to the input elements.
+    - The FormFactory sets the ``aria-invalid="true"`` attribute for invalid input elements.
+    - The FormFactory adds the bootstrap ``has-danger`` css class to the parent element.
+
+## Examples
+
+This is a basic contact form. A lot more examples can be found in the
+[test/Fixtures](https://github.com/xtreamwayz/html-form-validator/tree/master/test/Fixtures) dir.
+
+```php
+$htmlForm = <<<'HTML'
+<form action="{{ path() }}" method="post">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-control-label" for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required
+                       data-reuse-submitted-value="true" data-filters="striptags|stringtrim"
+                       class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-control-label" for="email">Email address</label>
+                <input type="email" id="email" name="email" placeholder="Your email address" required
+                       data-reuse-submitted-value="true" data-filters="striptags|stringtrim"
+                       class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-control-label" for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="Subject" required
+               data-reuse-submitted-value="true" data-filters="striptags|stringtrim"
+               class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-control-label" for="body">Message</label>
+        <textarea id="body" name="body" rows="5" required
+                  data-reuse-submitted-value="true" data-filters="stringtrim"
+                  class="form-control" placeholder="Message"></textarea>
+    </div>
+
+    <input type="hidden" name="token" value="{{ csrf-token }}"
+           data-validators="identical{token:{{ csrf-token }}}" required />
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+HTML;
+
+// Create form validator from a twig rendered form template
+$form = FormFactory::fromHtml($template->render($htmlForm, [
+    'csrf-token' => '123456'
+]));
+
+$_POST['name'] = 'John Doe';
+$_POST['email'] = 'john.doe@example.com';
+$_POST['subject'] = 'Subject of message';
+$_POST['body'] = 'ow are you doing.';
+
+// Validate form and return form validation result object
+$result = $form->validate($_POST);
+
+// Inject error messages and filtered values from the result object
+echo $form->asString($result);
+```
 
 ## Element attributes
 
@@ -162,71 +240,6 @@ The form validator detects HTML5 form elements and adds default validators depen
 
     <textarea name="textarea"></textarea>
 </form>
-```
-
-## Examples
-
-This is a basic contact form. A lot more examples can be found in the
-[test/Fixtures](https://github.com/xtreamwayz/html-form-validator/tree/master/test/Fixtures) dir.
-
-```php
-$htmlForm = <<<'HTML'
-<form action="{{ path() }}" method="post">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="form-control-label" for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Your name" required
-                       data-reuse-submitted-value="true" data-filters="striptags|stringtrim"
-                       class="form-control" />
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="form-control-label" for="email">Email address</label>
-                <input type="email" id="email" name="email" placeholder="Your email address" required
-                       data-reuse-submitted-value="true" data-filters="striptags|stringtrim"
-                       class="form-control" />
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="form-control-label" for="subject">Subject</label>
-        <input type="text" id="subject" name="subject" placeholder="Subject" required
-               data-reuse-submitted-value="true" data-filters="striptags|stringtrim"
-               class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label class="form-control-label" for="body">Message</label>
-        <textarea id="body" name="body" rows="5" required
-                  data-reuse-submitted-value="true" data-filters="stringtrim"
-                  class="form-control" placeholder="Message"></textarea>
-    </div>
-
-    <input type="hidden" name="token" value="{{ csrf-token }}"
-           data-validators="identical{token:{{ csrf-token }}}" required />
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-HTML;
-
-// Create form validator from a twig rendered form template
-$form = FormFactory::fromHtml($template->render($htmlForm, [
-    'csrf-token' => '123456'
-]));
-
-$_POST['name'] = 'John Doe';
-$_POST['email'] = 'john.doe@example.com';
-$_POST['subject'] = 'Subject of message';
-$_POST['body'] = 'ow are you doing.';
-
-// Validate form and return form validation result object
-$result = $form->validate($_POST);
-
-// Inject error messages and filtered values from the result object
-echo $form->asString($result);
 ```
 
 ## Resources
