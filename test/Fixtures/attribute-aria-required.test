@@ -2,20 +2,35 @@
 Test aria-required="true" attribute
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="text" id="name" name="name" aria-required="true" />
+    <input type="text" name="valid_true" aria-required="true" />
+    <input type="text" name="valid_false" aria-required="false" />
+    <input type="text" name="valid_empty" aria-required="false" />
+
+    <input type="text" name="invalid_isempty" aria-required="true" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "name": "Full Name"
+    "valid_true": "Text",
+    "valid_false": "Text",
+    "valid_empty": "",
+
+    "invalid_isempty": ""
 }
 --EXPECTED-VALUES--
 {
-    "name": "Full Name"
+    "valid_true": "Text",
+    "valid_false": "Text",
+    "valid_empty": "",
+
+    "invalid_isempty": ""
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
+	"invalid_isempty": [
+		"isEmpty"
+	]
 }
