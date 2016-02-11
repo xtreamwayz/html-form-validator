@@ -2,20 +2,26 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="week" name="week" />
+    <input type="week" name="valid" />
+    <input type="week" name="invalid" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "week": "2016-W05"
+    "valid": "2016-W05",
+    "invalid": "2016-05"
 }
 --EXPECTED-VALUES--
 {
-    "week": "2016-W05"
+    "valid": "2016-W05",
+    "invalid": "2016-05"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
+    "invalid": [
+        "regexNotMatch"
+    ]
 }

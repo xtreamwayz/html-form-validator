@@ -2,28 +2,68 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="radio" name="gender" value="male" /> Male<br />
-    <input type="radio" name="gender" value="female" /> Female<br />
-    <input type="radio" name="gender" value="other" /> Other
+    <input type="radio" name="valid" value="male" />
+    <input type="radio" name="valid" value="female" />
+
+    <input type="radio" name="valid_default" value="male" />
+    <input type="radio" name="valid_default" value="female" />
+
+    <input type="radio" name="valid_reuse" value="male" data-reuse-submitted-value="true" />
+    <input type="radio" name="valid_reuse" value="female" data-reuse-submitted-value="true" />
+
+    <input type="radio" name="invalid" value="male" />
+    <input type="radio" name="invalid" value="female" />
+
+    <input type="radio" name="invalid_reuse" value="male" data-reuse-submitted-value="true" />
+    <input type="radio" name="invalid_reuse" value="female" data-reuse-submitted-value="true" />
 </form>
 --DEFAULT-VALUES--
 {
-    "gender": "male"
+    "valid_default": "male"
 }
 --SUBMITTED-VALUES--
 {
-    "gender": "female"
+    "valid": "male",
+    "valid_default": "male",
+    "valid_reuse": "female",
+    "invalid": "other",
+    "invalid_reuse": "other"
 }
 --EXPECTED-VALUES--
 {
-    "gender": "female"
+    "valid": "male",
+    "valid_default": "male",
+    "valid_reuse": "female",
+    "invalid": "other",
+    "invalid_reuse": "other"
 }
 --EXPECTED-FORM--
-<form action="/" method="post">
-    <input type="radio" name="gender" value="male" checked /> Male<br />
-    <input type="radio" name="gender" value="female" /> Female<br />
-    <input type="radio" name="gender" value="other" /> Other
+<form action="/" method="post" class="has-danger has-danger has-danger has-danger">
+    <input type="radio" name="valid" value="male" />
+    <input type="radio" name="valid" value="female" />
+
+    <input type="radio" name="valid_default" value="male" checked />
+    <input type="radio" name="valid_default" value="female" />
+
+    <input type="radio" name="valid_reuse" value="male" />
+    <input type="radio" name="valid_reuse" value="female" checked />
+
+    <input type="radio" name="invalid" value="male" />
+    <div class="text-danger">The input was not found in the haystack</div>
+    <input type="radio" name="invalid" value="female" />
+    <div class="text-danger">The input was not found in the haystack</div>
+
+    <input type="radio" name="invalid_reuse" value="male" />
+    <div class="text-danger">The input was not found in the haystack</div>
+    <input type="radio" name="invalid_reuse" value="female" />
+    <div class="text-danger">The input was not found in the haystack</div>
 </form>
 --EXPECTED-ERRORS--
 {
+    "invalid": [
+        "notInArray"
+    ],
+    "invalid_reuse": [
+        "notInArray"
+    ]
 }

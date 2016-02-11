@@ -2,26 +2,26 @@
 Test data filters attribute
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="text" id="name" name="name"
-        data-filters="striptags|stringtrim"
-    />
+    <input type="text" name="valid_striptags" data-filters="striptags" />
+    <input type="text" name="valid_stringtrim" data-filters="stringtrim" />
+    <input type="text" name="valid_multiple_filters" data-filters="striptags|stringtrim" />
 </form>
 --DEFAULT-VALUES--
 {
-    "name": "default value"
 }
 --SUBMITTED-VALUES--
 {
-    "name": "  Full Name  "
+    "valid_striptags": "  Full Name  <script src='test.js'></script>  ",
+    "valid_stringtrim": "  Full Name  <script src='test.js'></script>  ",
+    "valid_multiple_filters": "  Full Name  <script src='test.js'></script>  "
 }
 --EXPECTED-VALUES--
 {
-    "name": "Full Name"
+    "valid_striptags": "  Full Name    ",
+    "valid_stringtrim": "Full Name  <script src='test.js'></script>",
+    "valid_multiple_filters": "Full Name"
 }
 --EXPECTED-FORM--
-<form action="/" method="post">
-    <input type="text" id="name" name="name" value="default value" />
-</form>
 --EXPECTED-ERRORS--
 {
 }

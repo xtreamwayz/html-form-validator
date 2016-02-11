@@ -2,20 +2,32 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="month" name="month" />
+    <input type="month" name="valid" />
+    <input type="month" name="invalid_format" />
+    <input type="month" name="invalid_format2" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "month": "2016-02"
+    "valid": "2016-02",
+    "invalid_format": "2016",
+    "invalid_format2": "2016-02-11"
 }
 --EXPECTED-VALUES--
 {
-    "month": "2016-02"
+    "valid": "2016-02",
+    "invalid_format": "2016",
+    "invalid_format2": "2016-02-11"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
+    "invalid_format": [
+        "dateInvalidDate"
+    ],
+    "invalid_format2": [
+        "dateInvalidDate"
+    ]
 }

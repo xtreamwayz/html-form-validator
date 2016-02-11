@@ -2,20 +2,26 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="datetime-local" name="datetime-local" />
+    <input type="datetime-local" name="valid" />
+    <input type="datetime-local" name="invalid_format" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "datetime-local": "2016-02-08T22:00"
+    "valid": "2016-02-08T22:00",
+    "invalid_format": "2016-02-08"
 }
 --EXPECTED-VALUES--
 {
-    "datetime-local": "2016-02-08T22:00"
+    "valid": "2016-02-08T22:00",
+    "invalid_format": "2016-02-08"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
+    "invalid_format": [
+        "dateInvalidDate"
+    ]
 }

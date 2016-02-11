@@ -2,23 +2,56 @@
 Test data validators attribute
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="text" id="name" name="name"
-           data-validators="stringlength{min:2,max:140}"
+    <input type="text" name="valid_empty" data-validators="" />
+    <input type="text" name="valid_stringlength"
+           data-validators="stringlength{min:4,max:140}"
+    />
+    <input type="text" name="valid_multiple"
+           data-validators="stringlength{min:4,max:140}|alpha{allowWhiteSpace:1}"
+    />
+
+    <input type="text" name="invalid_multiple"
+           data-validators="stringlength{min:4,max:140}|alpha{allowWhiteSpace:0}"
+    />
+    <input type="text" name="invalid_toolong"
+           data-validators="stringlength{min:4,max:8}"
+    />
+    <input type="text" name="invalid_tooshort"
+           data-validators="stringlength{min:32,max:140}"
     />
 </form>
 --DEFAULT-VALUES--
 {
-    "name": "Bruce Wayne"
 }
 --SUBMITTED-VALUES--
 {
-    "name": "  Batman  "
+    "valid_empty": "Bruce Wayne",
+    "valid_stringlength": "Bruce Wayne",
+    "valid_multiple": "Bruce Wayne",
+    "invalid_multiple": "123",
+    "invalid_toolong": "Bruce Wayne",
+    "invalid_tooshort": "Bruce Wayne"
 }
 --EXPECTED-VALUES--
 {
-    "name": "  Batman  "
+    "valid_empty": "Bruce Wayne",
+    "valid_stringlength": "Bruce Wayne",
+    "valid_multiple": "Bruce Wayne",
+    "invalid_multiple": "123",
+    "invalid_toolong": "Bruce Wayne",
+    "invalid_tooshort": "Bruce Wayne"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
+    "invalid_multiple": [
+        "stringLengthTooShort",
+        "notAlpha"
+    ],
+    "invalid_toolong": [
+        "stringLengthTooLong"
+    ],
+    "invalid_tooshort": [
+        "stringLengthTooShort"
+    ]
 }

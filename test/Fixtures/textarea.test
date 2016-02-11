@@ -2,23 +2,28 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <textarea name="textarea"></textarea>
+    <textarea name="valid_default"></textarea>
+    <textarea name="valid_reuse" data-reuse-submitted-value="true"></textarea>
 </form>
 --DEFAULT-VALUES--
 {
-    "textarea": "Minions ipsum para tu hahaha wiiiii ti aamoo! Tank yuuu!"
+    "valid_default": "Minions ipsum para tu hahaha wiiiii ti aamoo! Tank yuuu!",
+    "valid_reuse": "Minions ipsum para tu hahaha wiiiii ti aamoo! Tank yuuu!"
 }
 --SUBMITTED-VALUES--
 {
-    "textarea": "Tatata bala tu wiiiii pepete la bodaaa me want bananaaa!"
+    "valid_default": "Tatata bala tu wiiiii pepete la bodaaa me want bananaaa!",
+    "valid_reuse": "Tatata bala tu wiiiii pepete la bodaaa me want bananaaa!"
 }
 --EXPECTED-VALUES--
 {
-    "textarea": "Tatata bala tu wiiiii pepete la bodaaa me want bananaaa!"
+    "valid_default": "Tatata bala tu wiiiii pepete la bodaaa me want bananaaa!",
+    "valid_reuse": "Tatata bala tu wiiiii pepete la bodaaa me want bananaaa!"
 }
 --EXPECTED-FORM--
 <form action="/" method="post">
-    <textarea name="textarea" >Minions ipsum para tu hahaha wiiiii ti aamoo! Tank yuuu!</textarea>
+    <textarea name="valid_default">Minions ipsum para tu hahaha wiiiii ti aamoo! Tank yuuu!</textarea>
+    <textarea name="valid_reuse">Tatata bala tu wiiiii pepete la bodaaa me want bananaaa!</textarea>
 </form>
 --EXPECTED-ERRORS--
 {

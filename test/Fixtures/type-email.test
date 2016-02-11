@@ -2,18 +2,26 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="email" name="email" />
+    <input type="email" name="valid" />
+    <input type="email" name="invalid" />
 </form>
 --DEFAULT-VALUES--
 --SUBMITTED-VALUES--
 {
-    "email": "john.doe@example.com"
+    "valid": "john.doe@example.com",
+    "invalid": "john.doe@example"
 }
 --EXPECTED-VALUES--
 {
-    "email": "john.doe@example.com"
+    "valid": "john.doe@example.com",
+    "invalid": "john.doe@example"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
+    "invalid": [
+        "emailAddressInvalidHostname",
+        "hostnameInvalidHostname",
+        "hostnameLocalNameNotAllowed"
+    ]
 }

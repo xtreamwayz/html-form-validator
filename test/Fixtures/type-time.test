@@ -2,20 +2,33 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="time" name="time" />
+    <input type="time" name="valid" />
+    <input type="time" name="invalid_value" />
+    <input type="time" name="invalid_format" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "time": "22:00"
+    "valid": "22:00",
+    "invalid_value": "25:00",
+    "invalid_format": "2016-02-08 22:00"
 }
 --EXPECTED-VALUES--
 {
-    "time": "22:00"
+    "valid": "22:00",
+    "invalid_value": "25:00",
+    "invalid_format": "2016-02-08 22:00"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
+    "invalid_value": [
+        "dateFalseFormat",
+        "dateInvalidDate"
+    ],
+    "invalid_format": [
+        "dateInvalidDate"
+    ]
 }

@@ -2,34 +2,56 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <select name="car">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
+    <select name="valid">
         <option value="audi">Audi</option>
+        <option value="bugatti">Bugatti</option>
+        <option value="ferrari">Ferrari</option>
+    </select>
+
+    <select name="valid_required" required>
+        <option value="audi">Audi</option>
+        <option value="bugatti">Bugatti</option>
+        <option value="ferrari">Ferrari</option>
+    </select>
+
+    <select name="invalid">
+        <option value="audi">Audi</option>
+        <option value="bugatti">Bugatti</option>
+        <option value="ferrari">Ferrari</option>
+    </select>
+
+    <select name="invalid_required" required>
+        <option value="audi">Audi</option>
+        <option value="bugatti">Bugatti</option>
+        <option value="ferrari">Ferrari</option>
     </select>
 </form>
 --DEFAULT-VALUES--
 {
-    "car": "audi"
 }
 --SUBMITTED-VALUES--
 {
-    "car": ""
+    "valid": "audi",
+    "valid_required": "audi",
+
+    "invalid": "mercedes",
+    "invalid_required": "mercedes"
 }
 --EXPECTED-VALUES--
 {
-    "car": ""
+    "valid": "audi",
+    "valid_required": "audi",
+
+    "invalid": "mercedes",
+    "invalid_required": "mercedes"
 }
 --EXPECTED-FORM--
-<form action="/" method="post">
-    <select name="car">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi" selected>Audi</option>
-    </select>
-</form>
 --EXPECTED-ERRORS--
 {
+    "invalid": [
+        "notInArray"
+    ],
+    "invalid_required": [
+        "notInArray"
+    ]
 }

@@ -2,19 +2,19 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="text" name="valid_text" maxlength="32" />
-    <input type="search" name="valid_search" maxlength="32" />
-    <input type="url" name="valid_url" maxlength="32" />
-    <input type="tel" name="valid_tel" data-country="es" maxlength="32" />
-    <input type="email" name="valid_email" maxlength="32" />
-    <input type="password" name="valid_password" maxlength="32" />
+    <input type="text" name="valid_text" pattern=".*" />
+    <input type="search" name="valid_search" pattern=".*" />
+    <input type="url" name="valid_url" pattern=".*" />
+    <input type="tel" name="valid_tel" data-country="es" pattern=".*" />
+    <input type="email" name="valid_email" pattern=".*" />
+    <input type="password" name="valid_password" pattern=".*" />
 
-    <input type="text" name="invalid_text" maxlength="4" />
-    <input type="search" name="invalid_search" maxlength="4" />
-    <input type="url" name="invalid_url" maxlength="4" />
-    <input type="tel" name="invalid_tel" data-country="es" maxlength="4" />
-    <input type="email" name="invalid_email" maxlength="4" />
-    <input type="password" name="invalid_password" maxlength="4" />
+    <input type="text" name="invalid_text" pattern="^[0-9]{4}$" />
+    <input type="search" name="invalid_search" pattern="^[0-9]{4}$" />
+    <input type="url" name="invalid_url" pattern="^[0-9]{4}$" />
+    <input type="tel" name="invalid_tel" data-country="es" pattern="^[0-9]{4}$" />
+    <input type="email" name="invalid_email" pattern="^[0-9]{4}$" />
+    <input type="password" name="invalid_password" pattern="^[0-9]{4}$" />
 </form>
 --DEFAULT-VALUES--
 {
@@ -55,21 +55,21 @@
 --EXPECTED-ERRORS--
 {
     "invalid_text": [
-        "stringLengthTooLong"
+        "regexNotMatch"
     ],
     "invalid_search": [
-        "stringLengthTooLong"
+        "regexNotMatch"
     ],
     "invalid_url": [
-        "stringLengthTooLong"
+        "regexNotMatch"
     ],
     "invalid_tel": [
-        "stringLengthTooLong"
+        "regexNotMatch"
     ],
     "invalid_email": [
-        "stringLengthTooLong"
+        "regexNotMatch"
     ],
     "invalid_password": [
-        "stringLengthTooLong"
+        "regexNotMatch"
     ]
 }

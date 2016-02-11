@@ -2,20 +2,26 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="color" name="color" />
+    <input type="color" name="valid" />
+    <input type="color" name="invalid" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "color": "#fefefe"
+    "valid": "#fefefe",
+    "invalid": "01234"
 }
 --EXPECTED-VALUES--
 {
-    "color": "#fefefe"
+    "valid": "#fefefe",
+    "invalid": "01234"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
+    "invalid": [
+        "regexNotMatch"
+    ]
 }

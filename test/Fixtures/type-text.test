@@ -6,7 +6,6 @@
 </form>
 --DEFAULT-VALUES--
 {
-    "name": "Bruce Wayne"
 }
 --SUBMITTED-VALUES--
 {
