@@ -2,7 +2,7 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="text" id="name" name="name" required
+    <input type="text" name="name" required
         data-reuse-submitted-value="true"
         data-filters="striptags|stringtrim"
         data-validators="stringlength{min:2,max:140}"
@@ -22,11 +22,14 @@
 }
 --EXPECTED-FORM--
 <form action="/" method="post">
-    <input type="text" id="name" name="name" required />
+    <input type="text" name="name" required />
 </form>
 --EXPECTED-ERRORS--
 {
-    "name": "Not found"
+    "invalid": [
+        "notAlpha",
+        "stringLengthTooShort"
+    ]
 }
 --EXPECTED-EXCEPTION--
 Exception
