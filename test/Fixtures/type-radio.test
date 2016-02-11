@@ -38,7 +38,7 @@
     "invalid_reuse": "other"
 }
 --EXPECTED-FORM--
-<form action="/" method="post" class="has-danger has-danger has-danger has-danger">
+<form action="/" method="post" class="has-danger">
     <input type="radio" name="valid" value="male" />
     <input type="radio" name="valid" value="female" />
 
