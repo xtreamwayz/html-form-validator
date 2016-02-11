@@ -45,7 +45,7 @@ class FormFactory
         'time'           => FormElement\Time::class,
         'datetime-local' => FormElement\DateTimeLocal::class,
         'color'          => FormElement\Color::class,
-        'range'          => FormElement\Range::class,
+        'range'          => FormElement\Number::class,
         'password'       => FormElement\Password::class,
         'checkbox'       => FormElement\Checkbox::class,
         'radio'          => FormElement\Radio::class,

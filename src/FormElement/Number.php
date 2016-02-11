@@ -17,6 +17,8 @@ class Number extends AbstractFormElement
         $max = $element->getAttribute('max');
         $step = $element->getAttribute('step');
 
+        $this->attachValidatorByName($input, 'isint');
+
         if ($min && $max) {
             $baseValue = $min;
             $this->attachValidatorByName($input, 'between', [
