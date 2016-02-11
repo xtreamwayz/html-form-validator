@@ -2,23 +2,35 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="checkbox" name="checkbox" value="value" />
+    <input type="checkbox" name="valid_empty" value="value" />
+    <input type="checkbox" name="valid_selected" value="value" data-reuse-submitted-value="true" />
+    <input type="checkbox" name="invalid" value="value" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "checkbox": "value"
+    "valid_empty": "",
+    "valid_selected": "value",
+    "invalid": "invalid"
 }
 --EXPECTED-VALUES--
 {
-    "checkbox": "value"
+    "valid_empty": "",
+    "valid_selected": "value",
+    "invalid": "invalid"
 }
 --EXPECTED-FORM--
-<form action="/" method="post">
-    <input type="checkbox" name="checkbox" value="value" />
+<form action="/" method="post" class="has-danger">
+    <input type="checkbox" name="valid_empty" value="value" />
+    <input type="checkbox" name="valid_selected" value="value" checked />
+    <input type="checkbox" name="invalid" value="value" />
+    <div class="text-danger">The two given tokens do not match</div>
 </form>
 --EXPECTED-ERRORS--
 {
+    "invalid": [
+        "notSame"
+    ]
 }

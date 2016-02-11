@@ -2,18 +2,18 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="url" name="url" />
+    <input type="url" name="valid" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "url": "https://example.com/foo/bar"
+    "valid": "https://example.com/foo/bar"
 }
 --EXPECTED-VALUES--
 {
-    "url": "https://example.com/foo/bar"
+    "valid": "https://example.com/foo/bar"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
