@@ -1,0 +1,103 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <select name="valid_optgroup" data-reuse-submitted-value="true">
+        <optgroup label="Swedish Cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+        </optgroup>
+        <optgroup label="German Cars">
+            <option value="audi">Audi</option>
+            <option value="bugatti">Bugatti</option>
+            <option value="volkswagen">Volkswagen</option>
+        </optgroup>
+    </select>
+
+    <select name="valid_no_default_empty" data-reuse-submitted-value="true">
+        <option value="audi">Audi</option>
+        <option value="bugatti">Bugatti</option>
+        <option value="volkswagen">Volkswagen</option>
+    </select>
+
+    <select name="valid_default_empty" data-reuse-submitted-value="true">
+        <option value="audi">Audi</option>
+        <option value="bugatti">Bugatti</option>
+        <option value="volkswagen">Volkswagen</option>
+    </select>
+
+    <select name="valid_default_value" data-reuse-submitted-value="true">
+        <option value="audi">Audi</option>
+        <option value="bugatti">Bugatti</option>
+        <option value="volkswagen">Volkswagen</option>
+    </select>
+
+    <select name="valid_no_default_value" data-reuse-submitted-value="true">
+        <option value="audi">Audi</option>
+        <option value="bugatti">Bugatti</option>
+        <option value="volkswagen">Volkswagen</option>
+    </select>
+</form>
+--DEFAULT-VALUES--
+{
+    "valid_optgroup": "audi",
+    "valid_default_empty": "audi",
+    "valid_default_value": "audi"
+}
+--SUBMITTED-VALUES--
+{
+    "valid_optgroup": "bugatti",
+    "valid_no_default_empty": "",
+    "valid_default_empty": "",
+    "valid_default_value": "bugatti",
+    "valid_no_default_value": "volkswagen"
+}
+--EXPECTED-VALUES--
+{
+    "valid_optgroup": "bugatti",
+    "valid_no_default_empty": "",
+    "valid_default_empty": "",
+    "valid_default_value": "bugatti",
+    "valid_no_default_value": "volkswagen"
+}
+--EXPECTED-FORM--
+<form action="/" method="post">
+    <select name="valid_optgroup">
+        <optgroup label="Swedish Cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+        </optgroup>
+        <optgroup label="German Cars">
+            <option value="audi">Audi</option>
+            <option value="bugatti" selected>Bugatti</option>
+            <option value="volkswagen">Volkswagen</option>
+        </optgroup>
+    </select>
+
+    <select name="valid_no_default_empty">
+        <option value="audi">Audi</option>
+        <option value="bugatti">Bugatti</option>
+        <option value="volkswagen">Volkswagen</option>
+    </select>
+
+    <select name="valid_default_empty">
+        <option value="audi">Audi</option>
+        <option value="bugatti">Bugatti</option>
+        <option value="volkswagen">Volkswagen</option>
+    </select>
+
+    <select name="valid_default_value">
+        <option value="audi">Audi</option>
+        <option value="bugatti" selected>Bugatti</option>
+        <option value="volkswagen">Volkswagen</option>
+    </select>
+
+    <select name="valid_no_default_value">
+        <option value="audi">Audi</option>
+        <option value="bugatti">Bugatti</option>
+        <option value="volkswagen" selected>Volkswagen</option>
+    </select>
+</form>
+--EXPECTED-ERRORS--
+{
+}
