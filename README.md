@@ -49,6 +49,10 @@ $ composer require xtreamwayz/html-form-validator
     echo $form->asString($validationResult);
     ```
 
+    Before rendering, the FormFactory removes any data validation attributes used to instantiate custom validation
+    (e.g. ``data-validators``, ``data-filters``). This also removes possible sensitive data that was used to setup
+    the validators.
+
     The ``$validationResult`` is optional and triggers the following tasks:
     - The FormFactory injects filtered submitted data into the input elements.
     - The FormFactory adds error messages next to the input elements.
