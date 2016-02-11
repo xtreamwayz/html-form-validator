@@ -3,17 +3,20 @@
 --HTML-FORM--
 <form action="/" method="post">
     <input type="number" name="number" min="1" max="5" />
+    <input type="range" name="range" min="1" max="10" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "number": "2"
+    "number": "2",
+    "range": "5"
 }
 --EXPECTED-VALUES--
 {
-    "number": "2"
+    "number": "2",
+    "range": "5"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
