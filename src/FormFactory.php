@@ -281,9 +281,14 @@ class FormFactory
 
             /** @var DOMElement $parent */
             $parent = $element->parentNode;
-            $class = trim($parent->getAttribute('class') . ' ' . $this->errorClass);
-            // Set error class to parent
-            $parent->setAttribute('class', $class);
+            if (strpos($parent->getAttribute('class'), $this->errorClass) === false) {
+                // Set error class to parent
+                $class = trim($parent->getAttribute('class') . ' ' . $this->errorClass);
+                $parent->setAttribute('class', $class);
+            }
+
+            // Set aria-invalid attribute on element
+            $element->setAttribute('aria-invalid', 'true');
 
             // Inject error messages
             foreach ($errors as $code => $message) {

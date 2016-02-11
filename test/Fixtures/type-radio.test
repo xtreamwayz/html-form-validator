@@ -38,7 +38,7 @@
     "invalid_reuse": "other"
 }
 --EXPECTED-FORM--
-<form action="/" method="post" class="has-danger has-danger has-danger has-danger">
+<form action="/" method="post" class="has-danger">
     <input type="radio" name="valid" value="male" />
     <input type="radio" name="valid" value="female" />
 
@@ -48,14 +48,14 @@
     <input type="radio" name="valid_reuse" value="male" />
     <input type="radio" name="valid_reuse" value="female" checked />
 
-    <input type="radio" name="invalid" value="male" />
+    <input type="radio" name="invalid" value="male" aria-invalid="true" />
     <div class="text-danger">The input was not found in the haystack</div>
-    <input type="radio" name="invalid" value="female" />
+    <input type="radio" name="invalid" value="female" aria-invalid="true" />
     <div class="text-danger">The input was not found in the haystack</div>
 
-    <input type="radio" name="invalid_reuse" value="male" />
+    <input type="radio" name="invalid_reuse" value="male" aria-invalid="true" />
     <div class="text-danger">The input was not found in the haystack</div>
-    <input type="radio" name="invalid_reuse" value="female" />
+    <input type="radio" name="invalid_reuse" value="female" aria-invalid="true" />
     <div class="text-danger">The input was not found in the haystack</div>
 </form>
 --EXPECTED-ERRORS--

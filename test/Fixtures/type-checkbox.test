@@ -25,7 +25,7 @@
 <form action="/" method="post" class="has-danger">
     <input type="checkbox" name="valid_empty" value="value" />
     <input type="checkbox" name="valid_selected" value="value" checked />
-    <input type="checkbox" name="invalid" value="value" />
+    <input type="checkbox" name="invalid" value="value" aria-invalid="true" />
     <div class="text-danger">The two given tokens do not match</div>
 </form>
 --EXPECTED-ERRORS--

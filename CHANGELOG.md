@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - [#15](https://github.com/xtreamwayz/html-form-validator/pull/15) adds support for the maxlength attribute for
   specifc elements.
+- [#21](https://github.com/xtreamwayz/html-form-validator/pull/21) adds the ``aria-invalid="true"`` attribute if
+  the validation result object is injected into the form renderer: ``$form->asString($validationResult)``.
 
 ### Deprecated
 
@@ -22,6 +24,7 @@ Nothing.
 
 - [#15](https://github.com/xtreamwayz/html-form-validator/pull/15) makes the pattern attribute trigger the regex
   plugin only for specific elements.
+- [#21](https://github.com/xtreamwayz/html-form-validator/pull/21) fixes adding multiple error classes.
 
 ## 0.1.1 - 2016-02-09
 
