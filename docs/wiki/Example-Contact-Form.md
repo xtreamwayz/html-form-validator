@@ -1,4 +1,4 @@
-This is a basic contact form.
+This is a basic contact form with csrf protection.
 
 ```php
 $htmlForm = <<<'HTML'
@@ -7,37 +7,41 @@ $htmlForm = <<<'HTML'
         <div class="col-md-6">
             <div class="form-group">
                 <label class="form-control-label" for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Your name" required
-                       data-reuse-submitted-value="true" data-filters="striptags|stringtrim"
-                       class="form-control" />
+                <input type="text" id="name" name="name" required
+                       placeholder="Your name" class="form-control"
+                       data-reuse-submitted-value="true"
+                       data-filters="striptags|stringtrim" />
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label class="form-control-label" for="email">Email address</label>
-                <input type="email" id="email" name="email" placeholder="Your email address" required
-                       data-reuse-submitted-value="true" data-filters="striptags|stringtrim"
-                       class="form-control" />
+                <input type="email" id="email" name="email" required
+                       placeholder="Your email address" class="form-control"
+                       data-reuse-submitted-value="true"
+                       data-filters="striptags|stringtrim" />
             </div>
         </div>
     </div>
 
     <div class="form-group">
         <label class="form-control-label" for="subject">Subject</label>
-        <input type="text" id="subject" name="subject" placeholder="Subject" required
-               data-reuse-submitted-value="true" data-filters="striptags|stringtrim"
-               class="form-control" />
+        <input type="text" id="subject" name="subject" required
+               placeholder="Subject" class="form-control"
+               data-reuse-submitted-value="true"
+               data-filters="striptags|stringtrim" />
     </div>
 
     <div class="form-group">
         <label class="form-control-label" for="body">Message</label>
         <textarea id="body" name="body" rows="5" required
-                  data-reuse-submitted-value="true" data-filters="stringtrim"
-                  class="form-control" placeholder="Message"></textarea>
+                  class="form-control" placeholder="Message"
+                  data-reuse-submitted-value="true"
+                  data-filters="stringtrim"></textarea>
     </div>
 
-    <input type="hidden" name="token" value="{{ csrf-token }}"
-           data-validators="identical{token:{{ csrf-token }}}" required />
+    <input type="hidden" name="token" value="{{ csrf-token }}" required
+           data-validators="identical{token:{{ csrf-token }}}" />
 
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
@@ -48,10 +52,11 @@ $form = FormFactory::fromHtml($template->render($htmlForm, [
     'csrf-token' => '123456'
 ]));
 
-$_POST['name'] = 'John Doe';
-$_POST['email'] = 'john.doe@example.com';
-$_POST['subject'] = 'Subject of message';
-$_POST['body'] = 'ow are you doing.';
+$_POST['name'] = 'Ocramius';
+$_POST['email'] = 'no-reply@example.com';
+$_POST['subject'] = 'WOAH!';
+$_POST['body'] = 'Turns out that the idea became an actual thing: https://github.com/xtreamwayz/html-form-validator -
+https://twitter.com/Ocramius/status/680817040429592576 #php #forms';
 
 // Validate form and return form validation result object
 $result = $form->validate($_POST);
