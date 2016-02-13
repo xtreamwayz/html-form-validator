@@ -3,6 +3,10 @@
     "type": "project",
     "homepage": "https://github.com/xtreamwayz/html-form-validator",
     "license": "MIT",
+    "support": {
+        "issues": "https://github.com/xtreamwayz/html-form-validator/issues",
+        "wiki": "https://github.com/xtreamwayz/html-form-validator/wiki"
+    },
     "authors": [
         {
             "name": "Geert Eltink",
