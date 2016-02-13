@@ -5,12 +5,6 @@ It's pretty crazy what you have to do to get a form build. Create a lot of php c
 etc. So why not build a html form and use the standard element attributes to extract the validation rules and filters.
 Together with some powerful html compliant data attributes you can create forms, validation and filters in one place.
 
-## Installation
-
-```bash
-$ composer require xtreamwayz/html-form-validator
-```
-
 ## How does it work?
 
 1. **Load the html form into the FormFactory**

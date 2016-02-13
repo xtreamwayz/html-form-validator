@@ -1,17 +1,14 @@
 **Intro**
 - [[How does it work?|Home#how-does-it-work]]
-- [[Installation|Home#installation]]
+- [[Installation]]
 - [[Getting Started]]
 
 **API**
-
-- [[Element Attributes]]
-- [[Element Types]]
+- [[Form Elements|API Form Elements]]
+- [[Special Attributes|API Special Attributes]]
 
 **Examples**
-
 - [[Contact Form|Example Contact Form]]
 
 **Resource**
-
 - [[Resources]]
