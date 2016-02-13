@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file, in reverse 
   specifc elements.
 - [#21](https://github.com/xtreamwayz/html-form-validator/pull/21) adds the `aria-invalid="true"` attribute if
   the validation result object is injected into the form renderer: `$form->asString($validationResult)`.
+- [#23](https://github.com/xtreamwayz/html-form-validator/pull/23) adds automatic GitHub
+  [wiki pages](https://github.com/xtreamwayz/html-form-validator/wiki) generation from the docs.
 
 ### Deprecated
 
