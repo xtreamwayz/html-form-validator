@@ -1,7 +1,7 @@
 **Intro**
-- [[Installation|Home#installation]]
 - [[How does it work?|Home#how-does-it-work]]
-- Getting Started
+- [[Installation|Home#installation]]
+- [[Getting Started]]
 
 **API**
 
