@@ -8,7 +8,7 @@ The form validator detects HTML5 form elements and adds default validators depen
 [[value|API Attributes#value]].
 
 ```html
-<input type="hidden" name="element_name" value="" />
+<input type="hidden" name="name" value="" />
 ```
 
 Resources:
@@ -67,7 +67,15 @@ Resources:
 [[value|API Attributes#value]].
 
 ```html
-<input type="url" name="url" />
+<input type="url" name="location" list="urls">
+<datalist id="urls">
+    <option label="MIME: Format of Internet Message Bodies" value="https://tools.ietf.org/html/rfc2045">
+    <option label="HTML" value="https://html.spec.whatwg.org/">
+    <option label="DOM" value="https://dom.spec.whatwg.org/">
+    <option label="Fullscreen" value="https://fullscreen.spec.whatwg.org/">
+    <option label="Media Session" value="https://mediasession.spec.whatwg.org/">
+    <option label="The Single UNIX Specification, Version 3" value="http://www.unix.org/version3/">
+</datalist>
 ```
 
 Resources:
@@ -330,7 +338,7 @@ Resources:
 [[value|API Attributes#value]].
 
 ```html
-<input type="file" name="file" />
+<input type="file" accept=".doc,.docx,.xml,application/msword" />
 ```
 
 Resources:
@@ -342,7 +350,7 @@ Resources:
 [[value|API Attributes#value]].
 
 ```html
-<input type="submit" name="element_name" value="" />
+<input type="submit" name="name" value="" />
 ```
 
 Resources:
@@ -354,7 +362,9 @@ Resources:
 [[value|API Attributes#value]].
 
 ```html
-<input type="submit" name="element_name" value="" />
+<form action="process.cgi">
+    <input type="image" src="map.png" name="where" alt="Show location list">
+</form>
 ```
 
 Resources:
@@ -366,11 +376,23 @@ Resources:
 [[value|API Attributes#value]].
 
 ```html
-<input type="submit" name="element_name" value="" />
+<input type="button" name="name" value="" />
 ```
 
 Resources:
 [whatwg](https://html.spec.whatwg.org/multipage/forms.html#button-state-(type=button))
+
+## The button element
+
+*Attributes:*
+[[value|API Attributes#value]].
+
+```html
+<button type="submit" name="name">Value</button>
+```
+
+Resources:
+[whatwg](https://html.spec.whatwg.org/multipage/forms.html#the-button-element)
 
 ## The select element
 
