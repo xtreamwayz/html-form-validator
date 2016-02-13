@@ -59,12 +59,19 @@ $ composer require xtreamwayz/html-form-validator
     - The FormFactory sets the ``aria-invalid="true"`` attribute for invalid input elements.
     - The FormFactory adds the bootstrap ``has-danger`` css class to the parent element.
 
+## Documentation
+
+Documentation is available in the [wiki](wiki/Examples). Pull requests for documentation can be made against the
+source files in [docs/wiki](docs/wiki).
+
 ## Examples
 
-This is a basic contact form. A lot more examples can be found in the
+Examples can be found in the [wiki](wiki/Examples) and
 [test/Fixtures](https://github.com/xtreamwayz/html-form-validator/tree/master/test/Fixtures) dir.
 
 ```php
+// Basic contact form
+
 $htmlForm = <<<'HTML'
 <form action="{{ path() }}" method="post">
     <div class="row">
@@ -123,132 +130,3 @@ $result = $form->validate($_POST);
 // Inject error messages and filtered values from the result object
 echo $form->asString($result);
 ```
-
-## Element attributes
-
-### name / data-input-name="name" *(required)*
-
-The name is required to link validation messages and request data.
-
-```html
-<input type="email" name="email_address" />
-```
-
-### required / aria-required="true"
-
-The required attribute triggers the not empty validation.
-
-```html
-<input type="email" name="email_address" required />
-<input type="email" name="email_address" required="required" />
-<input type="email" name="email_address" aria-required="true" />
-```
-
-### data-reuse-submitted-value
-
-Reuse the submitted value and inject it as a value.
-
-```html
-<input type="text" name="username" data-reuse-submitted-value="true" value="xtreamwayz" />
-```
-
-### data-filters
-
-Apply filters to the submitted value. Multiple
-[standard filters](http://framework.zend.com/manual/current/en/modules/zend.filter.set.html)
-can be used, separated by a vertical bar. Options can be set with ``{key:value,min:2,max:140}``.
-The attribute will be removed before rendering the form, including any sensitive options.
-
-```html
-<input type="text" name="username" value="" data-filters="stringtrim|alpha" />
-```
-
-### data-validators
-
-Add extra validators. Multiple
-[standard validators](http://framework.zend.com/manual/current/en/modules/zend.validator.set.html)
-can be used, separated by a vertical bar. Options can be set with ``{key:value,min:2,max:140}``.
-The attribute will be removed before rendering the form, including any sensitive options.
-
-```html
-<input type="text" name="username" value=""
-       data-validators="stringlength{min:2,max:140}|validator{key:val,foo:bar}|notempty" />
-```
-
-### Custom validation
-
-Sometimes you need to validate javascript generated from fields. This is easy with the ``data-input-name`` and
-``data-validators`` attributes.
-
-```html
-<div class="form-group g-recaptcha" aria-required="true"
-     data-input-name="g-recaptcha-response" data-validators="recaptcha{key:{{ recaptcha_priv_key }}}"
-     data-sitekey="{{ recaptcha_pub_key }}" data-theme="light"></div>
-```
-
-## Element types
-
-The form validator detects HTML5 form elements and adds default validators depending on the used attributes.
-
-```html
-<form action="/" method="post">
-    <input type="checkbox" name="checkbox" value="value" />
-
-    <input type="color" name="color" />
-
-    <input type="date" name="date" />
-
-    <input type="datetime-local" name="datetime-local" />
-
-    <input type="email" name="email" data-validator-use-mx-check="true" />
-
-    <input type="file" name="file" />
-
-    <input type="month" name="month" />
-
-    <input type="number" name="number" min="1" max="5" />
-
-    <input type="password" name="password" required />
-    <input type="password" name="password-confirm" required data-validators="identical{token:password}" />
-
-    <input type="radio" name="gender" value="male" /> Male<br />
-    <input type="radio" name="gender" value="female" /> Female<br />
-    <input type="radio" name="gender" value="other" /> Other
-
-    <input type="range" name="range" min="1" max="10" step="2" />
-
-    <input type="tel" name="tel" data-country="es" />
-
-    <input type="text" name="name" />
-
-    <input type="text" name="browser" list="browsers" />
-    <datalist id="browsers">
-        <option value="Edge" />
-        <option value="Firefox" />
-        <option value="Chrome" />
-        <option value="Opera" />
-        <option value="Safari" />
-    </datalist>
-
-    <input type="time" name="time" />
-
-    <input type="url" name="url" />
-
-    <input type="week" name="week" />
-
-    <select name="car">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
-    </select>
-
-    <textarea name="textarea"></textarea>
-</form>
-```
-
-## Resources
-- https://www.w3.org/TR/html5/forms.html
-- https://www.w3.org/wiki/HTML/Elements/input
-- http://www.w3schools.com/html/html_form_elements.asp
-- http://www.w3schools.com/tags/tag_input.asp
