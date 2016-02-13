@@ -13,6 +13,7 @@ matrix:
     - php: 7
       env:
         - EXECUTE_CS_CHECK=true
+        - DEPLOY_DOCS=true
 
 before_install:
   - composer self-update
@@ -23,6 +24,10 @@ install:
 script:
   - vendor/bin/phpcs
   - vendor/bin/phpunit --disallow-test-output --report-useless-tests --coverage-clover clover.xml
+
+after_success:
+  - chmod +x ./docs/deploy.sh
+  - ./docs/deploy.sh
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
