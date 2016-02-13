@@ -50,14 +50,14 @@ $ composer require xtreamwayz/html-form-validator
     ```
 
     Before rendering, the FormFactory removes any data validation attributes used to instantiate custom validation
-    (e.g. ``data-validators``, ``data-filters``). This also removes possible sensitive data that was used to setup
+    (e.g. `data-validators`, `data-filters`). This also removes possible sensitive data that was used to setup
     the validators.
 
-    The ``$validationResult`` is optional and triggers the following tasks:
+    The `$validationResult` is optional and triggers the following tasks:
     - The FormFactory injects filtered submitted data into the input elements.
     - The FormFactory adds error messages next to the input elements.
-    - The FormFactory sets the ``aria-invalid="true"`` attribute for invalid input elements.
-    - The FormFactory adds the bootstrap ``has-danger`` css class to the parent element.
+    - The FormFactory sets the `aria-invalid="true"` attribute for invalid input elements.
+    - The FormFactory adds the bootstrap `has-danger` css class to the parent element.
 
 ## Documentation
 
