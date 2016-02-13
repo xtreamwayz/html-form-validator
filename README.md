@@ -61,12 +61,12 @@ $ composer require xtreamwayz/html-form-validator
 
 ## Documentation
 
-Documentation is available in the [wiki](wiki/Examples). Pull requests for documentation can be made against the
-source files in [docs/wiki](docs/wiki).
+Documentation is available in the [wiki](https://github.com/xtreamwayz/html-form-validator/wiki).
+Pull requests for documentation can be made against the source files in [docs/wiki](docs/wiki).
 
 ## Examples
 
-Examples can be found in the [wiki](wiki/Examples) and
+Examples can be found in the [wiki](https://github.com/xtreamwayz/html-form-validator/wiki) and
 [test/Fixtures](https://github.com/xtreamwayz/html-form-validator/tree/master/test/Fixtures) dir.
 
 ```php
