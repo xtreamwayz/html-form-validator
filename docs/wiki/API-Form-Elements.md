@@ -1,58 +1,385 @@
 The form validator detects HTML5 form elements and adds default validators depending on the used attributes.
 
+# The input element
+
+## type=hidden
+
+Attributes: [[value|API Attributes#value]].
+
 ```html
-<form action="/" method="post">
-    <input type="checkbox" name="checkbox" value="value" />
+<input type="hidden" name="element_name" value="" />
+```
 
-    <input type="color" name="color" />
+Resources:
+[whatwg](https://html.spec.whatwg.org/multipage/forms.html#hidden-state-(type=hidden))
 
-    <input type="date" name="date" />
+## type=text
+## type=search
 
-    <input type="datetime-local" name="datetime-local" />
+The difference between the Text state and the Search state is primarily stylistic.
 
-    <input type="email" name="email" data-validator-use-mx-check="true" />
+Attributes:
+[[list|API Attributes#list]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
 
-    <input type="file" name="file" />
+```html
+<input type="text" name="name" />
+```
 
-    <input type="month" name="month" />
+Resources:
+[whatwg](https://html.spec.whatwg.org/multipage/forms.html#text-(type=text)-state-and-search-state-(type=search))
 
-    <input type="number" name="number" min="1" max="5" />
+## type=tel
 
-    <input type="password" name="password" required />
-    <input type="password" name="password-confirm" required data-validators="identical{token:password}" />
+Attributes:
+[[list|API Attributes#list]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
 
-    <input type="radio" name="gender" value="male" /> Male<br />
-    <input type="radio" name="gender" value="female" /> Female<br />
-    <input type="radio" name="gender" value="other" /> Other
+```html
+<input type="tel" name="tel" data-country="es" />
+```
 
-    <input type="range" name="range" min="1" max="10" step="2" />
+Resources:
+[whatwg](https://html.spec.whatwg.org/multipage/forms.html#telephone-state-(type=tel))
 
-    <input type="tel" name="tel" data-country="es" />
+## type=url
 
-    <input type="text" name="name" />
+Attributes:
+[[list|API Attributes#list]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
 
-    <input type="text" name="browser" list="browsers" />
-    <datalist id="browsers">
-        <option value="Edge" />
-        <option value="Firefox" />
-        <option value="Chrome" />
-        <option value="Opera" />
-        <option value="Safari" />
-    </datalist>
+```html
+<input type="url" name="url" />
+```
 
-    <input type="time" name="time" />
+Resources:
+[whatwg](https://html.spec.whatwg.org/multipage/forms.html#url-state-(type=url))
 
-    <input type="url" name="url" />
+## type=email
 
-    <input type="week" name="week" />
+Attributes:
+[[list|API Attributes#list]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[multiple|API Attributes#multiple]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
 
-    <select name="car">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
-    </select>
+```html
+<input type="email" name="email" data-validator-use-mx-check="true" />
+```
 
-    <textarea name="textarea"></textarea>
-</form>
+Resources:
+[whatwg](https://html.spec.whatwg.org/multipage/forms.html#e-mail-state-(type=email))
+
+## type=password
+
+Attributes:
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
+
+```html
+<input type="password" name="password" required />
+```
+
+Resources:
+[whatwg](https://html.spec.whatwg.org/multipage/forms.html#password-state-(type=password))
+
+## type=date
+
+Attributes:
+[[list|API Attributes#list]],
+[[max|API Attributes#max]],
+[[min|API Attributes#min]],
+[[step|API Attributes#step]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
+
+```html
+<input type="date" name="date" />
+```
+
+## type=month
+
+Attributes:
+[[list|API Attributes#list]],
+[[max|API Attributes#max]],
+[[min|API Attributes#min]],
+[[step|API Attributes#step]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
+
+```html
+<input type="month" name="month" />
+```
+
+## type=week
+
+Attributes:
+[[list|API Attributes#list]],
+[[max|API Attributes#max]],
+[[min|API Attributes#min]],
+[[step|API Attributes#step]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
+
+```html
+<input type="week" name="week" />
+```
+
+## type=time
+
+Attributes:
+[[list|API Attributes#list]],
+[[max|API Attributes#max]],
+[[min|API Attributes#min]],
+[[step|API Attributes#step]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
+
+```html
+<input type="time" name="time" />
+```
+
+## type=datetime-local
+
+Attributes:
+[[list|API Attributes#list]],
+[[max|API Attributes#max]],
+[[min|API Attributes#min]],
+[[step|API Attributes#step]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
+
+```html
+<input type="datetime-local" name="datetime-local" />
+```
+
+## type=number
+
+Attributes:
+[[list|API Attributes#list]],
+[[max|API Attributes#max]],
+[[min|API Attributes#min]],
+[[step|API Attributes#step]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
+
+```html
+<input type="number" name="number" min="1" max="5" />
+```
+
+## type=range
+
+Attributes:
+[[list|API Attributes#list]],
+[[max|API Attributes#max]],
+[[min|API Attributes#min]],
+[[step|API Attributes#step]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
+
+```html
+<input type="range" name="range" min="1" max="10" step="2" />
+```
+
+## type=color
+
+Attributes:
+[[list|API Attributes#list]],
+[[max|API Attributes#max]],
+[[min|API Attributes#min]],
+[[step|API Attributes#step]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
+
+```html
+<input type="color" name="color" />
+```
+
+## type=checkbox
+
+Attributes:
+[[list|API Attributes#list]],
+[[max|API Attributes#max]],
+[[min|API Attributes#min]],
+[[step|API Attributes#step]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
+
+```html
+<input type="checkbox" name="checkbox" value="value" />
+```
+
+## type=radio
+
+Attributes:
+[[list|API Attributes#list]],
+[[max|API Attributes#max]],
+[[min|API Attributes#min]],
+[[step|API Attributes#step]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
+
+```html
+<input type="radio" name="gender" value="male" /> Male<br />
+<input type="radio" name="gender" value="female" /> Female<br />
+<input type="radio" name="gender" value="other" /> Other
+```
+
+## type=file
+
+Attributes:
+[[list|API Attributes#list]],
+[[max|API Attributes#max]],
+[[min|API Attributes#min]],
+[[step|API Attributes#step]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
+
+```html
+<input type="file" name="file" />
+```
+
+## type=image
+
+Attributes:
+[[list|API Attributes#list]],
+[[max|API Attributes#max]],
+[[min|API Attributes#min]],
+[[step|API Attributes#step]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
+
+```html
+<input type="image" name="element_name" value="" />
+```
+
+# The select element
+
+Attributes:
+[[list|API Attributes#list]],
+[[max|API Attributes#max]],
+[[min|API Attributes#min]],
+[[step|API Attributes#step]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
+
+```html
+<select name="car">
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="mercedes">Mercedes</option>
+    <option value="audi">Audi</option>
+</select>
+```
+
+# The textarea element
+
+Attributes:
+[[list|API Attributes#list]],
+[[max|API Attributes#max]],
+[[min|API Attributes#min]],
+[[step|API Attributes#step]],
+[[maxlength|API Attributes#maxlength]],
+[[minlength|API Attributes#minlength]],
+[[pattern|API Attributes#pattern]],
+[[disabled|API Attributes#disabled]],
+[[readonly|API Attributes#readonly]],
+[[required|API Attributes#required]],
+[[value|API Attributes#value]].
+
+```html
+<textarea name="textarea"></textarea>
 ```
