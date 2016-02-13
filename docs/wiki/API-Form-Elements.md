@@ -1,10 +1,11 @@
 The form validator detects HTML5 form elements and adds default validators depending on the used attributes.
 
-# The input element
+## The input element
 
-## type=hidden
+### Hidden state (type=hidden)
 
-Attributes: [[value|API Attributes#value]].
+*Attributes:*
+[[value|API Attributes#value]].
 
 ```html
 <input type="hidden" name="element_name" value="" />
@@ -13,12 +14,11 @@ Attributes: [[value|API Attributes#value]].
 Resources:
 [whatwg](https://html.spec.whatwg.org/multipage/forms.html#hidden-state-(type=hidden))
 
-## type=text
-## type=search
+### Text state (type=text) and Search state (type=search)
 
 The difference between the Text state and the Search state is primarily stylistic.
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[maxlength|API Attributes#maxlength]],
 [[minlength|API Attributes#minlength]],
@@ -35,9 +35,9 @@ Attributes:
 Resources:
 [whatwg](https://html.spec.whatwg.org/multipage/forms.html#text-(type=text)-state-and-search-state-(type=search))
 
-## type=tel
+### Telephone state (type=tel)
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[maxlength|API Attributes#maxlength]],
 [[minlength|API Attributes#minlength]],
@@ -54,9 +54,9 @@ Attributes:
 Resources:
 [whatwg](https://html.spec.whatwg.org/multipage/forms.html#telephone-state-(type=tel))
 
-## type=url
+### URL state (type=url)
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[maxlength|API Attributes#maxlength]],
 [[minlength|API Attributes#minlength]],
@@ -73,9 +73,9 @@ Attributes:
 Resources:
 [whatwg](https://html.spec.whatwg.org/multipage/forms.html#url-state-(type=url))
 
-## type=email
+### E-mail state (type=email)
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[maxlength|API Attributes#maxlength]],
 [[minlength|API Attributes#minlength]],
@@ -93,9 +93,9 @@ Attributes:
 Resources:
 [whatwg](https://html.spec.whatwg.org/multipage/forms.html#e-mail-state-(type=email))
 
-## type=password
+### Password state (type=password)
 
-Attributes:
+*Attributes:*
 [[maxlength|API Attributes#maxlength]],
 [[minlength|API Attributes#minlength]],
 [[pattern|API Attributes#pattern]],
@@ -111,9 +111,9 @@ Attributes:
 Resources:
 [whatwg](https://html.spec.whatwg.org/multipage/forms.html#password-state-(type=password))
 
-## type=date
+### type=date
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[max|API Attributes#max]],
 [[min|API Attributes#min]],
@@ -130,9 +130,9 @@ Attributes:
 <input type="date" name="date" />
 ```
 
-## type=month
+### type=month
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[max|API Attributes#max]],
 [[min|API Attributes#min]],
@@ -149,9 +149,9 @@ Attributes:
 <input type="month" name="month" />
 ```
 
-## type=week
+### type=week
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[max|API Attributes#max]],
 [[min|API Attributes#min]],
@@ -168,9 +168,9 @@ Attributes:
 <input type="week" name="week" />
 ```
 
-## type=time
+### type=time
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[max|API Attributes#max]],
 [[min|API Attributes#min]],
@@ -187,9 +187,9 @@ Attributes:
 <input type="time" name="time" />
 ```
 
-## type=datetime-local
+### type=datetime-local
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[max|API Attributes#max]],
 [[min|API Attributes#min]],
@@ -206,9 +206,9 @@ Attributes:
 <input type="datetime-local" name="datetime-local" />
 ```
 
-## type=number
+### type=number
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[max|API Attributes#max]],
 [[min|API Attributes#min]],
@@ -225,9 +225,9 @@ Attributes:
 <input type="number" name="number" min="1" max="5" />
 ```
 
-## type=range
+### type=range
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[max|API Attributes#max]],
 [[min|API Attributes#min]],
@@ -244,9 +244,9 @@ Attributes:
 <input type="range" name="range" min="1" max="10" step="2" />
 ```
 
-## type=color
+### type=color
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[max|API Attributes#max]],
 [[min|API Attributes#min]],
@@ -263,9 +263,9 @@ Attributes:
 <input type="color" name="color" />
 ```
 
-## type=checkbox
+### type=checkbox
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[max|API Attributes#max]],
 [[min|API Attributes#min]],
@@ -282,9 +282,9 @@ Attributes:
 <input type="checkbox" name="checkbox" value="value" />
 ```
 
-## type=radio
+### type=radio
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[max|API Attributes#max]],
 [[min|API Attributes#min]],
@@ -303,9 +303,9 @@ Attributes:
 <input type="radio" name="gender" value="other" /> Other
 ```
 
-## type=file
+### type=file
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[max|API Attributes#max]],
 [[min|API Attributes#min]],
@@ -322,9 +322,9 @@ Attributes:
 <input type="file" name="file" />
 ```
 
-## type=image
+### type=image
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[max|API Attributes#max]],
 [[min|API Attributes#min]],
@@ -341,9 +341,9 @@ Attributes:
 <input type="image" name="element_name" value="" />
 ```
 
-# The select element
+## The select element
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[max|API Attributes#max]],
 [[min|API Attributes#min]],
@@ -365,9 +365,9 @@ Attributes:
 </select>
 ```
 
-# The textarea element
+## The textarea element
 
-Attributes:
+*Attributes:*
 [[list|API Attributes#list]],
 [[max|API Attributes#max]],
 [[min|API Attributes#min]],

@@ -6,8 +6,8 @@
 
 **API**
 
-- [[Special Attributes|API Special Attributes]]
 - [[Form Elements|API Form Elements]]
+- [[Attributes|API Attributes]]
 
 **Examples**
 
