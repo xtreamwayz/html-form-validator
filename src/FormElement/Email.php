@@ -3,6 +3,8 @@
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
+use Zend\Filter\StringTrim;
+use Zend\Filter\StripNewlines;
 use Zend\InputFilter\InputInterface;
 
 class Email extends AbstractFormElement
@@ -12,6 +14,9 @@ class Email extends AbstractFormElement
      */
     protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
+        $input->getFilterChain()->attachByName(StripNewlines::class);
+        $input->getFilterChain()->attachByName(StringTrim::class);
+
         if ($element->hasAttribute('maxlength')) {
             $this->attachValidatorByName($input, 'stringlength', [
                 'max' => $element->getAttribute('maxlength'),

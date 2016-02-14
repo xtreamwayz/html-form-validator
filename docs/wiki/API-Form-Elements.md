@@ -28,6 +28,8 @@ The difference between the Text state and the Search state is primarily stylisti
 [[required|API Attributes#required]],
 [[value|API Attributes#value]].
 
+*Filters:* Strip line breaks from the value.
+
 ```html
 <input type="text" name="name" />
 ```
@@ -47,6 +49,8 @@ Resources:
 [[required|API Attributes#required]],
 [[value|API Attributes#value]].
 
+*Filters:* Strip line breaks from the value.
+
 ```html
 <input type="tel" name="tel" data-country="es" />
 ```
@@ -65,6 +69,8 @@ Resources:
 [[readonly|API Attributes#readonly]],
 [[required|API Attributes#required]],
 [[value|API Attributes#value]].
+
+*Filters:* Strip line breaks from the value.
 
 ```html
 <input type="url" name="location" list="urls">
@@ -94,6 +100,8 @@ Resources:
 [[required|API Attributes#required]],
 [[value|API Attributes#value]].
 
+*Filters:* Strip line breaks from the value, then strip leading and trailing whitespace from the value.
+
 ```html
 <input type="email" name="email" data-validator-use-mx-check="true" />
 ```
@@ -111,6 +119,8 @@ Resources:
 [[readonly|API Attributes#readonly]],
 [[required|API Attributes#required]],
 [[value|API Attributes#value]].
+
+*Filters:* Strip line breaks from the value.
 
 ```html
 <input type="password" name="password" required />
@@ -291,6 +301,8 @@ Resources:
 [[list|API Attributes#list]],
 [[disabled|API Attributes#disabled]],
 [[value|API Attributes#value]].
+
+*Filters:* Convert the value to lowercase.
 
 ```html
 <input type="color" name="color" />

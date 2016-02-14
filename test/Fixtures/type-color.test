@@ -4,6 +4,7 @@
 <form action="/" method="post">
     <input type="color" name="valid" />
     <input type="color" name="invalid" />
+    <input type="color" name="filter_lowercase" />
 </form>
 --DEFAULT-VALUES--
 {
@@ -11,12 +12,14 @@
 --SUBMITTED-VALUES--
 {
     "valid": "#fefefe",
-    "invalid": "01234"
+    "invalid": "01234",
+    "filter_lowercase": "#FEFEFE"
 }
 --EXPECTED-VALUES--
 {
     "valid": "#fefefe",
-    "invalid": "01234"
+    "invalid": "01234",
+    "filter_lowercase": "#fefefe"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--

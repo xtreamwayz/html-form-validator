@@ -3,6 +3,7 @@
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
+use Zend\Filter\StringToLower;
 use Zend\InputFilter\InputInterface;
 
 class Color extends AbstractFormElement
@@ -12,8 +13,10 @@ class Color extends AbstractFormElement
      */
     protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
     {
+        $input->getFilterChain()->attachByName(StringToLower::class);
+
         $this->attachValidatorByName($input, 'regex', [
-            'pattern' => '/^\#[a-f0-9]{6}$/',
+            'pattern' => '/^\#[a-fA-Z0-9]{6}$/',
         ]);
     }
 }
