@@ -33,25 +33,25 @@ class FormFactory
      * @var FormElement\AbstractFormElement[]
      */
     private $formElements = [
-        'email'          => FormElement\Email::class,
-        'number'         => FormElement\Number::class,
-        'tel'            => FormElement\Tel::class,
         'text'           => FormElement\Text::class,
-        'textarea'       => FormElement\Textarea::class,
+        'search'         => FormElement\Text::class,
+        'tel'            => FormElement\Tel::class,
         'url'            => FormElement\Url::class,
+        'email'          => FormElement\Email::class,
+        'password'       => FormElement\Password::class,
         'date'           => FormElement\Date::class,
         'month'          => FormElement\Month::class,
         'week'           => FormElement\Week::class,
         'time'           => FormElement\Time::class,
         'datetime-local' => FormElement\DateTimeLocal::class,
-        'color'          => FormElement\Color::class,
+        'number'         => FormElement\Number::class,
         'range'          => FormElement\Number::class,
-        'password'       => FormElement\Password::class,
+        'color'          => FormElement\Color::class,
         'checkbox'       => FormElement\Checkbox::class,
         'radio'          => FormElement\Radio::class,
         'file'           => FormElement\File::class,
         'select'         => FormElement\Select::class,
-        'search'         => FormElement\Search::class,
+        'textarea'       => FormElement\Textarea::class,
     ];
 
     /**
