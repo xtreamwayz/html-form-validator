@@ -33,6 +33,7 @@ class FormFactory
      * @var FormElement\AbstractFormElement[]
      */
     private $formElements = [
+        'hidden'         => FormElement\Hidden::class,
         'text'           => FormElement\Text::class,
         'search'         => FormElement\Text::class,
         'tel'            => FormElement\Tel::class,
