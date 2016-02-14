@@ -2,7 +2,9 @@ before_commands:
     - "composer install --no-dev --prefer-source"
 
 filter:
+    paths: ["src/*"]
     excluded_paths:
+        - challenge.php
         - test/*
         - vendor/*
 
@@ -17,7 +19,7 @@ checks:
         avoid_todo_comments: true
         avoid_fixme_comments: true
         line_length:
-            max_length: '120'
+            max_length: "120"
         function_in_camel_caps: true
         fix_use_statements:
             remove_unused: true
