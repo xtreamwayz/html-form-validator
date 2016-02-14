@@ -46,12 +46,11 @@ abstract class AbstractFormElement
         // Enforce required and allow empty properties
         if ($this->element->hasAttribute('required') || $this->element->getAttribute('aria-required') == 'true') {
             $this->input->setRequired(true);
-            $this->input->setAllowEmpty(false);
             // Attach NotEmpty validator manually so it won't use the plugin manager, which fails for servicemanager 3
             $this->attachValidatorByName('notempty');
         } else {
-            // Enforce properties so it doesn't try to load NotEmpty, which fails for servicemanager 3
             $this->input->setRequired(false);
+            // Enforce properties so it doesn't try to load NotEmpty, which fails for servicemanager 3
             $this->input->setAllowEmpty(true);
         }
     }

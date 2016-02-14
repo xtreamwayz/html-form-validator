@@ -179,14 +179,10 @@ class FormFactory
             } else {
                 // No input found for element, create a new one
                 $input = new Input($name);
-                // Enforce properties so the NotEmpty validator is automatically added,
-                // we'll take care of this later.
-                $input->setRequired(false);
-                $input->setAllowEmpty(true);
                 $this->inputFilter->add($input);
             }
 
-            // Process element and attach filters and validators
+            // Extract validators and filters from the element and attach to the inputfilter
             $validator($element, $input, $this->document);
         }
     }
@@ -305,8 +301,9 @@ class FormFactory
                 $element->parentNode->insertBefore($div, $element->nextSibling);
             }
 
-            // Set aria-invalid attribute on all elements
+            /** @var DOMElement $element */
             foreach ($elements as $element) {
+                // Set aria-invalid attribute on all elements
                 $element->setAttribute('aria-invalid', 'true');
             }
         }
