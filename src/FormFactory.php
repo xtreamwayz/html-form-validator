@@ -68,8 +68,10 @@ class FormFactory
 
         // Create new doc
         $this->document = new DOMDocument('1.0', 'utf-8');
-        // Don't add missing doctype, html and body
+
+        // Ignore invalid tag errors during loading (e.g. datalist)
         libxml_use_internal_errors(true);
+        // Don't add missing doctype, html and body
         $this->document->loadHTML($htmlForm, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         libxml_use_internal_errors(false);
 
