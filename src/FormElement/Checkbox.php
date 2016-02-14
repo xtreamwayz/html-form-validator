@@ -2,18 +2,22 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use DOMElement;
-use Zend\InputFilter\InputInterface;
-
 class Checkbox extends AbstractFormElement
 {
     /**
      * @inheritdoc
      */
-    protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
+    protected function attachDefaultFilters()
     {
-        $this->attachValidatorByName($input, 'identical', [
-            'token' => $element->getAttribute('value'),
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function attachDefaultValidators()
+    {
+        $this->attachValidatorByName('identical', [
+            'token' => $this->element->getAttribute('value'),
         ]);
     }
 }

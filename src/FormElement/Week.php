@@ -2,17 +2,21 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use DOMElement;
-use Zend\InputFilter\InputInterface;
-
 class Week extends AbstractFormElement
 {
     /**
      * @inheritdoc
      */
-    protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
+    protected function attachDefaultFilters()
     {
-        $this->attachValidatorByName($input, 'regex', [
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function attachDefaultValidators()
+    {
+        $this->attachValidatorByName('regex', [
             'pattern' => '/(\d{4})-W(\d{2})/',
         ]);
     }

@@ -4,17 +4,23 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
 use DOMXPath;
-use Zend\InputFilter\InputInterface;
 
 class Radio extends AbstractFormElement
 {
     /**
      * @inheritdoc
      */
-    protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
+    protected function attachDefaultFilters()
+    {
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function attachDefaultValidators()
     {
         $haystack = [];
-        $name = $element->getAttribute('name');
+        $name = $this->element->getAttribute('name');
         $xpath = new DOMXPath($this->document);
 
         /** @var DOMElement $node */
@@ -22,7 +28,7 @@ class Radio extends AbstractFormElement
             $haystack[] = $node->getAttribute('value');
         }
 
-        $this->attachValidatorByName($input, 'inarray', [
+        $this->attachValidatorByName('inarray', [
             'haystack' => $haystack,
         ]);
     }

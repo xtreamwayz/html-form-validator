@@ -2,45 +2,49 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use DOMElement;
-use Zend\InputFilter\InputInterface;
-
 class Number extends AbstractFormElement
 {
     /**
      * @inheritdoc
      */
-    protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
+    protected function attachDefaultFilters()
+    {
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function attachDefaultValidators()
     {
         $baseValue = 0;
-        $min = $element->getAttribute('min');
-        $max = $element->getAttribute('max');
-        $step = $element->getAttribute('step');
+        $min = $this->element->getAttribute('min');
+        $max = $this->element->getAttribute('max');
+        $step = $this->element->getAttribute('step');
 
-        $this->attachValidatorByName($input, 'isint');
+        $this->attachValidatorByName('isint');
 
         if ($min && $max) {
             $baseValue = $min;
-            $this->attachValidatorByName($input, 'between', [
+            $this->attachValidatorByName('between', [
                 'min'       => $min,
                 'max'       => $max,
                 'inclusive' => true,
             ]);
         } elseif ($min) {
             $baseValue = $min;
-            $this->attachValidatorByName($input, 'greaterthan', [
+            $this->attachValidatorByName('greaterthan', [
                 'min'       => $min,
                 'inclusive' => true,
             ]);
         } elseif ($max) {
-            $this->attachValidatorByName($input, 'lessthan', [
+            $this->attachValidatorByName('lessthan', [
                 'max'       => $max,
                 'inclusive' => true,
             ]);
         }
 
         if ($step) {
-            $this->attachValidatorByName($input, 'step', [
+            $this->attachValidatorByName('step', [
                 'step'      => $step,
                 'baseValue' => $baseValue,
             ]);

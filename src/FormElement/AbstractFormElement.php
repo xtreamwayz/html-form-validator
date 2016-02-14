@@ -10,6 +10,16 @@ use Zend\InputFilter\InputInterface;
 abstract class AbstractFormElement
 {
     /**
+     * @var DOMElement
+     */
+    protected $element;
+
+    /**
+     * @var InputInterface
+     */
+    protected $input;
+
+    /**
      * @var DOMDocument
      */
     protected $document;
@@ -23,83 +33,93 @@ abstract class AbstractFormElement
      */
     public function __invoke(DOMElement $element, InputInterface $input, DOMDocument $document)
     {
+        $this->element = $element;
+        $this->input = $input;
         $this->document = $document;
 
         // Build input validator chain for element
-        $this->attachDefaultValidators($input, $element);
-        $this->attachValidators($input, $element);
-        $this->attachFilters($input, $element);
+        $this->attachDefaultFilters();
+        $this->attachFilters();
+        $this->attachDefaultValidators();
+        $this->attachValidators();
 
         // Enforce required and allow empty properties
-        if ($element->hasAttribute('required') || $element->getAttribute('aria-required') == 'true') {
-            $input->setRequired(true);
-            $input->setAllowEmpty(false);
+        if ($this->element->hasAttribute('required') || $this->element->getAttribute('aria-required') == 'true') {
+            $this->input->setRequired(true);
+            $this->input->setAllowEmpty(false);
             // Attach NotEmpty validator manually so it won't use the plugin manager, which fails for servicemanager 3
-            $this->attachValidatorByName($input, 'notempty');
+            $this->attachValidatorByName('notempty');
         } else {
             // Enforce properties so it doesn't try to load NotEmpty, which fails for servicemanager 3
-            $input->setRequired(false);
-            $input->setAllowEmpty(true);
+            $this->input->setRequired(false);
+            $this->input->setAllowEmpty(true);
         }
     }
 
     /**
-     * Attach default validators for specific form element
-     *
-     * @param InputInterface $input
-     * @param DOMElement     $element
+     * Attach default filters for specific form element
      *
      * @return void
      */
-    abstract protected function attachDefaultValidators(InputInterface $input, DOMElement $element);
-
-    /**
-     * Attach validators from data-validators attribute
-     *
-     * @param InputInterface $input
-     * @param DOMElement     $element
-     */
-    protected function attachValidators(InputInterface $input, DOMElement $element)
-    {
-        $dataValidators = $element->getAttribute('data-validators');
-        if (!$dataValidators) {
-            return;
-        }
-
-        foreach ($this->parseDataAttribute($dataValidators) as $validator => $options) {
-            $this->attachValidatorByName($input, $validator, $options);
-        }
-    }
-
-    /**
-     * Attach validator to input
-     *
-     * @param InputInterface $input
-     * @param string         $name
-     * @param array          $options
-     */
-    protected function attachValidatorByName(InputInterface $input, $name, array $options = [])
-    {
-        $class = ValidatorManager::getValidator($name);
-        $input->getValidatorChain()->attach(new $class($options));
-    }
+    abstract protected function attachDefaultFilters();
 
     /**
      * Attach filters from data-filters attribute
-     *
-     * @param InputInterface $input
-     * @param DOMElement     $element
      */
-    protected function attachFilters(InputInterface $input, DOMElement $element)
+    protected function attachFilters()
     {
-        $dataFilters = $element->getAttribute('data-filters');
+        $dataFilters = $this->element->getAttribute('data-filters');
         if (!$dataFilters) {
             return;
         }
 
         foreach ($this->parseDataAttribute($dataFilters) as $filter => $options) {
-            $input->getFilterChain()->attachByName($filter, $options);
+            $this->attachFilterByName($filter, $options);
         }
+    }
+
+    /**
+     * Attach filter by name
+     *
+     * @param string $name
+     * @param array  $options
+     */
+    protected function attachFilterByName($name, array $options = [])
+    {
+        $this->input->getFilterChain()->attachByName($name, $options);
+    }
+
+    /**
+     * Attach default validators for specific form element
+     */
+    abstract protected function attachDefaultValidators();
+
+    /**
+     * Attach validators from data-validators attribute
+     */
+    protected function attachValidators()
+    {
+        $dataValidators = $this->element->getAttribute('data-validators');
+        if (!$dataValidators) {
+            return;
+        }
+
+        foreach ($this->parseDataAttribute($dataValidators) as $validator => $options) {
+            $this->attachValidatorByName($validator, $options);
+        }
+    }
+
+    /**
+     * Attach validator by name
+     *
+     * @param string $name
+     * @param array  $options
+     */
+    protected function attachValidatorByName($name, array $options = [])
+    {
+        // Needs to be refactored after zend-validator got an update
+        $class = ValidatorManager::getValidator($name);
+        $this->input->getValidatorChain()->attach(new $class($options));
     }
 
     /**

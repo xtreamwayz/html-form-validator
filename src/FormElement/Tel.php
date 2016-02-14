@@ -2,33 +2,37 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use DOMElement;
 use Zend\Filter\StripNewlines;
-use Zend\InputFilter\InputInterface;
 
 class Tel extends AbstractFormElement
 {
     /**
      * @inheritdoc
      */
-    protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
+    protected function attachDefaultFilters()
     {
-        $input->getFilterChain()->attachByName(StripNewlines::class);
+        $this->attachFilterByName(StripNewlines::class);
+    }
 
-        if ($element->hasAttribute('maxlength')) {
-            $this->attachValidatorByName($input, 'stringlength', [
-                'max' => $element->getAttribute('maxlength'),
+    /**
+     * @inheritdoc
+     */
+    protected function attachDefaultValidators()
+    {
+        if ($this->element->hasAttribute('maxlength')) {
+            $this->attachValidatorByName('stringlength', [
+                'max' => $this->element->getAttribute('maxlength'),
             ]);
         }
 
-        if ($element->hasAttribute('pattern')) {
-            $this->attachValidatorByName($input, 'regex', [
-                'pattern' => sprintf('/%s/', $element->getAttribute('pattern')),
+        if ($this->element->hasAttribute('pattern')) {
+            $this->attachValidatorByName('regex', [
+                'pattern' => sprintf('/%s/', $this->element->getAttribute('pattern')),
             ]);
         }
 
-        $this->attachValidatorByName($input, 'phonenumber', [
-            'country' => $element->getAttribute('data-country'),
+        $this->attachValidatorByName('phonenumber', [
+            'country' => $this->element->getAttribute('data-country'),
         ]);
     }
 }
