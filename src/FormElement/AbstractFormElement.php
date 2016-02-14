@@ -75,7 +75,7 @@ abstract class AbstractFormElement
      * Attach validator to input
      *
      * @param InputInterface $input
-     * @param                $name
+     * @param string         $name
      * @param array          $options
      */
     protected function attachValidatorByName(InputInterface $input, $name, array $options = [])
@@ -105,7 +105,7 @@ abstract class AbstractFormElement
     /**
      * Parse data attribute value for validators, filters and options
      *
-     * @param $dataAttribute
+     * @param string $dataAttribute
      *
      * @return \Generator
      */

@@ -27,6 +27,8 @@ Nothing.
 - [#15](https://github.com/xtreamwayz/html-form-validator/pull/15) makes the pattern attribute trigger the regex
   plugin only for specific elements.
 - [#21](https://github.com/xtreamwayz/html-form-validator/pull/21) fixes adding multiple error classes.
+- [#24](https://github.com/xtreamwayz/html-form-validator/pull/24) fixes adding multiple error messages to elements
+  with the same name.
 
 ## 0.1.1 - 2016-02-09
 

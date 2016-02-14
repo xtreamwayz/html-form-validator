@@ -51,12 +51,10 @@
     <input type="radio" name="invalid" value="male" aria-invalid="true" />
     <div class="text-danger">The input was not found in the haystack</div>
     <input type="radio" name="invalid" value="female" aria-invalid="true" />
-    <div class="text-danger">The input was not found in the haystack</div>
 
     <input type="radio" name="invalid_reuse" value="male" aria-invalid="true" />
     <div class="text-danger">The input was not found in the haystack</div>
     <input type="radio" name="invalid_reuse" value="female" aria-invalid="true" />
-    <div class="text-danger">The input was not found in the haystack</div>
 </form>
 --EXPECTED-ERRORS--
 {

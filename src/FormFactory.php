@@ -68,8 +68,10 @@ class FormFactory
 
         // Create new doc
         $this->document = new DOMDocument('1.0', 'utf-8');
-        // Don't add missing doctype, html and body
+
+        // Ignore invalid tag errors during loading (e.g. datalist)
         libxml_use_internal_errors(true);
+        // Don't add missing doctype, html and body
         $this->document->loadHTML($htmlForm, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         libxml_use_internal_errors(false);
 
@@ -271,13 +273,20 @@ class FormFactory
      */
     private function injectErrorMessages(array $data)
     {
-        foreach ($this->getFormElements() as $name => $element) {
-            if (!isset($data[$name])) {
-                // No errors set for this element
+        foreach ($data as $name => $errors) {
+            // Not sure if this can be optimized and create the DOMXPath only once.
+            // At this point the dom is constantly changing.
+            $xpath = new DOMXPath($this->document);
+            // Get all elements with the name
+            $elements = $xpath->query(sprintf('//*[@name="%1$s"] | //*[@data-input-name="%1$s"]', $name));
+
+            if ($elements->length == 0) {
+                // No element found for this element ???
                 continue;
             }
 
-            $errors = $data[$name];
+            // Get first element only
+            $element = $elements->item(0);
 
             /** @var DOMElement $parent */
             $parent = $element->parentNode;
@@ -287,15 +296,17 @@ class FormFactory
                 $parent->setAttribute('class', $class);
             }
 
-            // Set aria-invalid attribute on element
-            $element->setAttribute('aria-invalid', 'true');
-
             // Inject error messages
             foreach ($errors as $code => $message) {
                 $div = $this->document->createElement('div');
                 $div->setAttribute('class', 'text-danger');
                 $div->nodeValue = $message;
                 $element->parentNode->insertBefore($div, $element->nextSibling);
+            }
+
+            // Set aria-invalid attribute on all elements
+            foreach ($elements as $element) {
+                $element->setAttribute('aria-invalid', 'true');
             }
         }
     }
