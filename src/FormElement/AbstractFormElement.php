@@ -4,7 +4,6 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMDocument;
 use DOMElement;
-use Xtreamwayz\HTMLFormValidator\ValidatorManager;
 use Zend\InputFilter\InputInterface;
 
 abstract class AbstractFormElement
@@ -116,9 +115,7 @@ abstract class AbstractFormElement
      */
     protected function attachValidatorByName($name, array $options = [])
     {
-        // Needs to be refactored after zend-validator got an update
-        $class = ValidatorManager::getValidator($name);
-        $this->input->getValidatorChain()->attach(new $class($options));
+        $this->input->getValidatorChain()->attachByName($name, $options);
     }
 
     /**
