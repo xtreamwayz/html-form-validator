@@ -13,14 +13,27 @@
             "homepage": "https://xtreamwayz.github.io/"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/weierophinney/zend-validator",
+            "reference": "sm-v2-v3-compat"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/kynx/zend-inputfilter",
+            "reference": "feature/50"
+        }
+    ],
     "require": {
         "php": "^7.0",
-        "zendframework/zend-validator": "^2.5",
+        "zendframework/zend-inputfilter": "dev-sm-v2-v3-compat as 2.6.0",
+        "zendframework/zend-validator": "dev-feature/50 as 2.6.0",
         "zendframework/zend-filter": "^2.6",
-        "zendframework/zend-inputfilter": "^2.5",
         "zendframework/zend-servicemanager": "^3.0",
         "zendframework/zend-i18n": "^2.6",
-        "zendframework/zend-uri": "^2.5"
+        "zendframework/zend-uri": "^2.5",
+        "zendframework/zend-stdlib": "dev-develop as 2.8.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.0",
