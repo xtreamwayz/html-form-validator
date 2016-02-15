@@ -21,15 +21,18 @@ class Email extends AbstractFormElement
      */
     protected function attachDefaultValidators()
     {
-        $stringlengthOptions = [];
-        if ($this->element->hasAttribute('maxlength')) {
-            $stringlengthOptions['max'] = $this->element->getAttribute('maxlength');
-        }
-        if ($this->element->hasAttribute('minlength')) {
-            $stringlengthOptions['min'] = $this->element->getAttribute('minlength');
-        }
-        if (!empty($stringlengthOptions)) {
-            $this->attachValidatorByName('stringlength', $stringlengthOptions);
+        $this->attachValidatorByName('emailaddress', [
+            'useMxCheck' => filter_var(
+                $this->element->getAttribute('data-validator-use-mx-check'),
+                FILTER_VALIDATE_BOOLEAN
+            ),
+        ]);
+
+        if ($this->element->hasAttribute('minlength') || $this->element->hasAttribute('maxlength')) {
+            $this->attachValidatorByName('stringlength', [
+                'min'      => $this->element->getAttribute('minlength') ?: 0,
+                'max'      => $this->element->getAttribute('maxlength') ?: null,
+            ]);
         }
 
         if ($this->element->hasAttribute('pattern')) {
@@ -37,12 +40,5 @@ class Email extends AbstractFormElement
                 'pattern' => sprintf('/%s/', $this->element->getAttribute('pattern')),
             ]);
         }
-
-        $this->attachValidatorByName('emailaddress', [
-            'useMxCheck' => filter_var(
-                $this->element->getAttribute('data-validator-use-mx-check'),
-                FILTER_VALIDATE_BOOLEAN
-            ),
-        ]);
     }
 }

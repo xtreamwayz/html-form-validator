@@ -19,15 +19,13 @@ class Url extends AbstractFormElement
      */
     protected function attachDefaultValidators()
     {
-        $stringlengthOptions = [];
-        if ($this->element->hasAttribute('maxlength')) {
-            $stringlengthOptions['max'] = $this->element->getAttribute('maxlength');
-        }
-        if ($this->element->hasAttribute('minlength')) {
-            $stringlengthOptions['min'] = $this->element->getAttribute('minlength');
-        }
-        if (!empty($stringlengthOptions)) {
-            $this->attachValidatorByName('stringlength', $stringlengthOptions);
+        $this->attachValidatorByName('uri');
+
+        if ($this->element->hasAttribute('minlength') || $this->element->hasAttribute('maxlength')) {
+            $this->attachValidatorByName('stringlength', [
+                'min'      => $this->element->getAttribute('minlength') ?: 0,
+                'max'      => $this->element->getAttribute('maxlength') ?: null,
+            ]);
         }
 
         if ($this->element->hasAttribute('pattern')) {
@@ -35,7 +33,5 @@ class Url extends AbstractFormElement
                 'pattern' => sprintf('/%s/', $this->element->getAttribute('pattern')),
             ]);
         }
-
-        $this->attachValidatorByName('uri');
     }
 }
