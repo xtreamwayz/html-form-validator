@@ -8,6 +8,7 @@
     <input type="tel" name="valid_tel" data-country="es" minlength="4" />
     <input type="email" name="valid_email" minlength="4" />
     <input type="password" name="valid_password" minlength="4" />
+    <textarea name="valid_textarea" minlength="4"></textarea>
 
     <input type="text" name="invalid_text" minlength="32" />
     <input type="search" name="invalid_search" minlength="32" />
@@ -15,6 +16,7 @@
     <input type="tel" name="invalid_tel" data-country="es" minlength="32" />
     <input type="email" name="invalid_email" minlength="32" />
     <input type="password" name="invalid_password" minlength="32" />
+    <textarea name="invalid_textarea" minlength="32"></textarea>
 </form>
 --DEFAULT-VALUES--
 {
@@ -27,13 +29,15 @@
     "valid_tel":  "+34555666777",
     "valid_email": "email@example.com",
     "valid_password": "my secret password",
+    "valid_textarea": "example text",
 
     "invalid_text": "example text",
     "invalid_search": "example text",
     "invalid_url": "http://example.com/",
     "invalid_tel":  "+34555666777",
     "invalid_email": "email@example.com",
-    "invalid_password": "my secret password"
+    "invalid_password": "my secret password",
+    "invalid_textarea": "example text"
 }
 --EXPECTED-VALUES--
 {
@@ -43,13 +47,15 @@
     "valid_tel":  "+34555666777",
     "valid_email": "email@example.com",
     "valid_password": "my secret password",
+    "valid_textarea": "example text",
 
     "invalid_text": "example text",
     "invalid_search": "example text",
     "invalid_url": "http://example.com/",
     "invalid_tel":  "+34555666777",
     "invalid_email": "email@example.com",
-    "invalid_password": "my secret password"
+    "invalid_password": "my secret password",
+    "invalid_textarea": "example text"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
@@ -70,6 +76,9 @@
         "stringLengthTooShort"
     ],
     "invalid_password": [
+        "stringLengthTooShort"
+    ],
+    "invalid_textarea": [
         "stringLengthTooShort"
     ]
 }
