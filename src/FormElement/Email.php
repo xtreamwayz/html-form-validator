@@ -28,7 +28,7 @@ class Email extends AbstractFormElement
         if ($this->element->hasAttribute('minlength')) {
             $stringlengthOptions['min'] = $this->element->getAttribute('minlength');
         }
-        if ($stringlengthOptions) {
+        if (!empty($stringlengthOptions)) {
             $this->attachValidatorByName('stringlength', $stringlengthOptions);
         }
 
