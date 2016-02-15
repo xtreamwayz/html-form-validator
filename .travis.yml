@@ -32,3 +32,8 @@ after_success:
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover clover.xml
+
+notifications:
+  email: false
+  slack:
+    secure: pxJ3h2/UhA+tnxsYguj64DCYr8h2AHR53UVpLnfWuAN+g5qPGWJWtrPLpNu+zSE5H9c+JORSmRMgGYAYkQwQRxiGiMgAbv9IImFl38/F3AUsmaaL94vkLstWrjWFy5d/ZB7JZtCYH+ZBCDdOhfOKYwPILQjQtTc/0r04zIIMAnhu/ojFAk3khXuGAQtYSw1MUOtx9V+Rm1Y42ZsXL2ScUZYqu4i8eniRcvbYMhOo04jrz1GeboEXkx7S/D+9/q4ktbZA2NHR8BZombwQWQml5n9Wxwdxl/u1jo/iqExHFdzwPC93b6reHYeI20kA7VgUngWhZ2aASMyw/y7rwWNlb9D6qP1VwV1d3hCdUHJLfziCzLAulA+DnGF3dLVt2gBghhBfYO4muS4Ly6ymjys2CVS4+EGmVVXDlSMHJ31UyfgdEM5JpdqM9G1QJgWF5LZ73W/8l5ATrIN0v70VYxB9xh0PNbYmLiKuCTsB4HtMVth+PPyq53MHmTtI9jw/LS4tq/Nagi/RGPa48dfgmMelj5WACwBQiX+JQRbCTRxT+2I+O2Gs6pYoHkh7Zbh4FhRgPxOjF7kHI7wxhLObnh7e61O8163UGGeBxvglMFQvA+1dtH/nt8U5qztb2Ku85tuwxFpbspcE0ZsDCwCa/ls3Zt9XEQkXZ06Ux4ehWPUsDMo=
