@@ -14,6 +14,8 @@ All notable changes to this project will be documented in this file, in reverse 
   [wiki pages](https://github.com/xtreamwayz/html-form-validator/wiki) generation from the docs.
 - [#26](https://github.com/xtreamwayz/html-form-validator/pull/26) adds default filters confirm the html specs.
 - [#26](https://github.com/xtreamwayz/html-form-validator/pull/26) adds support for the minlength attribute.
+- [#26](https://github.com/xtreamwayz/html-form-validator/pull/26) adds support for number float validation
+  and `step="any"` to disable the step validator.
 
 ### Deprecated
 

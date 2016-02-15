@@ -253,6 +253,11 @@ Resources:
 [[required|API Attributes#required]],
 [[value|API Attributes#value]].
 
+The default step is 1, allowing only integers to be selected by the user. Unless the step base has a non-integer
+(float) value in which case floats are allowed.
+The base value of step equals the min value if it exists, otherwise it is set to `0`.
+To disable the step validation use `step="any"`.
+
 ```html
 <label>How much do you want to charge? $</label>
 <input type="number" min="0" step="0.01" name="price">
