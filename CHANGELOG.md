@@ -12,6 +12,8 @@ All notable changes to this project will be documented in this file, in reverse 
   the validation result object is injected into the form renderer: `$form->asString($validationResult)`.
 - [#23](https://github.com/xtreamwayz/html-form-validator/pull/23) adds automatic GitHub
   [wiki pages](https://github.com/xtreamwayz/html-form-validator/wiki) generation from the docs.
+- [#26](https://github.com/xtreamwayz/html-form-validator/pull/26) adds default filters confirm the html specs.
+- [#26](https://github.com/xtreamwayz/html-form-validator/pull/26) adds support for the minlength attribute.
 
 ### Deprecated
 
