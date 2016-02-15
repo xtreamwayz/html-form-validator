@@ -5,6 +5,7 @@
     <input type="tel" name="valid" data-country="es" />
     <input type="tel" name="invalid_tel" data-country="es" />
     <input type="tel" name="invalid_country" data-country="es" />
+    <input type="tel" name="filter_stripnewlines" data-country="es" />
 </form>
 --DEFAULT-VALUES--
 {
@@ -13,13 +14,15 @@
 {
     "valid": "+34555666777",
     "invalid_tel": "556777",
-    "invalid_country": "+31555666777"
+    "invalid_country": "+31555666777",
+    "filter_stripnewlines": "+34\n555666777"
 }
 --EXPECTED-VALUES--
 {
     "valid": "+34555666777",
     "invalid_tel": "556777",
-    "invalid_country": "+31555666777"
+    "invalid_country": "+31555666777",
+    "filter_stripnewlines": "+34555666777"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--

@@ -2,17 +2,21 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use DOMElement;
-use Zend\InputFilter\InputInterface;
-
 class Month extends AbstractFormElement
 {
     /**
      * @inheritdoc
      */
-    protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
+    protected function attachDefaultFilters()
     {
-        $this->attachValidatorByName($input, 'date', [
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function attachDefaultValidators()
+    {
+        $this->attachValidatorByName('date', [
             'format' => 'Y-m',
         ]);
     }

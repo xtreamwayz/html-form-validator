@@ -2,47 +2,52 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use DOMElement;
-use Zend\InputFilter\InputInterface;
+use InvalidArgumentException;
 
 class Number extends AbstractFormElement
 {
     /**
      * @inheritdoc
      */
-    protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
+    protected function attachDefaultFilters()
     {
-        $baseValue = 0;
-        $min = $element->getAttribute('min');
-        $max = $element->getAttribute('max');
-        $step = $element->getAttribute('step');
+    }
 
-        $this->attachValidatorByName($input, 'isint');
+    /**
+     * @inheritdoc
+     */
+    protected function attachDefaultValidators()
+    {
+        $step = ($this->element->hasAttribute('step')) ? $this->element->getAttribute('step') : 1;
 
-        if ($min && $max) {
-            $baseValue = $min;
-            $this->attachValidatorByName($input, 'between', [
-                'min'       => $min,
-                'max'       => $max,
-                'inclusive' => true,
+        if (is_numeric($step) && (int) $step == $step) {
+            $this->attachValidatorByName('isint');
+        } elseif (is_numeric($step) && (float) $step == $step) {
+            $this->attachValidatorByName('isfloat', [
+                'locale' => 'en'
             ]);
-        } elseif ($min) {
-            $baseValue = $min;
-            $this->attachValidatorByName($input, 'greaterthan', [
-                'min'       => $min,
-                'inclusive' => true,
-            ]);
-        } elseif ($max) {
-            $this->attachValidatorByName($input, 'lessthan', [
-                'max'       => $max,
+        } elseif ($step != 'any') {
+            throw new InvalidArgumentException('Number step must be an int, float or the text "any"');
+        }
+
+        if ($this->element->hasAttribute('min')) {
+            $this->attachValidatorByName('greaterthan', [
+                'min'       => $this->element->getAttribute('min'),
                 'inclusive' => true,
             ]);
         }
 
-        if ($step) {
-            $this->attachValidatorByName($input, 'step', [
+        if ($this->element->hasAttribute('max')) {
+            $this->attachValidatorByName('lessthan', [
+                'max'       => $this->element->getAttribute('max'),
+                'inclusive' => true,
+            ]);
+        }
+
+        if (is_numeric($step)) {
+            $this->attachValidatorByName('step', [
                 'step'      => $step,
-                'baseValue' => $baseValue,
+                'baseValue' => ($this->element->hasAttribute('min')) ? $this->element->getAttribute('min') : 0,
             ]);
         }
     }

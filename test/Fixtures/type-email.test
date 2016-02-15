@@ -4,17 +4,23 @@
 <form action="/" method="post">
     <input type="email" name="valid" />
     <input type="email" name="invalid" />
+    <input type="email" name="filter_stripnewlines" />
+    <input type="email" name="filter_stringtrim" />
 </form>
 --DEFAULT-VALUES--
 --SUBMITTED-VALUES--
 {
     "valid": "john.doe@example.com",
-    "invalid": "john.doe@example"
+    "invalid": "john.doe@example",
+    "filter_stripnewlines": "john.doe@example.com\n",
+    "filter_stringtrim": "  john.doe@example.com "
 }
 --EXPECTED-VALUES--
 {
     "valid": "john.doe@example.com",
-    "invalid": "john.doe@example"
+    "invalid": "john.doe@example",
+    "filter_stripnewlines": "john.doe@example.com",
+    "filter_stringtrim": "john.doe@example.com"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--

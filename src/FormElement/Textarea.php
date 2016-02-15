@@ -2,15 +2,25 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use DOMElement;
-use Zend\InputFilter\InputInterface;
-
 class Textarea extends AbstractFormElement
 {
     /**
      * @inheritdoc
      */
-    protected function attachDefaultValidators(InputInterface $input, DOMElement $element)
+    protected function attachDefaultFilters()
     {
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function attachDefaultValidators()
+    {
+        if ($this->element->hasAttribute('minlength') || $this->element->hasAttribute('maxlength')) {
+            $this->attachValidatorByName('stringlength', [
+                'min'      => $this->element->getAttribute('minlength') ?: 0,
+                'max'      => $this->element->getAttribute('maxlength') ?: null,
+            ]);
+        }
     }
 }

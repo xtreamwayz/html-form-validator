@@ -2,21 +2,21 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="text" name="valid_text" maxlength="32" />
-    <input type="search" name="valid_search" maxlength="32" />
-    <input type="url" name="valid_url" maxlength="32" />
-    <input type="tel" name="valid_tel" data-country="es" maxlength="32" />
-    <input type="email" name="valid_email" maxlength="32" />
-    <input type="password" name="valid_password" maxlength="32" />
-    <textarea name="valid_textarea" maxlength="32"></textarea>
+    <input type="text" name="valid_text" minlength="4" />
+    <input type="search" name="valid_search" minlength="4" />
+    <input type="url" name="valid_url" minlength="4" />
+    <input type="tel" name="valid_tel" data-country="es" minlength="4" />
+    <input type="email" name="valid_email" minlength="4" />
+    <input type="password" name="valid_password" minlength="4" />
+    <textarea name="valid_textarea" minlength="4"></textarea>
 
-    <input type="text" name="invalid_text" maxlength="4" />
-    <input type="search" name="invalid_search" maxlength="4" />
-    <input type="url" name="invalid_url" maxlength="4" />
-    <input type="tel" name="invalid_tel" data-country="es" maxlength="4" />
-    <input type="email" name="invalid_email" maxlength="4" />
-    <input type="password" name="invalid_password" maxlength="4" />
-    <textarea name="invalid_textarea" maxlength="4"></textarea>
+    <input type="text" name="invalid_text" minlength="32" />
+    <input type="search" name="invalid_search" minlength="32" />
+    <input type="url" name="invalid_url" minlength="32" />
+    <input type="tel" name="invalid_tel" data-country="es" minlength="32" />
+    <input type="email" name="invalid_email" minlength="32" />
+    <input type="password" name="invalid_password" minlength="32" />
+    <textarea name="invalid_textarea" minlength="32"></textarea>
 </form>
 --DEFAULT-VALUES--
 {
@@ -61,24 +61,24 @@
 --EXPECTED-ERRORS--
 {
     "invalid_text": [
-        "stringLengthTooLong"
+        "stringLengthTooShort"
     ],
     "invalid_search": [
-        "stringLengthTooLong"
+        "stringLengthTooShort"
     ],
     "invalid_url": [
-        "stringLengthTooLong"
+        "stringLengthTooShort"
     ],
     "invalid_tel": [
-        "stringLengthTooLong"
+        "stringLengthTooShort"
     ],
     "invalid_email": [
-        "stringLengthTooLong"
+        "stringLengthTooShort"
     ],
     "invalid_password": [
-        "stringLengthTooLong"
+        "stringLengthTooShort"
     ],
     "invalid_textarea": [
-        "stringLengthTooLong"
+        "stringLengthTooShort"
     ]
 }

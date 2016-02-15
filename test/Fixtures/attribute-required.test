@@ -4,6 +4,7 @@ Test required attribute
 <form action="/" method="post">
     <input type="text" name="valid_short" required />
     <input type="text" name="valid_long" required="required" />
+    <input type="text" name="valid_not_required" />
 
     <input type="text" name="invalid_short" required />
     <input type="text" name="invalid_long" required="required" />
@@ -15,7 +16,7 @@ Test required attribute
 {
     "valid_short": "This is a test",
     "valid_long": "This is a test",
-
+    "valid_not_required": "",
     "invalid_short": "",
     "invalid_long": ""
 }
@@ -23,7 +24,7 @@ Test required attribute
 {
     "valid_short": "This is a test",
     "valid_long": "This is a test",
-
+    "valid_not_required": "",
     "invalid_short": "",
     "invalid_long": ""
 }

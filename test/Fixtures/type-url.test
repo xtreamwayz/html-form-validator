@@ -3,17 +3,20 @@
 --HTML-FORM--
 <form action="/" method="post">
     <input type="url" name="valid" />
+    <input type="text" name="filter_stripnewlines" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "valid": "https://example.com/foo/bar"
+    "valid": "https://example.com/foo/bar",
+    "filter_stripnewlines": "https://example.com\n/\nfoo\n/bar"
 }
 --EXPECTED-VALUES--
 {
-    "valid": "https://example.com/foo/bar"
+    "valid": "https://example.com/foo/bar",
+    "filter_stripnewlines": "https://example.com/foo/bar"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--

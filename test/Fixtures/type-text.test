@@ -3,17 +3,20 @@
 --HTML-FORM--
 <form action="/" method="post">
     <input type="text" id="name" name="name" />
+    <input type="text" name="filter_stripnewlines" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "name": "Batman"
+    "name": "Batman",
+    "filter_stripnewlines": "Bat\nman"
 }
 --EXPECTED-VALUES--
 {
-    "name": "Batman"
+    "name": "Batman",
+    "filter_stripnewlines": "Batman"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--

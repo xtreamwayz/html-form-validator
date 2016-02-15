@@ -28,6 +28,8 @@ The difference between the Text state and the Search state is primarily stylisti
 [[required|API Attributes#required]],
 [[value|API Attributes#value]].
 
+*Filters:* Strip line breaks from the value.
+
 ```html
 <input type="text" name="name" />
 ```
@@ -47,6 +49,8 @@ Resources:
 [[required|API Attributes#required]],
 [[value|API Attributes#value]].
 
+*Filters:* Strip line breaks from the value.
+
 ```html
 <input type="tel" name="tel" data-country="es" />
 ```
@@ -65,6 +69,8 @@ Resources:
 [[readonly|API Attributes#readonly]],
 [[required|API Attributes#required]],
 [[value|API Attributes#value]].
+
+*Filters:* Strip line breaks from the value.
 
 ```html
 <input type="url" name="location" list="urls">
@@ -94,6 +100,8 @@ Resources:
 [[required|API Attributes#required]],
 [[value|API Attributes#value]].
 
+*Filters:* Strip line breaks from the value, then strip leading and trailing whitespace from the value.
+
 ```html
 <input type="email" name="email" data-validator-use-mx-check="true" />
 ```
@@ -111,6 +119,8 @@ Resources:
 [[readonly|API Attributes#readonly]],
 [[required|API Attributes#required]],
 [[value|API Attributes#value]].
+
+*Filters:* Strip line breaks from the value.
 
 ```html
 <input type="password" name="password" required />
@@ -243,6 +253,11 @@ Resources:
 [[required|API Attributes#required]],
 [[value|API Attributes#value]].
 
+The default step is 1, allowing only integers to be selected by the user. Unless the step base has a non-integer
+(float) value in which case floats are allowed.
+The base value of step equals the min value if it exists, otherwise it is set to `0`.
+To disable the step validation use `step="any"`.
+
 ```html
 <label>How much do you want to charge? $</label>
 <input type="number" min="0" step="0.01" name="price">
@@ -291,6 +306,8 @@ Resources:
 [[list|API Attributes#list]],
 [[disabled|API Attributes#disabled]],
 [[value|API Attributes#value]].
+
+*Filters:* Convert the value to lowercase.
 
 ```html
 <input type="color" name="color" />

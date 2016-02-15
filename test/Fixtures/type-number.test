@@ -2,18 +2,21 @@
 Tests the number input type. The range input type works exactly the same.
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="number" name="valid" />
+    <input type="number" name="valid_int" />
     <input type="number" name="valid_min" min="4" />
+    <input type="number" name="valid_min_edge" min="4" />
     <input type="number" name="valid_max" max="8" />
-    <input type="number" name="valid_between" min="4" max="8" />
-    <input type="number" name="valid_step" step="2" />
+    <input type="number" name="valid_max_edge" max="8" />
+    <input type="number" name="valid_step_int" step="2" />
+    <input type="number" name="valid_step_float" step="0.01" />
+    <input type="number" name="valid_step_any_int" step="any" />
+    <input type="number" name="valid_step_any_float" step="any" />
+    <input type="number" name="valid_between_default" min="4" max="8" />
     <input type="number" name="valid_between_step" min="4" max="8" step="2" />
 
-    <input type="number" name="invalid" />
+    <input type="number" name="invalid_text" />
     <input type="number" name="invalid_min" min="4" />
     <input type="number" name="invalid_max" max="8" />
-    <input type="number" name="invalid_between_low" min="4" max="8" />
-    <input type="number" name="invalid_between_high" min="4" max="8" />
     <input type="number" name="invalid_step" step="2" />
     <input type="number" name="invalid_between_step" min="4" max="8" step="2" />
 </form>
@@ -22,43 +25,50 @@ Tests the number input type. The range input type works exactly the same.
 }
 --SUBMITTED-VALUES--
 {
-    "valid": "6",
+    "valid_int": "6",
     "valid_min": "6",
+    "valid_min_edge": "4",
     "valid_max": "6",
-    "valid_between": "6",
-    "valid_step": "6",
+    "valid_max_edge": "4",
+    "valid_step_int": "6",
+    "valid_step_float": "6.01",
+    "valid_step_any_int": "1",
+    "valid_step_any_float": "6.01",
+    "valid_between_default": "6",
     "valid_between_step": "6",
 
-    "invalid": "abcd",
+    "invalid_text": "abcd",
     "invalid_min": "2",
     "invalid_max": "10",
-    "invalid_between_low": "2",
-    "invalid_between_high": "10",
     "invalid_step": "1",
     "invalid_between_step": "3"
 }
 --EXPECTED-VALUES--
 {
-    "valid": "6",
+    "valid_int": "6",
     "valid_min": "6",
+    "valid_min_edge": "4",
     "valid_max": "6",
-    "valid_between": "6",
-    "valid_step": "6",
+    "valid_max_edge": "4",
+    "valid_step_int": "6",
+    "valid_step_float": "6.01",
+    "valid_step_any_int": "1",
+    "valid_step_any_float": "6.01",
+    "valid_between_default": "6",
     "valid_between_step": "6",
 
-    "invalid": "abcd",
+    "invalid_text": "abcd",
     "invalid_min": "2",
     "invalid_max": "10",
-    "invalid_between_low": "2",
-    "invalid_between_high": "10",
     "invalid_step": "1",
     "invalid_between_step": "3"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-    "invalid": [
-        "notInt"
+    "invalid_text": [
+        "notInt",
+        "typeInvalid"
     ],
     "invalid_min": [
         "notGreaterThanInclusive"
@@ -66,17 +76,11 @@ Tests the number input type. The range input type works exactly the same.
     "invalid_max": [
         "notLessThanInclusive"
     ],
-    "invalid_between_low": [
-        "notBetween"
-    ],
-    "invalid_between_high": [
-        "notBetween"
-    ],
     "invalid_step": [
         "stepInvalid"
     ],
     "invalid_between_step": [
-        "notBetween",
+        "notGreaterThanInclusive",
         "stepInvalid"
     ]
 }

@@ -97,16 +97,13 @@ scale factor, and in some cases the default step base, which are used in process
 
 ### maxlength
 
-The maxlength attribute, when it applies, is a form control maxlength attribute controlled by the input element's dirty
-value flag.
-
 If the input element has a maximum allowed value length, then the code-unit length of the value of the element's
 value attribute must be equal to or less than the element's maximum allowed value length.
 
 ### minlength
 
-The minlength attribute, when it applies, is a form control minlength attribute controlled by the input element's dirty
-value flag.
+If the input element has a minimum allowed value length, then the code-unit length of the value of the element's
+value attribute must be equal to or more than the element's maximum allowed value length.
 
 ### multiple
 
