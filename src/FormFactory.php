@@ -10,7 +10,7 @@ use Zend\InputFilter\BaseInputFilter;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
 
-class FormFactory
+final class FormFactory implements FormFactoryInterface
 {
     /**
      * @var BaseInputFilter
@@ -56,11 +56,7 @@ class FormFactory
     ];
 
     /**
-     * FormFactory constructor: Load html form and optionally set an InputFilter
-     *
-     * @param                      $htmlForm
-     * @param array                $defaultValues
-     * @param BaseInputFilter|null $inputFilter
+     * @inheritdoc
      */
     public function __construct($htmlForm, array $defaultValues = [], BaseInputFilter $inputFilter = null)
     {
@@ -84,12 +80,7 @@ class FormFactory
     }
 
     /**
-     * Load html form and optionally set default data
-     *
-     * @param       $htmlForm
-     * @param array $defaultValues
-     *
-     * @return FormFactory
+     * @inheritdoc
      */
     public static function fromHtml($htmlForm, array $defaultValues = [])
     {
@@ -97,11 +88,7 @@ class FormFactory
     }
 
     /**
-     * Validate the loaded form with the data
-     *
-     * @param array $data
-     *
-     * @return ValidationResult
+     * @inheritdoc
      */
     public function validate(array $data)
     {
@@ -124,11 +111,7 @@ class FormFactory
     }
 
     /**
-     * Return form as a string. Optionally inject the error messages for the result.
-     *
-     * @param ValidationResult|null $result
-     *
-     * @return string
+     * @inheritdoc
      */
     public function asString(ValidationResult $result = null)
     {
