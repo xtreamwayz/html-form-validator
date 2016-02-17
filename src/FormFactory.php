@@ -93,12 +93,12 @@ final class FormFactory implements FormFactoryInterface
     public function validate(array $data)
     {
         $this->inputFilter->setData($data);
-        $validationErrors = [];
+        $messages = [];
 
         // Do some validation
         if (!$this->inputFilter->isValid()) {
-            foreach ($this->inputFilter->getInvalidInput() as $error) {
-                $validationErrors[$error->getName()] = $error->getMessages();
+            foreach ($this->inputFilter->getInvalidInput() as $message) {
+                $messages[$message->getName()] = $message->getMessages();
             }
         }
 
@@ -106,19 +106,19 @@ final class FormFactory implements FormFactoryInterface
         return new ValidationResult(
             $this->inputFilter->getRawValues(),
             $this->inputFilter->getValues(),
-            $validationErrors
+            $messages
         );
     }
 
     /**
      * @inheritdoc
      */
-    public function asString(ValidationResult $result = null)
+    public function asString(ValidationResultInterface $result = null)
     {
         if ($result) {
             // Inject data if a result is set
-            $this->injectValues($result->getValidValues());
-            $this->injectErrorMessages($result->getErrorMessages());
+            $this->injectValues($result->getValues());
+            $this->injectMessages($result->getMessages());
         }
 
         // Always remove form validator specific attributes before rendering the form
@@ -247,11 +247,11 @@ final class FormFactory implements FormFactoryInterface
     }
 
     /**
-     * Inject error messages into the form, bootstrap style
+     * Inject messages into the form, bootstrap style
      *
      * @param array $data
      */
-    private function injectErrorMessages(array $data)
+    private function injectMessages(array $data)
     {
         foreach ($data as $name => $errors) {
             // Not sure if this can be optimized and create the DOMXPath only once.

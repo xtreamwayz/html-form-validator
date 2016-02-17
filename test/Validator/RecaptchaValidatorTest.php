@@ -52,7 +52,7 @@ class RecaptchaValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $validator = new Validator\RecaptchaValidator();
+        new Validator\RecaptchaValidator();
     }
 
     public function testGetMessages()

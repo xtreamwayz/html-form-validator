@@ -2,74 +2,62 @@
 
 namespace Xtreamwayz\HTMLFormValidator;
 
-class ValidationResult
+final class ValidationResult implements ValidationResultInterface
 {
     /**
      * @var array
      */
-    private $rawInputData;
+    private $rawValues;
 
     /**
      * @var array
      */
-    private $validatedData;
+    private $values;
 
     /**
      * @var array
      */
-    private $errors;
+    private $messages;
 
     /**
-     * ValidationResult constructor.
-     *
-     * @param array $rawInputData
-     * @param array $validatedData
-     * @param array $errors
+     * @inheritdoc
      */
-    public function __construct(array $rawInputData, array $validatedData, array $errors)
+    public function __construct(array $rawValues, array $values, array $messages)
     {
-        $this->errors = $errors;
-        $this->rawInputData = $rawInputData;
-        $this->validatedData = $validatedData;
+        $this->rawValues = $rawValues;
+        $this->values = $values;
+        $this->messages = $messages;
     }
 
     /**
-     * Check if the validation was successful
-     *
-     * @return bool
+     * @inheritdoc
      */
     public function isValid()
     {
-        return empty($this->errors);
+        return empty($this->messages);
     }
 
     /**
-     * Get error messages
-     *
-     * @return array
+     * @inheritdoc
      */
-    public function getErrorMessages()
+    public function getMessages()
     {
-        return $this->errors;
+        return $this->messages;
     }
 
     /**
-     * Get the raw input values
-     *
-     * @return array
+     * @inheritdoc
      */
-    public function getRawInputValues()
+    public function getRawValues()
     {
-        return $this->rawInputData;
+        return $this->rawValues;
     }
 
     /**
-     * Get the filtered input values
-     *
-     * @return array
+     * @inheritdoc
      */
-    public function getValidValues()
+    public function getValues()
     {
-        return $this->validatedData;
+        return $this->values;
     }
 }

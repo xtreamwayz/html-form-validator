@@ -30,16 +30,16 @@ interface FormFactoryInterface
      *
      * @param array $data
      *
-     * @return ValidationResult
+     * @return ValidationResultInterface
      */
     public function validate(array $data);
 
     /**
      * Return form as a string. Optionally inject the error messages for the result.
      *
-     * @param ValidationResult|null $result
+     * @param ValidationResultInterface|null $result
      *
      * @return string
      */
-    public function asString(ValidationResult $result = null);
+    public function asString(ValidationResultInterface $result = null);
 }
