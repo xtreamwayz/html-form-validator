@@ -6,11 +6,15 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-Nothing.
+- [#27](https://github.com/xtreamwayz/html-form-validator/pull/26) adds the FormFactoryInterface and 
+  ValidationResultInterface.
 
 ### Deprecated
 
-Nothing.
+- [#27](https://github.com/xtreamwayz/html-form-validator/pull/26) deprecates: 
+    - ValidationResult->getErrorMessages(), use ValidationResult->getMessages() instead.
+    - ValidationResult->getRawInputValues(), use ValidationResult->getRawValues() instead.
+    - ValidationResult->getValidValues(), use ValidationResult->getValues() instead.
 
 ### Removed
 
