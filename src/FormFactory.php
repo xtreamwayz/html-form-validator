@@ -10,7 +10,7 @@ use Zend\InputFilter\BaseInputFilter;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
 
-class FormFactory
+final class FormFactory implements FormFactoryInterface
 {
     /**
      * @var BaseInputFilter
@@ -56,11 +56,7 @@ class FormFactory
     ];
 
     /**
-     * FormFactory constructor: Load html form and optionally set an InputFilter
-     *
-     * @param                      $htmlForm
-     * @param array                $defaultValues
-     * @param BaseInputFilter|null $inputFilter
+     * @inheritdoc
      */
     public function __construct($htmlForm, array $defaultValues = [], BaseInputFilter $inputFilter = null)
     {
@@ -84,12 +80,7 @@ class FormFactory
     }
 
     /**
-     * Load html form and optionally set default data
-     *
-     * @param       $htmlForm
-     * @param array $defaultValues
-     *
-     * @return FormFactory
+     * @inheritdoc
      */
     public static function fromHtml($htmlForm, array $defaultValues = [])
     {
@@ -97,21 +88,17 @@ class FormFactory
     }
 
     /**
-     * Validate the loaded form with the data
-     *
-     * @param array $data
-     *
-     * @return ValidationResult
+     * @inheritdoc
      */
     public function validate(array $data)
     {
         $this->inputFilter->setData($data);
-        $validationErrors = [];
+        $messages = [];
 
         // Do some validation
         if (!$this->inputFilter->isValid()) {
-            foreach ($this->inputFilter->getInvalidInput() as $error) {
-                $validationErrors[$error->getName()] = $error->getMessages();
+            foreach ($this->inputFilter->getInvalidInput() as $message) {
+                $messages[$message->getName()] = $message->getMessages();
             }
         }
 
@@ -119,23 +106,19 @@ class FormFactory
         return new ValidationResult(
             $this->inputFilter->getRawValues(),
             $this->inputFilter->getValues(),
-            $validationErrors
+            $messages
         );
     }
 
     /**
-     * Return form as a string. Optionally inject the error messages for the result.
-     *
-     * @param ValidationResult|null $result
-     *
-     * @return string
+     * @inheritdoc
      */
-    public function asString(ValidationResult $result = null)
+    public function asString(ValidationResultInterface $result = null)
     {
         if ($result) {
             // Inject data if a result is set
-            $this->injectValues($result->getValidValues());
-            $this->injectErrorMessages($result->getErrorMessages());
+            $this->injectValues($result->getValues());
+            $this->injectMessages($result->getMessages());
         }
 
         // Always remove form validator specific attributes before rendering the form
@@ -264,11 +247,11 @@ class FormFactory
     }
 
     /**
-     * Inject error messages into the form, bootstrap style
+     * Inject messages into the form, bootstrap style
      *
      * @param array $data
      */
-    private function injectErrorMessages(array $data)
+    private function injectMessages(array $data)
     {
         foreach ($data as $name => $errors) {
             // Not sure if this can be optimized and create the DOMXPath only once.

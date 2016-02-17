@@ -30,22 +30,22 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(ValidationResult::class, $result);
         $this->assertEquals(
             $submittedValues,
-            $result->getRawInputValues(),
+            $result->getRawValues(),
             "Failed asserting submitted values are equal."
         );
-        $this->assertEquals($expectedValues, $result->getValidValues(), "Failed asserting filtered values are equal.");
+        $this->assertEquals($expectedValues, $result->getValues(), "Failed asserting filtered values are equal.");
 
         if ($expectedForm) {
             $this->assertEqualForms($expectedForm, $form->asString($result));
         }
 
-        if (empty($expectedErrors) && empty($result->getErrorMessages())) {
+        if (empty($expectedErrors) && empty($result->getMessages())) {
             $this->assertTrue($result->isValid(), "Failed asserting the validation result is valid.");
-            $this->assertEqualErrors($expectedErrors, $result->getErrorMessages());
+            $this->assertEqualErrors($expectedErrors, $result->getMessages());
         } else {
             //var_dump($result->getErrorMessages());
             $this->assertFalse($result->isValid(), "Failed asserting the validation result is invalid.");
-            $this->assertEqualErrors($expectedErrors, $result->getErrorMessages());
+            $this->assertEqualErrors($expectedErrors, $result->getMessages());
         }
     }
 
