@@ -1,4 +1,9 @@
-/data
 /composer.lock
-/vendor
-/clover.xml
+/phpunit.xml
+/build/lint.cache
+/build/pdepend/
+/build/logs/
+/build/coverage/
+/build/api/
+/bower_components/
+/vendor/

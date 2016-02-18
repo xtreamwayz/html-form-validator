@@ -22,8 +22,8 @@ install:
   - travis_retry composer install --no-interaction --prefer-source
 
 script:
-  - vendor/bin/phpcs
-  - vendor/bin/phpunit --disallow-test-output --report-useless-tests --coverage-clover clover.xml
+  - vendor/bin/phpunit --disallow-test-output --report-useless-tests --configuration build/phpunit.xml.dist
+  - vendor/bin/phpcs --standard=build/phpcs.xml
 
 after_success:
   - chmod +x ./docs/deploy.sh
@@ -31,7 +31,7 @@ after_success:
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover clover.xml
+  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
 
 notifications:
   email: false
