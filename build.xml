@@ -1,8 +1,5 @@
 <?xml version="1.0"  encoding="UTF-8" ?>
-<project name="xtreamwayz.com" basedir="." default="build">
-    <property name="target.dir" value="/var/www/xtreamwayz.com" />
-    <property name="phpunit" value="phpunit" />
-
+<project name="html-form-validator" basedir="." default="build">
     <fileset id="php.files" dir="${project.basedir}">
         <include name="src/**/*.php" />
         <include name="test/**/*.php" />
