@@ -2,6 +2,8 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
+use Zend\Validator\Regex;
+
 class Week extends AbstractFormElement
 {
     /**
@@ -16,7 +18,7 @@ class Week extends AbstractFormElement
      */
     protected function attachDefaultValidators()
     {
-        $this->attachValidatorByName('regex', [
+        $this->attachValidatorByName(Regex::class, [
             'pattern' => '/(\d{4})-W(\d{2})/',
         ]);
     }

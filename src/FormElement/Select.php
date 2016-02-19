@@ -3,6 +3,7 @@
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
+use Zend\Validator\InArray;
 
 class Select extends AbstractFormElement
 {
@@ -25,7 +26,7 @@ class Select extends AbstractFormElement
             $haystack[] = $node->getAttribute('value');
         }
 
-        $this->attachValidatorByName('inarray', [
+        $this->attachValidatorByName(InArray::class, [
             'haystack' => $haystack,
         ]);
     }

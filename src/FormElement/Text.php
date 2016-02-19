@@ -3,6 +3,8 @@
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\Filter\StripNewlines;
+use Zend\Validator\Regex;
+use Zend\Validator\StringLength;
 
 class Text extends AbstractFormElement
 {
@@ -20,14 +22,14 @@ class Text extends AbstractFormElement
     protected function attachDefaultValidators()
     {
         if ($this->element->hasAttribute('minlength') || $this->element->hasAttribute('maxlength')) {
-            $this->attachValidatorByName('stringlength', [
+            $this->attachValidatorByName(StringLength::class, [
                 'min'      => $this->element->getAttribute('minlength') ?: 0,
                 'max'      => $this->element->getAttribute('maxlength') ?: null,
             ]);
         }
 
         if ($this->element->hasAttribute('pattern')) {
-            $this->attachValidatorByName('regex', [
+            $this->attachValidatorByName(Regex::class, [
                 'pattern' => sprintf('/%s/', $this->element->getAttribute('pattern')),
             ]);
         }

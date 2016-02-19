@@ -4,6 +4,9 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\Filter\StringTrim;
 use Zend\Filter\StripNewlines;
+use Zend\Validator\EmailAddress;
+use Zend\Validator\Regex;
+use Zend\Validator\StringLength;
 
 class Email extends AbstractFormElement
 {
@@ -21,7 +24,7 @@ class Email extends AbstractFormElement
      */
     protected function attachDefaultValidators()
     {
-        $this->attachValidatorByName('emailaddress', [
+        $this->attachValidatorByName(EmailAddress::class, [
             'useMxCheck' => filter_var(
                 $this->element->getAttribute('data-validator-use-mx-check'),
                 FILTER_VALIDATE_BOOLEAN
@@ -29,14 +32,14 @@ class Email extends AbstractFormElement
         ]);
 
         if ($this->element->hasAttribute('minlength') || $this->element->hasAttribute('maxlength')) {
-            $this->attachValidatorByName('stringlength', [
+            $this->attachValidatorByName(StringLength::class, [
                 'min'      => $this->element->getAttribute('minlength') ?: 0,
                 'max'      => $this->element->getAttribute('maxlength') ?: null,
             ]);
         }
 
         if ($this->element->hasAttribute('pattern')) {
-            $this->attachValidatorByName('regex', [
+            $this->attachValidatorByName(Regex::class, [
                 'pattern' => sprintf('/%s/', $this->element->getAttribute('pattern')),
             ]);
         }

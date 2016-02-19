@@ -2,6 +2,8 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
+use Zend\Validator\Identical;
+
 class Checkbox extends AbstractFormElement
 {
     /**
@@ -16,7 +18,7 @@ class Checkbox extends AbstractFormElement
      */
     protected function attachDefaultValidators()
     {
-        $this->attachValidatorByName('identical', [
+        $this->attachValidatorByName(Identical::class, [
             'token' => $this->element->getAttribute('value'),
         ]);
     }
