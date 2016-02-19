@@ -2,7 +2,7 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use \Zend\Validator\Date as DateValidator;
+use Zend\Validator\Date as DateValidator;
 
 class Month extends AbstractFormElement
 {

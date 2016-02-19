@@ -29,7 +29,7 @@ class Number extends AbstractFormElement
             $this->attachValidatorByName(IsInt::class);
         } elseif (is_numeric($step) && (float) $step == $step) {
             $this->attachValidatorByName(IsFloat::class, [
-                'locale' => 'en'
+                'locale' => 'en',
             ]);
         } elseif ($step != 'any') {
             throw new InvalidArgumentException('Number step must be an int, float or the text "any"');
