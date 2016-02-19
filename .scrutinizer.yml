@@ -4,7 +4,6 @@ before_commands:
 filter:
     paths: ["src/*"]
     excluded_paths:
-        - challenge.php
         - test/*
         - vendor/*
 
