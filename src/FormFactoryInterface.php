@@ -9,9 +9,9 @@ interface FormFactoryInterface
     /**
      * FormFactory constructor: Load html form and optionally set an InputFilter
      *
-     * @param string  $htmlForm
-     * @param array   $defaultValues
-     * @param Factory $factory
+     * @param string       $htmlForm
+     * @param array        $defaultValues
+     * @param null|Factory $factory
      */
     public function __construct($htmlForm, array $defaultValues = [], Factory $factory = null);
 

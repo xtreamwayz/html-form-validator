@@ -20,6 +20,7 @@ before_install:
 
 install:
   - travis_retry composer install --no-interaction --prefer-source
+  - composer info -i
 
 script:
   - vendor/bin/phpcs
