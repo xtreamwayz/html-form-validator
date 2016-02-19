@@ -64,13 +64,7 @@ final class FormFactory implements FormFactoryInterface
      */
     public function __construct($htmlForm, array $defaultValues = [], Factory $factory = null)
     {
-        if ($factory == null) {
-            $factory = new Factory();
-        } elseif (!($factory instanceof Factory)) {
-            throw new \InvalidArgumentException('Expected Zend\InputFilter\Factory, got: ' . get_class($factory));
-        }
-
-        $this->factory = $factory;
+        $this->factory = $factory ?: new Factory();
         $this->inputFilter = $this->factory->createInputFilter([]);
         $this->defaultValues = $defaultValues;
 
