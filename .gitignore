@@ -1,9 +1,4 @@
 /composer.lock
 /phpunit.xml
-/build/lint.cache
-/build/pdepend/
-/build/logs/
-/build/coverage/
-/build/api/
-/bower_components/
+/build/
 /vendor/
