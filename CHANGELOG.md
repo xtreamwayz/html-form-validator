@@ -8,7 +8,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - [#27](https://github.com/xtreamwayz/html-form-validator/pull/26) adds the FormFactoryInterface and 
   ValidationResultInterface.
-
+- [#29](https://github.com/xtreamwayz/html-form-validator/pull/29) adds container-interop compatibility.
+  
 ### Deprecated
 
 - [#27](https://github.com/xtreamwayz/html-form-validator/pull/26) deprecates: 

@@ -2,18 +2,18 @@
 
 namespace Xtreamwayz\HTMLFormValidator;
 
-use Zend\InputFilter\BaseInputFilter;
+use Zend\InputFilter\Factory;
 
 interface FormFactoryInterface
 {
     /**
      * FormFactory constructor: Load html form and optionally set an InputFilter
      *
-     * @param string               $htmlForm
-     * @param array                $defaultValues
-     * @param BaseInputFilter|null $inputFilter
+     * @param string  $htmlForm
+     * @param array   $defaultValues
+     * @param Factory $factory
      */
-    public function __construct($htmlForm, array $defaultValues = [], BaseInputFilter $inputFilter = null);
+    public function __construct($htmlForm, array $defaultValues = [], Factory $factory = null);
 
     /**
      * Load html form and optionally set default data
