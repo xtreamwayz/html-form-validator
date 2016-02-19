@@ -2,6 +2,8 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
+use Zend\Validator\Date as DateValidator;
+
 class Time extends AbstractFormElement
 {
     /**
@@ -16,7 +18,7 @@ class Time extends AbstractFormElement
      */
     protected function attachDefaultValidators()
     {
-        $this->attachValidatorByName('date', [
+        $this->attachValidatorByName(DateValidator::class, [
             'format' => 'H:i',
         ]);
     }

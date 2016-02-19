@@ -4,6 +4,7 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMElement;
 use DOMXPath;
+use Zend\Validator\InArray;
 
 class Radio extends AbstractFormElement
 {
@@ -28,7 +29,7 @@ class Radio extends AbstractFormElement
             $haystack[] = $node->getAttribute('value');
         }
 
-        $this->attachValidatorByName('inarray', [
+        $this->attachValidatorByName(InArray::class, [
             'haystack' => $haystack,
         ]);
     }

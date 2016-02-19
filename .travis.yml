@@ -20,10 +20,11 @@ before_install:
 
 install:
   - travis_retry composer install --no-interaction --prefer-source
+  - composer info -i
 
 script:
-  - vendor/bin/phpunit --disallow-test-output --report-useless-tests --configuration build/phpunit.xml.dist
-  - vendor/bin/phpcs --standard=build/phpcs.xml
+  - vendor/bin/phpcs
+  - vendor/bin/phpunit --disallow-test-output --report-useless-tests --coverage-clover build/logs/clover.xml
 
 after_success:
   - chmod +x ./docs/deploy.sh

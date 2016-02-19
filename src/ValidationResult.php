@@ -39,6 +39,7 @@ final class ValidationResult implements ValidationResultInterface
 
     /**
      * @deprecated 0.3.0 Use getMessages() instead
+     * @codeCoverageIgnore
      */
     public function getErrorMessages()
     {
@@ -55,6 +56,7 @@ final class ValidationResult implements ValidationResultInterface
 
     /**
      * @deprecated 0.3.0 Use getRawValues() instead
+     * @codeCoverageIgnore
      */
     public function getRawInputValues()
     {
@@ -71,6 +73,7 @@ final class ValidationResult implements ValidationResultInterface
 
     /**
      * @deprecated 0.3.0 Use getValues() instead
+     * @codeCoverageIgnore
      */
     public function getValidValues()
     {

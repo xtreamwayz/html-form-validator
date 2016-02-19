@@ -4,7 +4,6 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMDocument;
 use DOMElement;
-use Xtreamwayz\HTMLFormValidator\ValidatorManager;
 use Zend\InputFilter\InputInterface;
 
 abstract class AbstractFormElement
@@ -46,12 +45,6 @@ abstract class AbstractFormElement
         // Enforce required and allow empty properties
         if ($this->element->hasAttribute('required') || $this->element->getAttribute('aria-required') == 'true') {
             $this->input->setRequired(true);
-            // Attach NotEmpty validator manually so it won't use the plugin manager, which fails for servicemanager 3
-            $this->attachValidatorByName('notempty');
-        } else {
-            $this->input->setRequired(false);
-            // Enforce properties so it doesn't try to load NotEmpty, which fails for servicemanager 3
-            $this->input->setAllowEmpty(true);
         }
     }
 
@@ -116,9 +109,7 @@ abstract class AbstractFormElement
      */
     protected function attachValidatorByName($name, array $options = [])
     {
-        // Needs to be refactored after zend-validator got an update
-        $class = ValidatorManager::getValidator($name);
-        $this->input->getValidatorChain()->attach(new $class($options));
+        $this->input->getValidatorChain()->attachByName($name, $options);
     }
 
     /**

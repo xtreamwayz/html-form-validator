@@ -13,14 +13,27 @@
             "homepage": "https://xtreamwayz.github.io/"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/weierophinney/zend-validator",
+            "reference": "sm-v2-v3-compat"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/kynx/zend-inputfilter",
+            "reference": "feature/50"
+        }
+    ],
     "require": {
         "php": "^7.0",
-        "zendframework/zend-validator": "^2.5",
+        "zendframework/zend-inputfilter": "^2.6",
+        "zendframework/zend-validator": "^2.6",
         "zendframework/zend-filter": "^2.6",
-        "zendframework/zend-inputfilter": "^2.5",
         "zendframework/zend-servicemanager": "^3.0",
         "zendframework/zend-i18n": "^2.6",
-        "zendframework/zend-uri": "^2.5"
+        "zendframework/zend-uri": "^2.5",
+        "zendframework/zend-stdlib": "^2.7|^3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.0",
@@ -32,8 +45,8 @@
             "@cs",
             "@test"
         ],
-        "cs": "php vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=./build/phpunit.xml.dist",
-        "test": "php vendor/phpunit/phpunit/phpunit --configuration ./build/phpunit.xml.dist"
+        "cs": "php vendor/squizlabs/php_codesniffer/scripts/phpcs",
+        "test": "php vendor/phpunit/phpunit/phpunit"
     },
     "autoload": {
         "psr-4": {

@@ -2,6 +2,8 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
+use Zend\Validator\StringLength;
+
 class Textarea extends AbstractFormElement
 {
     /**
@@ -17,9 +19,9 @@ class Textarea extends AbstractFormElement
     protected function attachDefaultValidators()
     {
         if ($this->element->hasAttribute('minlength') || $this->element->hasAttribute('maxlength')) {
-            $this->attachValidatorByName('stringlength', [
-                'min'      => $this->element->getAttribute('minlength') ?: 0,
-                'max'      => $this->element->getAttribute('maxlength') ?: null,
+            $this->attachValidatorByName(StringLength::class, [
+                'min' => $this->element->getAttribute('minlength') ?: 0,
+                'max' => $this->element->getAttribute('maxlength') ?: null,
             ]);
         }
     }

@@ -6,14 +6,18 @@ use DOMDocument;
 use DOMElement;
 use DOMXPath;
 use Xtreamwayz\HTMLFormValidator\FormElement;
-use Zend\InputFilter\BaseInputFilter;
-use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\Factory;
 
 final class FormFactory implements FormFactoryInterface
 {
     /**
-     * @var BaseInputFilter
+     * @var Factory
+     */
+    private $factory;
+
+    /**
+     * @var InputFilter
      */
     private $inputFilter;
 
@@ -58,9 +62,10 @@ final class FormFactory implements FormFactoryInterface
     /**
      * @inheritdoc
      */
-    public function __construct($htmlForm, array $defaultValues = [], BaseInputFilter $inputFilter = null)
+    public function __construct($htmlForm, array $defaultValues = [], Factory $factory = null)
     {
-        $this->inputFilter = $inputFilter ?: new InputFilter();
+        $this->factory = $factory ?: new Factory();
+        $this->inputFilter = $this->factory->createInputFilter([]);
         $this->defaultValues = $defaultValues;
 
         // Create new doc
@@ -151,22 +156,25 @@ final class FormFactory implements FormFactoryInterface
 
             // Add validation
             if (isset($this->formElements[$type])) {
-                $validator = new $this->formElements[$type];
+                $formElement = new $this->formElements[$type];
             } else {
                 // Create a default validator
-                $validator = new $this->formElements['text'];
+                $formElement = new $this->formElements['text'];
             }
 
             if ($this->inputFilter->has($name)) {
                 $input = $this->inputFilter->get($name);
             } else {
                 // No input found for element, create a new one
-                $input = new Input($name);
+                $input = $this->factory->createInput([
+                    'name' => $name,
+                    'required' => false
+                ]);
                 $this->inputFilter->add($input);
             }
 
             // Extract validators and filters from the element and attach to the inputfilter
-            $validator($element, $input, $this->document);
+            $formElement($element, $input, $this->document);
         }
     }
 
