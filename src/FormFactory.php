@@ -6,7 +6,7 @@ use DOMDocument;
 use DOMElement;
 use DOMXPath;
 use Xtreamwayz\HTMLFormValidator\FormElement;
-use Zend\InputFilter\InputInterface;
+use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory;
 
 final class FormFactory implements FormFactoryInterface
@@ -17,7 +17,7 @@ final class FormFactory implements FormFactoryInterface
     private $factory;
 
     /**
-     * @var InputInterface
+     * @var InputFilter
      */
     private $inputFilter;
 
