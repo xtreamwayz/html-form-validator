@@ -8,8 +8,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - [#27](https://github.com/xtreamwayz/html-form-validator/pull/26) adds the FormFactoryInterface and 
   ValidationResultInterface.
-- [#29](https://github.com/xtreamwayz/html-form-validator/pull/29) adds container-interop compatibility.
-  
+- [#29](https://github.com/xtreamwayz/html-form-validator/pull/29) adds container-interop compatibility. This enables
+  custom validators and filters.
+- [#29](https://github.com/xtreamwayz/html-form-validator/pull/29) adds the InputFilterFactory which can be used to
+  instantiate a Zend\InputFilter\Factory from a container-interop compatible container.
+     
 ### Deprecated
 
 - [#27](https://github.com/xtreamwayz/html-form-validator/pull/26) deprecates: 
