@@ -11,7 +11,6 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getIntegrationTests
      */
     public function testIntegration(
-        $message,
         $htmlForm,
         $defaultValues,
         $submittedValues,
@@ -43,7 +42,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue($result->isValid(), "Failed asserting the validation result is valid.");
             $this->assertEqualErrors($expectedErrors, $result->getMessages());
         } else {
-            //var_dump($result->getErrorMessages());
+            //var_dump($result->getMessages());
             $this->assertFalse($result->isValid(), "Failed asserting the validation result is invalid.");
             $this->assertEqualErrors($expectedErrors, $result->getMessages());
         }
@@ -63,8 +62,6 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
 
             $testData = $this->readTestFile($file, $fixturesDir);
 
-            $message = '';
-            $htmlForm = '';
             $defaultValues = [];
             $submittedValues = [];
             $expectedValues = [];
@@ -73,7 +70,6 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
             $expectedException = '';
 
             try {
-                $message = $testData['TEST'];
                 $htmlForm = $testData['HTML-FORM'];
 
                 if (!empty($testData['DEFAULT-VALUES'])) {
@@ -104,7 +100,6 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
             }
 
             yield basename($file) => [
-                $message,
                 $htmlForm,
                 $defaultValues,
                 $submittedValues,
@@ -175,8 +170,6 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
 
     private function assertEqualErrors(array $expected, array $actual)
     {
-        $this->assertEquals(count($expected), count($actual), "Failed asserting that errors are equal.");
-
         foreach ($expected as $name => $errorCodes) {
             $this->assertArrayHasKey(
                 $name,
@@ -192,6 +185,8 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
                 );
             }
         }
+
+        $this->assertEquals(count($expected), count($actual), "Failed asserting that errors are equal.");
     }
 
     private function assertEqualForms($expected, $actual)

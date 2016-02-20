@@ -2,24 +2,19 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Validator\Regex;
+use Xtreamwayz\HTMLFormValidator\FormElement\DateTime as DateTimeElement;
+use Zend\Validator\Regex as RegexValidator;
 
-class Week extends AbstractFormElement
+class Week extends DateTimeElement
 {
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultFilters()
+    protected function getDateValidator()
     {
-    }
+        return [
+            'name'    => RegexValidator::class,
+            'options' => [
+                'pattern' => '/(\d{4})-W(\d{2})/',
+            ],
 
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultValidators()
-    {
-        $this->attachValidatorByName(Regex::class, [
-            'pattern' => '/(\d{4})-W(\d{2})/',
-        ]);
+        ];
     }
 }

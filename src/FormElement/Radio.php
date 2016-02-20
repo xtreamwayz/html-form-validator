@@ -2,35 +2,29 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use DOMElement;
-use DOMXPath;
-use Zend\Validator\InArray;
+use Zend\Validator\InArray as InArrayValidator;
 
-class Radio extends AbstractFormElement
+class Radio extends BaseFormElement
 {
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultFilters()
+    protected function getValidators()
     {
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultValidators()
-    {
+        $validators = [];
         $haystack = [];
-        $name = $this->element->getAttribute('name');
-        $xpath = new DOMXPath($this->document);
 
-        /** @var DOMElement $node */
-        foreach ($xpath->query('//input[@type="radio"][@name="' . $name . '"]') as $node) {
-            $haystack[] = $node->getAttribute('value');
+        $xpath = new \DOMXPath($this->document);
+
+        /** @var \DOMElement $option */
+        foreach ($xpath->query('//input[@type="radio"][@name="' . $this->getName() . '"]') as $option) {
+            $haystack[] = $option->getAttribute('value');
         }
 
-        $this->attachValidatorByName(InArray::class, [
-            'haystack' => $haystack,
-        ]);
+        $validators[] = [
+            'name'    => InArrayValidator::class,
+            'options' => [
+                'haystack' => $haystack,
+            ],
+        ];
+
+        return $validators;
     }
 }

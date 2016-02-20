@@ -2,26 +2,27 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Filter\StringToLower;
-use Zend\Validator\Regex;
+use Zend\Filter\StringToLower as StringToLowerFilter;
+use Zend\Validator\Regex as RegexValidator;
 
-class Color extends AbstractFormElement
+class Color extends BaseFormElement
 {
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultFilters()
+    protected function getFilters()
     {
-        $this->attachFilterByName(StringToLower::class);
+        return [
+            ['name' => StringToLowerFilter::class],
+        ];
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultValidators()
+    protected function getValidators()
     {
-        $this->attachValidatorByName(Regex::class, [
-            'pattern' => '/^\#[a-fA-Z0-9]{6}$/',
-        ]);
+        return [
+            [
+                'name'    => RegexValidator::class,
+                'options' => [
+                    'pattern' => '/^#[0-9a-fA-F]{6}$/',
+                ],
+            ],
+        ];
     }
 }

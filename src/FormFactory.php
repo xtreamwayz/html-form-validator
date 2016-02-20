@@ -5,7 +5,6 @@ namespace Xtreamwayz\HTMLFormValidator;
 use DOMDocument;
 use DOMElement;
 use DOMXPath;
-use Xtreamwayz\HTMLFormValidator\FormElement;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory;
 
@@ -34,7 +33,7 @@ final class FormFactory implements FormFactoryInterface
     private $errorClass = 'has-danger';
 
     /**
-     * @var FormElement\AbstractFormElement[]
+     * @var FormElement\BaseFormElement[]
      */
     private $formElements = [
         'hidden'         => FormElement\Hidden::class,
@@ -48,9 +47,9 @@ final class FormFactory implements FormFactoryInterface
         'month'          => FormElement\Month::class,
         'week'           => FormElement\Week::class,
         'time'           => FormElement\Time::class,
-        'datetime-local' => FormElement\DateTimeLocal::class,
+        'datetime-local' => FormElement\DateTime::class,
         'number'         => FormElement\Number::class,
-        'range'          => FormElement\Number::class,
+        'range'          => FormElement\Range::class,
         'color'          => FormElement\Color::class,
         'checkbox'       => FormElement\Checkbox::class,
         'radio'          => FormElement\Radio::class,
@@ -164,19 +163,13 @@ final class FormFactory implements FormFactoryInterface
                 $elementClass = $this->formElements[$type];
             } else {
                 // Create a default validator
-                $elementClass = new $this->formElements['text'];
+                $elementClass = $this->formElements['text'];
             }
 
-            $element = new $elementClass();
-
-            $input = $this->factory->createInput([
-                'name' => $name,
-                'required' => false
-            ]);
-            $this->inputFilter->add($input);
-
-            // Extract validators and filters from the element and attach to the inputfilter
-            $element($node, $input, $this->document);
+            /** @var \Zend\InputFilter\InputProviderInterface $element */
+            $element = new $elementClass($node, $this->document);
+            $input = $this->factory->createInput($element);
+            $this->inputFilter->add($input, $name);
         }
     }
 

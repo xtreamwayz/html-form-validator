@@ -5,7 +5,7 @@
     <input type="text" name="valid_text" maxlength="32" />
     <input type="search" name="valid_search" maxlength="32" />
     <input type="url" name="valid_url" maxlength="32" />
-    <input type="tel" name="valid_tel" data-country="es" maxlength="32" />
+    <input type="tel" name="valid_tel" data-validator-country="es" maxlength="32" />
     <input type="email" name="valid_email" maxlength="32" />
     <input type="password" name="valid_password" maxlength="32" />
     <textarea name="valid_textarea" maxlength="32"></textarea>
@@ -13,7 +13,7 @@
     <input type="text" name="invalid_text" maxlength="4" />
     <input type="search" name="invalid_search" maxlength="4" />
     <input type="url" name="invalid_url" maxlength="4" />
-    <input type="tel" name="invalid_tel" data-country="es" maxlength="4" />
+    <input type="tel" name="invalid_tel" data-validator-country="es" maxlength="4" />
     <input type="email" name="invalid_email" maxlength="4" />
     <input type="password" name="invalid_password" maxlength="4" />
     <textarea name="invalid_textarea" maxlength="4"></textarea>

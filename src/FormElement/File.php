@@ -2,19 +2,6 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-class File extends AbstractFormElement
+class File extends BaseFormElement
 {
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultFilters()
-    {
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultValidators()
-    {
-    }
 }

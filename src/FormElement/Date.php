@@ -2,24 +2,9 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Validator\Date as DateValidator;
+use Xtreamwayz\HTMLFormValidator\FormElement\DateTime as DateTimeElement;
 
-class Date extends AbstractFormElement
+class Date extends DateTimeElement
 {
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultFilters()
-    {
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultValidators()
-    {
-        $this->attachValidatorByName(DateValidator::class, [
-            'format' => 'Y-m-d',
-        ]);
-    }
+    protected $format = 'Y-m-d';
 }

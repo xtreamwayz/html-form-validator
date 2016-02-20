@@ -2,32 +2,27 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use DOMElement;
-use Zend\Validator\InArray;
+use Zend\Validator\InArray as InArrayValidator;
 
-class Select extends AbstractFormElement
+class Select extends BaseFormElement
 {
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultFilters()
+    protected function getValidators()
     {
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultValidators()
-    {
+        $validators = [];
         $haystack = [];
 
-        /** @var DOMElement $node */
-        foreach ($this->element->getElementsByTagName('option') as $node) {
-            $haystack[] = $node->getAttribute('value');
+        /** @var \DOMElement $option */
+        foreach ($this->node->getElementsByTagName('option') as $option) {
+            $haystack[] = $option->getAttribute('value');
         }
 
-        $this->attachValidatorByName(InArray::class, [
-            'haystack' => $haystack,
-        ]);
+        $validators[] = [
+            'name'    => InArrayValidator::class,
+            'options' => [
+                'haystack' => $haystack,
+            ],
+        ];
+
+        return $validators;
     }
 }

@@ -2,19 +2,6 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-class Hidden extends AbstractFormElement
+class Hidden extends BaseFormElement
 {
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultFilters()
-    {
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultValidators()
-    {
-    }
 }
