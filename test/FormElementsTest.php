@@ -42,7 +42,6 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue($result->isValid(), "Failed asserting the validation result is valid.");
             $this->assertEqualErrors($expectedErrors, $result->getMessages());
         } else {
-            //var_dump($result->getMessages());
             $this->assertFalse($result->isValid(), "Failed asserting the validation result is invalid.");
             $this->assertEqualErrors($expectedErrors, $result->getMessages());
         }

@@ -3,23 +3,47 @@
 --HTML-FORM--
 <form action="/" method="post">
     <input type="date" name="valid" />
+    <input type="date" name="valid_min" min="1997-01-01" />
+    <input type="date" name="valid_max" max="1997-12-31" />
+    <input type="date" name="valid_step" step="2" />
+    <input type="date" name="valid_min_step" min="1997-01-01" step="8" />
     <input type="date" name="invalid_date" />
     <input type="date" name="invalid_format" />
+    <input type="date" name="invalid_min" min="1997-12-31" />
+    <input type="date" name="invalid_max" max="1997-01-01" />
+    <input type="date" name="invalid_step" step="3" />
+    <input type="date" name="invalid_min_step" min="1997-01-01" step="7" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "valid": "2016-02-08",
+    "valid": "1997-08-29",
+    "valid_min": "1997-08-29",
+    "valid_max": "1997-08-29",
+    "valid_step": "1997-08-29",
+    "valid_min_step": "1997-08-29",
     "invalid_date": "2016-02-31",
-    "invalid_format": "11-02-2016"
+    "invalid_format": "29-08-1997",
+    "invalid_min": "1997-08-29",
+    "invalid_max": "1997-08-29",
+    "invalid_step": "1997-08-29",
+    "invalid_min_step": "1997-08-29"
 }
 --EXPECTED-VALUES--
 {
-    "valid": "2016-02-08",
+    "valid": "1997-08-29",
+    "valid_min": "1997-08-29",
+    "valid_max": "1997-08-29",
+    "valid_step": "1997-08-29",
+    "valid_min_step": "1997-08-29",
     "invalid_date": "2016-02-31",
-    "invalid_format": "11-02-2016"
+    "invalid_format": "29-08-1997",
+    "invalid_min": "1997-08-29",
+    "invalid_max": "1997-08-29",
+    "invalid_step": "1997-08-29",
+    "invalid_min_step": "1997-08-29"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
@@ -30,5 +54,17 @@
     ],
     "invalid_format": [
         "dateInvalidDate"
+    ],
+    "invalid_min": [
+        "notGreaterThanInclusive"
+    ],
+    "invalid_max": [
+        "notLessThanInclusive"
+    ],
+    "invalid_step": [
+        "dateStepNotStep"
+    ],
+    "invalid_min_step": [
+        "dateStepNotStep"
     ]
 }

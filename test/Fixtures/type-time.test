@@ -3,23 +3,47 @@
 --HTML-FORM--
 <form action="/" method="post">
     <input type="time" name="valid" />
+    <input type="time" name="valid_min" min="02:00:00" />
+    <input type="time" name="valid_max" max="22:00:00" />
+    <input type="time" name="valid_step" step="20" />
+    <input type="time" name="valid_min_step" min="02:00:00" step="10" />
     <input type="time" name="invalid_value" />
     <input type="time" name="invalid_format" />
+    <input type="time" name="invalid_min" min="22:00:00" />
+    <input type="time" name="invalid_max" max="02:00:00" />
+    <input type="time" name="invalid_step" step="22" />
+    <input type="time" name="invalid_min_step" min="02:00:00" step="22" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "valid": "22:00",
-    "invalid_value": "25:00",
-    "invalid_format": "2016-02-08 22:00"
+    "valid": "02:14:00",
+    "valid_min": "02:14:00",
+    "valid_max": "02:14:00",
+    "valid_step": "02:14:00",
+    "valid_min_step": "02:14:00",
+    "invalid_value": "25:00:00",
+    "invalid_format": "2016-02-08 22:00",
+    "invalid_min": "02:14:00",
+    "invalid_max": "02:14:00",
+    "invalid_step": "02:14:00",
+    "invalid_min_step": "02:14:00"
 }
 --EXPECTED-VALUES--
 {
-    "valid": "22:00",
-    "invalid_value": "25:00",
-    "invalid_format": "2016-02-08 22:00"
+    "valid": "02:14:00",
+    "valid_min": "02:14:00",
+    "valid_max": "02:14:00",
+    "valid_step": "02:14:00",
+    "valid_min_step": "02:14:00",
+    "invalid_value": "25:00:00",
+    "invalid_format": "2016-02-08 22:00",
+    "invalid_min": "02:14:00",
+    "invalid_max": "02:14:00",
+    "invalid_step": "02:14:00",
+    "invalid_min_step": "02:14:00"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
@@ -30,5 +54,17 @@
     ],
     "invalid_format": [
         "dateInvalidDate"
+    ],
+    "invalid_min": [
+        "notGreaterThanInclusive"
+    ],
+    "invalid_max": [
+        "notLessThanInclusive"
+    ],
+    "invalid_step": [
+        "dateStepNotStep"
+    ],
+    "invalid_min_step": [
+        "dateStepNotStep"
     ]
 }

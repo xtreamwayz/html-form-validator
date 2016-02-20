@@ -3,25 +3,63 @@
 --HTML-FORM--
 <form action="/" method="post">
     <input type="week" name="valid" />
+    <input type="week" name="valid_min" min="1997-W01" />
+    <input type="week" name="valid_max" max="1997-W52" />
+    <input type="week" name="valid_step" step="3" />
+    <input type="week" name="valid_min_step" min="1997-W01" step="2" />
+
     <input type="week" name="invalid" />
+    <input type="week" name="invalid_min" min="1997-W52" />
+    <input type="week" name="invalid_max" max="1997-W01" />
+    <input type="week" name="invalid_step" step="5" />
+    <input type="week" name="invalid_min_step" min="1997-W01" step="5" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "valid": "2016-W05",
-    "invalid": "2016-05"
+    "valid": "1997-W35",
+    "valid_min": "1997-W35",
+    "valid_max": "1997-W35",
+    "valid_step": "1997-W35",
+    "valid_min_step": "1997-W35",
+    "invalid": "1997-35",
+    "invalid_min": "1997-W35",
+    "invalid_max": "1997-W35",
+    "invalid_step": "1997-W35",
+    "invalid_min_step": "1997-W35"
 }
 --EXPECTED-VALUES--
 {
-    "valid": "2016-W05",
-    "invalid": "2016-05"
+    "valid": "1997-W35",
+    "valid_min": "1997-W35",
+    "valid_max": "1997-W35",
+    "valid_step": "1997-W35",
+    "valid_min_step": "1997-W35",
+    "invalid": "1997-35",
+    "invalid_min": "1997-W35",
+    "invalid_max": "1997-W35",
+    "invalid_step": "1997-W35",
+    "invalid_min_step": "1997-W35"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
     "invalid": [
-        "regexNotMatch"
+        "regexNotMatch",
+        "dateInvalidDate"
+    ],
+    "invalid_min": [
+        "notGreaterThanInclusive"
+    ],
+    "invalid_max": [
+        "notLessThanInclusive"
+    ],
+    "invalid_step": [
+        "dateStepNotStep"
+    ],
+    "invalid_min_step": [
+        "dateStepNotStep"
     ]
 }

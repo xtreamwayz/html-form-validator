@@ -3,31 +3,67 @@
 --HTML-FORM--
 <form action="/" method="post">
     <input type="month" name="valid" />
+    <input type="month" name="valid_min" min="1997-01" />
+    <input type="month" name="valid_max" max="1997-12" />
+    <input type="month" name="valid_step" step="1" />
+    <input type="month" name="valid_min_step" min="1997-01" step="7" />
+    <input type="month" name="invalid_date" />
     <input type="month" name="invalid_format" />
-    <input type="month" name="invalid_format2" />
+    <input type="month" name="invalid_min" min="1997-12" />
+    <input type="month" name="invalid_max" max="1997-01" />
+    <input type="month" name="invalid_step" step="2" />
+    <input type="month" name="invalid_min_step" min="1997-01" step="5" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "valid": "2016-02",
-    "invalid_format": "2016",
-    "invalid_format2": "2016-02-11"
+    "valid": "1997-08",
+    "valid_min": "1997-08",
+    "valid_max": "1997-08",
+    "valid_step": "1997-08",
+    "valid_min_step": "1997-08",
+    "invalid_date": "2016 08 02",
+    "invalid_format": "20-08-1997",
+    "invalid_min": "1997-08",
+    "invalid_max": "1997-08",
+    "invalid_step": "1997-08",
+    "invalid_min_step": "1997-08"
 }
 --EXPECTED-VALUES--
 {
-    "valid": "2016-02",
-    "invalid_format": "2016",
-    "invalid_format2": "2016-02-11"
+    "valid": "1997-08",
+    "valid_min": "1997-08",
+    "valid_max": "1997-08",
+    "valid_step": "1997-08",
+    "valid_min_step": "1997-08",
+    "invalid_date": "2016 08 02",
+    "invalid_format": "20-08-1997",
+    "invalid_min": "1997-08",
+    "invalid_max": "1997-08",
+    "invalid_step": "1997-08",
+    "invalid_min_step": "1997-08"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
+    "invalid_date": [
+        "dateInvalidDate"
+    ],
     "invalid_format": [
         "dateInvalidDate"
     ],
-    "invalid_format2": [
-        "dateInvalidDate"
+    "invalid_min": [
+        "notGreaterThanInclusive"
+    ],
+    "invalid_max": [
+        "notLessThanInclusive"
+    ],
+    "invalid_step": [
+        "dateStepNotStep"
+    ],
+    "invalid_min_step": [
+        "dateStepNotStep"
     ]
 }
