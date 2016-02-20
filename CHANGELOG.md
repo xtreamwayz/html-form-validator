@@ -12,6 +12,10 @@ All notable changes to this project will be documented in this file, in reverse 
   custom validators and filters.
 - [#29](https://github.com/xtreamwayz/html-form-validator/pull/29) adds the InputFilterFactory which can be used to
   instantiate a Zend\InputFilter\Factory from a container-interop compatible container.
+- [#30](https://github.com/xtreamwayz/html-form-validator/pull/30) adds 
+    - min, max and step attributes for Datetime input types
+    - the multiple attribute on select and email elements
+    - file element validation options
      
 ### Deprecated
 
