@@ -48,10 +48,10 @@
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-    "invalid": [
-        "notInArray"
-    ],
-    "invalid_required": [
-        "notInArray"
-    ]
+    "invalid": {
+        "notInArray": ""
+    },
+    "invalid_required": {
+        "notInArray": ""
+    }
 }

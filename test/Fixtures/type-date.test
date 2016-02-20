@@ -48,23 +48,23 @@
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-    "invalid_date": [
-        "dateFalseFormat",
-        "dateInvalidDate"
-    ],
-    "invalid_format": [
-        "dateInvalidDate"
-    ],
-    "invalid_min": [
-        "notGreaterThanInclusive"
-    ],
-    "invalid_max": [
-        "notLessThanInclusive"
-    ],
-    "invalid_step": [
-        "dateStepNotStep"
-    ],
-    "invalid_min_step": [
-        "dateStepNotStep"
-    ]
+    "invalid_date": {
+        "dateFalseFormat": "",
+        "dateInvalidDate": ""
+    },
+    "invalid_format": {
+        "dateInvalidDate": ""
+    },
+    "invalid_min": {
+        "notGreaterThanInclusive": ""
+    },
+    "invalid_max": {
+        "notLessThanInclusive": ""
+    },
+    "invalid_step": {
+        "dateStepNotStep": ""
+    },
+    "invalid_min_step": {
+        "dateStepNotStep": ""
+    }
 }

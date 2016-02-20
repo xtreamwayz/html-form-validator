@@ -27,10 +27,10 @@
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-    "invalid_relative": [
-        "notUri"
-    ],
-    "invalid_missing_protocol": [
-        "notUri"
-    ]
+    "invalid_relative": {
+        "notUri": ""
+    },
+    "invalid_missing_protocol": {
+        "notUri": ""
+    }
 }

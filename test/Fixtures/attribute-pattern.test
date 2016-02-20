@@ -54,22 +54,22 @@
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-    "invalid_text": [
-        "regexNotMatch"
-    ],
-    "invalid_search": [
-        "regexNotMatch"
-    ],
-    "invalid_url": [
-        "regexNotMatch"
-    ],
-    "invalid_tel": [
-        "regexNotMatch"
-    ],
-    "invalid_email": [
-        "regexNotMatch"
-    ],
-    "invalid_password": [
-        "regexNotMatch"
-    ]
+    "invalid_text": {
+        "regexNotMatch": ""
+    },
+    "invalid_search": {
+        "regexNotMatch": ""
+    },
+    "invalid_url": {
+        "regexNotMatch": ""
+    },
+    "invalid_tel": {
+        "regexNotMatch": ""
+    },
+    "invalid_email": {
+        "regexNotMatch": ""
+    },
+    "invalid_password": {
+        "regexNotMatch": ""
+    }
 }

@@ -30,8 +30,8 @@ Test data validators attribute
 </form>
 --EXPECTED-ERRORS--
 {
-    "name": [
-        "notAlpha",
-        "stringLengthTooShort"
-    ]
+    "name": {
+        "notAlpha": "",
+        "stringLengthTooShort": ""
+    }
 }

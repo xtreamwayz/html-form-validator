@@ -60,25 +60,25 @@
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-    "invalid_text": [
-        "stringLengthTooShort"
-    ],
-    "invalid_search": [
-        "stringLengthTooShort"
-    ],
-    "invalid_url": [
-        "stringLengthTooShort"
-    ],
-    "invalid_tel": [
-        "stringLengthTooShort"
-    ],
-    "invalid_email": [
-        "stringLengthTooShort"
-    ],
-    "invalid_password": [
-        "stringLengthTooShort"
-    ],
-    "invalid_textarea": [
-        "stringLengthTooShort"
-    ]
+    "invalid_text": {
+        "stringLengthTooShort": ""
+    },
+    "invalid_search": {
+        "stringLengthTooShort": ""
+    },
+    "invalid_url": {
+        "stringLengthTooShort": ""
+    },
+    "invalid_tel": {
+        "stringLengthTooShort": ""
+    },
+    "invalid_email": {
+        "stringLengthTooShort": ""
+    },
+    "invalid_password": {
+        "stringLengthTooShort": ""
+    },
+    "invalid_textarea": {
+        "stringLengthTooShort": ""
+    }
 }

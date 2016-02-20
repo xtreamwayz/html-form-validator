@@ -31,10 +31,10 @@ Test required attribute
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-	"invalid_short": [
-		"isEmpty"
-	],
-    "invalid_long": [
-        "isEmpty"
-    ]
+	"invalid_short": {
+		"isEmpty": ""
+	},
+    "invalid_long": {
+        "isEmpty": ""
+    }
 }

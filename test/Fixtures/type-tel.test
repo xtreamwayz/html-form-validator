@@ -27,10 +27,10 @@
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-    "invalid_tel": [
-        "phoneNumberNoMatch"
-    ],
-    "invalid_country": [
-        "phoneNumberNoMatch"
-    ]
+    "invalid_tel": {
+        "phoneNumberNoMatch": ""
+    },
+    "invalid_country": {
+        "phoneNumberNoMatch": ""
+    }
 }

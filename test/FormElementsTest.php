@@ -40,11 +40,37 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
 
         if (empty($expectedErrors) && empty($result->getMessages())) {
             $this->assertTrue($result->isValid(), "Failed asserting the validation result is valid.");
-            $this->assertEqualErrors($expectedErrors, $result->getMessages());
         } else {
             $this->assertFalse($result->isValid(), "Failed asserting the validation result is invalid.");
-            $this->assertEqualErrors($expectedErrors, $result->getMessages());
         }
+
+        $this->assertEmpty(
+            $this->arrayDiff($expectedErrors, $result->getMessages()),
+            "Failed asserting that expected and actual messages are equal."
+        );
+    }
+
+    private function arrayDiff($array1, $array2)
+    {
+        $result = [];
+
+        if ($res = array_merge(array_diff_key($array1, $array2), array_diff_key($array2, $array1))) {
+            $result = $res;
+        }
+
+        foreach ($array1 as $key => $val) {
+            if (is_array($val) && isset($array2[$key])) {
+                if ($res = array_merge(array_diff_key($val, $array2[$key]), array_diff_key($array2[$key], $val))) {
+                    $result[$key] = $res;
+                } elseif ($res = $this->arrayDiff($val, $array2[$key])) {
+                    $result[$key] = $res;
+                }
+            } elseif (!isset($array2[$key])) {
+                $result[$key] = $val;
+            }
+        }
+
+        return $result;
     }
 
     public function getIntegrationTests()
@@ -165,27 +191,6 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         }
 
         return $data;
-    }
-
-    private function assertEqualErrors(array $expected, array $actual)
-    {
-        foreach ($expected as $name => $errorCodes) {
-            $this->assertArrayHasKey(
-                $name,
-                $actual,
-                sprintf("Failed asserting that input name '%s' has an error.", $name)
-            );
-
-            foreach ($errorCodes as $errorCode) {
-                $this->assertArrayHasKey(
-                    $errorCode,
-                    $actual[$name],
-                    sprintf("Failed asserting that input name '%s' has error code '%s'.", $name, $errorCode)
-                );
-            }
-        }
-
-        $this->assertEquals(count($expected), count($actual), "Failed asserting that errors are equal.");
     }
 
     private function assertEqualForms($expected, $actual)

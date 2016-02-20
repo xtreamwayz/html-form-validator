@@ -58,10 +58,10 @@
 </form>
 --EXPECTED-ERRORS--
 {
-    "invalid": [
-        "notInArray"
-    ],
-    "invalid_reuse": [
-        "notInArray"
-    ]
+    "invalid": {
+        "notInArray": ""
+    },
+    "invalid_reuse": {
+        "notInArray": ""
+    }
 }

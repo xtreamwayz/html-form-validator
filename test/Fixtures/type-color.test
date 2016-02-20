@@ -24,7 +24,7 @@
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-    "invalid": [
-        "regexNotMatch"
-    ]
+    "invalid": {
+        "regexNotMatch": ""
+    }
 }

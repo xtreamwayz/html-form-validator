@@ -46,20 +46,20 @@
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-    "invalid": [
-        "regexNotMatch",
-        "dateInvalidDate"
-    ],
-    "invalid_min": [
-        "notGreaterThanInclusive"
-    ],
-    "invalid_max": [
-        "notLessThanInclusive"
-    ],
-    "invalid_step": [
-        "dateStepNotStep"
-    ],
-    "invalid_min_step": [
-        "dateStepNotStep"
-    ]
+    "invalid": {
+        "regexNotMatch": "",
+        "dateInvalidDate": ""
+    },
+    "invalid_min": {
+        "notGreaterThanInclusive": ""
+    },
+    "invalid_max": {
+        "notLessThanInclusive": ""
+    },
+    "invalid_step": {
+        "dateStepNotStep": ""
+    },
+    "invalid_min_step": {
+        "dateStepNotStep": ""
+    }
 }

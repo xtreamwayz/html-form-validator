@@ -30,7 +30,7 @@ Test aria-required="true" attribute
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-	"invalid_isempty": [
-		"isEmpty"
-	]
+	"invalid_isempty": {
+		"isEmpty": ""
+	}
 }
