@@ -12,9 +12,8 @@ class Week extends DateTimeElement
         return [
             'name'    => RegexValidator::class,
             'options' => [
-                'pattern' => '/(\d{4})-W(\d{2})/',
+                'pattern' => '/^[0-9]{4}\-W[0-9]{2}$/',
             ],
-
         ];
     }
 }
