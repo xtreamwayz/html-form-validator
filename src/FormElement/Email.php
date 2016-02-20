@@ -7,6 +7,7 @@ use Zend\Filter\StripNewlines as StripNewlinesFilter;
 use Zend\Validator\EmailAddress as EmailAddressValidator;
 use Zend\Validator\Regex as RegexValidator;
 use Zend\Validator\StringLength as StringLengthValidator;
+use Zend\Validator\Explode as ExplodeValidator;
 
 class Email extends BaseFormElement
 {
@@ -22,15 +23,16 @@ class Email extends BaseFormElement
     {
         $validators = [];
 
-        $validators[] = [
-            'name'    => EmailAddressValidator::class,
-            'options' => [
-                'useMxCheck' => filter_var(
-                    $this->node->getAttribute('data-validator-use-mx-check'),
-                    FILTER_VALIDATE_BOOLEAN
-                ),
-            ],
-        ];
+        if ($this->node->hasAttribute('multiple')) {
+            $validators[] = [
+                'name'    => ExplodeValidator::class,
+                'options' => [
+                    'validator' => $this->getEmailValidator(),
+                ],
+            ];
+        } else {
+            $validators[] = $this->getEmailValidator();
+        }
 
         if ($this->node->hasAttribute('minlength') || $this->node->hasAttribute('maxlength')) {
             $validators[] = [
@@ -52,5 +54,18 @@ class Email extends BaseFormElement
         }
 
         return $validators;
+    }
+
+    protected function getEmailValidator()
+    {
+        return [
+            'name'    => EmailAddressValidator::class,
+            'options' => [
+                'useMxCheck' => filter_var(
+                    $this->node->getAttribute('data-validator-use-mx-check'),
+                    FILTER_VALIDATE_BOOLEAN
+                ),
+            ],
+        ];
     }
 }
