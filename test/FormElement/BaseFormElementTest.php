@@ -3,9 +3,11 @@
 namespace XtreamwayzTest\HTMLFormValidator\FormElement;
 
 use ReflectionMethod;
+use DOMElement;
+use DOMDocument;
 use Xtreamwayz\HTMLFormValidator\FormElement\Text;
 
-class AbstractFormElementTest extends \PHPUnit_Framework_TestCase
+class BaseFormElementTest extends \PHPUnit_Framework_TestCase
 {
     public function dataAttributesProvider()
     {
@@ -116,7 +118,13 @@ class AbstractFormElementTest extends \PHPUnit_Framework_TestCase
     {
         $reflectionMethod = new ReflectionMethod(Text::class, 'parseDataAttribute');
         $reflectionMethod->setAccessible(true);
-        $actual = iterator_to_array($reflectionMethod->invokeArgs(new Text(), [$dataAttribute]));
+        $actual = iterator_to_array($reflectionMethod->invokeArgs(
+            new Text(
+                $this->prophesize(DOMElement::class)->reveal(),
+                $this->prophesize(DOMDocument::class)->reveal()
+            ),
+            [$dataAttribute]
+        ));
 
         $this->assertEquals($expected, $actual);
     }

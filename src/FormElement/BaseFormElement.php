@@ -99,26 +99,6 @@ class BaseFormElement implements InputProviderInterface
         return [];
     }
 
-    /*
-    public function __invoke(DOMElement $element, InputInterface $input, DOMDocument $document)
-    {
-        $this->element = $element;
-        $this->input = $input;
-        $this->document = $document;
-
-        // Build input validator chain for element
-        $this->attachDefaultFilters();
-        $this->attachFilters();
-        $this->attachDefaultValidators();
-        $this->attachValidators();
-
-        // Enforce required and allow empty properties
-        if ($this->element->hasAttribute('required') || $this->element->getAttribute('aria-required') == 'true') {
-            $this->input->setRequired(true);
-        }
-    }
-*/
-
     /**
      * Parse data attribute value for validators, filters and options
      *
