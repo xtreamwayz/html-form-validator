@@ -30,7 +30,7 @@
 </form>
 --EXPECTED-ERRORS--
 {
-    "invalid": [
-        "notSame"
-    ]
+    "invalid": {
+        "notSame": ""
+    }
 }

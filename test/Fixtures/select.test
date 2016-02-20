@@ -8,6 +8,12 @@
         <option value="ferrari">Ferrari</option>
     </select>
 
+    <select name="valid_multiple" multiple>
+        <option value="audi">Audi</option>
+        <option value="bugatti">Bugatti</option>
+        <option value="ferrari">Ferrari</option>
+    </select>
+
     <select name="valid_required" required>
         <option value="audi">Audi</option>
         <option value="bugatti">Bugatti</option>
@@ -20,9 +26,16 @@
         <option value="ferrari">Ferrari</option>
     </select>
 
+    <select name="invalid_multiple" multiple>
+        <option value="audi">Audi</option>
+        <option value="bugatti">Bugatti</option>
+        <option value="ferrari">Ferrari</option>
+    </select>
+
     <select name="invalid_required" required>
         <option value="audi">Audi</option>
         <option value="bugatti">Bugatti</option>
+
         <option value="ferrari">Ferrari</option>
     </select>
 </form>
@@ -32,26 +45,33 @@
 --SUBMITTED-VALUES--
 {
     "valid": "audi",
+    "valid_multiple": ["audi","bugatti"],
     "valid_required": "audi",
 
     "invalid": "mercedes",
+    "invalid_multiple": ["audi","mercedes"],
     "invalid_required": "mercedes"
 }
 --EXPECTED-VALUES--
 {
     "valid": "audi",
+    "valid_multiple": ["audi","bugatti"],
     "valid_required": "audi",
 
     "invalid": "mercedes",
+    "invalid_multiple": ["audi","mercedes"],
     "invalid_required": "mercedes"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-    "invalid": [
-        "notInArray"
-    ],
-    "invalid_required": [
-        "notInArray"
-    ]
+    "invalid": {
+        "notInArray": ""
+    },
+    "invalid_multiple": [{
+        "notInArray": ""
+    }],
+    "invalid_required": {
+        "notInArray": ""
+    }
 }

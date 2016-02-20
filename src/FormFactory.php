@@ -5,7 +5,6 @@ namespace Xtreamwayz\HTMLFormValidator;
 use DOMDocument;
 use DOMElement;
 use DOMXPath;
-use Xtreamwayz\HTMLFormValidator\FormElement;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory;
 
@@ -34,7 +33,7 @@ final class FormFactory implements FormFactoryInterface
     private $errorClass = 'has-danger';
 
     /**
-     * @var FormElement\AbstractFormElement[]
+     * @var FormElement\BaseFormElement[]
      */
     private $formElements = [
         'hidden'         => FormElement\Hidden::class,
@@ -48,9 +47,9 @@ final class FormFactory implements FormFactoryInterface
         'month'          => FormElement\Month::class,
         'week'           => FormElement\Week::class,
         'time'           => FormElement\Time::class,
-        'datetime-local' => FormElement\DateTimeLocal::class,
+        'datetime-local' => FormElement\DateTime::class,
         'number'         => FormElement\Number::class,
-        'range'          => FormElement\Number::class,
+        'range'          => FormElement\Range::class,
         'color'          => FormElement\Color::class,
         'checkbox'       => FormElement\Checkbox::class,
         'radio'          => FormElement\Radio::class,
@@ -65,7 +64,6 @@ final class FormFactory implements FormFactoryInterface
     public function __construct($htmlForm, array $defaultValues = [], Factory $factory = null)
     {
         $this->factory = $factory ?: new Factory();
-        $this->inputFilter = $this->factory->createInputFilter([]);
         $this->defaultValues = $defaultValues;
 
         // Create new doc
@@ -77,11 +75,8 @@ final class FormFactory implements FormFactoryInterface
         $this->document->loadHTML($htmlForm, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         libxml_use_internal_errors(false);
 
-        // Add all validators and filters to the InputFilter
-        $this->buildInputFilterFromForm();
-
         // Inject default values (from models etc)
-        $this->injectValues($defaultValues, true);
+        $this->setData($defaultValues, true);
     }
 
     /**
@@ -95,8 +90,38 @@ final class FormFactory implements FormFactoryInterface
     /**
      * @inheritdoc
      */
+    public function asString(ValidationResultInterface $result = null)
+    {
+        if ($result) {
+            // Inject data if a result is set
+            $this->setData($result->getValues());
+            $this->setMessages($result->getMessages());
+        }
+
+        // Always remove form validator specific attributes before rendering the form
+        // to clean it up and remove possible sensitive data
+        foreach ($this->getNodeList() as $name => $node) {
+            $node->removeAttribute('data-reuse-submitted-value');
+            $node->removeAttribute('data-input-name');
+            $node->removeAttribute('data-validators');
+            $node->removeAttribute('data-filters');
+        }
+
+        $this->document->formatOutput = true;
+
+        return $this->document->saveHTML();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function validate(array $data)
     {
+        $this->inputFilter = $this->factory->createInputFilter([]);
+
+        // Add all validators and filters to the InputFilter
+        $this->buildInputFilterFromForm();
+
         $this->inputFilter->setData($data);
         $messages = [];
 
@@ -116,82 +141,52 @@ final class FormFactory implements FormFactoryInterface
     }
 
     /**
-     * @inheritdoc
-     */
-    public function asString(ValidationResultInterface $result = null)
-    {
-        if ($result) {
-            // Inject data if a result is set
-            $this->injectValues($result->getValues());
-            $this->injectMessages($result->getMessages());
-        }
-
-        // Always remove form validator specific attributes before rendering the form
-        // to clean it up and remove possible sensitive data
-        foreach ($this->getFormElements() as $name => $element) {
-            $element->removeAttribute('data-reuse-submitted-value');
-            $element->removeAttribute('data-input-name');
-            $element->removeAttribute('data-validators');
-            $element->removeAttribute('data-filters');
-        }
-
-        $this->document->formatOutput = true;
-
-        return $this->document->saveHTML();
-    }
-
-    /**
      * Build the InputFilter, validators and filters from form fields
      */
     private function buildInputFilterFromForm()
     {
-        foreach ($this->getFormElements() as $name => $element) {
+        foreach ($this->getNodeList() as $name => $node) {
+            if ($this->inputFilter->has($name)) {
+                continue;
+            }
+
             // Detect element type
-            $type = $element->getAttribute('type');
-            if ($element->tagName == 'textarea') {
+            $type = $node->getAttribute('type');
+            if ($node->tagName == 'textarea') {
                 $type = 'textarea';
-            } elseif ($element->tagName == 'select') {
+            } elseif ($node->tagName == 'select') {
                 $type = 'select';
             }
 
             // Add validation
             if (isset($this->formElements[$type])) {
-                $formElement = new $this->formElements[$type];
+                $elementClass = $this->formElements[$type];
             } else {
                 // Create a default validator
-                $formElement = new $this->formElements['text'];
+                $elementClass = $this->formElements['text'];
             }
 
-            if ($this->inputFilter->has($name)) {
-                $input = $this->inputFilter->get($name);
-            } else {
-                // No input found for element, create a new one
-                $input = $this->factory->createInput([
-                    'name' => $name,
-                    'required' => false
-                ]);
-                $this->inputFilter->add($input);
-            }
-
-            // Extract validators and filters from the element and attach to the inputfilter
-            $formElement($element, $input, $this->document);
+            /** @var \Zend\InputFilter\InputProviderInterface $element */
+            $element = new $elementClass($node, $this->document);
+            $input = $this->factory->createInput($element);
+            $this->inputFilter->add($input, $name);
         }
     }
 
     /**
      * Get form elements and create an id if needed
      */
-    private function getFormElements()
+    private function getNodeList()
     {
         $xpath = new DOMXPath($this->document);
-        $elements = $xpath->query('//input | //textarea | //select | //div[@data-input-name]');
+        $nodeList = $xpath->query('//input | //textarea | //select | //div[@data-input-name]');
 
-        /** @var DOMElement $element */
-        foreach ($elements as $element) {
+        /** @var DOMElement $node */
+        foreach ($nodeList as $node) {
             // Set some basic vars
-            $name = $element->getAttribute('name');
+            $name = $node->getAttribute('name');
             if (!$name) {
-                $name = $element->getAttribute('data-input-name');
+                $name = $node->getAttribute('data-input-name');
             }
 
             if (!$name) {
@@ -200,19 +195,19 @@ final class FormFactory implements FormFactoryInterface
                 continue;
             }
 
-            yield $name => $element;
+            yield $name => $node;
         }
     }
 
     /**
-     * Inject submitted filtered values into the form, bootstrap style
+     * Set values and element checked and selected states
      *
      * @param array $data
      * @param bool  $force
      */
-    private function injectValues(array $data, $force = false)
+    private function setData(array $data, $force = false)
     {
-        foreach ($this->getFormElements() as $name => $element) {
+        foreach ($this->getNodeList() as $name => $node) {
             if (!isset($data[$name])) {
                 // No value set for this element
                 continue;
@@ -221,7 +216,7 @@ final class FormFactory implements FormFactoryInterface
             $value = $data[$name];
 
             $reuseSubmittedValue = filter_var(
-                $element->getAttribute('data-reuse-submitted-value'),
+                $node->getAttribute('data-reuse-submitted-value'),
                 FILTER_VALIDATE_BOOLEAN
             );
 
@@ -230,54 +225,54 @@ final class FormFactory implements FormFactoryInterface
                 continue;
             }
 
-            if ($element->getAttribute('type') == 'checkbox' || $element->getAttribute('type') == 'radio') {
-                if ($value == $element->getAttribute('value')) {
-                    $element->setAttribute('checked', 'checked');
+            if ($node->getAttribute('type') == 'checkbox' || $node->getAttribute('type') == 'radio') {
+                if ($value == $node->getAttribute('value')) {
+                    $node->setAttribute('checked', 'checked');
                 } else {
-                    $element->removeAttribute('checked');
+                    $node->removeAttribute('checked');
                 }
-            } elseif ($element->nodeName == 'select') {
-                /** @var DOMElement $node */
-                foreach ($element->getElementsByTagName('option') as $node) {
-                    if ($value == $node->getAttribute('value')) {
-                        $node->setAttribute('selected', 'selected');
+            } elseif ($node->nodeName == 'select') {
+                /** @var DOMElement $option */
+                foreach ($node->getElementsByTagName('option') as $option) {
+                    if ($value == $option->getAttribute('value')) {
+                        $option->setAttribute('selected', 'selected');
                     } else {
-                        $node->removeAttribute('selected');
+                        $option->removeAttribute('selected');
                     }
                 }
-            } elseif ($element->nodeName == 'input') {
+            } elseif ($node->nodeName == 'input') {
                 // Set value for input elements
-                $element->setAttribute('value', $value);
-            } elseif ($element->nodeName == 'textarea') {
-                $element->nodeValue = $value;
+                $node->setAttribute('value', $value);
+            } elseif ($node->nodeName == 'textarea') {
+                $node->nodeValue = $value;
             }
         }
     }
 
     /**
-     * Inject messages into the form, bootstrap style
+     * Set validation messages, bootstrap style
      *
      * @param array $data
      */
-    private function injectMessages(array $data)
+    private function setMessages(array $data)
     {
         foreach ($data as $name => $errors) {
             // Not sure if this can be optimized and create the DOMXPath only once.
             // At this point the dom is constantly changing.
             $xpath = new DOMXPath($this->document);
             // Get all elements with the name
-            $elements = $xpath->query(sprintf('//*[@name="%1$s"] | //*[@data-input-name="%1$s"]', $name));
+            $nodeList = $xpath->query(sprintf('//*[@name="%1$s"] | //*[@data-input-name="%1$s"]', $name));
 
-            if ($elements->length == 0) {
+            if ($nodeList->length == 0) {
                 // No element found for this element ???
                 continue;
             }
 
             // Get first element only
-            $element = $elements->item(0);
+            $node = $nodeList->item(0);
 
             /** @var DOMElement $parent */
-            $parent = $element->parentNode;
+            $parent = $node->parentNode;
             if (strpos($parent->getAttribute('class'), $this->errorClass) === false) {
                 // Set error class to parent
                 $class = trim($parent->getAttribute('class') . ' ' . $this->errorClass);
@@ -289,13 +284,13 @@ final class FormFactory implements FormFactoryInterface
                 $div = $this->document->createElement('div');
                 $div->setAttribute('class', 'text-danger');
                 $div->nodeValue = $message;
-                $element->parentNode->insertBefore($div, $element->nextSibling);
+                $node->parentNode->insertBefore($div, $node->nextSibling);
             }
 
-            /** @var DOMElement $element */
-            foreach ($elements as $element) {
+            /** @var DOMElement $node */
+            foreach ($nodeList as $node) {
                 // Set aria-invalid attribute on all elements
-                $element->setAttribute('aria-invalid', 'true');
+                $node->setAttribute('aria-invalid', 'true');
             }
         }
     }

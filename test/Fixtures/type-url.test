@@ -3,7 +3,9 @@
 --HTML-FORM--
 <form action="/" method="post">
     <input type="url" name="valid" />
-    <input type="text" name="filter_stripnewlines" />
+    <input type="url" name="invalid_relative" />
+    <input type="url" name="invalid_missing_protocol" />
+    <input type="url" name="filter_stripnewlines" />
 </form>
 --DEFAULT-VALUES--
 {
@@ -11,14 +13,24 @@
 --SUBMITTED-VALUES--
 {
     "valid": "https://example.com/foo/bar",
+    "invalid_relative": "/foo/bar",
+    "invalid_missing_protocol": "//example.com/foo/bar",
     "filter_stripnewlines": "https://example.com\n/\nfoo\n/bar"
 }
 --EXPECTED-VALUES--
 {
     "valid": "https://example.com/foo/bar",
+    "invalid_relative": "/foo/bar",
+    "invalid_missing_protocol": "//example.com/foo/bar",
     "filter_stripnewlines": "https://example.com/foo/bar"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
+    "invalid_relative": {
+        "notUri": ""
+    },
+    "invalid_missing_protocol": {
+        "notUri": ""
+    }
 }

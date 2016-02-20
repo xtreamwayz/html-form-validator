@@ -3,25 +3,69 @@
 --HTML-FORM--
 <form action="/" method="post">
     <input type="datetime-local" name="valid" />
+    <input type="datetime-local" name="valid_min" min="1997-01-01T02:14" />
+    <input type="datetime-local" name="valid_max" max="1997-12-31T02:14" />
+    <input type="datetime-local" name="valid_step" step="2" />
+    <input type="datetime-local" name="valid_min_step" min="1997-01-01T02:14" step="8" />
+    <input type="datetime-local" name="invalid_date" />
     <input type="datetime-local" name="invalid_format" />
+    <input type="datetime-local" name="invalid_min" min="1997-12-31T02:14" />
+    <input type="datetime-local" name="invalid_max" max="1997-01-01T02:14" />
+    <input type="datetime-local" name="invalid_step" step="3" />
+    <input type="datetime-local" name="invalid_min_step" min="1997-01-01T02:14" step="7" />
 </form>
 --DEFAULT-VALUES--
 {
 }
 --SUBMITTED-VALUES--
 {
-    "valid": "2016-02-08T22:00",
-    "invalid_format": "2016-02-08"
+    "valid": "1997-08-29T02:14",
+    "valid_min": "1997-08-29T02:14",
+    "valid_max": "1997-08-29T02:14",
+    "valid_step": "1997-08-29T02:14",
+    "valid_min_step": "1997-08-29T02:14",
+    "invalid_date": "1997-02-31T02:14",
+    "invalid_format": "29-08-1997T02:14",
+    "invalid_min": "1997-08-29T02:14",
+    "invalid_max": "1997-08-29T02:14",
+    "invalid_step": "1997-08-29T02:14",
+    "invalid_min_step": "1997-08-29T02:14"
 }
 --EXPECTED-VALUES--
 {
-    "valid": "2016-02-08T22:00",
-    "invalid_format": "2016-02-08"
+    "valid": "1997-08-29T02:14",
+    "valid_min": "1997-08-29T02:14",
+    "valid_max": "1997-08-29T02:14",
+    "valid_step": "1997-08-29T02:14",
+    "valid_min_step": "1997-08-29T02:14",
+    "invalid_date": "1997-02-31T02:14",
+    "invalid_format": "29-08-1997T02:14",
+    "invalid_min": "1997-08-29T02:14",
+    "invalid_max": "1997-08-29T02:14",
+    "invalid_step": "1997-08-29T02:14",
+    "invalid_min_step": "1997-08-29T02:14"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-    "invalid_format": [
-        "dateInvalidDate"
-    ]
+    "invalid_date": {
+        "dateFalseFormat": "",
+        "dateInvalidDate": ""
+    },
+    "invalid_format": {
+        "dateFalseFormat": "",
+        "dateInvalidDate": ""
+    },
+    "invalid_min": {
+        "notGreaterThanInclusive": ""
+    },
+    "invalid_max": {
+        "notLessThanInclusive": ""
+    },
+    "invalid_step": {
+        "dateStepNotStep": ""
+    },
+    "invalid_min_step": {
+        "dateStepNotStep": ""
+    }
 }

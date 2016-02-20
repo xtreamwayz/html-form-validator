@@ -2,38 +2,51 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Filter\StripNewlines;
-use Zend\Validator\Regex;
-use Zend\Validator\StringLength;
+use Zend\Filter\StripNewlines as StripNewlinesFilter;
+use Zend\Validator\Regex as RegexValidator;
+use Zend\Validator\StringLength as StringLengthValidator;
+use Zend\Validator\Uri as UriValidator;
 
-class Url extends AbstractFormElement
+class Url extends BaseFormElement
 {
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultFilters()
+    protected function getFilters()
     {
-        $this->attachFilterByName(StripNewlines::class);
+        return [
+            ['name' => StripNewlinesFilter::class],
+        ];
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultValidators()
+    protected function getValidators()
     {
-        $this->attachValidatorByName('uri');
+        $validators = [];
 
-        if ($this->element->hasAttribute('minlength') || $this->element->hasAttribute('maxlength')) {
-            $this->attachValidatorByName(StringLength::class, [
-                'min' => $this->element->getAttribute('minlength') ?: 0,
-                'max' => $this->element->getAttribute('maxlength') ?: null,
-            ]);
+        $validators[] = [
+            'name'    => UriValidator::class,
+            'options' => [
+                'allowAbsolute' => true,
+                'allowRelative' => false,
+            ],
+        ];
+
+        if ($this->node->hasAttribute('minlength') || $this->node->hasAttribute('maxlength')) {
+            $validators[] = [
+                'name'    => StringLengthValidator::class,
+                'options' => [
+                    'min' => $this->node->getAttribute('minlength') ?: 0,
+                    'max' => $this->node->getAttribute('maxlength') ?: null,
+                ],
+            ];
         }
 
-        if ($this->element->hasAttribute('pattern')) {
-            $this->attachValidatorByName(Regex::class, [
-                'pattern' => sprintf('/%s/', $this->element->getAttribute('pattern')),
-            ]);
+        if ($this->node->hasAttribute('pattern')) {
+            $validators[] = [
+                'name'    => RegexValidator::class,
+                'options' => [
+                    'pattern' => sprintf('/%s/', $this->node->getAttribute('pattern')),
+                ],
+            ];
         }
+
+        return $validators;
     }
 }

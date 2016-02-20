@@ -2,24 +2,28 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Validator\Date as DateValidator;
+use DateInterval;
+use DateTimeZone;
+use Xtreamwayz\HTMLFormValidator\FormElement\DateTime as DateTimeElement;
+use Zend\Validator\DateStep as DateStepValidator;
 
-class Date extends AbstractFormElement
+class Date extends DateTimeElement
 {
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultFilters()
-    {
-    }
+    protected $format = 'Y-m-d';
 
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultValidators()
+    protected function getStepValidator()
     {
-        $this->attachValidatorByName(DateValidator::class, [
-            'format' => 'Y-m-d',
-        ]);
+        $stepValue = $this->node->getAttribute('step') ?: 1; // Days
+        $baseValue = $this->node->getAttribute('min') ?: date($this->format, 0);
+
+        return [
+            'name'    => DateStepValidator::class,
+            'options' => [
+                'format'    => $this->format,
+                'baseValue' => $baseValue,
+                'step'      => new DateInterval("P{$stepValue}D"),
+                'timezone'  => new DateTimeZone('UTC'),
+            ],
+        ];
     }
 }

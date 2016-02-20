@@ -26,15 +26,6 @@ interface FormFactoryInterface
     public static function fromHtml($htmlForm, array $defaultValues = []);
 
     /**
-     * Validate the loaded form with the data
-     *
-     * @param array $data
-     *
-     * @return ValidationResultInterface
-     */
-    public function validate(array $data);
-
-    /**
      * Return form as a string. Optionally inject the error messages for the result.
      *
      * @param ValidationResultInterface|null $result
@@ -42,4 +33,13 @@ interface FormFactoryInterface
      * @return string
      */
     public function asString(ValidationResultInterface $result = null);
+
+    /**
+     * Validate the loaded form with the data
+     *
+     * @param array $data
+     *
+     * @return ValidationResultInterface
+     */
+    public function validate(array $data);
 }

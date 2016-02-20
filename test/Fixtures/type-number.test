@@ -66,21 +66,21 @@ Tests the number input type. The range input type works exactly the same.
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-    "invalid_text": [
-        "notInt",
-        "typeInvalid"
-    ],
-    "invalid_min": [
-        "notGreaterThanInclusive"
-    ],
-    "invalid_max": [
-        "notLessThanInclusive"
-    ],
-    "invalid_step": [
-        "stepInvalid"
-    ],
-    "invalid_between_step": [
-        "notGreaterThanInclusive",
-        "stepInvalid"
-    ]
+    "invalid_text": {
+        "notInt": "",
+        "typeInvalid": ""
+    },
+    "invalid_min": {
+        "notGreaterThanInclusive": ""
+    },
+    "invalid_max": {
+        "notLessThanInclusive": ""
+    },
+    "invalid_step": {
+        "stepInvalid": ""
+    },
+    "invalid_between_step": {
+        "notGreaterThanInclusive": "",
+        "stepInvalid": ""
+    }
 }

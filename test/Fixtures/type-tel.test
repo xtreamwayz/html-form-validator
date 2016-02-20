@@ -2,10 +2,10 @@
 <test description>
 --HTML-FORM--
 <form action="/" method="post">
-    <input type="tel" name="valid" data-country="es" />
-    <input type="tel" name="invalid_tel" data-country="es" />
-    <input type="tel" name="invalid_country" data-country="es" />
-    <input type="tel" name="filter_stripnewlines" data-country="es" />
+    <input type="tel" name="valid" data-validator-country="es" />
+    <input type="tel" name="invalid_tel" data-validator-country="es" />
+    <input type="tel" name="invalid_country" data-validator-country="es" />
+    <input type="tel" name="filter_stripnewlines" data-validator-country="es" />
 </form>
 --DEFAULT-VALUES--
 {
@@ -27,10 +27,10 @@
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-    "invalid_tel": [
-        "phoneNumberNoMatch"
-    ],
-    "invalid_country": [
-        "phoneNumberNoMatch"
-    ]
+    "invalid_tel": {
+        "phoneNumberNoMatch": ""
+    },
+    "invalid_country": {
+        "phoneNumberNoMatch": ""
+    }
 }

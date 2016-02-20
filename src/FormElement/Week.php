@@ -2,24 +2,35 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Validator\Regex;
+use DateInterval;
+use Xtreamwayz\HTMLFormValidator\FormElement\DateTime as DateTimeElement;
+use Zend\Validator\DateStep as DateStepValidator;
+use Zend\Validator\Regex as RegexValidator;
 
-class Week extends AbstractFormElement
+class Week extends DateTimeElement
 {
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultFilters()
+    protected function getDateValidator()
     {
+        return [
+            'name'    => RegexValidator::class,
+            'options' => [
+                'pattern' => '/^[0-9]{4}\-W[0-9]{2}$/',
+            ],
+        ];
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultValidators()
+    protected function getStepValidator()
     {
-        $this->attachValidatorByName(Regex::class, [
-            'pattern' => '/(\d{4})-W(\d{2})/',
-        ]);
+        $stepValue = $this->node->getAttribute('step') ?: 1; // Weeks
+        $baseValue = $this->node->getAttribute('min') ?: '1970-W01';
+
+        return [
+            'name'    => DateStepValidator::class,
+            'options' => [
+                'format'    => 'Y-\WW',
+                'baseValue' => $baseValue,
+                'step'      => new DateInterval("P{$stepValue}W"),
+            ],
+        ];
     }
 }

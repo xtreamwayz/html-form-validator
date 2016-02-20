@@ -44,14 +44,14 @@ Test data validators attribute
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-    "invalid_multiple": [
-        "stringLengthTooShort",
-        "notAlpha"
-    ],
-    "invalid_toolong": [
-        "stringLengthTooLong"
-    ],
-    "invalid_tooshort": [
-        "stringLengthTooShort"
-    ]
+    "invalid_multiple": {
+        "stringLengthTooShort": "",
+        "notAlpha": ""
+    },
+    "invalid_toolong": {
+        "stringLengthTooLong": ""
+    },
+    "invalid_tooshort": {
+        "stringLengthTooShort": ""
+    }
 }

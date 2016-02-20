@@ -3,7 +3,10 @@
 --HTML-FORM--
 <form action="/" method="post">
     <input type="email" name="valid" />
+    <input type="email" name="valid_multiple" multiple />
     <input type="email" name="invalid" />
+    <input type="email" name="invalid_multiple" multiple />
+    <input type="email" name="invalid_multiple_format" multiple />
     <input type="email" name="filter_stripnewlines" />
     <input type="email" name="filter_stringtrim" />
 </form>
@@ -11,23 +14,39 @@
 --SUBMITTED-VALUES--
 {
     "valid": "john.doe@example.com",
+    "valid_multiple": "john.doe@example.com,jane.doe@example.com",
     "invalid": "john.doe@example",
+    "invalid_multiple": "john.doe@example.com,jane.doe@example",
+    "invalid_multiple_format": "john.doe@example.com|jane.doe@example.com",
     "filter_stripnewlines": "john.doe@example.com\n",
     "filter_stringtrim": "  john.doe@example.com "
 }
 --EXPECTED-VALUES--
 {
     "valid": "john.doe@example.com",
+    "valid_multiple": "john.doe@example.com,jane.doe@example.com",
     "invalid": "john.doe@example",
+    "invalid_multiple": "john.doe@example.com,jane.doe@example",
+    "invalid_multiple_format": "john.doe@example.com|jane.doe@example.com",
     "filter_stripnewlines": "john.doe@example.com",
     "filter_stringtrim": "john.doe@example.com"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
-    "invalid": [
-        "emailAddressInvalidHostname",
-        "hostnameInvalidHostname",
-        "hostnameLocalNameNotAllowed"
-    ]
+	"invalid": {
+		"emailAddressInvalidHostname": "",
+		"hostnameInvalidHostname": "",
+		"hostnameLocalNameNotAllowed": ""
+	},
+	"invalid_multiple": [{
+		"emailAddressInvalidHostname": "",
+		"hostnameInvalidHostname": "",
+		"hostnameLocalNameNotAllowed": ""
+	}],
+	"invalid_multiple_format": [{
+		"emailAddressDotAtom": "",
+		"emailAddressQuotedString": "",
+		"emailAddressInvalidLocalPart": ""
+	}]
 }

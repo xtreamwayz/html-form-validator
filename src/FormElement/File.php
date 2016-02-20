@@ -2,19 +2,31 @@
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-class File extends AbstractFormElement
-{
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultFilters()
-    {
-    }
+use Zend\InputFilter\FileInput;
+use Zend\Validator\File\MimeType as MimeTypeValidator;
 
-    /**
-     * @inheritdoc
-     */
-    protected function attachDefaultValidators()
+class File extends BaseFormElement
+{
+    public function getInputSpecification()
     {
+        $spec = [
+            'type'     => FileInput::class,
+            'name'     => $this->getName(),
+            'required' => $this->isRequired(),
+        ];
+
+        if ($this->node->hasAttribute('accept')) {
+            $spec['validators'] = [
+                [
+                    'name'    => MimeTypeValidator::class,
+                    'options' => [
+                        'mimeType'          => $this->node->getAttribute('accept'),
+                        'enableHeaderCheck' => true,
+                    ],
+                ],
+            ];
+        }
+
+        return $spec;
     }
 }
