@@ -30,7 +30,7 @@ Nothing.
 
 ### Fixed
 
-Nothing.
+- [#30](https://github.com/xtreamwayz/html-form-validator/pull/30) fixes invalid validation regex for the color type.  
 
 ## 0.2.0 - 2016-02-15
 
