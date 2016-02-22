@@ -90,31 +90,25 @@ class ContactAction
         ]));
 
         // Check if the form is submitted
-        if ($request->getMethod() !== 'POST') {
-            // The form was not submitted, display it
-            return new HtmlResponse($this->template->render('app::contact', [
-                'form' => $form->asString(),
-            ]), 200);
+        if ($request->getMethod() === 'POST') {
+            // Validate form
+            $validationResult = $form->validate((array) $request->getParsedBody());
+            
+            // Check if the validation result is valid 
+            if ($validationResult->isValid()) {
+                // Get filter submitted values
+                $data = $validationResult->getValues();
+
+                // Process data
+
+                return new RedirectResponse('/');
+            }
         }
 
-        // Validate form
-        $validationResult = $form->validate((array) $request->getParsedBody());
-        
-        // Check if the validation result is valid 
-        if (!$validationResult->isValid()) {
-            // The form was not valid so display it again and inject error messages and submitted filtered values
-            return new HtmlResponse($this->template->render('app::contact', [
-                'form' => $form->asString($validationResult),
-            ]), 200);
-        }
-
-        // Get filtered submitted values
-        $data = $validationResult->getValues();
-
-        // Send the email
-
-        // Redirect
-        return new RedirectResponse('/');
+        // Display form and inject error messages and submitted values if needed
+        return new HtmlResponse($this->template->render('backend::cattle/edit', [
+            'form' => isset($validationResult) ? $form->asString($validationResult) : $form->asString(),
+        ]));
     }
 }
 ```
