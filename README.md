@@ -66,7 +66,7 @@ Pull requests for documentation can be made against the source files in [docs/wi
 
 ## Examples
 
-Examples can be found in the [wiki](https://github.com/xtreamwayz/html-form-validator/wiki) and
+More examples can be found in the [wiki](https://github.com/xtreamwayz/html-form-validator/wiki) and
 [test/Fixtures](https://github.com/xtreamwayz/html-form-validator/tree/master/test/Fixtures) dir.
 
 ```php
@@ -119,10 +119,10 @@ $form = FormFactory::fromHtml($template->render($htmlForm, [
     'csrf-token' => '123456'
 ]));
 
-$_POST['name'] = 'John Doe';
-$_POST['email'] = 'john.doe@example.com';
-$_POST['subject'] = 'Subject of message';
-$_POST['body'] = 'ow are you doing.';
+$_POST['name'] = 'Barney Stinsons';
+$_POST['email'] = 'barney.stinsons@example.com';
+$_POST['subject'] = 'Hi';
+$_POST['body'] = 'It is going to be Legen-Wait For It... DARY! LEGENDARY!';
 
 // Validate form and return form validation result object
 $result = $form->validate($_POST);

@@ -11,7 +11,6 @@
 
 **Examples**
 
-- [[Contact Form|Example Contact Form]]
 - [[Password Confirmation|Example Password Confirmation]]
 - [[Recaptcha|Example Recaptcha]]
 - [[zend-expressive Action|Example Zend Expressive Action]]
