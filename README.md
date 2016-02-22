@@ -4,10 +4,6 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/?branch=master)
 
-**NOTE: This is a proof of concept. Use at your own risk!**
-
----
-
 As challenged by a [tweet](https://twitter.com/Ocramius/status/680817040429592576), this should extract validation
 rules and filters from a html form and validate submitted user data against it.
 
