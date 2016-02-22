@@ -5,8 +5,8 @@ namespace Xtreamwayz\HTMLFormValidator;
 use DOMDocument;
 use DOMElement;
 use DOMXPath;
-use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory;
+use Zend\InputFilter\InputFilterInterface;
 
 final class FormFactory implements FormFactoryInterface
 {
@@ -16,19 +16,9 @@ final class FormFactory implements FormFactoryInterface
     private $factory;
 
     /**
-     * @var InputFilter
-     */
-    private $inputFilter;
-
-    /**
      * @var DOMDocument
      */
     private $document;
-
-    /**
-     * @var array
-     */
-    private $defaultValues;
 
     private $errorClass = 'has-danger';
 
@@ -64,7 +54,6 @@ final class FormFactory implements FormFactoryInterface
     public function __construct($htmlForm, array $defaultValues = [], Factory $factory = null)
     {
         $this->factory = $factory ?: new Factory();
-        $this->defaultValues = $defaultValues;
 
         // Create new doc
         $this->document = new DOMDocument('1.0', 'utf-8');
@@ -117,36 +106,38 @@ final class FormFactory implements FormFactoryInterface
      */
     public function validate(array $data)
     {
-        $this->inputFilter = $this->factory->createInputFilter([]);
+        $inputFilter = $this->factory->createInputFilter([]);
 
         // Add all validators and filters to the InputFilter
-        $this->buildInputFilterFromForm();
+        $this->buildInputFilterFromForm($inputFilter);
 
-        $this->inputFilter->setData($data);
+        $inputFilter->setData($data);
         $messages = [];
 
         // Do some validation
-        if (!$this->inputFilter->isValid()) {
-            foreach ($this->inputFilter->getInvalidInput() as $message) {
+        if (!$inputFilter->isValid()) {
+            foreach ($inputFilter->getInvalidInput() as $message) {
                 $messages[$message->getName()] = $message->getMessages();
             }
         }
 
         // Return validation result
         return new ValidationResult(
-            $this->inputFilter->getRawValues(),
-            $this->inputFilter->getValues(),
+            $inputFilter->getRawValues(),
+            $inputFilter->getValues(),
             $messages
         );
     }
 
     /**
      * Build the InputFilter, validators and filters from form fields
+     *
+     * @param InputFilterInterface $inputFilter
      */
-    private function buildInputFilterFromForm()
+    private function buildInputFilterFromForm(InputFilterInterface $inputFilter)
     {
         foreach ($this->getNodeList() as $name => $node) {
-            if ($this->inputFilter->has($name)) {
+            if ($inputFilter->has($name)) {
                 continue;
             }
 
@@ -169,7 +160,7 @@ final class FormFactory implements FormFactoryInterface
             /** @var \Zend\InputFilter\InputProviderInterface $element */
             $element = new $elementClass($node, $this->document);
             $input = $this->factory->createInput($element);
-            $this->inputFilter->add($input, $name);
+            $inputFilter->add($input, $name);
         }
     }
 
