@@ -15,14 +15,6 @@ It's pretty crazy what you have to do to get a form build. Create a lot of php c
 etc. So why not build a html form and use the standard element attributes to extract the validation rules and filters.
 Together with some powerful html compliant data attributes you can create forms, validation and filters in one place.
 
-Currently There are a few pr's open before this works with zend-service manager:
-- [zend-validator #51](https://github.com/zendframework/zend-validator/pull/51)
-  [source](https://github.com/weierophinney/zend-validator/tree/feature/50)
-- [zend-inputfilter #86](https://github.com/zendframework/zend-inputfilter/pull/86)
-  [source](https://github.com/gianarb/zend-inputfilter/tree/feature/zf3-improvement)
-- [zend-inputfilter #95](https://github.com/zendframework/zend-inputfilter/pull/95)
-  [source](https://github.com/kynx/zend-inputfilter/tree/sm-v2-v3-compat)
-
 ## Installation
 
 ```bash
