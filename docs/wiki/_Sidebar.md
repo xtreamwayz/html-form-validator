@@ -14,6 +14,8 @@
 - [[Contact Form|Example Contact Form]]
 - [[Password Confirmation|Example Password Confirmation]]
 - [[Recaptcha|Example Recaptcha]]
+- [[zend-expressive Action|Example Zend Expressive Action]]
+- [[zend-expressive Custom Validators|Example Zend Expressive Custom Validators]]
 
 **Resource**
 

@@ -52,7 +52,7 @@ Resources:
 *Filters:* Strip line breaks from the value.
 
 ```html
-<input type="tel" name="tel" data-country="es" />
+<input type="tel" name="tel" data-validator-country="es" />
 ```
 
 Resources:
