@@ -123,6 +123,12 @@ $_POST['body'] = 'It is going to be Legen-Wait For It... DARY! LEGENDARY!';
 // Validate form and return form validation result object
 $result = $form->validate($_POST);
 
-// Inject error messages and filtered values from the result object
-echo $form->asString($result);
+// Check validation result
+if ($result->isValid()) {
+    $data = $result->getValues();
+    // Process data ...
+} else {
+    // Inject error messages and filtered values from the result object
+    echo $form->asString($result);
+}
 ```
