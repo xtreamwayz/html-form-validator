@@ -4,11 +4,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ## 0.4.0 - TBD
 
-Initial tagged release.
-
 ### Added
 
-Nothing.
+- [#36](https://github.com/xtreamwayz/html-form-validator/pull/36) adds the `FormFactory->validateRequest()` to handle
+  PSR-7 requests and reduce boilerplate code needed to build, validate and render forms.
 
 ### Deprecated
 
@@ -21,7 +20,6 @@ Nothing.
 ### Fixed
 
 Nothing.
-
 
 ## 0.3.0 - 2016-02-22
 
