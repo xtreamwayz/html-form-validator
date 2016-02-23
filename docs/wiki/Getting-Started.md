@@ -1,17 +1,19 @@
-There are only 3 methods that are needed to get you started.
+There are only 4 steps needed to get you started.
 
 ```php
-// Load the html form into the FormFactory
+// Build the form
 $form = FormFactory::fromHtml($htmlForm);
 
 // Validate the form
 $result = $form->validate($_POST);
 
-// Display the form
-echo $form->asString();
+// Process validation result
+if ($result->isValid()) {
+    $data = $result->getValues();
+}
 
-// Display the form with the submitted values and validation messages 
-echo $form->asString($validationResult);
+// Render the form
+echo $form->asString();
 ```
 
 The HTML5 standard validation rules are added for you [[input elements|API Form Elements]] so you don't need to 
@@ -39,69 +41,28 @@ A full blown text input might look like:
        data-validators="" />
 ```
 
-Using this in a controller action method could look like this:
+Let's go through all the steps needed to get this working inside a controller action method.
+
+## 1. Build the form
+
+Create the form from html. Nothing fancy here. In this case a template renderer is used and the default values are 
+injected.
 
 ```php
-// Build the form validation
+// Build the form
 $form = FormFactory::fromHtml($this->template->render('app::form', [
-    'token'  => $session->get('csrf'),
-]));
-
-// Check if the request was a post
-if ($request->getMethod() === 'POST') {
-    // Validate the result
-    $validationResult = $form->validate((array) $request->getParsedBody());
-
-    // If the submitted data is valid...
-    if ($validationResult->isValid()) {
-        // Get filtered submitted values
-        $data = $validationResult->getValues();
-
-        // Process data
-
-        // Redirect to
-        return new RedirectResponse('/');
-    }
-}
-
-// Display the form and inject the validation messages if there are any
-return new HtmlResponse($this->template->render('app::edit', [
-    'form' => isset($validationResult) ? $form->asString($validationResult) : $form->asString(),
+    'token' => $session->get('csrf'),
 ]));
 ```
 
-## Handling PSR-7 Post Requests
+## 2. Validate the form
 
-But wait, there is still a lot of boilerplate code. This can be done with less code if there is a
-[PSR-7 requests](http://www.php-fig.org/psr/psr-7/).
-
-In stead of using `$form->validate($submittedData)` there is a method to handle PSR-7 requests and do some magic for 
-you: `$validationResult = $form->validateRequest($request);`.
+The easiest way is if you use a framework that uses [PSR-7 requests](http://www.php-fig.org/psr/psr-7/).
 
 ```php
-// Build the form validation
-$form = FormFactory::fromHtml($this->template->render('app::form', [
-    'token'  => $session->get('csrf'),
-]));
-
 // Validate PSR-7 request and return a ValidationResponseInterface 
 // It should only start validation if it was a post and if there are submitted values
 $validationResult = $form->validateRequest($request);
-
-// It should be valid if it was a post and if there are no validation messages
-if ($validationResult->isValid()) {
-    // Get filter submitted values
-    $data = $validationResult->getValues();
-
-    // Process data
-
-    return new RedirectResponse('/');
-}
-
-// Display the form and inject the validation messages if there are any
-return new HtmlResponse($this->template->render('app::edit', [
-    'form' => $form->asString($validationResult),
-]));
 ```
 
 If you use a framework that doesn't handle PSR-7 requests, you can still reduce boilerplate code by passing the 
@@ -111,7 +72,54 @@ request method yourself:
 $validationResult = $form->validate($submittedData, $_SERVER['REQUEST_METHOD']);
 ```
 
-## Custom Validators and Filters
+You can also leave the method validation out. It won't check for a valid `POST` method. 
+
+```php
+$validationResult = $form->validate($submittedData);
+```
+
+## 3. Process validation result
+
+Submitted data should be valid if it was a post and there are no validation messages set. 
+
+```php
+// It should be valid if it was a post and if there are no validation messages
+if ($validationResult->isValid()) {
+    // Get filter submitted values
+    $data = $validationResult->getValues();
+
+    // Process data
+
+    return new RedirectResponse('/');
+}
+```
+
+If you didn't use the PSR-7 request method, you might want to check for a valid post method yourself:
+ 
+```php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && $validationResult->isValid()) {
+    // ...
+}
+```
+
+## 4. Render the form
+
+Last step is rendering the form and injecting the submitted values and validation messages.
+
+```php
+// Render the form
+return new HtmlResponse($this->template->render('app::edit', [
+    'form' => $form->asString($validationResult),
+]));
+```
+
+If you don't want the values and messages injected for you, just leave out the validation result:
+
+```php
+echo $form->asString();
+```
+
+## Optional: Custom Validators and Filters
 
 Setting up custom validators and filters is a bit more work but it isn't complicated. Instead of creating the 
 FormFactory with its static `fromHtml` method, the constructor is needed with a configured Zend\InputFilter\Factory 
