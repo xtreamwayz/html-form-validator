@@ -39,6 +39,78 @@ A full blown text input might look like:
        data-validators="" />
 ```
 
+Using this in a controller action method could look like this:
+
+```php
+// Build the form validation
+$form = FormFactory::fromHtml($this->template->render('app::form', [
+    'token'  => $session->get('csrf'),
+]));
+
+// Check if the request was a post
+if ($request->getMethod() === 'POST') {
+    // Validate the result
+    $validationResult = $form->validate((array) $request->getParsedBody());
+
+    // If the submitted data is valid...
+    if ($validationResult->isValid()) {
+        // Get filtered submitted values
+        $data = $validationResult->getValues();
+
+        // Process data
+
+        // Redirect to
+        return new RedirectResponse('/');
+    }
+}
+
+// Display the form and inject the validation messages if there are any
+return new HtmlResponse($this->template->render('app::edit', [
+    'form' => isset($validationResult) ? $form->asString($validationResult) : $form->asString(),
+]));
+```
+
+## Handling PSR-7 Post Requests
+
+But wait, there is still a lot of boilerplate code. This can be done with less code if there is a
+[PSR-7 requests](http://www.php-fig.org/psr/psr-7/).
+
+In stead of using `$form->validate($submittedData)` there is a method to handle PSR-7 requests and do some magic for 
+you: `$validationResult = $form->validateRequest($request);`.
+
+```php
+// Build the form validation
+$form = FormFactory::fromHtml($this->template->render('app::form', [
+    'token'  => $session->get('csrf'),
+]));
+
+// Validate PSR-7 request and return a ValidationResponseInterface 
+// It should only start validation if it was a post and if there are submitted values
+$validationResult = $form->validateRequest($request);
+
+// It should be valid if it was a post and if there are no validation messages
+if ($validationResult->isValid()) {
+    // Get filter submitted values
+    $data = $validationResult->getValues();
+
+    // Process data
+
+    return new RedirectResponse('/');
+}
+
+// Display the form and inject the validation messages if there are any
+return new HtmlResponse($this->template->render('app::edit', [
+    'form' => $form->asString($validationResult),
+]));
+```
+
+If you use a framework that doesn't handle PSR-7 requests, you can still reduce boilerplate code by passing the 
+request method yourself:
+
+```php
+$validationResult = $form->validate($submittedData, $_SERVER['REQUEST_METHOD']);
+```
+
 ## Custom Validators and Filters
 
 Setting up custom validators and filters is a bit more work but it isn't complicated. Instead of creating the 
