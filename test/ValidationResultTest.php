@@ -66,4 +66,22 @@ class ValidationResultTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($result->isValid());
     }
+
+    public function testSubmitButtonIsClicked()
+    {
+        $result = new ValidationResult($this->rawValues, $this->values, $this->messages, 'POST', 'confirm');
+
+        $this->assertTrue($result->isClicked('confirm'));
+        $this->assertFalse($result->isClicked('cancel'));
+        $this->assertEquals('confirm', $result->isClicked());
+    }
+
+    public function testSubmitButtonIsNotClicked()
+    {
+        $result = new ValidationResult($this->rawValues, $this->values, $this->messages, 'POST', null);
+
+        $this->assertFalse($result->isClicked('confirm'));
+        $this->assertFalse($result->isClicked('cancel'));
+        $this->assertNull($result->isClicked());
+    }
 }
