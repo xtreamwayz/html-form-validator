@@ -201,7 +201,7 @@ final class FormFactory implements FormFactoryInterface
                 $name = $node->getAttribute('data-input-name');
             }
 
-            if (!$name) {
+            if (!$name || $node->getAttribute('type') == 'submit') {
                 // At least a name is needed to submit a value.
                 // Silently continue, might be a submit button.
                 continue;

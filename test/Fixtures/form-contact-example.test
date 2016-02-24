@@ -37,7 +37,8 @@ Example contact form
 
     <input type="hidden" name="token" value="1d79414c" data-validators="identical{token:1d79414c}" required />
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <input type="submit" name="submit" class="btn btn-primary" value="Submit" />
+    <button type="submit" name="cancel" class="btn btn-secondary">Cancel</button>
 </form>
 --DEFAULT-VALUES--
 {
