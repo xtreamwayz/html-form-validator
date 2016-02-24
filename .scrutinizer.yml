@@ -18,7 +18,7 @@ checks:
         avoid_todo_comments: true
         avoid_fixme_comments: true
         line_length:
-            max_length: "120"
+            max_length: '120'
         function_in_camel_caps: true
         fix_use_statements:
             remove_unused: true
@@ -33,6 +33,9 @@ checks:
         simplify_boolean_return: true
         use_self_instead_of_fqcn: true
         parameter_doc_comments: true
+        duplication: false
+        avoid_perl_style_comments: true
+        newline_at_end_of_file: true
 
 tools:
     external_code_coverage:

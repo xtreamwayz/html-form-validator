@@ -82,11 +82,7 @@ class BaseFormElement implements InputProviderInterface
 
     protected function isRequired()
     {
-        if ($this->node->hasAttribute('required') || $this->node->getAttribute('aria-required') == 'true') {
-            return true;
-        }
-
-        return false;
+        return $this->node->hasAttribute('required') || $this->node->getAttribute('aria-required') == 'true';
     }
 
     protected function getFilters()
