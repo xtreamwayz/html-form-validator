@@ -132,12 +132,21 @@ final class FormFactory implements FormFactoryInterface
             }
         }
 
+        // Get the submit button
+        $submitName = null;
+        foreach ($this->getSubmitStateNodeList() as $name) {
+            if (isset($data[$name])) {
+                $submitName = $name;
+            }
+        }
+
         // Return validation result
         return new ValidationResult(
             $inputFilter->getRawValues(),
             $inputFilter->getValues(),
             $messages,
-            $method
+            $method,
+            $submitName
         );
     }
 
@@ -199,6 +208,23 @@ final class FormFactory implements FormFactoryInterface
             }
 
             yield $name => $node;
+        }
+    }
+
+    private function getSubmitStateNodeList()
+    {
+        $xpath = new DOMXPath($this->document);
+        $nodeList = $xpath->query('//input[@type="submit"] | //button[@type="submit"]');
+
+        /** @var DOMElement $node */
+        foreach ($nodeList as $node) {
+            $name = $node->getAttribute('name');
+            if (!$name) {
+                // At least a name is needed to submit a value.
+                continue;
+            }
+
+            yield $name;
         }
     }
 
