@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file, in reverse 
   $validationResult->isClicked('confirm'); // returns boolean;
   $validationResult->isClicked(); // returns name of clicked button or null;
   ```
- 
+
 ### Deprecated
 
 Nothing.
@@ -24,8 +24,8 @@ Nothing.
 
 ### Fixed
 
-- [#38](https://github.com/xtreamwayz/html-form-validator/pull/38) fixes named submit buttons being detected as a 
-  validating input value.  
+- [#38](https://github.com/xtreamwayz/html-form-validator/pull/38) fixes named submit buttons being detected as a
+  validating input value.
 
 ## 0.3.0 - 2016-02-22
 
@@ -41,7 +41,7 @@ Nothing.
     - min, max and step attributes for Datetime input types
     - the multiple attribute on select and email elements
     - file element validation options
-     
+
 ### Deprecated
 
 - [#27](https://github.com/xtreamwayz/html-form-validator/pull/26) deprecates: 
