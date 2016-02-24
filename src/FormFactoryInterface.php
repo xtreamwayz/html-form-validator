@@ -2,6 +2,7 @@
 
 namespace Xtreamwayz\HTMLFormValidator;
 
+use Psr\Http\Message\ServerRequestInterface;
 use Zend\InputFilter\Factory;
 
 interface FormFactoryInterface
@@ -35,11 +36,19 @@ interface FormFactoryInterface
     public function asString(ValidationResultInterface $result = null);
 
     /**
-     * Validate the loaded form with the data
-     *
-     * @param array $data
+     * @param ServerRequestInterface $request
      *
      * @return ValidationResultInterface
      */
-    public function validate(array $data);
+    public function validateRequest(ServerRequestInterface $request);
+
+    /**
+     * Validate the loaded form with the data
+     *
+     * @param array       $data   the submitted data to be validated
+     * @param null|string $method the request method (POST, GET, etc.)
+     *
+     * @return ValidationResultInterface
+     */
+    public function validate(array $data, $method = null);
 }

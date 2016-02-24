@@ -20,13 +20,19 @@ final class ValidationResult implements ValidationResultInterface
     private $messages;
 
     /**
+     * @var null|string
+     */
+    private $method;
+
+    /**
      * @inheritdoc
      */
-    public function __construct(array $rawValues, array $values, array $messages)
+    public function __construct(array $rawValues, array $values, array $messages, $method = null)
     {
         $this->rawValues = $rawValues;
         $this->values = $values;
         $this->messages = $messages;
+        $this->method = $method;
     }
 
     /**
@@ -34,7 +40,7 @@ final class ValidationResult implements ValidationResultInterface
      */
     public function isValid()
     {
-        return empty($this->messages);
+        return (empty($this->messages) && ($this->method === null || $this->method == 'POST'));
     }
 
     /**

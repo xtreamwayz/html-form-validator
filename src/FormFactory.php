@@ -5,6 +5,7 @@ namespace Xtreamwayz\HTMLFormValidator;
 use DOMDocument;
 use DOMElement;
 use DOMXPath;
+use Psr\Http\Message\ServerRequestInterface;
 use Zend\InputFilter\Factory;
 use Zend\InputFilter\InputFilterInterface;
 
@@ -101,10 +102,20 @@ final class FormFactory implements FormFactoryInterface
         return $this->document->saveHTML();
     }
 
+    public function validateRequest(ServerRequestInterface $request)
+    {
+        if ($request->getMethod() !== 'POST') {
+            // Not a post request, skip validation
+            return new ValidationResult([], [], [], $request->getMethod());
+        }
+
+        return $this->validate((array) $request->getParsedBody(), $request->getMethod());
+    }
+
     /**
      * @inheritdoc
      */
-    public function validate(array $data)
+    public function validate(array $data, $method = null)
     {
         $inputFilter = $this->factory->createInputFilter([]);
 
@@ -125,7 +136,8 @@ final class FormFactory implements FormFactoryInterface
         return new ValidationResult(
             $inputFilter->getRawValues(),
             $inputFilter->getValues(),
-            $messages
+            $messages,
+            $method
         );
     }
 

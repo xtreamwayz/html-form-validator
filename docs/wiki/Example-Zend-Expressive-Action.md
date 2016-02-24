@@ -89,25 +89,23 @@ class ContactAction
             'token' => $session->get('csrf'),
         ]));
 
-        // Check if the form is submitted
-        if ($request->getMethod() === 'POST') {
-            // Validate form
-            $validationResult = $form->validate((array) $request->getParsedBody());
-            
-            // Check if the validation result is valid 
-            if ($validationResult->isValid()) {
-                // Get filter submitted values
-                $data = $validationResult->getValues();
-
-                // Process data
-
-                return new RedirectResponse('/');
-            }
+        // Validate PSR-7 request and return a ValidationResponseInterface 
+        // It should only start validation if it was a post and if there are submitted values
+        $validationResult = $form->validateRequest($request);
+        
+        // It should be valid if it was a post and if there are no validation messages
+        if ($validationResult->isValid()) {
+            // Get filter submitted values
+            $data = $validationResult->getValues();
+        
+            // Process data
+        
+            return new RedirectResponse('/');
         }
-
-        // Display form and inject error messages and submitted values if needed
-        return new HtmlResponse($this->template->render('backend::cattle/edit', [
-            'form' => isset($validationResult) ? $form->asString($validationResult) : $form->asString(),
+        
+        // Display the form and inject the validation messages if there are any
+        return new HtmlResponse($this->template->render('app::edit', [
+            'form' => $form->asString($validationResult),
         ]));
     }
 }
