@@ -123,7 +123,7 @@ echo $form->asString();
 
 ## Submit button detection
 
-Who doesn't want to know which button is clicked? For this to the submit button must have a name attribute.
+Who doesn't want to know which button is clicked? For this to work the submit button must have a name attribute set.
 
 ```html
 <form>
@@ -132,7 +132,7 @@ Who doesn't want to know which button is clicked? For this to the submit button 
 </form>
 ```
 
-You can check by the name attribute if a specific button is clicked.
+You can check by the button name attribute if a specific button is clicked.
 
 ```php
 // Returns a boolean
