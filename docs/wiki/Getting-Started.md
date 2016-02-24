@@ -96,7 +96,7 @@ if ($validationResult->isValid()) {
 }
 ```
 
-If you didn't use the PSR-7 request method, you might want to check for a valid post method yourself:
+If you didn't use the PSR-7 request method, you might want to check for a valid post method yourself.
  
 ```php
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && $validationResult->isValid()) {
@@ -115,7 +115,7 @@ return new HtmlResponse($this->template->render('app::edit', [
 ]));
 ```
 
-If you don't want the values and messages injected for you, just leave out the validation result:
+If you don't want the values and messages injected for you, just leave out the validation result.
 
 ```php
 echo $form->asString();
@@ -123,7 +123,7 @@ echo $form->asString();
 
 ## Submit button detection
 
-Who doesn't want to know which button is clicked? For this to the the submit button must have a name attribute.
+Who doesn't want to know which button is clicked? For this to the submit button must have a name attribute.
 
 ```html
 <form>
@@ -132,14 +132,14 @@ Who doesn't want to know which button is clicked? For this to the the submit but
 </form>
 ```
 
-To check if a specific button is clicked:
+You can check by the name attribute if a specific button is clicked.
 
 ```php
 // Returns a boolean
 $validationResult->isClicked('confirm');
 ```
 
-To check which button is clicked:
+Without specifying a name, the name attribute value of the clicked button is returned.
 
 ```php
 // Returns the name of the clicked button or null if no named was clicked
