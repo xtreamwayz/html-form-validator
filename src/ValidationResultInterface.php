@@ -35,7 +35,7 @@ interface ValidationResultInterface
      * Checks if submit button is clicked or return its name
      *
      * If a specific name is given it checks if a submit button is clicked and returns a boolean.
-     * In case no name is given, it returns the name of the submit button that is clicked (if any).
+     * In case no name is given, it returns the name of the clicked button or null if no named was clicked.
      *
      * @param null|string $name
      *

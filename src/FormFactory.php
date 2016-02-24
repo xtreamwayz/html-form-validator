@@ -211,6 +211,9 @@ final class FormFactory implements FormFactoryInterface
         }
     }
 
+    /**
+     * Get names of available named submit elements
+     */
     private function getSubmitStateNodeList()
     {
         $xpath = new DOMXPath($this->document);

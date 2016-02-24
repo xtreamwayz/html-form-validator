@@ -43,7 +43,9 @@ A full blown text input might look like:
 
 Let's go through all the steps needed to get this working inside a controller action method.
 
-## 1. Build the form
+## The four steps
+
+### 1. Build the form
 
 Create the form from html. Nothing fancy here. In this case a template renderer is used and the default values are 
 injected.
@@ -55,7 +57,7 @@ $form = FormFactory::fromHtml($this->template->render('app::form', [
 ]));
 ```
 
-## 2. Validate the form
+### 2. Validate the form
 
 The easiest way is if you use a framework that uses [PSR-7 requests](http://www.php-fig.org/psr/psr-7/).
 
@@ -78,7 +80,7 @@ You can also leave the method validation out. It won't check for a valid `POST` 
 $validationResult = $form->validate($submittedData);
 ```
 
-## 3. Process validation result
+### 3. Process validation result
 
 Submitted data should be valid if it was a post and there are no validation messages set. 
 
@@ -102,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $validationResult->isValid()) {
 }
 ```
 
-## 4. Render the form
+### 4. Render the form
 
 Last step is rendering the form and injecting the submitted values and validation messages.
 
@@ -119,7 +121,32 @@ If you don't want the values and messages injected for you, just leave out the v
 echo $form->asString();
 ```
 
-## Optional: Custom Validators and Filters
+## Submit button detection
+
+Who doesn't want to know which button is clicked? For this to the the submit button must have a name attribute.
+
+```html
+<form>
+    <input type="submit" name="confirm" value="Confirm" />
+    <button type="submit" name="cancel">Cancel</button>
+</form>
+```
+
+To check if a specific button is clicked:
+
+```php
+// Returns a boolean
+$validationResult->isClicked('confirm');
+```
+
+To check which button is clicked:
+
+```php
+// Returns the name of the clicked button or null if no named was clicked
+$validationResult->isClicked();
+```
+
+## Custom Validators and Filters
 
 Setting up custom validators and filters is a bit more work but it isn't complicated. Instead of creating the 
 FormFactory with its static `fromHtml` method, the constructor is needed with a configured Zend\InputFilter\Factory 
