@@ -9,12 +9,15 @@ All notable changes to this project will be documented in this file, in reverse 
 - [#36](https://github.com/xtreamwayz/html-form-validator/pull/36) adds the `FormFactory->validateRequest()` to handle
   PSR-7 requests and reduce boilerplate code needed to build, validate and render forms.
 - [#38](https://github.com/xtreamwayz/html-form-validator/pull/38) adds submit button detection.
+
   ```php
   $validationResult->isClicked('confirm'); // returns boolean;
   $validationResult->isClicked(); // returns name of clicked button or null;
   ```
+  
 - [#39](https://github.com/xtreamwayz/html-form-validator/pull/39) changes the order of the inputfilter factory and the
   default values in the constructor. The new way to call the constructor is:
+
   ```php
   public function __construct($htmlForm, Factory $factory = null, array $defaultValues = []);
   ```
