@@ -27,9 +27,10 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
     public function testPsrPostRequestIsValid()
     {
         $htmlForm = '
-            <input type="text" name="foo" />
-            <input type="text" name="baz" data-filters="stringtrim" />
-        ';
+            <form action="/" method="post">
+                <input type="text" name="foo" />
+                <input type="text" name="baz" data-filters="stringtrim" />
+            </form>';
 
         $form = FormFactory::fromHtml($htmlForm);
         $request = $this->prophesize(ServerRequestInterface::class);
@@ -48,9 +49,10 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
     public function testPsrGetRequestIsNotValid()
     {
         $htmlForm = '
-            <input type="text" name="foo" />
-            <input type="text" name="baz" data-filters="stringtrim" />
-        ';
+            <form action="/" method="post">
+                <input type="text" name="foo" />
+                <input type="text" name="baz" data-filters="stringtrim" />
+            </form>';
 
         $form = FormFactory::fromHtml($htmlForm);
         $request = $this->prophesize(ServerRequestInterface::class);
@@ -69,9 +71,10 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
     public function testPsrPostRequestHasMessages()
     {
         $htmlForm = '
-            <input type="text" name="foo" pattern="^\d+$" />
-            <input type="text" name="baz" data-filters="stringtrim" />
-        ';
+            <form action="/" method="post">
+                <input type="text" name="foo" pattern="^\d+$" />
+                <input type="text" name="baz" data-filters="stringtrim" />
+            </form>';
 
         $form = FormFactory::fromHtml($htmlForm);
         $request = $this->prophesize(ServerRequestInterface::class);
@@ -89,37 +92,35 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testSetValuesStatically()
     {
-        $htmlForm =
-            '<input type="text" name="foo" data-reuse-submitted-value="true" />' .
-            '<input type="text" name="baz" data-filters="stringtrim" />';
+        $htmlForm = '
+            <form action="/" method="post">
+                <input type="text" name="foo" data-reuse-submitted-value="true" />
+                <input type="text" name="baz" data-filters="stringtrim" />
+            </form>';
 
         $form = FormFactory::fromHtml($htmlForm, [
             'foo' => 'bar',
             'baz' => 'qux',
         ]);
 
-        $expectedForm =
-            '<input type="text" name="foo" value="bar">' .
-            '<input type="text" name="baz" value="qux">';
-
-        $this->assertEquals($expectedForm, $form->asString());
+        $this->assertContains('<input type="text" name="foo" value="bar">', $form->asString());
+        $this->assertContains('<input type="text" name="baz" value="qux">', $form->asString());
     }
 
     public function testSetValuesWithConstructor()
     {
-        $htmlForm =
-            '<input type="text" name="foo" data-reuse-submitted-value="true" />' .
-            '<input type="text" name="baz" data-filters="stringtrim" />';
+        $htmlForm = '
+            <form action="/" method="post">
+                <input type="text" name="foo" data-reuse-submitted-value="true" />
+                <input type="text" name="baz" data-filters="stringtrim" />
+            </form>';
 
         $form = new FormFactory($htmlForm, null, [
             'foo' => 'bar',
             'baz' => 'qux',
         ]);
 
-        $expectedForm =
-            '<input type="text" name="foo" value="bar">' .
-            '<input type="text" name="baz" value="qux">';
-
-        $this->assertEquals($expectedForm, $form->asString());
+        $this->assertContains('<input type="text" name="foo" value="bar">', $form->asString());
+        $this->assertContains('<input type="text" name="baz" value="qux">', $form->asString());
     }
 }
