@@ -3,6 +3,7 @@
 - [[How does it work?|How does it work]]
 - [[Installation]]
 - [[Getting Started]]
+- [[Known Issues]]
 
 **API**
 
