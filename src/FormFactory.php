@@ -52,7 +52,7 @@ final class FormFactory implements FormFactoryInterface
     /**
      * @inheritdoc
      */
-    public function __construct($htmlForm, array $defaultValues = [], Factory $factory = null)
+    public function __construct($htmlForm, Factory $factory = null, array $defaultValues = [])
     {
         $this->factory = $factory ?: new Factory();
 
@@ -74,7 +74,7 @@ final class FormFactory implements FormFactoryInterface
      */
     public static function fromHtml($htmlForm, array $defaultValues = [])
     {
-        return new self($htmlForm, $defaultValues);
+        return new self($htmlForm, null, $defaultValues);
     }
 
     /**
