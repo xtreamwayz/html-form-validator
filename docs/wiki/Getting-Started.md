@@ -178,7 +178,7 @@ $factory = new Xtreamwayz\HTMLFormValidator\InputFilterFactory();
 $inputFilterFactory = $factory($container);
 
 // Load the html form into the FormFactory
-$form = new FormFactory($htmlForm, [], $inputFilterFactory);
+$form = new FormFactory($htmlForm, $inputFilterFactory);
 
 // Validate the form
 $result = $form->validate($_POST);

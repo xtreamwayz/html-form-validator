@@ -100,7 +100,7 @@ class ContactAction
         // The InputFilterFactory is added to have access to the custom recaptcha validator. 
         $form = FormFactory::fromHtml($this->template->render('app::form', [
             'token'  => $session->get('csrf'),
-        ]), [], $this->inputFilterFactory);
+        ]), $this->inputFilterFactory);
         
         // Validate PSR-7 request and return a ValidationResponseInterface 
         // It should only start validation if it was a post and if there are submitted values
