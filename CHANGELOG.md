@@ -18,7 +18,7 @@ Nothing.
 
 ### Fixed
 
-Nothing.
+- [#42](https://github.com/xtreamwayz/html-form-validator/pull/42) fixes the number type validator.
 
 ## 0.4.0 - 2016-02-25
 

@@ -46,7 +46,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEmpty(
             $this->arrayDiff($expectedErrors, $result->getMessages()),
-            "Failed asserting that expected and actual messages are equal."
+            "Failed asserting that messages are equal."
         );
     }
 

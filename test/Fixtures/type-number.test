@@ -19,6 +19,7 @@ Tests the number input type. The range input type works exactly the same.
     <input type="number" name="invalid_max" max="8" />
     <input type="number" name="invalid_step" step="2" />
     <input type="number" name="invalid_between_step" min="4" max="8" step="2" />
+    <input type="number" name="invalid_step_format" step="whatever" />
 </form>
 --DEFAULT-VALUES--
 {
@@ -41,7 +42,8 @@ Tests the number input type. The range input type works exactly the same.
     "invalid_min": "2",
     "invalid_max": "10",
     "invalid_step": "1",
-    "invalid_between_step": "3"
+    "invalid_between_step": "3",
+    "invalid_step_format": "6"
 }
 --EXPECTED-VALUES--
 {
@@ -61,13 +63,14 @@ Tests the number input type. The range input type works exactly the same.
     "invalid_min": "2",
     "invalid_max": "10",
     "invalid_step": "1",
-    "invalid_between_step": "3"
+    "invalid_between_step": "3",
+    "invalid_step_format": "6"
 }
 --EXPECTED-FORM--
 --EXPECTED-ERRORS--
 {
     "invalid_text": {
-        "notInt": "",
+        "regexNotMatch": "",
         "typeInvalid": ""
     },
     "invalid_min": {
@@ -81,6 +84,9 @@ Tests the number input type. The range input type works exactly the same.
     },
     "invalid_between_step": {
         "notGreaterThanInclusive": "",
+        "stepInvalid": ""
+    },
+    "invalid_step_format" : {
         "stepInvalid": ""
     }
 }
