@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-Nothing.
+- [#43](https://github.com/xtreamwayz/html-form-validator/pull/43) adds handling disabled form elements. Or better yet,
+  they are ignored now.
 
 ### Deprecated
 
@@ -32,7 +33,7 @@ Nothing.
   $validationResult->isClicked('confirm'); // returns boolean;
   $validationResult->isClicked(); // returns name of clicked button or null;
   ```
-  
+
 - [#39](https://github.com/xtreamwayz/html-form-validator/pull/39) changes the order of the inputfilter factory and the
   default values in the constructor. The new way to call the constructor is:
 
@@ -57,20 +58,20 @@ Nothing.
 
 ### Added
 
-- [#27](https://github.com/xtreamwayz/html-form-validator/pull/26) adds the FormFactoryInterface and 
+- [#27](https://github.com/xtreamwayz/html-form-validator/pull/26) adds the FormFactoryInterface and
   ValidationResultInterface.
 - [#29](https://github.com/xtreamwayz/html-form-validator/pull/29) adds container-interop compatibility. This enables
   custom validators and filters.
 - [#29](https://github.com/xtreamwayz/html-form-validator/pull/29) adds the InputFilterFactory which can be used to
   instantiate a Zend\InputFilter\Factory from a container-interop compatible container.
-- [#30](https://github.com/xtreamwayz/html-form-validator/pull/30) adds 
+- [#30](https://github.com/xtreamwayz/html-form-validator/pull/30) adds
     - min, max and step attributes for Datetime input types
     - the multiple attribute on select and email elements
     - file element validation options
 
 ### Deprecated
 
-- [#27](https://github.com/xtreamwayz/html-form-validator/pull/26) deprecates: 
+- [#27](https://github.com/xtreamwayz/html-form-validator/pull/26) deprecates:
     - ValidationResult->getErrorMessages(), use ValidationResult->getMessages() instead.
     - ValidationResult->getRawInputValues(), use ValidationResult->getRawValues() instead.
     - ValidationResult->getValidValues(), use ValidationResult->getValues() instead.
@@ -81,7 +82,7 @@ Nothing.
 
 ### Fixed
 
-- [#30](https://github.com/xtreamwayz/html-form-validator/pull/30) fixes invalid validation regex for the color type.  
+- [#30](https://github.com/xtreamwayz/html-form-validator/pull/30) fixes invalid validation regex for the color type.
 
 ## 0.2.0 - 2016-02-15
 

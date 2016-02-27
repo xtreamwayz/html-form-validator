@@ -135,7 +135,7 @@ final class FormFactory implements FormFactoryInterface
         // Get the submit button
         $submitName = null;
         foreach ($this->getSubmitStateNodeList() as $name) {
-            if (isset($data[$name])) {
+            if (array_key_exists($name, $data)) {
                 $submitName = $name;
             }
         }
@@ -171,7 +171,7 @@ final class FormFactory implements FormFactoryInterface
             }
 
             // Add validation
-            if (isset($this->formElements[$type])) {
+            if (array_key_exists($type, $this->formElements)) {
                 $elementClass = $this->formElements[$type];
             } else {
                 // Create a default validator
@@ -195,7 +195,6 @@ final class FormFactory implements FormFactoryInterface
 
         /** @var DOMElement $node */
         foreach ($nodeList as $node) {
-            // Set some basic vars
             $name = $node->getAttribute('name');
             if (!$name) {
                 $name = $node->getAttribute('data-input-name');
@@ -204,6 +203,11 @@ final class FormFactory implements FormFactoryInterface
             if (!$name || $node->getAttribute('type') == 'submit') {
                 // At least a name is needed to submit a value.
                 // Silently continue, might be a submit button.
+                continue;
+            }
+
+            if ($node->hasAttribute('disabled')) {
+                // Ignore disabled nodes
                 continue;
             }
 
@@ -240,7 +244,7 @@ final class FormFactory implements FormFactoryInterface
     private function setData(array $data, $force = false)
     {
         foreach ($this->getNodeList() as $name => $node) {
-            if (!isset($data[$name])) {
+            if (!array_key_exists($name, $data)) {
                 // No value set for this element
                 continue;
             }
@@ -295,7 +299,7 @@ final class FormFactory implements FormFactoryInterface
             // Get all elements with the name
             $nodeList = $xpath->query(sprintf('//*[@name="%1$s"] | //*[@data-input-name="%1$s"]', $name));
 
-            if ($nodeList->length == 0) {
+            if ($nodeList->length === 0) {
                 // No element found for this element ???
                 continue;
             }
