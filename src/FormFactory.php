@@ -195,7 +195,6 @@ final class FormFactory implements FormFactoryInterface
 
         /** @var DOMElement $node */
         foreach ($nodeList as $node) {
-            // Set some basic vars
             $name = $node->getAttribute('name');
             if (!$name) {
                 $name = $node->getAttribute('data-input-name');
@@ -207,6 +206,11 @@ final class FormFactory implements FormFactoryInterface
                 continue;
             }
 
+            if ($node->hasAttribute('disabled')) {
+                // Ignore disabled nodes
+                continue;
+            }
+            
             yield $name => $node;
         }
     }
