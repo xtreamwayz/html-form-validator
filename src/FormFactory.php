@@ -210,7 +210,7 @@ final class FormFactory implements FormFactoryInterface
                 // Ignore disabled nodes
                 continue;
             }
-            
+
             yield $name => $node;
         }
     }
