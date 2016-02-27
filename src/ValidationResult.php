@@ -51,13 +51,13 @@ final class ValidationResult implements ValidationResultInterface
      */
     public function isValid()
     {
-        return (empty($this->messages) && ($this->method === null || $this->method == 'POST'));
+        return (count($this->messages) === 0 && ($this->method === null || $this->method === 'POST'));
     }
 
     public function isClicked($name = null)
     {
         if (null !== $name) {
-            return ($this->submitName == $name);
+            return ($this->submitName === $name);
         }
 
         return $this->submitName;

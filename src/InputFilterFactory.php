@@ -18,8 +18,8 @@ class InputFilterFactory
     public function __invoke(ContainerInterface $container)
     {
         $config = $container->get('config');
-        $filters = isset($config['zend-inputfilter']['filters']) ? $config['zend-inputfilter']['filters'] : [];
-        $validators = isset($config['zend-inputfilter']['validators']) ? $config['zend-inputfilter']['validators'] : [];
+        $filters = $config['zend-inputfilter']['filters'] ?? [];
+        $validators = $config['zend-inputfilter']['validators'] ?? [];
 
         // Construct factory
         $factory = new Factory(new InputFilterPluginManager($container));
