@@ -1,4 +1,10 @@
-<phpunit bootstrap="./test/bootstrap.php" colors="true" backupGlobals="false">
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+        bootstrap="./test/bootstrap.php"
+        backupGlobals="false"
+        colors="true">
+
     <testsuites>
         <testsuite name="Xtreamwayz\\HTMLFormValidatorTests">
             <directory>test</directory>
@@ -10,4 +16,12 @@
             <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
+
+    <logging>
+        <log type="coverage-html" target="./build/coverage"/>
+        <log type="coverage-clover" target="./build/logs/clover.xml"/>
+        <log type="coverage-crap4j" target="./build/logs/crap4j.xml"/>
+        <log type="junit" target="./build/logs/junit.xml" logIncompleteSkipped="false"/>
+    </logging>
+
 </phpunit>
