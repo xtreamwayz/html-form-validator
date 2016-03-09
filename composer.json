@@ -50,7 +50,8 @@
             "@test"
         ],
         "cs": "php vendor/squizlabs/php_codesniffer/scripts/phpcs",
-        "test": "php vendor/phpunit/phpunit/phpunit"
+        "test": "php vendor/phpunit/phpunit/phpunit --no-coverage",
+        "coverage": "phpdbg -qrr vendor/phpunit/phpunit/phpunit"
     },
     "autoload": {
         "psr-4": {
