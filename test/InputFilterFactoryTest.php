@@ -49,16 +49,16 @@ class InputFilterFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = $this->createFactory(false);
 
-        $this->assertInstanceOf(Factory::class, $factory);
-        $this->assertFalse($factory->getDefaultValidatorChain()->getPluginManager()->has('recaptcha'));
+        self::assertInstanceOf(Factory::class, $factory);
+        self::assertFalse($factory->getDefaultValidatorChain()->getPluginManager()->has('recaptcha'));
     }
 
     public function testCustomValidatorIsRegistered()
     {
         $factory = $this->createFactory();
 
-        $this->assertTrue($factory->getDefaultValidatorChain()->getPluginManager()->has('recaptcha'));
-        $this->assertInstanceOf(
+        self::assertTrue($factory->getDefaultValidatorChain()->getPluginManager()->has('recaptcha'));
+        self::assertInstanceOf(
             RecaptchaValidator::class,
             $factory->getDefaultValidatorChain()->getPluginManager()->get('recaptcha', [
                 'key' => 'secret_key',
@@ -74,8 +74,8 @@ class InputFilterFactoryTest extends \PHPUnit_Framework_TestCase
             'name' => 'foo',
         ]);
 
-        $this->assertTrue($input->getValidatorChain()->getPluginManager()->has('recaptcha'));
-        $this->assertInstanceOf(
+        self::assertTrue($input->getValidatorChain()->getPluginManager()->has('recaptcha'));
+        self::assertInstanceOf(
             RecaptchaValidator::class,
             $input->getValidatorChain()->getPluginManager()->get('recaptcha', [
                 'key' => 'secret_key',

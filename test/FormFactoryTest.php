@@ -39,11 +39,11 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
 
         $result = $form->validateRequest($request->reveal());
 
-        $this->assertInstanceOf(ValidationResult::class, $result);
-        $this->assertEquals($this->rawValues, $result->getRawValues());
-        $this->assertEquals($this->values, $result->getValues());
-        $this->assertEquals([], $result->getMessages());
-        $this->assertTrue($result->isValid());
+        self::assertInstanceOf(ValidationResult::class, $result);
+        self::assertEquals($this->rawValues, $result->getRawValues());
+        self::assertEquals($this->values, $result->getValues());
+        self::assertEquals([], $result->getMessages());
+        self::assertTrue($result->isValid());
     }
 
     public function testPsrGetRequestIsNotValid()
@@ -61,11 +61,11 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
 
         $result = $form->validateRequest($request->reveal());
 
-        $this->assertInstanceOf(ValidationResult::class, $result);
-        $this->assertEquals([], $result->getRawValues());
-        $this->assertEquals([], $result->getValues());
-        $this->assertEquals([], $result->getMessages());
-        $this->assertFalse($result->isValid());
+        self::assertInstanceOf(ValidationResult::class, $result);
+        self::assertEquals([], $result->getRawValues());
+        self::assertEquals([], $result->getValues());
+        self::assertEquals([], $result->getMessages());
+        self::assertFalse($result->isValid());
     }
 
     public function testPsrPostRequestHasMessages()
@@ -83,11 +83,11 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
 
         $result = $form->validateRequest($request->reveal());
 
-        $this->assertInstanceOf(ValidationResult::class, $result);
-        $this->assertEquals($this->rawValues, $result->getRawValues());
-        $this->assertEquals($this->values, $result->getValues());
-        $this->assertEquals($this->messages, $result->getMessages());
-        $this->assertFalse($result->isValid());
+        self::assertInstanceOf(ValidationResult::class, $result);
+        self::assertEquals($this->rawValues, $result->getRawValues());
+        self::assertEquals($this->values, $result->getValues());
+        self::assertEquals($this->messages, $result->getMessages());
+        self::assertFalse($result->isValid());
     }
 
     public function testSetValuesStatically()
@@ -103,8 +103,8 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
             'baz' => 'qux',
         ]);
 
-        $this->assertContains('<input type="text" name="foo" value="bar">', $form->asString());
-        $this->assertContains('<input type="text" name="baz" value="qux">', $form->asString());
+        self::assertContains('<input type="text" name="foo" value="bar">', $form->asString());
+        self::assertContains('<input type="text" name="baz" value="qux">', $form->asString());
     }
 
     public function testSetValuesWithConstructor()
@@ -120,7 +120,7 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
             'baz' => 'qux',
         ]);
 
-        $this->assertContains('<input type="text" name="foo" value="bar">', $form->asString());
-        $this->assertContains('<input type="text" name="baz" value="qux">', $form->asString());
+        self::assertContains('<input type="text" name="foo" value="bar">', $form->asString());
+        self::assertContains('<input type="text" name="baz" value="qux">', $form->asString());
     }
 }
