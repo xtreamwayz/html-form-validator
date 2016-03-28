@@ -10,19 +10,7 @@
     "authors": [
         {
             "name": "Geert Eltink",
-            "homepage": "https://xtreamwayz.github.io/"
-        }
-    ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/weierophinney/zend-validator",
-            "reference": "sm-v2-v3-compat"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/kynx/zend-inputfilter",
-            "reference": "feature/50"
+            "homepage": "https://xtreamwayz.com/"
         }
     ],
     "require": {
