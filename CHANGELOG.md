@@ -14,7 +14,7 @@ Nothing.
 
 ### Removed
 
-Nothing.
+- [#47](https://github.com/xtreamwayz/html-form-validator/pull/47) removes temp service manager 3 repositories.
 
 ### Fixed
 
