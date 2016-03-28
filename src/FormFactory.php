@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Xtreamwayz\HTMLFormValidator;
 
 use DOMDocument;
@@ -52,7 +54,7 @@ final class FormFactory implements FormFactoryInterface
     /**
      * @inheritdoc
      */
-    public function __construct($htmlForm, Factory $factory = null, array $defaultValues = [])
+    public function __construct(string $htmlForm, Factory $factory = null, array $defaultValues = [])
     {
         $this->factory = $factory ?: new Factory();
 
@@ -72,7 +74,7 @@ final class FormFactory implements FormFactoryInterface
     /**
      * @inheritdoc
      */
-    public static function fromHtml($htmlForm, array $defaultValues = [])
+    public static function fromHtml(string $htmlForm, array $defaultValues = []) : FormFactoryInterface
     {
         return new self($htmlForm, null, $defaultValues);
     }
@@ -80,7 +82,7 @@ final class FormFactory implements FormFactoryInterface
     /**
      * @inheritdoc
      */
-    public function asString(ValidationResultInterface $result = null)
+    public function asString(ValidationResultInterface $result = null) : string
     {
         if ($result) {
             // Inject data if a result is set
@@ -102,7 +104,7 @@ final class FormFactory implements FormFactoryInterface
         return $this->document->saveHTML();
     }
 
-    public function validateRequest(ServerRequestInterface $request)
+    public function validateRequest(ServerRequestInterface $request) : ValidationResultInterface
     {
         if ($request->getMethod() !== 'POST') {
             // Not a post request, skip validation
@@ -115,7 +117,7 @@ final class FormFactory implements FormFactoryInterface
     /**
      * @inheritdoc
      */
-    public function validate(array $data, $method = null)
+    public function validate(array $data, $method = null) : ValidationResultInterface
     {
         $inputFilter = $this->factory->createInputFilter([]);
 

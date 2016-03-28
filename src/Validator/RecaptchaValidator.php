@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Xtreamwayz\HTMLFormValidator\Validator;
 
 use InvalidArgumentException;
@@ -9,7 +11,6 @@ use Zend\Validator\AbstractValidator;
 class RecaptchaValidator extends AbstractValidator
 {
     const RECAPTCHA_VERIFICATION_URI = 'https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s';
-
     const INVALID = 'recaptcha';
 
     protected $messageTemplates = [
@@ -40,14 +41,14 @@ class RecaptchaValidator extends AbstractValidator
         parent::__construct($options);
     }
 
-    public function setKey($key)
+    public function setKey($key) : self
     {
         $this->options['key'] = $key;
 
         return $this;
     }
 
-    public function isValid($value)
+    public function isValid($value) : bool
     {
         $uri = sprintf(self::RECAPTCHA_VERIFICATION_URI, $this->options['key'], $value);
         $json = file_get_contents($uri);

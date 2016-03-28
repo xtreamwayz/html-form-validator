@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DateInterval;
@@ -11,7 +13,7 @@ class Date extends DateTimeElement
 {
     protected $format = 'Y-m-d';
 
-    protected function getStepValidator()
+    protected function getStepValidator() : array
     {
         $stepValue = $this->node->getAttribute('step') ?: 1; // Days
         $baseValue = $this->node->getAttribute('min') ?: date($this->format, 0);

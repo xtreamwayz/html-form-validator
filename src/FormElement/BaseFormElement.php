@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMDocument;
@@ -30,7 +32,7 @@ class BaseFormElement implements InputProviderInterface
      *
      * @return array
      */
-    public function getInputSpecification()
+    public function getInputSpecification() : array
     {
         $spec = [
             'name'     => $this->getName(),
@@ -70,7 +72,7 @@ class BaseFormElement implements InputProviderInterface
         return $spec;
     }
 
-    protected function getName()
+    protected function getName() : string
     {
         $name = $this->node->getAttribute('name');
         if (!$name) {
@@ -80,17 +82,17 @@ class BaseFormElement implements InputProviderInterface
         return $name;
     }
 
-    protected function isRequired()
+    protected function isRequired() : bool
     {
         return $this->node->hasAttribute('required') || $this->node->getAttribute('aria-required') == 'true';
     }
 
-    protected function getFilters()
+    protected function getFilters() : array
     {
         return [];
     }
 
-    protected function getValidators()
+    protected function getValidators() : array
     {
         return [];
     }

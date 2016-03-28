@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Xtreamwayz\HTMLFormValidator;
 
 use Psr\Http\Message\ServerRequestInterface;
@@ -14,7 +16,7 @@ interface FormFactoryInterface
      * @param null|Factory $factory
      * @param array        $defaultValues
      */
-    public function __construct($htmlForm, Factory $factory = null, array $defaultValues = []);
+    public function __construct(string $htmlForm, Factory $factory = null, array $defaultValues = []);
 
     /**
      * Load html form and optionally set default data
@@ -24,7 +26,7 @@ interface FormFactoryInterface
      *
      * @return FormFactoryInterface
      */
-    public static function fromHtml($htmlForm, array $defaultValues = []);
+    public static function fromHtml(string $htmlForm, array $defaultValues = []) : FormFactoryInterface;
 
     /**
      * Return form as a string. Optionally inject the error messages for the result.
@@ -33,14 +35,14 @@ interface FormFactoryInterface
      *
      * @return string
      */
-    public function asString(ValidationResultInterface $result = null);
+    public function asString(ValidationResultInterface $result = null) : string;
 
     /**
      * @param ServerRequestInterface $request
      *
      * @return ValidationResultInterface
      */
-    public function validateRequest(ServerRequestInterface $request);
+    public function validateRequest(ServerRequestInterface $request) : ValidationResultInterface;
 
     /**
      * Validate the loaded form with the data
@@ -50,5 +52,5 @@ interface FormFactoryInterface
      *
      * @return ValidationResultInterface
      */
-    public function validate(array $data, $method = null);
+    public function validate(array $data, $method = null) : ValidationResultInterface;
 }

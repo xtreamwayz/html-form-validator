@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Xtreamwayz\HTMLFormValidator;
 
 use Interop\Container\ContainerInterface;
@@ -24,9 +26,9 @@ class InputFilterFactory
         // Construct factory
         $factory = new Factory(new InputFilterPluginManager($container));
         $factory->getDefaultFilterChain()
-                ->setPluginManager(new FilterPluginManager($container, $filters));
+            ->setPluginManager(new FilterPluginManager($container, $filters));
         $factory->getDefaultValidatorChain()
-                ->setPluginManager(new ValidatorPluginManager($container, $validators));
+            ->setPluginManager(new ValidatorPluginManager($container, $validators));
 
         return $factory;
     }
