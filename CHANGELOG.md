@@ -14,7 +14,8 @@ Nothing.
 
 ### Removed
 
-Nothing.
+- [#47](https://github.com/xtreamwayz/html-form-validator/pull/47) removes temp service manager 3 repositories.
+- [#49](https://github.com/xtreamwayz/html-form-validator/pull/49) removes obsolete ValidationResult functions.
 
 ### Fixed
 
