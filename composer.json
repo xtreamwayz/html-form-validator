@@ -24,9 +24,7 @@
         "psr/http-message": "^1.0"
     },
     "require-dev": {
-        "zendframework/zend-servicemanager": "^3.0",
         "phpunit/phpunit": "^5.0",
-        "codeception/aspect-mock": "*",
         "squizlabs/php_codesniffer": "^2.3"
     },
     "suggest": {
