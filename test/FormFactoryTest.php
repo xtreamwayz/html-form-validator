@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XtreamwayzTest\HTMLFormValidator;
 
 use Psr\Http\Message\ServerRequestInterface;

@@ -14,7 +14,7 @@ class RecaptchaValidator extends AbstractValidator
     const INVALID = 'recaptcha';
 
     protected $messageTemplates = [
-        self::INVALID => "ReCaptcha was invalid!",
+        self::INVALID => 'ReCaptcha was invalid!',
     ];
 
     protected $options = [
@@ -26,7 +26,7 @@ class RecaptchaValidator extends AbstractValidator
      * Accepts the following option keys:
      *   'key' => string, private recaptcha key
      *
-     * @param null $options
+     * @param array|Traversable $options
      */
     public function __construct($options = null)
     {
@@ -34,8 +34,8 @@ class RecaptchaValidator extends AbstractValidator
             $options = iterator_to_array($options);
         }
 
-        if (!is_array($options) || !isset($options['key'])) {
-            throw new InvalidArgumentException("Missing private recaptcha key.");
+        if (!is_array($options) || !array_key_exists('key', $options)) {
+            throw new InvalidArgumentException('Missing private recaptcha key.');
         }
 
         parent::__construct($options);

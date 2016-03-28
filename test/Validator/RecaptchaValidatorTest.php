@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XtreamwayzTest\HTMLFormValidator\Validator;
 
 //use AspectMock\Test as test;

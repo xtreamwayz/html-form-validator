@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XtreamwayzTest\HTMLFormValidator;
 
 use Xtreamwayz\HTMLFormValidator\InputFilterFactory;
@@ -16,6 +18,8 @@ class InputFilterFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function createFactory($useConfig = true)
     {
+        $config = [];
+
         if ($useConfig === true) {
             $config = [
                 'zend-inputfilter' => [
@@ -32,8 +36,6 @@ class InputFilterFactoryTest extends \PHPUnit_Framework_TestCase
                     ],
                 ],
             ];
-        } else {
-            $config = [];
         }
 
         // Build container

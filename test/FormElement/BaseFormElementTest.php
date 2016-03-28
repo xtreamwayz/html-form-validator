@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace XtreamwayzTest\HTMLFormValidator\FormElement;
 
-use ReflectionMethod;
-use DOMElement;
 use DOMDocument;
+use DOMElement;
+use ReflectionMethod;
 use Xtreamwayz\HTMLFormValidator\FormElement\Text;
 
 class BaseFormElementTest extends \PHPUnit_Framework_TestCase
@@ -114,7 +116,7 @@ class BaseFormElementTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider dataAttributesProvider
      */
-    public function testParseDataAttribute($dataAttribute, $expected)
+    public function testParseDataAttribute(string $dataAttribute, array $expected)
     {
         $reflectionMethod = new ReflectionMethod(Text::class, 'parseDataAttribute');
         $reflectionMethod->setAccessible(true);

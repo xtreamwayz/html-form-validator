@@ -29,26 +29,26 @@ final class FormFactory implements FormFactoryInterface
      * @var FormElement\BaseFormElement[]
      */
     private $formElements = [
-        'hidden'         => FormElement\Hidden::class,
-        'text'           => FormElement\Text::class,
-        'search'         => FormElement\Text::class,
-        'tel'            => FormElement\Tel::class,
-        'url'            => FormElement\Url::class,
-        'email'          => FormElement\Email::class,
-        'password'       => FormElement\Password::class,
-        'date'           => FormElement\Date::class,
-        'month'          => FormElement\Month::class,
-        'week'           => FormElement\Week::class,
-        'time'           => FormElement\Time::class,
-        'datetime-local' => FormElement\DateTime::class,
-        'number'         => FormElement\Number::class,
-        'range'          => FormElement\Range::class,
-        'color'          => FormElement\Color::class,
         'checkbox'       => FormElement\Checkbox::class,
-        'radio'          => FormElement\Radio::class,
+        'color'          => FormElement\Color::class,
+        'date'           => FormElement\Date::class,
+        'datetime-local' => FormElement\DateTime::class,
+        'email'          => FormElement\Email::class,
         'file'           => FormElement\File::class,
+        'hidden'         => FormElement\Hidden::class,
+        'month'          => FormElement\Month::class,
+        'number'         => FormElement\Number::class,
+        'password'       => FormElement\Password::class,
+        'radio'          => FormElement\Radio::class,
+        'range'          => FormElement\Range::class,
+        'search'         => FormElement\Text::class,
         'select'         => FormElement\Select::class,
+        'tel'            => FormElement\Tel::class,
+        'text'           => FormElement\Text::class,
         'textarea'       => FormElement\Textarea::class,
+        'time'           => FormElement\Time::class,
+        'url'            => FormElement\Url::class,
+        'week'           => FormElement\Week::class,
     ];
 
     /**
@@ -166,9 +166,9 @@ final class FormFactory implements FormFactoryInterface
 
             // Detect element type
             $type = $node->getAttribute('type');
-            if ($node->tagName == 'textarea') {
+            if ($node->tagName === 'textarea') {
                 $type = 'textarea';
-            } elseif ($node->tagName == 'select') {
+            } elseif ($node->tagName === 'select') {
                 $type = 'select';
             }
 
@@ -202,7 +202,7 @@ final class FormFactory implements FormFactoryInterface
                 $name = $node->getAttribute('data-input-name');
             }
 
-            if (!$name || $node->getAttribute('type') == 'submit') {
+            if (!$name || $node->getAttribute('type') === 'submit') {
                 // At least a name is needed to submit a value.
                 // Silently continue, might be a submit button.
                 continue;
@@ -263,25 +263,25 @@ final class FormFactory implements FormFactoryInterface
                 continue;
             }
 
-            if ($node->getAttribute('type') == 'checkbox' || $node->getAttribute('type') == 'radio') {
-                if ($value == $node->getAttribute('value')) {
+            if (in_array($node->getAttribute('type'), ['checkbox', 'radio'], true)) {
+                if ($value === $node->getAttribute('value')) {
                     $node->setAttribute('checked', 'checked');
                 } else {
                     $node->removeAttribute('checked');
                 }
-            } elseif ($node->nodeName == 'select') {
+            } elseif ($node->nodeName === 'select') {
                 /** @var DOMElement $option */
                 foreach ($node->getElementsByTagName('option') as $option) {
-                    if ($value == $option->getAttribute('value')) {
+                    if ($value === $option->getAttribute('value')) {
                         $option->setAttribute('selected', 'selected');
                     } else {
                         $option->removeAttribute('selected');
                     }
                 }
-            } elseif ($node->nodeName == 'input') {
+            } elseif ($node->nodeName === 'input') {
                 // Set value for input elements
                 $node->setAttribute('value', $value);
-            } elseif ($node->nodeName == 'textarea') {
+            } elseif ($node->nodeName === 'textarea') {
                 $node->nodeValue = $value;
             }
         }

@@ -50,7 +50,7 @@ class BaseFormElement implements InputProviderInterface
             }
         }
 
-        if (!empty($filters)) {
+        if (count($filters) !== 0) {
             $spec['filters'] = $filters;
         }
 
@@ -65,7 +65,7 @@ class BaseFormElement implements InputProviderInterface
             }
         }
 
-        if (!empty($validators)) {
+        if (count($validators) !== 0) {
             $spec['validators'] = $validators;
         }
 
@@ -84,7 +84,7 @@ class BaseFormElement implements InputProviderInterface
 
     protected function isRequired() : bool
     {
-        return $this->node->hasAttribute('required') || $this->node->getAttribute('aria-required') == 'true';
+        return $this->node->hasAttribute('required') || $this->node->getAttribute('aria-required') === 'true';
     }
 
     protected function getFilters() : array
@@ -106,9 +106,9 @@ class BaseFormElement implements InputProviderInterface
      */
     protected function parseDataAttribute($dataAttribute)
     {
-        preg_match_all("/([a-zA-Z]+)([^|]*)/", $dataAttribute, $matches, PREG_SET_ORDER);
+        preg_match_all('/([a-zA-Z]+)([^|]*)/', $dataAttribute, $matches, PREG_SET_ORDER);
 
-        if (!is_array($matches) || empty($matches)) {
+        if (!is_array($matches) || count($matches) === 0) {
             return;
         }
 
@@ -120,7 +120,7 @@ class BaseFormElement implements InputProviderInterface
                 $allOptions = explode(',', $match[2]);
                 foreach ($allOptions as $option) {
                     $option = explode(':', $option);
-                    if (isset($option[0]) && isset($option[1])) {
+                    if (isset($option[0], $option[1])) {
                         $options[trim($option[0], ' {}\'\"')] = trim($option[1], ' {}\'\"');
                     }
                 }

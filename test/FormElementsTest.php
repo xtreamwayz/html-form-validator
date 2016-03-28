@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XtreamwayzTest\HTMLFormValidator;
 
 use Xtreamwayz\HTMLFormValidator\FormFactory;
@@ -30,27 +32,27 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             $submittedValues,
             $result->getRawValues(),
-            "Failed asserting submitted values are equal."
+            'Failed asserting submitted values are equal.'
         );
-        self::assertEquals($expectedValues, $result->getValues(), "Failed asserting filtered values are equal.");
+        self::assertEquals($expectedValues, $result->getValues(), 'Failed asserting filtered values are equal.');
 
         if ($expectedForm) {
             self::assertEqualForms($expectedForm, $form->asString($result));
         }
 
-        if (empty($expectedErrors) && empty($result->getMessages())) {
-            self::assertTrue($result->isValid(), "Failed asserting the validation result is valid.");
+        if (count($expectedErrors) === 0 && count($result->getMessages()) === 0) {
+            self::assertTrue($result->isValid(), 'Failed asserting the validation result is valid.');
         } else {
-            self::assertFalse($result->isValid(), "Failed asserting the validation result is invalid.");
+            self::assertFalse($result->isValid(), 'Failed asserting the validation result is invalid.');
         }
 
         self::assertEmpty(
             $this->arrayDiff($expectedErrors, $result->getMessages()),
-            "Failed asserting that messages are equal."
+            'Failed asserting that messages are equal.'
         );
     }
 
-    private function arrayDiff($array1, $array2)
+    private function arrayDiff(array $array1, array $array2)
     {
         $result = [];
 
@@ -59,14 +61,19 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         }
 
         foreach ($array1 as $key => $val) {
-            if (is_array($val) && isset($array2[$key])) {
-                if ($res = array_merge(array_diff_key($val, $array2[$key]), array_diff_key($array2[$key], $val))) {
-                    $result[$key] = $res;
-                } elseif ($res = $this->arrayDiff($val, $array2[$key])) {
-                    $result[$key] = $res;
-                }
-            } elseif (!isset($array2[$key])) {
+            if (!is_array($val)) {
+                continue;
+            }
+
+            if (!array_key_exists($key, $array2)) {
                 $result[$key] = $val;
+                continue;
+            }
+
+            if ($res = array_merge(array_diff_key($val, $array2[$key]), array_diff_key($array2[$key], $val))) {
+                $result[$key] = $res;
+            } elseif ($res = $this->arrayDiff($val, $array2[$key])) {
+                $result[$key] = $res;
             }
         }
 
@@ -80,8 +87,8 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         foreach (new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($fixturesDir),
             \RecursiveIteratorIterator::LEAVES_ONLY
-        ) as $file) {
-            if (!preg_match('/\.test$/', $file)) {
+        ) as $name => $file) {
+            if (!preg_match('/\.test$/', $name)) {
                 continue;
             }
 
@@ -124,7 +131,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
                 die(sprintf('Test "%s" is not valid: ' . $e->getMessage(), str_replace($fixturesDir . '/', '', $file)));
             }
 
-            yield basename($file) => [
+            yield basename($file->getRealPath()) => [
                 $htmlForm,
                 $defaultValues,
                 $submittedValues,
@@ -136,12 +143,12 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    protected function readTestFile(\SplFileInfo $file, $fixturesDir)
+    protected function readTestFile(\SplFileInfo $file, string $fixturesDir)
     {
         $tokens = preg_split(
             '#(?:^|\n*)--([A-Z-]+)--\n#',
             file_get_contents($file->getRealPath()),
-            null,
+            -1,
             PREG_SPLIT_DELIM_CAPTURE
         );
 
@@ -159,12 +166,12 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         $data = [];
         $section = null;
         foreach ($tokens as $i => $token) {
-            if (null === $section && empty($token)) {
+            if (null === $section && !$token) {
                 continue; // skip leading blank
             }
 
             if (null === $section) {
-                if (!isset($sectionInfo[$token])) {
+                if (!array_key_exists($token, $sectionInfo)) {
                     throw new \RuntimeException(sprintf(
                         'The test file "%s" must not contain a section named "%s".',
                         str_replace($fixturesDir . '/', '', $file),
@@ -181,7 +188,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         }
 
         foreach ($sectionInfo as $section => $required) {
-            if ($required && !isset($data[$section])) {
+            if ($required && !array_key_exists($section, $data)) {
                 throw new \RuntimeException(sprintf(
                     'The test file "%s" must have a section named "%s".',
                     str_replace($fixturesDir . '/', '', $file),
@@ -202,7 +209,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    private function getDomDocument($html)
+    private function getDomDocument(string $html)
     {
         $doc = new \DOMDocument('1.0', 'utf-8');
         $doc->preserveWhiteSpace = false;
