@@ -45,7 +45,7 @@ class RecaptchaValidatorTest extends \PHPUnit_Framework_TestCase
         $reflectionProperty->setAccessible(true);
         $actualOptions = $reflectionProperty->getValue($this->validator);
 
-        $this->assertEquals($options, $actualOptions);
+        self::assertEquals($options, $actualOptions);
     }
 
     public function testMissingKeyOptionThrowsInvalidArgumentException()
@@ -57,7 +57,7 @@ class RecaptchaValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testGetMessages()
     {
-        $this->assertEquals([], $this->validator->getMessages());
+        self::assertEquals([], $this->validator->getMessages());
     }
 
     public function testValidInvalidUserResponse()
@@ -66,7 +66,7 @@ class RecaptchaValidatorTest extends \PHPUnit_Framework_TestCase
             "success": true
         }');
 
-        $this->assertTrue($this->validator->isValid($this->pubKey));
+        self::assertTrue($this->validator->isValid($this->pubKey));
         $mock->verifyInvoked();
     }
 
@@ -79,7 +79,7 @@ class RecaptchaValidatorTest extends \PHPUnit_Framework_TestCase
             ]
         }');
 
-        $this->assertFalse($this->validator->isValid($this->pubKey));
+        self::assertFalse($this->validator->isValid($this->pubKey));
         $mock->verifyInvoked();
     }
 }

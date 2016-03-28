@@ -26,25 +26,25 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         $form = FormFactory::fromHtml($htmlForm, $defaultValues);
         $result = $form->validate($submittedValues);
 
-        $this->assertInstanceOf(ValidationResult::class, $result);
-        $this->assertEquals(
+        self::assertInstanceOf(ValidationResult::class, $result);
+        self::assertEquals(
             $submittedValues,
             $result->getRawValues(),
             "Failed asserting submitted values are equal."
         );
-        $this->assertEquals($expectedValues, $result->getValues(), "Failed asserting filtered values are equal.");
+        self::assertEquals($expectedValues, $result->getValues(), "Failed asserting filtered values are equal.");
 
         if ($expectedForm) {
-            $this->assertEqualForms($expectedForm, $form->asString($result));
+            self::assertEqualForms($expectedForm, $form->asString($result));
         }
 
         if (empty($expectedErrors) && empty($result->getMessages())) {
-            $this->assertTrue($result->isValid(), "Failed asserting the validation result is valid.");
+            self::assertTrue($result->isValid(), "Failed asserting the validation result is valid.");
         } else {
-            $this->assertFalse($result->isValid(), "Failed asserting the validation result is invalid.");
+            self::assertFalse($result->isValid(), "Failed asserting the validation result is invalid.");
         }
 
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->arrayDiff($expectedErrors, $result->getMessages()),
             "Failed asserting that messages are equal."
         );
@@ -195,7 +195,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
 
     private function assertEqualForms($expected, $actual)
     {
-        $this->assertEquals(
+        self::assertEquals(
             $this->getDomDocument($expected),
             $this->getDomDocument($actual),
             'Failed asserting that the form is rendered correctly.'

@@ -126,6 +126,6 @@ class BaseFormElementTest extends \PHPUnit_Framework_TestCase
             [$dataAttribute]
         ));
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 }
