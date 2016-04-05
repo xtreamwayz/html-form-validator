@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-Nothing.
+- [#50](https://github.com/xtreamwayz/html-form-validator/pull/50) adds strict types and some performance improvements.
 
 ### Deprecated
 
