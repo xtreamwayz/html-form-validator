@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\Validator\GreaterThan as GreaterThanValidator;
@@ -9,7 +11,7 @@ use Zend\Validator\Step as StepValidator;
 
 class Number extends BaseFormElement
 {
-    protected function getValidators()
+    protected function getValidators() : array
     {
         $validators = [];
 

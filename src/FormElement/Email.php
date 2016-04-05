@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\Filter\StringTrim as StringTrimFilter;
 use Zend\Filter\StripNewlines as StripNewlinesFilter;
 use Zend\Validator\EmailAddress as EmailAddressValidator;
+use Zend\Validator\Explode as ExplodeValidator;
 use Zend\Validator\Regex as RegexValidator;
 use Zend\Validator\StringLength as StringLengthValidator;
-use Zend\Validator\Explode as ExplodeValidator;
 
 class Email extends BaseFormElement
 {
-    protected function getFilters()
+    protected function getFilters() : array
     {
         return [
             ['name' => StripNewlinesFilter::class],
@@ -19,7 +21,7 @@ class Email extends BaseFormElement
         ];
     }
 
-    protected function getValidators()
+    protected function getValidators() : array
     {
         $validators = [];
 
@@ -56,7 +58,7 @@ class Email extends BaseFormElement
         return $validators;
     }
 
-    protected function getEmailValidator()
+    protected function getEmailValidator() : array
     {
         return [
             'name'    => EmailAddressValidator::class,

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\Filter\StripNewlines as StripNewlinesFilter;
@@ -8,14 +10,14 @@ use Zend\Validator\StringLength as StringLengthValidator;
 
 class Text extends BaseFormElement
 {
-    protected function getFilters()
+    protected function getFilters() : array
     {
         return [
             ['name' => StripNewlinesFilter::class],
         ];
     }
 
-    protected function getValidators()
+    protected function getValidators() : array
     {
         $validators = [];
 

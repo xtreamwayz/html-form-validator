@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Xtreamwayz\HTMLFormValidator;
 
 final class ValidationResult implements ValidationResultInterface
@@ -36,8 +38,8 @@ final class ValidationResult implements ValidationResultInterface
         array $rawValues,
         array $values,
         array $messages,
-        $method = null,
-        $submitName = null
+        string $method = null,
+        string $submitName = null
     ) {
         $this->rawValues = $rawValues;
         $this->values = $values;
@@ -49,12 +51,12 @@ final class ValidationResult implements ValidationResultInterface
     /**
      * @inheritdoc
      */
-    public function isValid()
+    public function isValid() : bool
     {
         return (count($this->messages) === 0 && ($this->method === null || $this->method === 'POST'));
     }
 
-    public function isClicked($name = null)
+    public function isClicked(string $name = null)
     {
         if (null !== $name) {
             return ($this->submitName === $name);
@@ -66,7 +68,7 @@ final class ValidationResult implements ValidationResultInterface
     /**
      * @inheritdoc
      */
-    public function getMessages()
+    public function getMessages() : array
     {
         return $this->messages;
     }
@@ -74,7 +76,7 @@ final class ValidationResult implements ValidationResultInterface
     /**
      * @inheritdoc
      */
-    public function getRawValues()
+    public function getRawValues() : array
     {
         return $this->rawValues;
     }
@@ -82,7 +84,7 @@ final class ValidationResult implements ValidationResultInterface
     /**
      * @inheritdoc
      */
-    public function getValues()
+    public function getValues() : array
     {
         return $this->values;
     }

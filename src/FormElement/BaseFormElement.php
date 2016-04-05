@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMDocument;
@@ -30,7 +32,7 @@ class BaseFormElement implements InputProviderInterface
      *
      * @return array
      */
-    public function getInputSpecification()
+    public function getInputSpecification() : array
     {
         $spec = [
             'name'     => $this->getName(),
@@ -48,7 +50,7 @@ class BaseFormElement implements InputProviderInterface
             }
         }
 
-        if (!empty($filters)) {
+        if ($filters) {
             $spec['filters'] = $filters;
         }
 
@@ -63,14 +65,14 @@ class BaseFormElement implements InputProviderInterface
             }
         }
 
-        if (!empty($validators)) {
+        if ($validators) {
             $spec['validators'] = $validators;
         }
 
         return $spec;
     }
 
-    protected function getName()
+    protected function getName() : string
     {
         $name = $this->node->getAttribute('name');
         if (!$name) {
@@ -80,17 +82,17 @@ class BaseFormElement implements InputProviderInterface
         return $name;
     }
 
-    protected function isRequired()
+    protected function isRequired() : bool
     {
-        return $this->node->hasAttribute('required') || $this->node->getAttribute('aria-required') == 'true';
+        return $this->node->hasAttribute('required') || $this->node->getAttribute('aria-required') === 'true';
     }
 
-    protected function getFilters()
+    protected function getFilters() : array
     {
         return [];
     }
 
-    protected function getValidators()
+    protected function getValidators() : array
     {
         return [];
     }
@@ -104,9 +106,9 @@ class BaseFormElement implements InputProviderInterface
      */
     protected function parseDataAttribute($dataAttribute)
     {
-        preg_match_all("/([a-zA-Z]+)([^|]*)/", $dataAttribute, $matches, PREG_SET_ORDER);
+        preg_match_all('/([a-zA-Z]+)([^|]*)/', $dataAttribute, $matches, PREG_SET_ORDER);
 
-        if (!is_array($matches) || empty($matches)) {
+        if (!$matches) {
             return;
         }
 
@@ -118,7 +120,7 @@ class BaseFormElement implements InputProviderInterface
                 $allOptions = explode(',', $match[2]);
                 foreach ($allOptions as $option) {
                     $option = explode(':', $option);
-                    if (isset($option[0]) && isset($option[1])) {
+                    if (isset($option[0], $option[1])) {
                         $options[trim($option[0], ' {}\'\"')] = trim($option[1], ' {}\'\"');
                     }
                 }

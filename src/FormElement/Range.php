@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\I18n\Validator\IsFloat as NumberValidator;
@@ -9,7 +11,7 @@ use Zend\Validator\Step as StepValidator;
 
 class Range extends BaseFormElement
 {
-    protected function getValidators()
+    protected function getValidators() : array
     {
         $validators = [];
 

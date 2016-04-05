@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Xtreamwayz\HTMLFormValidator;
 
 interface ValidationResultInterface
@@ -17,8 +19,8 @@ interface ValidationResultInterface
         array $rawInputData,
         array $validatedData,
         array $errors,
-        $method = null,
-        $submitName = null
+        string $method = null,
+        string $submitName = null
     );
 
     /**
@@ -29,7 +31,7 @@ interface ValidationResultInterface
      *
      * @return bool
      */
-    public function isValid();
+    public function isValid() : bool;
 
     /**
      * Checks if submit button is clicked or return its name
@@ -41,26 +43,26 @@ interface ValidationResultInterface
      *
      * @return null|boolean|string
      */
-    public function isClicked($name = null);
+    public function isClicked(string $name = null);
 
     /**
      * Get validation messages
      *
      * @return array
      */
-    public function getMessages();
+    public function getMessages() : array;
 
     /**
      * Get the raw input values
      *
      * @return array
      */
-    public function getRawValues();
+    public function getRawValues() : array;
 
     /**
      * Get the filtered input values
      *
      * @return array
      */
-    public function getValues();
+    public function getValues() : array;
 }

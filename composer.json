@@ -24,10 +24,9 @@
         "psr/http-message": "^1.0"
     },
     "require-dev": {
-        "zendframework/zend-servicemanager": "^3.0",
         "phpunit/phpunit": "^5.0",
-        "codeception/aspect-mock": "*",
-        "squizlabs/php_codesniffer": "^2.3"
+        "squizlabs/php_codesniffer": "^2.3",
+        "zendframework/zend-servicemanager": "^3.0"
     },
     "suggest": {
         "zendframework/zend-servicemanager": "To support third-party validators and filters"
@@ -38,9 +37,10 @@
             "@test"
         ],
         "cs": "php vendor/squizlabs/php_codesniffer/scripts/phpcs",
-        "test": "php vendor/phpunit/phpunit/phpunit --no-coverage",
-        "coverage": "phpdbg -qrr vendor/phpunit/phpunit/phpunit"
+        "test": "php vendor/phpunit/phpunit/phpunit --report-useless-tests",
+        "coverage": "php vendor/phpunit/phpunit/phpunit --coverage-html ./build/coverage"
     },
+
     "autoload": {
         "psr-4": {
             "Xtreamwayz\\HTMLFormValidator\\": "src/"

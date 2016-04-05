@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\Validator\Explode as ExplodeValidator;
@@ -7,7 +9,7 @@ use Zend\Validator\InArray as InArrayValidator;
 
 class Select extends BaseFormElement
 {
-    protected function getValidators()
+    protected function getValidators() : array
     {
         $validators = [];
 
@@ -26,7 +28,7 @@ class Select extends BaseFormElement
         return $validators;
     }
 
-    private function getInArrayValidator()
+    private function getInArrayValidator() : array
     {
         return [
             'name'    => InArrayValidator::class,
@@ -37,7 +39,7 @@ class Select extends BaseFormElement
         ];
     }
 
-    private function getValueOptions()
+    private function getValueOptions() : array
     {
         $haystack = [];
 

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\Validator\StringLength as StringLengthValidator;
 
 class Textarea extends BaseFormElement
 {
-    protected function getValidators()
+    protected function getValidators() : array
     {
         $validators = [];
 
