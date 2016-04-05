@@ -50,7 +50,7 @@ class BaseFormElement implements InputProviderInterface
             }
         }
 
-        if (count($filters) !== 0) {
+        if ($filters) {
             $spec['filters'] = $filters;
         }
 
@@ -65,7 +65,7 @@ class BaseFormElement implements InputProviderInterface
             }
         }
 
-        if (count($validators) !== 0) {
+        if ($validators) {
             $spec['validators'] = $validators;
         }
 
@@ -108,7 +108,7 @@ class BaseFormElement implements InputProviderInterface
     {
         preg_match_all('/([a-zA-Z]+)([^|]*)/', $dataAttribute, $matches, PREG_SET_ORDER);
 
-        if (!is_array($matches) || count($matches) === 0) {
+        if (!$matches) {
             return;
         }
 
