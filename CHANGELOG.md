@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.7.0 - TBD
+
+### Added
+
+- [#52](https://github.com/xtreamwayz/html-form-validator/pull/52) adds accepting objects for default data.
+  No need to convert entity or DTO classes to arrays anymore to populate default data.
+
+  ```php
+  class Entity
+  {
+      public function getFoo()
+      {
+          return 'bar';
+      }
+  }
+
+  $form = FormFactory::fromHtml($htmlForm, new Entity());
+  ```
+
+### Deprecated
+
+Nothing.
+
+### Removed
+
+Nothing.
+
+### Fixed
+
+Nothing.
+
 ## 0.6.0 - 2016-04-05
 
 ### Added

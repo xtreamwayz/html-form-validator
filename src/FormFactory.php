@@ -54,7 +54,7 @@ final class FormFactory implements FormFactoryInterface
     /**
      * @inheritdoc
      */
-    public function __construct(string $htmlForm, Factory $factory = null, array $defaultValues = [])
+    public function __construct(string $htmlForm, Factory $factory = null, $defaultValues = [])
     {
         $this->factory = $factory ?: new Factory();
 
@@ -74,7 +74,7 @@ final class FormFactory implements FormFactoryInterface
     /**
      * @inheritdoc
      */
-    public static function fromHtml(string $htmlForm, array $defaultValues = []) : FormFactoryInterface
+    public static function fromHtml(string $htmlForm, $defaultValues = []) : FormFactoryInterface
     {
         return new self($htmlForm, null, $defaultValues);
     }
@@ -240,18 +240,28 @@ final class FormFactory implements FormFactoryInterface
     /**
      * Set values and element checked and selected states
      *
-     * @param array $data
-     * @param bool  $force
+     * @param array|object $data
+     * @param bool         $force
      */
-    private function setData(array $data, $force = false)
+    private function setData($data, $force = false)
     {
         foreach ($this->getNodeList() as $name => $node) {
-            if (!array_key_exists($name, $data)) {
-                // No value set for this element
-                continue;
-            }
+            if (is_array($data)) {
+                if (!array_key_exists($name, $data)) {
+                    // No value set for this element
+                    continue;
+                }
 
-            $value = $data[$name];
+                $value = $data[$name];
+            } else {
+                $method = 'get' . $name;
+                if (!is_object($data) || !method_exists($data, $method)) {
+                    // No object or method is not available
+                    continue;
+                }
+
+                $value = $data->$method();
+            }
 
             $reuseSubmittedValue = filter_var(
                 $node->getAttribute('data-reuse-submitted-value'),

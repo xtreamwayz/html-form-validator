@@ -16,8 +16,8 @@ if ($result->isValid()) {
 echo $form->asString();
 ```
 
-The HTML5 standard validation rules are added for you [[input elements|API Form Elements]] so you don't need to 
-repeat those over and over again. And then there are the special attributes with trigger standard validation: 
+The HTML5 standard validation rules are added for you [[input elements|API Form Elements]] so you don't need to
+repeat those over and over again. And then there are the special attributes with trigger standard validation:
 - [[max|API Attributes#max]]
 - [[min|API Attributes#min]]
 - [[step|API Attributes#step]]
@@ -27,7 +27,7 @@ repeat those over and over again. And then there are the special attributes with
 - [[pattern|API Attributes#pattern]]
 - [[required|API Attributes#required]], [[aria-required|API Attributes#aria-required]]
 
-And if you need more validation or specific filters there is a [[data-filters|API Attributes#data-filters]] and 
+And if you need more validation or specific filters there is a [[data-filters|API Attributes#data-filters]] and
 [[data-validators|API Attributes#data-validators]] attribute.
 
 A full blown text input might look like:
@@ -47,7 +47,7 @@ Let's go through all the steps needed to get this working inside a controller ac
 
 ### 1. Build the form
 
-Create the form from html. Nothing fancy here. In this case a template renderer is used and the default values are 
+Create the form from html. Nothing fancy here. In this case a template renderer is used and the default values are
 injected.
 
 ```php
@@ -57,24 +57,47 @@ $form = FormFactory::fromHtml($this->template->render('app::form', [
 ]));
 ```
 
+You can set default data if required. This must be either an array or an object with public get methods for each
+element name. In this example the array and the object will give the same result: Setting the `bar` as the value
+for `foo`.
+
+```php
+$form = FormFactory::fromHtml($htmlForm, $defaultdata);
+
+// Array
+$defaultData = [
+    'foo' => 'bar',
+];
+
+// Object
+class SomeClassToUseAsDefaultData
+{
+    public function getFoo()
+    {
+        return 'bar';
+    }
+}
+$defaultData = new SomeClassToUseAsDefaultData();
+```
+
 ### 2. Validate the form
 
 The easiest way is if you use a framework that uses [PSR-7 requests](http://www.php-fig.org/psr/psr-7/).
 
 ```php
-// Validate PSR-7 request and return a ValidationResponseInterface 
+// Validate PSR-7 request and return a ValidationResponseInterface
 // It should only start validation if it was a post and if there are submitted values
 $validationResult = $form->validateRequest($request);
 ```
 
-If you use a framework that doesn't handle PSR-7 requests, you can still reduce boilerplate code by passing the 
+If you use a framework that doesn't handle PSR-7 requests, you can still reduce boilerplate code by passing the
 request method yourself:
 
 ```php
 $validationResult = $form->validate($submittedData, $_SERVER['REQUEST_METHOD']);
 ```
 
-You can also leave the method validation out. It won't check for a valid `POST` method. 
+You can also leave the method validation out. It won't check for a valid `POST` method.
 
 ```php
 $validationResult = $form->validate($submittedData);
@@ -82,7 +105,7 @@ $validationResult = $form->validate($submittedData);
 
 ### 3. Process validation result
 
-Submitted data should be valid if it was a post and there are no validation messages set. 
+Submitted data should be valid if it was a post and there are no validation messages set.
 
 ```php
 // It should be valid if it was a post and if there are no validation messages
@@ -97,7 +120,7 @@ if ($validationResult->isValid()) {
 ```
 
 If you didn't use the PSR-7 request method, you might want to check for a valid post method yourself.
- 
+
 ```php
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && $validationResult->isValid()) {
     // ...
@@ -148,9 +171,9 @@ $validationResult->isClicked();
 
 ## Custom Validators and Filters
 
-Setting up custom validators and filters is a bit more work but it isn't complicated. Instead of creating the 
-FormFactory with its static `fromHtml` method, the constructor is needed with a configured Zend\InputFilter\Factory 
-and a Interop\Container\ContainerInterface. 
+Setting up custom validators and filters is a bit more work but it isn't complicated. Instead of creating the
+FormFactory with its static `fromHtml` method, the constructor is needed with a configured Zend\InputFilter\Factory
+and a Interop\Container\ContainerInterface.
 
 ```php
 $config = [
@@ -186,6 +209,6 @@ $result = $form->validate($_POST);
 // Display the plain form
 echo $form->asString();
 
-// Display the form with the submitted values and validation messages 
+// Display the form with the submitted values and validation messages
 echo $form->asString($validationResult);
 ```
