@@ -14,19 +14,19 @@ interface FormFactoryInterface
      *
      * @param string       $htmlForm
      * @param null|Factory $factory
-     * @param array|object $defaultValues
+     * @param array        $defaultValues
      */
-    public function __construct(string $htmlForm, Factory $factory = null, $defaultValues = []);
+    public function __construct(string $htmlForm, Factory $factory = null, array $defaultValues = []);
 
     /**
      * Load html form and optionally set default data
      *
-     * @param string       $htmlForm
-     * @param array|object $defaultValues
+     * @param string $htmlForm
+     * @param array  $defaultValues
      *
      * @return FormFactoryInterface
      */
-    public static function fromHtml(string $htmlForm, $defaultValues = []) : FormFactoryInterface;
+    public static function fromHtml(string $htmlForm, array $defaultValues = []) : FormFactoryInterface;
 
     /**
      * Return form as a string. Optionally inject the error messages for the result.
