@@ -57,29 +57,6 @@ $form = FormFactory::fromHtml($this->template->render('app::form', [
 ]));
 ```
 
-You can set default data if required. This must be either an array or an object with public get methods for each
-element name. In this example the array and the object will give the same result: Setting the `bar` as the value
-for `foo`.
-
-```php
-$form = FormFactory::fromHtml($htmlForm, $defaultdata);
-
-// Array
-$defaultData = [
-    'foo' => 'bar',
-];
-
-// Object
-class SomeClassToUseAsDefaultData
-{
-    public function getFoo()
-    {
-        return 'bar';
-    }
-}
-$defaultData = new SomeClassToUseAsDefaultData();
-```
-
 ### 2. Validate the form
 
 The easiest way is if you use a framework that uses [PSR-7 requests](http://www.php-fig.org/psr/psr-7/).

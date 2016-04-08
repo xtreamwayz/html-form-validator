@@ -7,7 +7,6 @@ namespace XtreamwayzTest\HTMLFormValidator;
 use Psr\Http\Message\ServerRequestInterface;
 use Xtreamwayz\HTMLFormValidator\FormFactory;
 use Xtreamwayz\HTMLFormValidator\ValidationResult;
-use XtreamwayzTest\HTMLFormValidator\TestAsset\EntityWithMethodsForValues;
 
 class FormFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -122,34 +121,6 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
             'foo' => 'bar',
             'baz' => 'qux',
         ]);
-
-        self::assertContains('<input type="text" name="foo" value="bar">', $form->asString());
-        self::assertContains('<input type="text" name="baz" value="qux">', $form->asString());
-    }
-
-    public function testSetValuesStaticallyFromObject()
-    {
-        $htmlForm = '
-            <form action="/" method="post">
-                <input type="text" name="foo" data-reuse-submitted-value="true" />
-                <input type="text" name="baz" data-filters="stringtrim" />
-            </form>';
-
-        $form = FormFactory::fromHtml($htmlForm, new EntityWithMethodsForValues());
-
-        self::assertContains('<input type="text" name="foo" value="bar">', $form->asString());
-        self::assertContains('<input type="text" name="baz" value="qux">', $form->asString());
-    }
-
-    public function testSetValuesWithConstructorFromObject()
-    {
-        $htmlForm = '
-            <form action="/" method="post">
-                <input type="text" name="foo" data-reuse-submitted-value="true" />
-                <input type="text" name="baz" data-filters="stringtrim" />
-            </form>';
-
-        $form = new FormFactory($htmlForm, null, new EntityWithMethodsForValues());
 
         self::assertContains('<input type="text" name="foo" value="bar">', $form->asString());
         self::assertContains('<input type="text" name="baz" value="qux">', $form->asString());
