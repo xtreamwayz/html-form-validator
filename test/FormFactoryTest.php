@@ -1,12 +1,13 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace XtreamwayzTest\HTMLFormValidator;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Xtreamwayz\HTMLFormValidator\FormFactory;
 use Xtreamwayz\HTMLFormValidator\ValidationResult;
+use XtreamwayzTest\HTMLFormValidator\TestAsset\EntityWithMethodsForValues;
 
 class FormFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -134,7 +135,7 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
                 <input type="text" name="baz" data-filters="stringtrim" />
             </form>';
 
-        $form = FormFactory::fromHtml($htmlForm, new GenericObjectWithMethods());
+        $form = FormFactory::fromHtml($htmlForm, new EntityWithMethodsForValues());
 
         self::assertContains('<input type="text" name="foo" value="bar">', $form->asString());
         self::assertContains('<input type="text" name="baz" value="qux">', $form->asString());
@@ -148,22 +149,9 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
                 <input type="text" name="baz" data-filters="stringtrim" />
             </form>';
 
-        $form = new FormFactory($htmlForm, null, new GenericObjectWithMethods());
+        $form = new FormFactory($htmlForm, null, new EntityWithMethodsForValues());
 
         self::assertContains('<input type="text" name="foo" value="bar">', $form->asString());
         self::assertContains('<input type="text" name="baz" value="qux">', $form->asString());
-    }
-}
-
-class GenericObjectWithMethods
-{
-    public function getFoo()
-    {
-        return 'bar';
-    }
-
-    public function getBaz()
-    {
-        return 'qux';
     }
 }
