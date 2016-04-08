@@ -125,4 +125,45 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
         self::assertContains('<input type="text" name="foo" value="bar">', $form->asString());
         self::assertContains('<input type="text" name="baz" value="qux">', $form->asString());
     }
+
+    public function testSetValuesStaticallyFromObject()
+    {
+        $htmlForm = '
+            <form action="/" method="post">
+                <input type="text" name="foo" data-reuse-submitted-value="true" />
+                <input type="text" name="baz" data-filters="stringtrim" />
+            </form>';
+
+        $form = FormFactory::fromHtml($htmlForm, new GenericObjectWithMethods());
+
+        self::assertContains('<input type="text" name="foo" value="bar">', $form->asString());
+        self::assertContains('<input type="text" name="baz" value="qux">', $form->asString());
+    }
+
+    public function testSetValuesWithConstructorFromObject()
+    {
+        $htmlForm = '
+            <form action="/" method="post">
+                <input type="text" name="foo" data-reuse-submitted-value="true" />
+                <input type="text" name="baz" data-filters="stringtrim" />
+            </form>';
+
+        $form = new FormFactory($htmlForm, null, new GenericObjectWithMethods());
+
+        self::assertContains('<input type="text" name="foo" value="bar">', $form->asString());
+        self::assertContains('<input type="text" name="baz" value="qux">', $form->asString());
+    }
+}
+
+class GenericObjectWithMethods
+{
+    public function getFoo()
+    {
+        return 'bar';
+    }
+
+    public function getBaz()
+    {
+        return 'qux';
+    }
 }
