@@ -51,6 +51,9 @@ Resources:
 
 *Filters:* Strip line breaks from the value.
 
+If the `data-validator-country` attribute is set the `PhoneNumberValidator` is used. If not, it falls back to a
+very loose regex pattern if none is set: `^\+[0-9]{1,3}[0-9\s]{4,17}$`.
+
 ```html
 <input type="tel" name="tel" data-validator-country="es" />
 ```
