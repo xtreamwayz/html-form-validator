@@ -6,7 +6,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-Nothing.
+- [#55](https://github.com/xtreamwayz/html-form-validator/pull/55) changes the way a phone number is validated.
+  Uses the PhoneNumberValidator only if the country is set. Otherwise fall back to a very loose phone number regex
+  pattern validation if the pattern wasn't set already.
 
 ### Deprecated
 
