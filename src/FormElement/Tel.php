@@ -22,12 +22,18 @@ class Tel extends BaseFormElement
     {
         $validators = [];
 
-        $validators[] = [
-            'name'    => PhoneNumberValidator::class,
-            'options' => [
-                'country' => $this->node->getAttribute('data-validator-country') ?: null,
-            ],
-        ];
+        if ($this->node->hasAttribute('data-validator-country')) {
+            // Only use the validator if a country is set
+            $validators[] = [
+                'name'    => PhoneNumberValidator::class,
+                'options' => [
+                    'country' => $this->node->getAttribute('data-validator-country') ?: null,
+                ],
+            ];
+        } elseif (!$this->node->hasAttribute('pattern')) {
+            // Use a very loose pattern for validation
+            $this->node->setAttribute('pattern', '^\+[0-9]{1,3}[0-9\s]{4,17}$');
+        }
 
         if ($this->node->hasAttribute('minlength') || $this->node->hasAttribute('maxlength')) {
             $validators[] = [
