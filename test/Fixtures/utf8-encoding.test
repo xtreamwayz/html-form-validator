@@ -1,0 +1,30 @@
+--TEST--
+<test description>
+--HTML-FORM--
+<form action="/" method="post">
+    <input type="text" name="valid_value" required value="Îñţérñåţîöñåļîžåţîöñ" />
+    <input type="text" name="valid_default" required />
+    <input type="text" name="valid_reuse" required data-reuse-submitted-value="true" />
+</form>
+--DEFAULT-VALUES--
+{
+    "valid_default": "Îñţérñåţîöñåļîžåţîöñ"
+}
+--SUBMITTED-VALUES--
+{
+    "valid_value": "Îñţérñåţîöñåļîžåţîöñ",
+    "valid_default": "Îñţérñåţîöñåļîžåţîöñ",
+    "valid_reuse": "Îñţérñåţîöñåļîžåţîöñ"
+}
+--EXPECTED-VALUES--
+{
+    "valid_value": "Îñţérñåţîöñåļîžåţîöñ",
+    "valid_default": "Îñţérñåţîöñåļîžåţîöñ",
+    "valid_reuse": "Îñţérñåţîöñåļîžåţîöñ"
+}
+--EXPECTED-FORM--
+<form action="/" method="post">
+    <input type="text" name="valid_value" required value="Îñţérñåţîöñåļîžåţîöñ" />
+    <input type="text" name="valid_default" required value="Îñţérñåţîöñåļîžåţîöñ" />
+    <input type="text" name="valid_reuse" required value="Îñţérñåţîöñåļîžåţîöñ" />
+</form>

@@ -18,7 +18,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#56](https://github.com/xtreamwayz/html-form-validator/pull/56) fixes unicode characters support. UTF-8 is now
+  enforced internally to make this happen. To prevent unwanted output only the first form is returned in
+  `FormFactory->asString()`.
 
 ## 0.7.0 - 2016-04-16
 
