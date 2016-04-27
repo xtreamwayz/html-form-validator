@@ -63,8 +63,11 @@ final class FormFactory implements FormFactoryInterface
 
         // Ignore invalid tag errors during loading (e.g. datalist)
         libxml_use_internal_errors(true);
-        // Don't add missing doctype, html and body
-        $this->document->loadHTML($htmlForm, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        // Enforce UTF-8 encoding and don't add missing doctype, html and body
+        $this->document->loadHTML(
+            '<?xml version="1.0" encoding="UTF-8"?>' . $htmlForm,
+            LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+        );
         libxml_use_internal_errors(false);
 
         // Inject default values (from models etc)
@@ -101,7 +104,8 @@ final class FormFactory implements FormFactoryInterface
 
         $this->document->formatOutput = true;
 
-        return $this->document->saveHTML();
+        // Return the first form only to prevent returning the XML declaration
+        return $this->document->saveHTML($this->document->getElementsByTagName('form')->item(0));
     }
 
     public function validateRequest(ServerRequestInterface $request) : ValidationResultInterface
