@@ -108,13 +108,11 @@ final class FormFactory implements FormFactoryInterface
         return $this->document->saveHTML($this->document->getElementsByTagName('form')->item(0));
     }
 
+    /**
+     * @inheritdoc
+     */
     public function validateRequest(ServerRequestInterface $request) : ValidationResultInterface
     {
-        if ($request->getMethod() !== 'POST') {
-            // Not a post request, skip validation
-            return new ValidationResult([], [], [], $request->getMethod());
-        }
-
         return $this->validate((array) $request->getParsedBody(), $request->getMethod());
     }
 
@@ -123,6 +121,11 @@ final class FormFactory implements FormFactoryInterface
      */
     public function validate(array $data, $method = null) : ValidationResultInterface
     {
+        if ($method !== null && $method !== 'POST') {
+            // Not a post request, skip validation
+            return new ValidationResult([], [], [], $method);
+        }
+
         $inputFilter = $this->factory->createInputFilter([]);
 
         // Add all validators and filters to the InputFilter
