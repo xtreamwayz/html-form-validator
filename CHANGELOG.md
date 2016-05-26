@@ -6,7 +6,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#59](https://github.com/xtreamwayz/html-form-validator/pull/59) checks if a request method is set and if it's a post
+  when calling `validate()`. If it wasn't a post, it skips validation.
+  If the method isn't set, it always runs the validation.
 
 ### Deprecated
 
