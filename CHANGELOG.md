@@ -20,7 +20,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#58](https://github.com/xtreamwayz/html-form-validator/pull/58) fixes the zend-servicemanager dependency.
+  It's now installed by default since zend-filter and zend-validator depend on the PluginManager classes.
 
 ## 0.8.0 - 2016-04-27
 
