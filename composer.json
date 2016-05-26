@@ -21,12 +21,12 @@
         "zendframework/zend-i18n": "^2.6",
         "zendframework/zend-uri": "^2.5",
         "zendframework/zend-stdlib": "^2.7|^3.0",
+        "zendframework/zend-servicemanager": "^2.7|^3.0",
         "psr/http-message": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.0",
-        "squizlabs/php_codesniffer": "^2.3",
-        "zendframework/zend-servicemanager": "^3.0"
+        "squizlabs/php_codesniffer": "^2.3"
     },
     "suggest": {
         "zendframework/zend-servicemanager": "To support third-party validators and filters"
@@ -37,10 +37,8 @@
             "@test"
         ],
         "cs": "php vendor/squizlabs/php_codesniffer/scripts/phpcs",
-        "test": "php vendor/phpunit/phpunit/phpunit --report-useless-tests",
-        "coverage": "php vendor/phpunit/phpunit/phpunit --coverage-html ./build/coverage"
+        "test": "php vendor/phpunit/phpunit/phpunit --report-useless-tests"
     },
-
     "autoload": {
         "psr-4": {
             "Xtreamwayz\\HTMLFormValidator\\": "src/"
