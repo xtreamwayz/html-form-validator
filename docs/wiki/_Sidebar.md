@@ -16,6 +16,7 @@
 - [[Recaptcha|Example Recaptcha]]
 - [[zend-expressive Action|Example Zend Expressive Action]]
 - [[zend-expressive Custom Validators|Example Zend Expressive Custom Validators]]
+- [[Symfony Action|Example Symfony Action]]
 
 **Resource**
 
