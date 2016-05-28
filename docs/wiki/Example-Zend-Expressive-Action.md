@@ -81,7 +81,7 @@ class ContactAction
 
         // Generate csrf token if needed
         if (!$session->get('csrf')) {
-            $session->set('csrf', md5(uniqid(rand(), true)));
+            $session->set('csrf', md5(random_bytes(32)));
         }
 
         // Generate the form from the template with the template renderer and inject the csrf token
