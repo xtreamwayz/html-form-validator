@@ -93,7 +93,7 @@ class ContactAction
 
         // Generate csrf token
         if (!$session->get('csrf')) {
-            $session->set('csrf', md5(uniqid(rand(), true)));
+            $session->set('csrf', md5(random_bytes(32)));
         }
 
         // Build the form validation from the template with the template renderer and inject the csrf token.
@@ -102,13 +102,12 @@ class ContactAction
             'token'  => $session->get('csrf'),
         ]), $this->inputFilterFactory);
         
-        // Validate PSR-7 request and return a ValidationResponseInterface 
-        // It should only start validation if it was a post and if there are submitted values
+        // Validate PSR-7 request and get a validation result
         $validationResult = $form->validateRequest($request);
         
         // It should be valid if it was a post and if there are no validation messages
         if ($validationResult->isValid()) {
-            // Get filter submitted values
+            // Get filtered submitted values
             $data = $validationResult->getValues();
         
             // Process data
