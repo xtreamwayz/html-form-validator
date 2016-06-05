@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/xtreamwayz/html-form-validator.svg?branch=master)](https://travis-ci.org/xtreamwayz/html-form-validator)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/57547dd57757a0003bd4afdc/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57547dd57757a0003bd4afdc)
 
 As challenged by a [tweet](https://twitter.com/Ocramius/status/680817040429592576), this library extracts validation
 rules and filters from a html form and validates submitted user data against it.
@@ -59,7 +60,7 @@ $ composer require xtreamwayz/html-form-validator
 ## Documentation
 
 Documentation is available in the [wiki](https://github.com/xtreamwayz/html-form-validator/wiki). There are even
-examples for [Zend Expressive](https://github.com/xtreamwayz/html-form-validator/wiki/Example-Zend-Expressive-Action) 
+examples for [Zend Expressive](https://github.com/xtreamwayz/html-form-validator/wiki/Example-Zend-Expressive-Action)
 and [Symfony](https://github.com/xtreamwayz/html-form-validator/wiki/Example-Symfony-Action).
 
 Pull requests for documentation can be made against the source files in [docs/wiki](docs/wiki).
