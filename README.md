@@ -37,9 +37,9 @@ $ composer require xtreamwayz/html-form-validator
     $result = $form->validate($_POST);
     ```
 
-    Under the hood it uses [zend-inputfilter](https://github.com/zendframework/zend-inputfilter) which makes all its
-    [validators](http://framework.zend.com/manual/current/en/modules/zend.validator.set.html) and
-    [filters](http://framework.zend.com/manual/current/en/modules/zend.filter.set.html) available to you.
+    Under the hood it uses [zend-inputfilter](https://zendframework.github.io/zend-inputfilter/) which makes all its
+    [validators](https://zendframework.github.io/zend-validator/set/) and
+    [filters](https://zendframework.github.io/zend-filter/standard-filters/) available to you.
 
 3. **Render the form**
 
