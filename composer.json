@@ -1,5 +1,6 @@
 {
     "name": "xtreamwayz/html-form-validator",
+    "description": "A library validating and filtering submitted data by reusing html form attributes",
     "type": "project",
     "homepage": "https://github.com/xtreamwayz/html-form-validator",
     "license": "MIT",
