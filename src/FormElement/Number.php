@@ -29,37 +29,52 @@ class Number extends BaseFormElement
         $validators[] = new RegexValidator('(^-?\d*(\.\d+)?$)');
 
         if ($this->node->hasAttribute('min')) {
-            $validators[] = [
-                'name'    => GreaterThanValidator::class,
-                'options' => [
-                    'min'       => $this->node->getAttribute('min'),
-                    'inclusive' => true,
-                ],
-            ];
+            $validators[] = $this->getMinValidator();
         }
 
         if ($this->node->hasAttribute('max')) {
-            $validators[] = [
-                'name'    => LessThanValidator::class,
-                'options' => [
-                    'max'       => $this->node->getAttribute('max'),
-                    'inclusive' => true,
-                ],
-            ];
+            $validators[] = $this->getMaxValidator();
         }
 
         if (!$this->node->hasAttribute('step')
             || 'any' !== $this->node->getAttribute('step')
         ) {
-            $validators[] = [
-                'name'    => StepValidator::class,
-                'options' => [
-                    'baseValue' => $this->node->getAttribute('min') ?: 0,
-                    'step'      => $this->node->getAttribute('step') ?: 1,
-                ],
-            ];
+            $validators[] = $this->getStepValidator();
         }
 
         return $validators;
+    }
+
+    protected function getMinValidator() : array
+    {
+        return [
+            'name'    => GreaterThanValidator::class,
+            'options' => [
+                'min'       => $this->node->getAttribute('min'),
+                'inclusive' => true,
+            ],
+        ];
+    }
+
+    protected function getMaxValidator() : array
+    {
+        return [
+            'name'    => LessThanValidator::class,
+            'options' => [
+                'max'       => $this->node->getAttribute('max'),
+                'inclusive' => true,
+            ],
+        ];
+    }
+
+    protected function getStepValidator() : array
+    {
+        return [
+            'name'    => StepValidator::class,
+            'options' => [
+                'baseValue' => $this->node->getAttribute('min') ?: 0,
+                'step'      => $this->node->getAttribute('step') ?: 1,
+            ],
+        ];
     }
 }
