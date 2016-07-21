@@ -7,15 +7,13 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\Validator\Identical as IdenticalValidator;
 
 class Checkbox extends BaseFormElement
 {
-    protected function getValidators() : array
+    protected function getValidators()
     {
         return [
             [

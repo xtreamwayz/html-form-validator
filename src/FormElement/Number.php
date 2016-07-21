@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\Validator\GreaterThan as GreaterThanValidator;
@@ -18,7 +16,7 @@ use Zend\Validator\Step as StepValidator;
 
 class Number extends BaseFormElement
 {
-    protected function getValidators() : array
+    protected function getValidators()
     {
         $validators = [];
 
@@ -45,7 +43,7 @@ class Number extends BaseFormElement
         return $validators;
     }
 
-    protected function getMinValidator() : array
+    protected function getMinValidator()
     {
         return [
             'name'    => GreaterThanValidator::class,
@@ -56,7 +54,7 @@ class Number extends BaseFormElement
         ];
     }
 
-    protected function getMaxValidator() : array
+    protected function getMaxValidator()
     {
         return [
             'name'    => LessThanValidator::class,
@@ -67,7 +65,7 @@ class Number extends BaseFormElement
         ];
     }
 
-    protected function getStepValidator() : array
+    protected function getStepValidator()
     {
         return [
             'name'    => StepValidator::class,

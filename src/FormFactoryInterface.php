@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator;
 
 use Psr\Http\Message\ServerRequestInterface;
@@ -23,7 +21,7 @@ interface FormFactoryInterface
      * @param null|Factory $factory
      * @param array        $defaultValues
      */
-    public function __construct(string $htmlForm, Factory $factory = null, array $defaultValues = []);
+    public function __construct($htmlForm, Factory $factory = null, array $defaultValues = []);
 
     /**
      * Load html form and optionally set default data
@@ -33,7 +31,7 @@ interface FormFactoryInterface
      *
      * @return FormFactoryInterface
      */
-    public static function fromHtml(string $htmlForm, array $defaultValues = []) : FormFactoryInterface;
+    public static function fromHtml($htmlForm, array $defaultValues = []);
 
     /**
      * Return form as a string. Optionally inject the error messages for the result.
@@ -42,14 +40,14 @@ interface FormFactoryInterface
      *
      * @return string
      */
-    public function asString(ValidationResultInterface $result = null) : string;
+    public function asString(ValidationResultInterface $result = null);
 
     /**
      * @param ServerRequestInterface $request
      *
      * @return ValidationResultInterface
      */
-    public function validateRequest(ServerRequestInterface $request) : ValidationResultInterface;
+    public function validateRequest(ServerRequestInterface $request);
 
     /**
      * Validate the loaded form with the data
@@ -59,5 +57,5 @@ interface FormFactoryInterface
      *
      * @return ValidationResultInterface
      */
-    public function validate(array $data, $method = null) : ValidationResultInterface;
+    public function validate(array $data, $method = null);
 }
