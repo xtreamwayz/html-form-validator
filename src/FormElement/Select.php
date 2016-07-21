@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\Validator\Explode as ExplodeValidator;
@@ -16,7 +14,7 @@ use Zend\Validator\InArray as InArrayValidator;
 
 class Select extends BaseFormElement
 {
-    protected function getValidators() : array
+    protected function getValidators()
     {
         $validators = [];
 
@@ -35,7 +33,7 @@ class Select extends BaseFormElement
         return $validators;
     }
 
-    private function getInArrayValidator() : array
+    private function getInArrayValidator()
     {
         return [
             'name'    => InArrayValidator::class,
@@ -46,7 +44,7 @@ class Select extends BaseFormElement
         ];
     }
 
-    private function getValueOptions() : array
+    private function getValueOptions()
     {
         $haystack = [];
 

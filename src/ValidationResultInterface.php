@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator;
 
 interface ValidationResultInterface
@@ -26,8 +24,8 @@ interface ValidationResultInterface
         array $rawInputData,
         array $validatedData,
         array $errors,
-        string $method = null,
-        string $submitName = null
+        $method = null,
+        $submitName = null
     );
 
     /**
@@ -38,7 +36,7 @@ interface ValidationResultInterface
      *
      * @return bool
      */
-    public function isValid() : bool;
+    public function isValid();
 
     /**
      * Checks if submit button is clicked or return its name
@@ -50,26 +48,26 @@ interface ValidationResultInterface
      *
      * @return null|boolean|string
      */
-    public function isClicked(string $name = null);
+    public function isClicked($name = null);
 
     /**
      * Get validation messages
      *
      * @return array
      */
-    public function getMessages() : array;
+    public function getMessages();
 
     /**
      * Get the raw input values
      *
      * @return array
      */
-    public function getRawValues() : array;
+    public function getRawValues();
 
     /**
      * Get the filtered input values
      *
      * @return array
      */
-    public function getValues() : array;
+    public function getValues();
 }

@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\Filter\StringToLower as StringToLowerFilter;
@@ -16,14 +14,14 @@ use Zend\Validator\Regex as RegexValidator;
 
 class Color extends BaseFormElement
 {
-    protected function getFilters() : array
+    protected function getFilters()
     {
         return [
             ['name' => StringToLowerFilter::class],
         ];
     }
 
-    protected function getValidators() : array
+    protected function getValidators()
     {
         return [
             [

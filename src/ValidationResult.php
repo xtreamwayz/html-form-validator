@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator;
 
 final class ValidationResult implements ValidationResultInterface
@@ -45,25 +43,25 @@ final class ValidationResult implements ValidationResultInterface
         array $rawValues,
         array $values,
         array $messages,
-        string $method = null,
-        string $submitName = null
+        $method = null,
+        $submitName = null
     ) {
-        $this->rawValues = $rawValues;
-        $this->values = $values;
-        $this->messages = $messages;
-        $this->method = $method;
+        $this->rawValues  = $rawValues;
+        $this->values     = $values;
+        $this->messages   = $messages;
+        $this->method     = $method;
         $this->submitName = $submitName;
     }
 
     /**
      * @inheritdoc
      */
-    public function isValid() : bool
+    public function isValid()
     {
         return (count($this->messages) === 0 && ($this->method === null || $this->method === 'POST'));
     }
 
-    public function isClicked(string $name = null)
+    public function isClicked($name = null)
     {
         if (null !== $name) {
             return ($this->submitName === $name);
@@ -75,7 +73,7 @@ final class ValidationResult implements ValidationResultInterface
     /**
      * @inheritdoc
      */
-    public function getMessages() : array
+    public function getMessages()
     {
         return $this->messages;
     }
@@ -83,7 +81,7 @@ final class ValidationResult implements ValidationResultInterface
     /**
      * @inheritdoc
      */
-    public function getRawValues() : array
+    public function getRawValues()
     {
         return $this->rawValues;
     }
@@ -91,7 +89,7 @@ final class ValidationResult implements ValidationResultInterface
     /**
      * @inheritdoc
      */
-    public function getValues() : array
+    public function getValues()
     {
         return $this->values;
     }

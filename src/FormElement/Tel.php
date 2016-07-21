@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\Filter\StripNewlines as StripNewlinesFilter;
@@ -18,14 +16,14 @@ use Zend\Validator\StringLength as StringLengthValidator;
 
 class Tel extends BaseFormElement
 {
-    protected function getFilters() : array
+    protected function getFilters()
     {
         return [
             ['name' => StripNewlinesFilter::class],
         ];
     }
 
-    protected function getValidators() : array
+    protected function getValidators()
     {
         $validators = [];
 

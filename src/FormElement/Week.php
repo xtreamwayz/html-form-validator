@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DateInterval;
@@ -18,7 +16,7 @@ use Zend\Validator\Regex as RegexValidator;
 
 class Week extends DateTimeElement
 {
-    protected function getDateValidator() : array
+    protected function getDateValidator()
     {
         return [
             'name'    => RegexValidator::class,
@@ -28,7 +26,7 @@ class Week extends DateTimeElement
         ];
     }
 
-    protected function getStepValidator() : array
+    protected function getStepValidator()
     {
         $stepValue = $this->node->getAttribute('step') ?: 1; // Weeks
         $baseValue = $this->node->getAttribute('min') ?: '1970-W01';

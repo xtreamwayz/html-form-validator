@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DateInterval;
@@ -19,7 +17,7 @@ class Month extends DateTimeElement
 {
     protected $format = 'Y-m';
 
-    protected function getStepValidator() : array
+    protected function getStepValidator()
     {
         $stepValue = $this->node->getAttribute('step') ?: 1; // Months
         $baseValue = $this->node->getAttribute('min') ?: '1970-01';

@@ -7,18 +7,16 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\Validator\InArray as InArrayValidator;
 
 class Radio extends BaseFormElement
 {
-    protected function getValidators() : array
+    protected function getValidators()
     {
         $validators = [];
-        $haystack = [];
+        $haystack   = [];
 
         $xpath = new \DOMXPath($this->document);
 

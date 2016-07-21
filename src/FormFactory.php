@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator;
 
 use DOMDocument;
@@ -61,7 +59,7 @@ final class FormFactory implements FormFactoryInterface
     /**
      * @inheritdoc
      */
-    public function __construct(string $htmlForm, Factory $factory = null, array $defaultValues = [])
+    public function __construct($htmlForm, Factory $factory = null, array $defaultValues = [])
     {
         $this->factory = $factory ?: new Factory();
 
@@ -84,7 +82,7 @@ final class FormFactory implements FormFactoryInterface
     /**
      * @inheritdoc
      */
-    public static function fromHtml(string $htmlForm, array $defaultValues = []) : FormFactoryInterface
+    public static function fromHtml($htmlForm, array $defaultValues = [])
     {
         return new self($htmlForm, null, $defaultValues);
     }
@@ -92,7 +90,7 @@ final class FormFactory implements FormFactoryInterface
     /**
      * @inheritdoc
      */
-    public function asString(ValidationResultInterface $result = null) : string
+    public function asString(ValidationResultInterface $result = null)
     {
         if ($result) {
             // Inject data if a result is set
@@ -118,7 +116,7 @@ final class FormFactory implements FormFactoryInterface
     /**
      * @inheritdoc
      */
-    public function validateRequest(ServerRequestInterface $request) : ValidationResultInterface
+    public function validateRequest(ServerRequestInterface $request)
     {
         return $this->validate((array) $request->getParsedBody(), $request->getMethod());
     }
@@ -126,7 +124,7 @@ final class FormFactory implements FormFactoryInterface
     /**
      * @inheritdoc
      */
-    public function validate(array $data, $method = null) : ValidationResultInterface
+    public function validate(array $data, $method = null)
     {
         if ($method !== null && $method !== 'POST') {
             // Not a post request, skip validation
@@ -196,7 +194,7 @@ final class FormFactory implements FormFactoryInterface
 
             /** @var \Zend\InputFilter\InputProviderInterface $element */
             $element = new $elementClass($node, $this->document);
-            $input = $this->factory->createInput($element);
+            $input   = $this->factory->createInput($element);
             $inputFilter->add($input, $name);
         }
     }
@@ -206,7 +204,7 @@ final class FormFactory implements FormFactoryInterface
      */
     private function getNodeList()
     {
-        $xpath = new DOMXPath($this->document);
+        $xpath    = new DOMXPath($this->document);
         $nodeList = $xpath->query('//input | //textarea | //select | //div[@data-input-name]');
 
         /** @var DOMElement $node */
@@ -236,7 +234,7 @@ final class FormFactory implements FormFactoryInterface
      */
     private function getSubmitStateNodeList()
     {
-        $xpath = new DOMXPath($this->document);
+        $xpath    = new DOMXPath($this->document);
         $nodeList = $xpath->query('//input[@type="submit"] | //button[@type="submit"]');
 
         /** @var DOMElement $node */
