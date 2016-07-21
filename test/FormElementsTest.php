@@ -89,10 +89,9 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
     {
         $fixturesDir = realpath(__DIR__ . '/Fixtures/');
 
-        foreach (new \RecursiveIteratorIterator(
-                     new \RecursiveDirectoryIterator($fixturesDir),
-                     \RecursiveIteratorIterator::LEAVES_ONLY
-                 ) as $name => $file) {
+        $rdi = new \RecursiveDirectoryIterator($fixturesDir);
+        $rii = new \RecursiveIteratorIterator($rdi, \RecursiveIteratorIterator::LEAVES_ONLY);
+        foreach ($rii as $name => $file) {
             if (!preg_match('/\.test$/', $name)) {
                 continue;
             }
