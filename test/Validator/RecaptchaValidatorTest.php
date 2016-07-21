@@ -67,27 +67,4 @@ class RecaptchaValidatorTest extends \PHPUnit_Framework_TestCase
     {
         self::assertEquals([], $this->validator->getMessages());
     }
-    /*
-        public function testValidInvalidUserResponse()
-        {
-            $mock = test::func('Xtreamwayz\HTMLFormValidator\Validator', 'file_get_contents', '{
-                "success": true
-            }');
-
-            self::assertTrue($this->validator->isValid($this->pubKey));
-            $mock->verifyInvoked();
-        }
-
-        public function testInvalidInvalidUserResponse()
-        {
-            $mock = test::func('Xtreamwayz\HTMLFormValidator\Validator', 'file_get_contents', '{
-                "success": false,
-                "error-codes": [
-                    "missing-input-response"
-                ]
-            }');
-
-            self::assertFalse($this->validator->isValid($this->pubKey));
-            $mock->verifyInvoked();
-        }*/
 }
