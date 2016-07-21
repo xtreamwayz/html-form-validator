@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace XtreamwayzTest\HTMLFormValidator\FormElement;
 
 use DOMDocument;
@@ -123,7 +121,7 @@ class BaseFormElementTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider dataAttributesProvider
      */
-    public function testParseDataAttribute(string $dataAttribute, array $expected)
+    public function testParseDataAttribute($dataAttribute, array $expected)
     {
         $reflectionMethod = new ReflectionMethod(Text::class, 'parseDataAttribute');
         $reflectionMethod->setAccessible(true);
