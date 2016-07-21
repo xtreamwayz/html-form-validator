@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DateInterval;
@@ -19,7 +17,7 @@ class Time extends DateTimeElement
 {
     protected $format = 'H:i:s';
 
-    protected function getStepValidator() : array
+    protected function getStepValidator()
     {
         $stepValue = $this->node->getAttribute('step') ?: 60; // Seconds
         $baseValue = $this->node->getAttribute('min') ?: date($this->format, 0);

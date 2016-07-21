@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Xtreamwayz\HTMLFormValidator\FormElement\Number as NumberElement;
@@ -16,7 +14,7 @@ use Zend\I18n\Validator\IsFloat as NumberValidator;
 
 class Range extends NumberElement
 {
-    protected function getValidators() : array
+    protected function getValidators()
     {
         $validators = [];
 

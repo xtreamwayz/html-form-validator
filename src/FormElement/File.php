@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\InputFilter\FileInput;
@@ -16,7 +14,7 @@ use Zend\Validator\File\MimeType as MimeTypeValidator;
 
 class File extends BaseFormElement
 {
-    public function getInputSpecification() : array
+    public function getInputSpecification()
     {
         $spec = [
             'type'     => FileInput::class,

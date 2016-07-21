@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator\Validator;
 
 use InvalidArgumentException;
@@ -18,13 +16,13 @@ use Zend\Validator\AbstractValidator;
 class RecaptchaValidator extends AbstractValidator
 {
     const RECAPTCHA_VERIFICATION_URI = 'https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s';
-    const INVALID = 'recaptcha';
+    const INVALID                    = 'recaptcha';
 
     protected $messageTemplates = [
         self::INVALID => 'ReCaptcha was invalid!',
     ];
 
-    protected $options = [
+    protected $options          = [
         'key' => null,
     ];
 
@@ -48,17 +46,17 @@ class RecaptchaValidator extends AbstractValidator
         parent::__construct($options);
     }
 
-    public function setKey($key) : self
+    public function setKey($key)
     {
         $this->options['key'] = $key;
 
         return $this;
     }
 
-    public function isValid($value) : bool
+    public function isValid($value)
     {
-        $uri = sprintf(self::RECAPTCHA_VERIFICATION_URI, $this->options['key'], $value);
-        $json = file_get_contents($uri);
+        $uri      = sprintf(self::RECAPTCHA_VERIFICATION_URI, $this->options['key'], $value);
+        $json     = file_get_contents($uri);
         $response = json_decode($json);
 
         if (!isset($response->success) || $response->success !== true) {

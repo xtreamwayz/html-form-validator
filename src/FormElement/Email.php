@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\Filter\StringTrim as StringTrimFilter;
@@ -20,7 +18,7 @@ use Zend\Validator\StringLength as StringLengthValidator;
 
 class Email extends BaseFormElement
 {
-    protected function getFilters() : array
+    protected function getFilters()
     {
         return [
             ['name' => StripNewlinesFilter::class],
@@ -28,7 +26,7 @@ class Email extends BaseFormElement
         ];
     }
 
-    protected function getValidators() : array
+    protected function getValidators()
     {
         $validators = [];
 
@@ -65,7 +63,7 @@ class Email extends BaseFormElement
         return $validators;
     }
 
-    protected function getEmailValidator() : array
+    protected function getEmailValidator()
     {
         return [
             'name'    => EmailAddressValidator::class,

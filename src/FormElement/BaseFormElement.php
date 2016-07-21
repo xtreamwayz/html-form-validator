@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMDocument;
@@ -29,7 +27,7 @@ class BaseFormElement implements InputProviderInterface
 
     public function __construct(DOMElement $node, DOMDocument $document)
     {
-        $this->node = $node;
+        $this->node     = $node;
         $this->document = $document;
     }
 
@@ -39,7 +37,7 @@ class BaseFormElement implements InputProviderInterface
      *
      * @return array
      */
-    public function getInputSpecification() : array
+    public function getInputSpecification()
     {
         $spec = [
             'name'     => $this->getName(),
@@ -79,7 +77,7 @@ class BaseFormElement implements InputProviderInterface
         return $spec;
     }
 
-    protected function getName() : string
+    protected function getName()
     {
         $name = $this->node->getAttribute('name');
         if (!$name) {
@@ -89,17 +87,17 @@ class BaseFormElement implements InputProviderInterface
         return $name;
     }
 
-    protected function isRequired() : bool
+    protected function isRequired()
     {
         return $this->node->hasAttribute('required') || $this->node->getAttribute('aria-required') === 'true';
     }
 
-    protected function getFilters() : array
+    protected function getFilters()
     {
         return [];
     }
 
-    protected function getValidators() : array
+    protected function getValidators()
     {
         return [];
     }
@@ -120,7 +118,7 @@ class BaseFormElement implements InputProviderInterface
         }
 
         foreach ($matches as $match) {
-            $name = $match[1];
+            $name    = $match[1];
             $options = [];
 
             if (isset($match[2])) {

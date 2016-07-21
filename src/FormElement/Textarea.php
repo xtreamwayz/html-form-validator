@@ -7,15 +7,13 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Zend\Validator\StringLength as StringLengthValidator;
 
 class Textarea extends BaseFormElement
 {
-    protected function getValidators() : array
+    protected function getValidators()
     {
         $validators = [];
 
