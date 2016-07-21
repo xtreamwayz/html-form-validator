@@ -5,34 +5,55 @@ language: php
 cache:
   directories:
     - $HOME/.composer/cache
-    - vendor
 
 matrix:
   fast_finish: true
   include:
+    - php: 5.6
+      env:
+        - DEPS=lowest
+    - php: 5.6
+      env:
+        - DEPS=latest
+        - CHECK_CS=true
     - php: 7
       env:
-        - EXECUTE_CS_CHECK=true
-        - DEPLOY_DOCS=true
+        - DEPS=lowest
+        - DEPLOY_DOCS="$(if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then echo -n 'true' ; else echo -n 'false' ; fi)"
+    - php: 7
+      env:
+        - DEPS=latest
+        - TEST_COVERAGE=true
+    - php: hhvm
+      env:
+        - DEPS=lowest
+    - php: hhvm
+      env:
+        - DEPS=latest
+  allow_failures:
+    - php: hhvm
 
 before_install:
   - composer self-update
+  - if [[ $TRAVIS_PHP_VERSION != "hhvm" && $TEST_COVERAGE != 'true' ]]; then phpenv config-rm xdebug.ini ; fi
 
 install:
-  - travis_retry composer install --no-interaction --prefer-source
-  - composer info -i
+  - if [[ $DEPS == 'latest' ]]; then travis_retry composer update --no-interaction ; fi
+  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable --no-interaction ; fi
+  - travis_retry composer install --no-interaction
+  - composer show --installed
 
 script:
-  - vendor/bin/phpcs
+  - if [[ $TEST_COVERAGE == 'true' ]]; then ./vendor/bin/phpunit --coverage-clover clover.xml ; fi
+  - if [[ $TEST_COVERAGE != 'true' ]]; then ./vendor/bin/phpunit ; fi
+  - if [[ $CHECK_CS == 'true' ]]; then ./vendor/bin/phpcs ; fi
   - vendor/bin/phpunit --disallow-test-output --report-useless-tests --coverage-clover build/logs/clover.xml
 
 after_success:
-  - chmod +x ./docs/deploy.sh
-  - ./docs/deploy.sh
+  - if [[ $DEPLOY_DOCS == "true" ]]; then echo "Preparing to build and deploy documentation" ; chmod +x ./docs/deploy.sh ; ./docs/deploy.sh ; echo "Completed deploying documentation" ; fi
 
 after_script:
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+  - if [[ $TEST_COVERAGE == 'true' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml ; fi
 
 notifications:
   email: false
