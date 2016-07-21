@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types=1);
-
 namespace XtreamwayzTest\HTMLFormValidator;
 
 use Xtreamwayz\HTMLFormValidator\ValidationResult;
@@ -20,16 +18,16 @@ class ValidationResultTest extends \PHPUnit_Framework_TestCase
         'baz' => ' qux ',
     ];
 
-    private $values = [
+    private $values    = [
         'foo' => 'bar',
         'baz' => 'qux',
     ];
 
-    private $messages = [
+    private $messages  = [
         'foo' => [
             'regexNotMatch' => '',
-            'notInArray' => '',
-        ]
+            'notInArray'    => '',
+        ],
     ];
 
     public function testValuesAreAvailable()

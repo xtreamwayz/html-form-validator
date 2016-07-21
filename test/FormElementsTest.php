@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types=1);
-
 namespace XtreamwayzTest\HTMLFormValidator;
 
 use Xtreamwayz\HTMLFormValidator\FormFactory;
@@ -32,7 +30,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
             $this->expectException($expectedException);
         }
 
-        $form = FormFactory::fromHtml($htmlForm, $defaultValues);
+        $form   = FormFactory::fromHtml($htmlForm, $defaultValues);
         $result = $form->validate($submittedValues);
 
         self::assertInstanceOf(ValidationResult::class, $result);
@@ -92,20 +90,20 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         $fixturesDir = realpath(__DIR__ . '/Fixtures/');
 
         foreach (new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($fixturesDir),
-            \RecursiveIteratorIterator::LEAVES_ONLY
-        ) as $name => $file) {
+                     new \RecursiveDirectoryIterator($fixturesDir),
+                     \RecursiveIteratorIterator::LEAVES_ONLY
+                 ) as $name => $file) {
             if (!preg_match('/\.test$/', $name)) {
                 continue;
             }
 
             $testData = $this->readTestFile($file, $fixturesDir);
 
-            $defaultValues = [];
-            $submittedValues = [];
-            $expectedValues = [];
-            $expectedForm = '';
-            $expectedErrors = [];
+            $defaultValues     = [];
+            $submittedValues   = [];
+            $expectedValues    = [];
+            $expectedForm      = '';
+            $expectedErrors    = [];
             $expectedException = '';
 
             try {
@@ -150,7 +148,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    protected function readTestFile(\SplFileInfo $file, string $fixturesDir)
+    protected function readTestFile(\SplFileInfo $file, $fixturesDir)
     {
         $tokens = preg_split(
             '#(?:^|\n*)--([A-Z-]+)--\n#',
@@ -170,7 +168,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
             'EXPECTED-EXCEPTION' => false,
         ];
 
-        $data = [];
+        $data    = [];
         $section = null;
         foreach ($tokens as $i => $token) {
             if (null === $section && !$token) {
@@ -189,9 +187,9 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
                 continue;
             }
 
-            $sectionData = $token;
+            $sectionData    = $token;
             $data[$section] = $sectionData;
-            $section = $sectionData = null;
+            $section        = $sectionData = null;
         }
 
         foreach ($sectionInfo as $section => $required) {
@@ -216,9 +214,9 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    private function getDomDocument(string $html)
+    private function getDomDocument($html)
     {
-        $doc = new \DOMDocument('1.0', 'utf-8');
+        $doc                     = new \DOMDocument('1.0', 'utf-8');
         $doc->preserveWhiteSpace = false;
 
         // Don't add missing doctype, html and body

@@ -7,14 +7,12 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types=1);
-
 namespace XtreamwayzTest\HTMLFormValidator\Validator;
 
 //use AspectMock\Test as test;
+use ArrayIterator;
 use InvalidArgumentException;
 use Xtreamwayz\HTMLFormValidator\Validator;
-use ArrayIterator;
 
 class RecaptchaValidatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -25,7 +23,7 @@ class RecaptchaValidatorTest extends \PHPUnit_Framework_TestCase
 
     protected $privKey = 'secret_private_key';
 
-    protected $pubKey = 'public_key';
+    protected $pubKey  = 'public_key';
 
     /**
      * Creates a new RecaptchaValidator object for each test method
@@ -36,16 +34,17 @@ class RecaptchaValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $this->validator = new Validator\RecaptchaValidator(['key' => $this->privKey]);
     }
-/*
-    protected function tearDown()
-    {
-        test::clean();
-    }
-*/
+
+    /*
+        protected function tearDown()
+        {
+            test::clean();
+        }
+    */
     public function testOptionsIteratorToArray()
     {
-        $options = ['key' => $this->privKey];
-        $iterator = new ArrayIterator($options);
+        $options         = ['key' => $this->privKey];
+        $iterator        = new ArrayIterator($options);
         $this->validator = new Validator\RecaptchaValidator($iterator);
 
         $reflectionClass = new \ReflectionClass(Validator\RecaptchaValidator::class);
@@ -68,27 +67,27 @@ class RecaptchaValidatorTest extends \PHPUnit_Framework_TestCase
     {
         self::assertEquals([], $this->validator->getMessages());
     }
-/*
-    public function testValidInvalidUserResponse()
-    {
-        $mock = test::func('Xtreamwayz\HTMLFormValidator\Validator', 'file_get_contents', '{
-            "success": true
-        }');
+    /*
+        public function testValidInvalidUserResponse()
+        {
+            $mock = test::func('Xtreamwayz\HTMLFormValidator\Validator', 'file_get_contents', '{
+                "success": true
+            }');
 
-        self::assertTrue($this->validator->isValid($this->pubKey));
-        $mock->verifyInvoked();
-    }
+            self::assertTrue($this->validator->isValid($this->pubKey));
+            $mock->verifyInvoked();
+        }
 
-    public function testInvalidInvalidUserResponse()
-    {
-        $mock = test::func('Xtreamwayz\HTMLFormValidator\Validator', 'file_get_contents', '{
-            "success": false,
-            "error-codes": [
-                "missing-input-response"
-            ]
-        }');
+        public function testInvalidInvalidUserResponse()
+        {
+            $mock = test::func('Xtreamwayz\HTMLFormValidator\Validator', 'file_get_contents', '{
+                "success": false,
+                "error-codes": [
+                    "missing-input-response"
+                ]
+            }');
 
-        self::assertFalse($this->validator->isValid($this->pubKey));
-        $mock->verifyInvoked();
-    }*/
+            self::assertFalse($this->validator->isValid($this->pubKey));
+            $mock->verifyInvoked();
+        }*/
 }
