@@ -7,8 +7,6 @@
  * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
  */
 
-declare(strict_types = 1);
-
 namespace XtreamwayzTest\HTMLFormValidator;
 
 use Psr\Http\Message\ServerRequestInterface;
@@ -22,12 +20,12 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
         'baz' => ' qux ',
     ];
 
-    private $values = [
+    private $values    = [
         'foo' => 'bar',
         'baz' => 'qux',
     ];
 
-    private $messages = [
+    private $messages  = [
         'foo' => [
             'regexNotMatch' => 'The input does not match against pattern \'/^\d+$/\'',
         ],
@@ -41,7 +39,7 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
                 <input type="text" name="baz" data-filters="stringtrim" />
             </form>';
 
-        $form = FormFactory::fromHtml($htmlForm);
+        $form    = FormFactory::fromHtml($htmlForm);
         $request = $this->prophesize(ServerRequestInterface::class);
         $request->getMethod()->willReturn('POST');
         $request->getParsedBody()->willReturn($this->rawValues);
@@ -63,7 +61,7 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
                 <input type="text" name="baz" data-filters="stringtrim" />
             </form>';
 
-        $form = FormFactory::fromHtml($htmlForm);
+        $form    = FormFactory::fromHtml($htmlForm);
         $request = $this->prophesize(ServerRequestInterface::class);
         $request->getMethod()->willReturn('GET');
         $request->getParsedBody()->willReturn($this->rawValues);
@@ -85,7 +83,7 @@ class FormFactoryTest extends \PHPUnit_Framework_TestCase
                 <input type="text" name="baz" data-filters="stringtrim" />
             </form>';
 
-        $form = FormFactory::fromHtml($htmlForm);
+        $form    = FormFactory::fromHtml($htmlForm);
         $request = $this->prophesize(ServerRequestInterface::class);
         $request->getMethod()->willReturn('POST');
         $request->getParsedBody()->willReturn($this->rawValues);
