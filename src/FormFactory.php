@@ -24,11 +24,25 @@ final class FormFactory implements FormFactoryInterface
     private $factory;
 
     /**
+     * The form
+     *
      * @var DOMDocument
      */
     private $document;
 
-    private $errorClass = 'has-danger';
+    /**
+     * Generic has validation error css class
+     *
+     * @var string
+     */
+    private $cssHasErrorClass = 'has-validation-error';
+
+    /**
+     * Generic validation error css class
+     *
+     * @var string
+     */
+    private $cssErrorClass = 'validation-error';
 
     /**
      * @var FormElement\BaseFormElement[]
@@ -323,16 +337,16 @@ final class FormFactory implements FormFactoryInterface
 
             /** @var DOMElement $parent */
             $parent = $node->parentNode;
-            if (strpos($parent->getAttribute('class'), $this->errorClass) === false) {
+            if (strpos($parent->getAttribute('class'), $this->cssHasErrorClass) === false) {
                 // Set error class to parent
-                $class = trim($parent->getAttribute('class') . ' ' . $this->errorClass);
+                $class = trim($parent->getAttribute('class') . ' ' . $this->cssHasErrorClass);
                 $parent->setAttribute('class', $class);
             }
 
             // Inject error messages
             foreach ($errors as $code => $message) {
                 $div = $this->document->createElement('div');
-                $div->setAttribute('class', 'text-danger');
+                $div->setAttribute('class', $this->cssErrorClass);
                 $div->nodeValue = $message;
                 $node->parentNode->insertBefore($div, $node->nextSibling);
             }

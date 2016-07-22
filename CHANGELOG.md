@@ -6,7 +6,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#65](https://github.com/xtreamwayz/html-form-validator/pull/65) changes the css classes to something more meaningful
+  and generic. The parent class that contains the failing input now gets a `has-validation-error` css class. The div
+  containing the error message can be styled with the `validation-error` css class. The failing input element already
+  got the `aria-invalid="true"` attribute. 
 
 ### Deprecated
 
