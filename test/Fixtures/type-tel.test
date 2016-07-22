@@ -31,15 +31,15 @@
     "filter_stripnewlines": "+34555666777"
 }
 --EXPECTED-FORM--
-<form action="/" method="post" class="has-danger">
+<form action="/" method="post" class="has-validation-error">
     <input type="tel" name="valid" data-validator-country="es">
     <input type="tel" name="valid_default_pattern" pattern="^\+[0-9]{1,3}[0-9\s]{4,17}$">
     <input type="tel" name="invalid_default_pattern" pattern="^\+[0-9]{1,3}[0-9\s]{4,17}$" aria-invalid="true">
-    <div class="text-danger">The input does not match against pattern '/^\+[0-9]{1,3}[0-9\s]{4,17}$/'</div>
+    <div class="validation-error">The input does not match against pattern '/^\+[0-9]{1,3}[0-9\s]{4,17}$/'</div>
     <input type="tel" name="invalid_tel" data-validator-country="es" aria-invalid="true">
-    <div class="text-danger">The input does not match a phone number format</div>
+    <div class="validation-error">The input does not match a phone number format</div>
     <input type="tel" name="invalid_country" data-validator-country="es" aria-invalid="true">
-    <div class="text-danger">The input does not match a phone number format</div>
+    <div class="validation-error">The input does not match a phone number format</div>
     <input type="tel" name="filter_stripnewlines" data-validator-country="es">
 </form>
 --EXPECTED-ERRORS--
