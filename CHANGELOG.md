@@ -2,13 +2,15 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 0.9.0 - TBD
+## 0.9.0 - 2016-07-22
 
 ### Added
 
 - [#59](https://github.com/xtreamwayz/html-form-validator/pull/59) checks if a request method is set and if it's a post
   when calling `validate()`. If it wasn't a post, it skips validation.
   If the method isn't set, it always runs the validation.
+- [8035d4e](https://github.com/xtreamwayz/html-form-validator/commit/8035d4e) removes PHP 7 strict types and adds
+  support for PHP 5.6. Version 1.0.0 will target PHP 5.6+ and version 2.0.0 will target PHP 7
 
 ### Deprecated
 
