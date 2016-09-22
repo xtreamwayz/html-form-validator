@@ -1,8 +1,8 @@
 # html-form-validator
 
 [![Build Status](https://travis-ci.org/xtreamwayz/html-form-validator.svg?branch=master)](https://travis-ci.org/xtreamwayz/html-form-validator)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/57547dd57757a0003bd4afdc/badge.svg)](https://www.versioneye.com/user/projects/57547dd57757a0003bd4afdc)
 
 As challenged by a [tweet](https://twitter.com/Ocramius/status/680817040429592576), this library extracts validation

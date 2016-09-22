@@ -1,4 +1,5 @@
-/composer.lock
-/phpunit.xml
-/build/
-/vendor/
+clover.xml
+composer.lock
+phpunit.xml
+build/
+vendor/
