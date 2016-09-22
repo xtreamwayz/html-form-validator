@@ -27,23 +27,20 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^5.2",
-        "squizlabs/php_codesniffer": "^2.3",
-        "malukenho/docheader": "^0.1.0"
+        "squizlabs/php_codesniffer": "^2.3"
     },
     "suggest": {
         "zendframework/zend-servicemanager": "To support third-party validators and filters"
     },
     "scripts": {
         "check": [
-            "@cs",
+            "@cs-check",
             "@test"
         ],
-        "cs": "php vendor/squizlabs/php_codesniffer/scripts/phpcs",
-        "test": "php vendor/phpunit/phpunit/phpunit --report-useless-tests",
-        "license-check": [
-            "php vendor/malukenho/docheader/bin/docheader check src/",
-            "php vendor/malukenho/docheader/bin/docheader check test/"
-        ]
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     },
     "autoload": {
         "psr-4": {

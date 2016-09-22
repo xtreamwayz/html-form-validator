@@ -5,9 +5,9 @@ language: php
 cache:
   directories:
     - $HOME/.composer/cache
+    - vendor
 
 matrix:
-  fast_finish: true
   include:
     - php: 5.6
       env:
@@ -34,8 +34,8 @@ matrix:
     - php: hhvm
 
 before_install:
-  - composer self-update
   - if [[ $TRAVIS_PHP_VERSION != "hhvm" && $TEST_COVERAGE != 'true' ]]; then phpenv config-rm xdebug.ini ; fi
+  - composer self-update
 
 install:
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer update --no-interaction ; fi
@@ -44,10 +44,9 @@ install:
   - composer show --installed
 
 script:
-  - if [[ $TEST_COVERAGE == 'true' ]]; then ./vendor/bin/phpunit --coverage-clover clover.xml ; fi
-  - if [[ $TEST_COVERAGE != 'true' ]]; then ./vendor/bin/phpunit ; fi
-  - if [[ $CHECK_CS == 'true' ]]; then ./vendor/bin/phpcs ; fi
-  - vendor/bin/phpunit --disallow-test-output --report-useless-tests --coverage-clover build/logs/clover.xml
+  - if [[ $EXECUTE_CS_CHECK == 'true' ]]; then composer cs-check ; fi
+  - if [[ $EXECUTE_TEST_COVERAGE == 'true' ]]; then composer test-coverage ; fi
+  - if [[ $EXECUTE_TEST_COVERAGE != 'true' ]]; then composer test ; fi
 
 after_success:
   - if [[ $DEPLOY_DOCS == "true" ]]; then echo "Preparing to build and deploy documentation" ; chmod +x ./docs/deploy.sh ; ./docs/deploy.sh ; echo "Completed deploying documentation" ; fi
