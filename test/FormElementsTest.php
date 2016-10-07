@@ -186,9 +186,8 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
                 continue;
             }
 
-            $sectionData    = $token;
-            $data[$section] = $sectionData;
-            $section        = $sectionData = null;
+            $data[$section] = $token;
+            $section        = null;
         }
 
         foreach ($sectionInfo as $section => $required) {
