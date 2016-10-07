@@ -55,7 +55,7 @@ class BaseFormElement implements InputProviderInterface
             }
         }
 
-        if ($filters) {
+        if (! empty($filters)) {
             $spec['filters'] = $filters;
         }
 
@@ -70,7 +70,7 @@ class BaseFormElement implements InputProviderInterface
             }
         }
 
-        if ($validators) {
+        if (! empty($validators)) {
             $spec['validators'] = $validators;
         }
 
