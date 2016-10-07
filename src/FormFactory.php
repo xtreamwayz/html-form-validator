@@ -114,6 +114,7 @@ final class FormFactory implements FormFactoryInterface
 
         // Always remove form validator specific attributes before rendering the form
         // to clean it up and remove possible sensitive data
+        /** @var DOMElement $node */
         foreach ($this->getNodeList() as $name => $node) {
             $node->removeAttribute('data-reuse-submitted-value');
             $node->removeAttribute('data-input-name');
@@ -185,6 +186,7 @@ final class FormFactory implements FormFactoryInterface
      */
     private function buildInputFilterFromForm(InputFilterInterface $inputFilter)
     {
+        /** @var DOMElement $node */
         foreach ($this->getNodeList() as $name => $node) {
             if ($inputFilter->has($name)) {
                 continue;
@@ -215,6 +217,8 @@ final class FormFactory implements FormFactoryInterface
 
     /**
      * Get form elements and create an id if needed
+     *
+     * return \Generator<string, DOMElement>
      */
     private function getNodeList()
     {
@@ -271,6 +275,7 @@ final class FormFactory implements FormFactoryInterface
      */
     private function setData(array $data, $force = false)
     {
+        /** @var DOMElement $node */
         foreach ($this->getNodeList() as $name => $node) {
             if (! array_key_exists($name, $data)) {
                 // No value set for this element
@@ -320,6 +325,10 @@ final class FormFactory implements FormFactoryInterface
      */
     private function setMessages(array $data)
     {
+        /**
+         * @var string $name
+         * @var array $errors
+         */
         foreach ($data as $name => $errors) {
             // Not sure if this can be optimized and create the DOMXPath only once.
             // At this point the dom is constantly changing.
