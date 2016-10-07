@@ -111,7 +111,6 @@ class BaseFormElement implements InputProviderInterface
      */
     protected function parseDataAttribute($dataAttribute)
     {
-        $matches = [];
         preg_match_all('/([a-zA-Z]+)([^|]*)/', $dataAttribute, $matches, PREG_SET_ORDER);
 
         foreach ($matches as $match) {
