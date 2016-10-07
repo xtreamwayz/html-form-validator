@@ -30,7 +30,7 @@ class Range extends NumberElement
             $validators[] = $this->getMaxValidator();
         }
 
-        if (!$this->node->hasAttribute('step')
+        if (! $this->node->hasAttribute('step')
             || 'any' !== $this->node->getAttribute('step')
         ) {
             $validators[] = $this->getStepValidator();

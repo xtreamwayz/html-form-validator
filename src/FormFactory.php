@@ -154,7 +154,7 @@ final class FormFactory implements FormFactoryInterface
         $messages = [];
 
         // Do some validation
-        if (!$inputFilter->isValid()) {
+        if (! $inputFilter->isValid()) {
             foreach ($inputFilter->getInvalidInput() as $message) {
                 $messages[$message->getName()] = $message->getMessages();
             }
@@ -224,11 +224,11 @@ final class FormFactory implements FormFactoryInterface
         /** @var DOMElement $node */
         foreach ($nodeList as $node) {
             $name = $node->getAttribute('name');
-            if (!$name) {
+            if (! $name) {
                 $name = $node->getAttribute('data-input-name');
             }
 
-            if (!$name || $node->getAttribute('type') === 'submit') {
+            if (! $name || $node->getAttribute('type') === 'submit') {
                 // At least a name is needed to submit a value.
                 // Silently continue, might be a submit button.
                 continue;
@@ -254,7 +254,7 @@ final class FormFactory implements FormFactoryInterface
         /** @var DOMElement $node */
         foreach ($nodeList as $node) {
             $name = $node->getAttribute('name');
-            if (!$name) {
+            if (! $name) {
                 // At least a name is needed to submit a value.
                 continue;
             }
@@ -272,7 +272,7 @@ final class FormFactory implements FormFactoryInterface
     private function setData(array $data, $force = false)
     {
         foreach ($this->getNodeList() as $name => $node) {
-            if (!array_key_exists($name, $data)) {
+            if (! array_key_exists($name, $data)) {
                 // No value set for this element
                 continue;
             }
@@ -284,7 +284,7 @@ final class FormFactory implements FormFactoryInterface
                 FILTER_VALIDATE_BOOLEAN
             );
 
-            if (!$reuseSubmittedValue && $force === false) {
+            if (! $reuseSubmittedValue && $force === false) {
                 // Don't need to set the value
                 continue;
             }

@@ -32,6 +32,8 @@ class RecaptchaValidator extends AbstractValidator
      *   'key' => string, private recaptcha key
      *
      * @param array|Traversable $options
+     *
+     * @throws \InvalidArgumentException
      */
     public function __construct($options = null)
     {
@@ -39,7 +41,7 @@ class RecaptchaValidator extends AbstractValidator
             $options = iterator_to_array($options);
         }
 
-        if (!is_array($options) || !array_key_exists('key', $options)) {
+        if (! is_array($options) || ! array_key_exists('key', $options)) {
             throw new InvalidArgumentException('Missing private recaptcha key.');
         }
 
@@ -59,7 +61,7 @@ class RecaptchaValidator extends AbstractValidator
         $json     = file_get_contents($uri);
         $response = json_decode($json);
 
-        if (!isset($response->success) || $response->success !== true) {
+        if (! isset($response->success) || $response->success !== true) {
             $this->error(self::INVALID);
 
             return false;

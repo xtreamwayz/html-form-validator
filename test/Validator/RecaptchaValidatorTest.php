@@ -9,7 +9,6 @@
 
 namespace XtreamwayzTest\HTMLFormValidator\Validator;
 
-//use AspectMock\Test as test;
 use ArrayIterator;
 use InvalidArgumentException;
 use Xtreamwayz\HTMLFormValidator\Validator;
@@ -35,12 +34,6 @@ class RecaptchaValidatorTest extends \PHPUnit_Framework_TestCase
         $this->validator = new Validator\RecaptchaValidator(['key' => $this->privKey]);
     }
 
-    /*
-        protected function tearDown()
-        {
-            test::clean();
-        }
-    */
     public function testOptionsIteratorToArray()
     {
         $options         = ['key' => $this->privKey];

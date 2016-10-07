@@ -35,7 +35,7 @@ class Tel extends BaseFormElement
                     'country' => $this->node->getAttribute('data-validator-country') ?: null,
                 ],
             ];
-        } elseif (!$this->node->hasAttribute('pattern')) {
+        } elseif (! $this->node->hasAttribute('pattern')) {
             // Use a very loose pattern for validation
             $this->node->setAttribute('pattern', '^\+[0-9]{1,3}[0-9\s]{4,17}$');
         }

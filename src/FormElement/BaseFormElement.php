@@ -80,7 +80,7 @@ class BaseFormElement implements InputProviderInterface
     protected function getName()
     {
         $name = $this->node->getAttribute('name');
-        if (!$name) {
+        if (! $name) {
             $name = $this->node->getAttribute('data-input-name');
         }
 
@@ -113,7 +113,7 @@ class BaseFormElement implements InputProviderInterface
     {
         preg_match_all('/([a-zA-Z]+)([^|]*)/', $dataAttribute, $matches, PREG_SET_ORDER);
 
-        if (!$matches) {
+        if (! $matches) {
             return;
         }
 
