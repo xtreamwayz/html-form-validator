@@ -17,7 +17,7 @@
     "require": {
         "php": "^7.1",
         "zendframework/zend-inputfilter": "^2.7",
-        "zendframework/zend-validator": "^2.8",
+        "zendframework/zend-validator": "^2.10.1",
         "zendframework/zend-filter": "^2.7",
         "zendframework/zend-i18n": "^2.7",
         "zendframework/zend-uri": "^2.5",
