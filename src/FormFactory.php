@@ -24,6 +24,11 @@ final class FormFactory implements FormFactoryInterface
     private $factory;
 
     /**
+     * @var InputFilterInterface
+     */
+    private $inputFilter;
+
+    /**
      * The form
      *
      * @var DOMDocument
@@ -48,34 +53,39 @@ final class FormFactory implements FormFactoryInterface
      * @var FormElement\BaseFormElement[]
      */
     private $formElements = [
-        'checkbox'       => FormElement\Checkbox::class,
-        'color'          => FormElement\Color::class,
-        'date'           => FormElement\Date::class,
+        'checkbox' => FormElement\Checkbox::class,
+        'color' => FormElement\Color::class,
+        'date' => FormElement\Date::class,
         'datetime-local' => FormElement\DateTime::class,
-        'email'          => FormElement\Email::class,
-        'file'           => FormElement\File::class,
-        'hidden'         => FormElement\Hidden::class,
-        'month'          => FormElement\Month::class,
-        'number'         => FormElement\Number::class,
-        'password'       => FormElement\Password::class,
-        'radio'          => FormElement\Radio::class,
-        'range'          => FormElement\Range::class,
-        'search'         => FormElement\Text::class,
-        'select'         => FormElement\Select::class,
-        'tel'            => FormElement\Tel::class,
-        'text'           => FormElement\Text::class,
-        'textarea'       => FormElement\Textarea::class,
-        'time'           => FormElement\Time::class,
-        'url'            => FormElement\Url::class,
-        'week'           => FormElement\Week::class,
+        'email' => FormElement\Email::class,
+        'file' => FormElement\File::class,
+        'hidden' => FormElement\Hidden::class,
+        'month' => FormElement\Month::class,
+        'number' => FormElement\Number::class,
+        'password' => FormElement\Password::class,
+        'radio' => FormElement\Radio::class,
+        'range' => FormElement\Range::class,
+        'search' => FormElement\Text::class,
+        'select' => FormElement\Select::class,
+        'tel' => FormElement\Tel::class,
+        'text' => FormElement\Text::class,
+        'textarea' => FormElement\Textarea::class,
+        'time' => FormElement\Time::class,
+        'url' => FormElement\Url::class,
+        'week' => FormElement\Week::class,
     ];
 
     /**
      * @inheritdoc
      */
-    public function __construct($htmlForm, Factory $factory = null, array $defaultValues = [])
-    {
-        $this->factory = $factory ?: new Factory();
+    public function __construct(
+        $htmlForm,
+        Factory $factory = null,
+        array $defaultValues = [],
+        InputFilterInterface $inputFilter = null
+    ) {
+        $this->factory = $factory ?? new Factory();
+        $this->inputFilter = $inputFilter;
 
         // Create new doc
         $this->document = new DOMDocument('1.0', 'utf-8');
@@ -146,7 +156,7 @@ final class FormFactory implements FormFactoryInterface
             return new ValidationResult([], [], [], $method);
         }
 
-        $inputFilter = $this->factory->createInputFilter([]);
+        $inputFilter = $this->inputFilter ?? $this->factory->createInputFilter([]);
 
         // Add all validators and filters to the InputFilter
         $this->buildInputFilterFromForm($inputFilter);
@@ -210,7 +220,7 @@ final class FormFactory implements FormFactoryInterface
 
             /** @var \Zend\InputFilter\InputProviderInterface $element */
             $element = new $elementClass($node, $this->document);
-            $input   = $this->factory->createInput($element);
+            $input = $this->factory->createInput($element);
             $inputFilter->add($input, $name);
         }
     }
@@ -222,7 +232,7 @@ final class FormFactory implements FormFactoryInterface
      */
     private function getNodeList()
     {
-        $xpath    = new DOMXPath($this->document);
+        $xpath = new DOMXPath($this->document);
         $nodeList = $xpath->query('//input | //textarea | //select | //div[@data-input-name]');
 
         /** @var DOMElement $node */
@@ -252,7 +262,7 @@ final class FormFactory implements FormFactoryInterface
      */
     private function getSubmitStateNodeList()
     {
-        $xpath    = new DOMXPath($this->document);
+        $xpath = new DOMXPath($this->document);
         $nodeList = $xpath->query('//input[@type="submit"] | //button[@type="submit"]');
 
         /** @var DOMElement $node */
@@ -271,7 +281,7 @@ final class FormFactory implements FormFactoryInterface
      * Set values and element checked and selected states
      *
      * @param array $data
-     * @param bool  $force
+     * @param bool $force
      */
     private function setData(array $data, $force = false)
     {
