@@ -31,11 +31,8 @@ matrix:
       env:
         - DEPS=latest
   allow_failures:
+    - php: 7.2
     - php: nightly
-
-before_install:
-  - if [[ $TEST_COVERAGE != 'true' ]]; then phpenv config-rm xdebug.ini ; fi
-  - composer self-update
 
 install:
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer update --no-interaction ; fi
