@@ -22,7 +22,7 @@ class InputFilterFactory
      *
      * @return Factory
      */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : Factory
     {
         $config     = $container->get('config')['zend-inputfilter'] ?? [];
         $filters    = $config['filters'] ?? [];
