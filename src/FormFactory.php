@@ -31,10 +31,7 @@ final class FormFactory implements FormFactoryInterface
     public function __construct(?Factory $factory = null, ?array $options = null)
     {
         $this->factory = $factory ?? new Factory();
-        $this->options = [
-            'cssHasErrorClass' => $options['cssHasErrorClass'] ?? 'has-validation-error',
-            'cssErrorClass'    => $options['cssErrorClass'] ?? 'has-validation-error',
-        ];
+        $this->options = $options;
     }
 
     /**
