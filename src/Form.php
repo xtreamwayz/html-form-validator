@@ -215,7 +215,7 @@ final class Form implements FormInterface
     /**
      * Get form elements and create an id if needed
      *
-     * return \Generator<string, DOMElement>
+     * return Generator<string, DOMElement>
      */
     private function getNodeList() : Generator
     {
