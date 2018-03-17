@@ -11,9 +11,10 @@ namespace XtreamwayzTest\HTMLFormValidator\Validator;
 
 use ArrayIterator;
 use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 use Xtreamwayz\HTMLFormValidator\Validator;
 
-class RecaptchaValidatorTest extends \PHPUnit_Framework_TestCase
+class RecaptchaValidatorTest extends TestCase
 {
     /**
      * @var Validator\RecaptchaValidator

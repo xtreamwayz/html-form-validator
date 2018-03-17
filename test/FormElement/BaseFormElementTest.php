@@ -11,10 +11,11 @@ namespace XtreamwayzTest\HTMLFormValidator\FormElement;
 
 use DOMDocument;
 use DOMElement;
+use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use Xtreamwayz\HTMLFormValidator\FormElement\Text;
 
-class BaseFormElementTest extends \PHPUnit_Framework_TestCase
+class BaseFormElementTest extends TestCase
 {
     public function dataAttributesProvider()
     {
