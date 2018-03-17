@@ -6,18 +6,27 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#68](https://github.com/xtreamwayz/html-form-validator/pull/68) adds the option to inject a preconfigured 
-  inputfilter. Sometimes you want to have an inputfilter and re-use it in several places. 
-
+- [#68](https://github.com/xtreamwayz/html-form-validator/pull/68) adds the option to inject a preconfigured
+  inputfilter. Sometimes you want to have an inputfilter and re-use it in several places.
+  
   The injected inputfilter will be used as a base and missing filters and validators will be added from the form if
   the base inputfilter doesn't have a filter with the same name.
-  
+
 ### Changed
 
 - [#65](https://github.com/xtreamwayz/html-form-validator/pull/65) changes the css classes to something more meaningful
   and generic. The parent class that contains the failing input now gets a `has-validation-error` css class. The div
   containing the error message can be styled with the `validation-error` css class. The failing input element already
-  got the `aria-invalid="true"` attribute. 
+  got the `aria-invalid="true"` attribute.
+
+- [#68](https://github.com/xtreamwayz/html-form-validator/pull/68) changes the `FormFactory::fromHtml()` method to
+  non-static. This is done so an optional `Zend\InputFilter\Factory` can be injected and shared.
+  
+  If you don't need this, you can use the FormFactory like this: `$form = (new FormFactory())->fromHtml($html, [])`.
+
+- [#68](https://github.com/xtreamwayz/html-form-validator/pull/68) changes the instance the `FormFactory::fromHtml()`
+  returns. It now returns a `FormInterface`, which has basically the same interface as the previous returned
+  `FormFactoryInterface`. Only the form related logic has moved from the `FormFactory` into a `Form` class.
 
 ### Deprecated
 
@@ -38,7 +47,7 @@ All notable changes to this project will be documented in this file, in reverse 
 - [#59](https://github.com/xtreamwayz/html-form-validator/pull/59) checks if a request method is set and if it's a post
   when calling `validate()`. If it wasn't a post, it skips validation.
   If the method isn't set, it always runs the validation.
-  
+
 - [8035d4e](https://github.com/xtreamwayz/html-form-validator/commit/8035d4e) removes PHP 7 strict types and adds
   support for PHP 5.6. Version 1.0.0 will target PHP 5.6+ and version 2.0.0 will target PHP 7
 
@@ -140,7 +149,7 @@ Nothing.
 
 - [#36](https://github.com/xtreamwayz/html-form-validator/pull/36) adds the `FormFactory->validateRequest()` to handle
   PSR-7 requests and reduce boilerplate code needed to build, validate and render forms.
-  
+
 - [#38](https://github.com/xtreamwayz/html-form-validator/pull/38) adds submit button detection.
 
   ```php
@@ -174,7 +183,7 @@ Nothing.
 
 - [#27](https://github.com/xtreamwayz/html-form-validator/pull/26) adds the FormFactoryInterface and
   ValidationResultInterface.
-  
+
 - [#29](https://github.com/xtreamwayz/html-form-validator/pull/29) adds container-interop compatibility. This enables
   custom validators and filters.
 
