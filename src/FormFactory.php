@@ -21,7 +21,7 @@ final class FormFactory implements FormFactoryInterface
     private $factory;
 
     /**
-     * @var array
+     * @var null|array
      */
     private $options;
 

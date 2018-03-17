@@ -54,7 +54,7 @@ final class Form implements FormInterface
     private $cssErrorClass;
 
     /**
-     * @var FormElement\BaseFormElement[]
+     * @var array<string, string>|FormElement\BaseFormElement[]
      */
     private $formElements = [
         'checkbox'       => FormElement\Checkbox::class,
