@@ -55,10 +55,10 @@ final class FormFactory implements FormFactoryInterface
         libxml_use_internal_errors(false);
 
         return new Form(
-            $this->factory,
-            $inputFilter ?? $this->factory->createInputFilter([]),
             $document,
             $defaultValues ?? [],
+            $this->factory,
+            $inputFilter ?? $this->factory->createInputFilter([]),
             $this->options
         );
     }

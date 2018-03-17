@@ -9,12 +9,13 @@
 
 namespace XtreamwayzTest\HTMLFormValidator;
 
+use PHPUnit\Framework\TestCase;
 use Xtreamwayz\HTMLFormValidator\InputFilterFactory;
 use Xtreamwayz\HTMLFormValidator\Validator\RecaptchaValidator;
 use Zend\InputFilter\Factory;
 use Zend\ServiceManager\ServiceManager;
 
-class InputFilterFactoryTest extends \PHPUnit_Framework_TestCase
+class InputFilterFactoryTest extends TestCase
 {
     /**
      * @param bool $useConfig

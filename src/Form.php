@@ -83,21 +83,21 @@ final class Form implements FormInterface
      * @inheritdoc
      */
     public function __construct(
-        Factory $factory,
-        InputFilterInterface $inputFilter,
         DOMDocument $document,
         array $defaultValues,
+        ?Factory $factory,
+        ?InputFilterInterface $inputFilter,
         ?array $options = null
     ) {
-        $this->factory     = $factory;
-        $this->inputFilter = $inputFilter;
         $this->document    = $document;
-
-        $this->setData($defaultValues, true);
+        $this->factory     = $factory ?? new Factory();
+        $this->inputFilter = $inputFilter ?? $this->factory->createInputFilter([]);
 
         $options                = $options ?? [];
         $this->cssHasErrorClass = $options['cssHasErrorClass'] ?? 'has-validation-error';
-        $this->cssErrorClass    = $options['cssErrorClass'] ?? 'has-validation-error';
+        $this->cssErrorClass    = $options['cssErrorClass'] ?? 'validation-error';
+
+        $this->setData($defaultValues, true);
     }
 
     /**

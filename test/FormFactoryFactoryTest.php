@@ -1,0 +1,58 @@
+<?php
+
+declare(strict_types=1);
+
+namespace XtreamwayzTest\HTMLFormValidator;
+
+use Prophecy\Prophecy\ProphecyInterface;
+use Psr\Container\ContainerInterface;
+use Xtreamwayz\HTMLFormValidator\FormFactoryFactory;
+use PHPUnit\Framework\TestCase;
+use Xtreamwayz\HTMLFormValidator\FormFactoryInterface;
+use Zend\InputFilter\Factory;
+
+class FormFactoryFactoryTest extends TestCase
+{
+    /**
+     * @var ContainerInterface|ProphecyInterface
+     */
+    private $container;
+
+    /**
+     * @var Factory|ProphecyInterface
+     */
+    private $inputFilterFactory;
+
+    /**
+     * @var FormFactoryFactory
+     */
+    private $formFactoryFactory;
+
+    protected function setUp()
+    {
+        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->inputFilterFactory = $this->prophesize(Factory::class);
+        $this->formFactoryFactory = new FormFactoryFactory();
+    }
+
+    public function testEmptyWithEmptyContainer()
+    {
+        $this->container->has(Factory::class)->willReturn(false);
+        $this->container->get('config')->willReturn([]);
+
+        $formFactory = ($this->formFactoryFactory)($this->container->reveal());
+
+        self::assertInstanceOf(FormFactoryInterface::class, $formFactory);
+    }
+
+    public function testContainerWithFactory()
+    {
+        $this->container->has(Factory::class)->willReturn(true);
+        $this->container->get(Factory::class)->will([$this->inputFilterFactory, 'reveal'])->shouldBeCalled();
+        $this->container->get('config')->willReturn([]);
+
+        $formFactory = ($this->formFactoryFactory)($this->container->reveal());
+
+        self::assertInstanceOf(FormFactoryInterface::class, $formFactory);
+    }
+}

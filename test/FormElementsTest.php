@@ -9,10 +9,11 @@
 
 namespace XtreamwayzTest\HTMLFormValidator;
 
+use PHPUnit\Framework\TestCase;
 use Xtreamwayz\HTMLFormValidator\FormFactory;
 use Xtreamwayz\HTMLFormValidator\ValidationResult;
 
-class FormElementsTest extends \PHPUnit_Framework_TestCase
+class FormElementsTest extends TestCase
 {
     /**
      * @dataProvider getIntegrationTests
@@ -30,7 +31,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
             $this->expectException($expectedException);
         }
 
-        $form   = FormFactory::fromHtml($htmlForm, $defaultValues);
+        $form   = (new FormFactory())->fromHtml($htmlForm, $defaultValues);
         $result = $form->validate($submittedValues);
 
         self::assertInstanceOf(ValidationResult::class, $result);

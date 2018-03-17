@@ -9,9 +9,10 @@
 
 namespace XtreamwayzTest\HTMLFormValidator;
 
+use PHPUnit\Framework\TestCase;
 use Xtreamwayz\HTMLFormValidator\ValidationResult;
 
-class ValidationResultTest extends \PHPUnit_Framework_TestCase
+class ValidationResultTest extends TestCase
 {
     private $rawValues = [
         'foo' => 'bar',
@@ -80,7 +81,7 @@ class ValidationResultTest extends \PHPUnit_Framework_TestCase
 
         self::assertTrue($result->isClicked('confirm'));
         self::assertFalse($result->isClicked('cancel'));
-        self::assertEquals('confirm', $result->isClicked());
+        self::assertEquals('confirm', $result->getClicked());
     }
 
     public function testSubmitButtonIsNotClicked()
@@ -89,6 +90,6 @@ class ValidationResultTest extends \PHPUnit_Framework_TestCase
 
         self::assertFalse($result->isClicked('confirm'));
         self::assertFalse($result->isClicked('cancel'));
-        self::assertNull($result->isClicked());
+        self::assertNull($result->getClicked());
     }
 }
