@@ -1,28 +1,22 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator;
 
 use DOMDocument;
 use Zend\InputFilter\Factory;
 use Zend\InputFilter\InputFilterInterface;
+use const LIBXML_HTML_NODEFDTD;
+use const LIBXML_HTML_NOIMPLIED;
+use function libxml_use_internal_errors;
 
 final class FormFactory implements FormFactoryInterface
 {
-    /**
-     * @var Factory
-     */
+    /** @var Factory */
     private $factory;
 
-    /**
-     * @var null|array
-     */
+    /** @var null|array */
     private $options;
 
     /**

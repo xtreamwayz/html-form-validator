@@ -1,11 +1,6 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace XtreamwayzTest\HTMLFormValidator;
 
@@ -20,7 +15,7 @@ use Zend\InputFilter\InputFilterInterface;
 
 class FormFactoryTest extends TestCase
 {
-    public function testConstructorWithNoArguments()
+    public function testConstructorWithNoArguments() : void
     {
         $formFactory = new FormFactory();
 
@@ -28,12 +23,10 @@ class FormFactoryTest extends TestCase
         self::assertInstanceOf(FormFactory::class, $formFactory);
     }
 
-    public function testConstructorWithArguments()
+    public function testConstructorWithArguments() : void
     {
         $factory = $this->prophesize(Factory::class);
-        $options = [
-            'foo' => 'bar',
-        ];
+        $options = ['foo' => 'bar'];
 
         $formFactory = new FormFactory($factory->reveal(), $options);
 
@@ -41,7 +34,7 @@ class FormFactoryTest extends TestCase
         self::assertInstanceOf(FormFactory::class, $formFactory);
     }
 
-    public function testCreatingFormFromHtml()
+    public function testCreatingFormFromHtml() : void
     {
         $html = '
             <form action="/" method="post">
@@ -56,7 +49,7 @@ class FormFactoryTest extends TestCase
         self::assertInstanceOf(Form::class, $form);
     }
 
-    public function testCreatingFormUsesInjectedFactoryAndOptions()
+    public function testCreatingFormUsesInjectedFactoryAndOptions() : void
     {
         $html = '
             <form action="/" method="post">
@@ -70,9 +63,7 @@ class FormFactoryTest extends TestCase
             'cssHasErrorClass' => 'has-error',
             'cssErrorClass'    => 'error',
         ];
-        $defaults    = [
-            'foo' => 'bar',
-        ];
+        $defaults    = ['foo' => 'bar'];
 
         $propFactory = new ReflectionProperty(Form::class, 'factory');
         $propFactory->setAccessible(true);

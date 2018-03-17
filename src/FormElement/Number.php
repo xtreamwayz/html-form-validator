@@ -1,11 +1,6 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
@@ -16,7 +11,7 @@ use Zend\Validator\Step as StepValidator;
 
 class Number extends BaseFormElement
 {
-    protected function getValidators()
+    protected function getValidators() : array
     {
         $validators = [];
 
@@ -35,7 +30,7 @@ class Number extends BaseFormElement
         }
 
         if (! $this->node->hasAttribute('step')
-            || 'any' !== $this->node->getAttribute('step')
+            || $this->node->getAttribute('step') !== 'any'
         ) {
             $validators[] = $this->getStepValidator();
         }
@@ -43,7 +38,7 @@ class Number extends BaseFormElement
         return $validators;
     }
 
-    protected function getMinValidator()
+    protected function getMinValidator() : array
     {
         return [
             'name'    => GreaterThanValidator::class,
@@ -54,7 +49,7 @@ class Number extends BaseFormElement
         ];
     }
 
-    protected function getMaxValidator()
+    protected function getMaxValidator() : array
     {
         return [
             'name'    => LessThanValidator::class,
@@ -65,7 +60,7 @@ class Number extends BaseFormElement
         ];
     }
 
-    protected function getStepValidator()
+    protected function getStepValidator() : array
     {
         return [
             'name'    => StepValidator::class,

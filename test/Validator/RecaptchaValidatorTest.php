@@ -1,11 +1,6 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace XtreamwayzTest\HTMLFormValidator\Validator;
 
@@ -16,26 +11,23 @@ use Xtreamwayz\HTMLFormValidator\Validator;
 
 class RecaptchaValidatorTest extends TestCase
 {
-    /**
-     * @var Validator\RecaptchaValidator
-     */
+    /** @var Validator\RecaptchaValidator */
     protected $validator;
 
     protected $privKey = 'secret_private_key';
 
-    protected $pubKey  = 'public_key';
+    protected $pubKey = 'public_key';
 
     /**
      * Creates a new RecaptchaValidator object for each test method
      *
-     * @return void
      */
-    public function setUp()
+    public function setUp() : void
     {
         $this->validator = new Validator\RecaptchaValidator(['key' => $this->privKey]);
     }
 
-    public function testOptionsIteratorToArray()
+    public function testOptionsIteratorToArray() : void
     {
         $options         = ['key' => $this->privKey];
         $iterator        = new ArrayIterator($options);
@@ -50,14 +42,14 @@ class RecaptchaValidatorTest extends TestCase
         self::assertEquals($options, $actualOptions);
     }
 
-    public function testMissingKeyOptionThrowsInvalidArgumentException()
+    public function testMissingKeyOptionThrowsInvalidArgumentException() : void
     {
         $this->expectException(InvalidArgumentException::class);
 
         new Validator\RecaptchaValidator();
     }
 
-    public function testGetMessages()
+    public function testGetMessages() : void
     {
         self::assertEquals([], $this->validator->getMessages());
     }

@@ -1,11 +1,4 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
 
 declare(strict_types=1);
 
@@ -18,18 +11,21 @@ use Generator;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\InputFilter\Factory;
 use Zend\InputFilter\InputFilterInterface;
+use Zend\InputFilter\InputProviderInterface;
+use const FILTER_VALIDATE_BOOLEAN;
+use function array_key_exists;
+use function filter_var;
 use function in_array;
+use function sprintf;
+use function strpos;
+use function trim;
 
 final class Form implements FormInterface
 {
-    /**
-     * @var Factory
-     */
+    /** @var Factory */
     private $factory;
 
-    /**
-     * @var InputFilterInterface
-     */
+    /** @var InputFilterInterface */
     private $inputFilter;
 
     /**
@@ -53,9 +49,7 @@ final class Form implements FormInterface
      */
     private $cssErrorClass;
 
-    /**
-     * @var array<string, string>|FormElement\BaseFormElement[]
-     */
+    /** @var array<string, string>|FormElement\BaseFormElement[] */
     private $formElements = [
         'checkbox'       => FormElement\Checkbox::class,
         'color'          => FormElement\Color::class,
@@ -163,9 +157,11 @@ final class Form implements FormInterface
         // Get the submit button
         $submitName = null;
         foreach ($this->getSubmitStateNodeList() as $name) {
-            if (array_key_exists($name, $data)) {
-                $submitName = $name;
+            if (! array_key_exists($name, $data)) {
+                continue;
             }
+
+            $submitName = $name;
         }
 
         // Return validation result
@@ -205,7 +201,7 @@ final class Form implements FormInterface
                 $elementClass = $this->formElements['text'];
             }
 
-            /** @var \Zend\InputFilter\InputProviderInterface $element */
+            /** @var InputProviderInterface $element */
             $element = new $elementClass($node, $this->document);
             $input   = $this->factory->createInput($element);
             $inputFilter->add($input, $name);

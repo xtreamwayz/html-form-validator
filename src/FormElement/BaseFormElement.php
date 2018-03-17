@@ -1,28 +1,24 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DOMDocument;
 use DOMElement;
+use Generator;
 use Zend\InputFilter\InputProviderInterface;
+use const PREG_SET_ORDER;
+use function explode;
+use function preg_match_all;
+use function trim;
 
 class BaseFormElement implements InputProviderInterface
 {
-    /**
-     * @var DOMElement
-     */
+    /** @var DOMElement */
     protected $node;
 
-    /**
-     * @var DOMDocument
-     */
+    /** @var DOMDocument */
     protected $document;
 
     public function __construct(DOMElement $node, DOMDocument $document)
@@ -37,7 +33,7 @@ class BaseFormElement implements InputProviderInterface
      *
      * @return array
      */
-    public function getInputSpecification()
+    public function getInputSpecification() : array
     {
         $spec = [
             'name'     => $this->getName(),
@@ -77,7 +73,7 @@ class BaseFormElement implements InputProviderInterface
         return $spec;
     }
 
-    protected function getName()
+    protected function getName() : string
     {
         $name = $this->node->getAttribute('name');
         if (! $name) {
@@ -87,30 +83,27 @@ class BaseFormElement implements InputProviderInterface
         return $name;
     }
 
-    protected function isRequired()
+    protected function isRequired() : bool
     {
         return $this->node->hasAttribute('required') || $this->node->getAttribute('aria-required') === 'true';
     }
 
-    protected function getFilters()
+    protected function getFilters() : array
     {
         return [];
     }
 
-    protected function getValidators()
+    protected function getValidators() : array
     {
         return [];
     }
 
     /**
      * Parse data attribute value for validators, filters and options
-     *
-     * @param string $dataAttribute
-     *
-     * @return \Generator
      */
-    protected function parseDataAttribute($dataAttribute)
+    protected function parseDataAttribute(string $dataAttribute) : Generator
     {
+        $matches = [];
         preg_match_all('/([a-zA-Z]+)([^|]*)/', $dataAttribute, $matches, PREG_SET_ORDER);
 
         foreach ($matches as $match) {
@@ -121,9 +114,11 @@ class BaseFormElement implements InputProviderInterface
                 $allOptions = explode(',', $match[2]);
                 foreach ($allOptions as $option) {
                     $option = explode(':', $option);
-                    if (isset($option[0], $option[1])) {
-                        $options[trim($option[0], ' {}\'\"')] = trim($option[1], ' {}\'\"');
+                    if (! isset($option[0], $option[1])) {
+                        continue;
                     }
+
+                    $options[trim($option[0], ' {}\'\"')] = trim($option[1], ' {}\'\"');
                 }
             }
 

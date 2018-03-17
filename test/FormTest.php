@@ -5,13 +5,9 @@ declare(strict_types=1);
 namespace XtreamwayzTest\HTMLFormValidator;
 
 use PHPUnit\Framework\TestCase;
-use Xtreamwayz\HTMLFormValidator\Form;
 use Psr\Http\Message\ServerRequestInterface;
 use Xtreamwayz\HTMLFormValidator\FormFactory;
-use Xtreamwayz\HTMLFormValidator\FormFactoryFactory;
-use Xtreamwayz\HTMLFormValidator\FormInterface;
 use Xtreamwayz\HTMLFormValidator\ValidationResult;
-use Zend\InputFilter\Factory;
 
 class FormTest extends TestCase
 {
@@ -20,18 +16,16 @@ class FormTest extends TestCase
         'baz' => ' qux ',
     ];
 
-    private $values    = [
+    private $values = [
         'foo' => 'bar',
         'baz' => 'qux',
     ];
 
-    private $messages  = [
-        'foo' => [
-            'regexNotMatch' => 'The input does not match against pattern \'/^\d+$/\'',
-        ],
+    private $messages = [
+        'foo' => ['regexNotMatch' => 'The input does not match against pattern \'/^\d+$/\''],
     ];
 
-    public function testPsrPostRequestIsValid()
+    public function testPsrPostRequestIsValid() : void
     {
         $html = '
             <form action="/" method="post">
@@ -39,7 +33,7 @@ class FormTest extends TestCase
                 <input type="text" name="baz" data-filters="stringtrim" />
             </form>';
 
-        $form = (new FormFactory())->fromHtml($html);
+        $form    = (new FormFactory())->fromHtml($html);
         $request = $this->prophesize(ServerRequestInterface::class);
         $request->getMethod()->willReturn('POST');
         $request->getParsedBody()->willReturn($this->rawValues);
@@ -53,7 +47,7 @@ class FormTest extends TestCase
         self::assertTrue($result->isValid());
     }
 
-    public function testPsrGetRequestIsNotValid()
+    public function testPsrGetRequestIsNotValid() : void
     {
         $html = '
             <form action="/" method="post">
@@ -61,7 +55,7 @@ class FormTest extends TestCase
                 <input type="text" name="baz" data-filters="stringtrim" />
             </form>';
 
-        $form = (new FormFactory())->fromHtml($html);
+        $form    = (new FormFactory())->fromHtml($html);
         $request = $this->prophesize(ServerRequestInterface::class);
         $request->getMethod()->willReturn('GET');
         $request->getParsedBody()->willReturn($this->rawValues);
@@ -75,7 +69,7 @@ class FormTest extends TestCase
         self::assertFalse($result->isValid());
     }
 
-    public function testPsrPostRequestHasMessages()
+    public function testPsrPostRequestHasMessages() : void
     {
         $html = '
             <form action="/" method="post">
@@ -83,7 +77,7 @@ class FormTest extends TestCase
                 <input type="text" name="baz" data-filters="stringtrim" />
             </form>';
 
-        $form = (new FormFactory())->fromHtml($html);
+        $form    = (new FormFactory())->fromHtml($html);
         $request = $this->prophesize(ServerRequestInterface::class);
         $request->getMethod()->willReturn('POST');
         $request->getParsedBody()->willReturn($this->rawValues);
@@ -97,7 +91,7 @@ class FormTest extends TestCase
         self::assertFalse($result->isValid());
     }
 
-    public function testSetValuesStatically()
+    public function testSetValuesStatically() : void
     {
         $html = '
             <form action="/" method="post">
@@ -114,7 +108,7 @@ class FormTest extends TestCase
         self::assertContains('<input type="text" name="baz" value="qux">', $form->asString());
     }
 
-    public function testSetValuesWithConstructor()
+    public function testSetValuesWithConstructor() : void
     {
         $html = '
             <form action="/" method="post">

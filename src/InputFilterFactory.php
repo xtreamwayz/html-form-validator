@@ -1,11 +1,6 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator;
 
@@ -17,11 +12,6 @@ use Zend\Validator\ValidatorPluginManager;
 
 class InputFilterFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return Factory
-     */
     public function __invoke(ContainerInterface $container) : Factory
     {
         $config     = $container->get('config')['zend-inputfilter'] ?? [];

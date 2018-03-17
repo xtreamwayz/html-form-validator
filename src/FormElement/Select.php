@@ -1,11 +1,6 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
@@ -14,7 +9,7 @@ use Zend\Validator\InArray as InArrayValidator;
 
 class Select extends BaseFormElement
 {
-    protected function getValidators()
+    protected function getValidators() : array
     {
         $validators = [];
 
@@ -33,7 +28,7 @@ class Select extends BaseFormElement
         return $validators;
     }
 
-    private function getInArrayValidator()
+    private function getInArrayValidator() : array
     {
         return [
             'name'    => InArrayValidator::class,
@@ -44,7 +39,7 @@ class Select extends BaseFormElement
         ];
     }
 
-    private function getValueOptions()
+    private function getValueOptions() : array
     {
         $haystack = [];
 
