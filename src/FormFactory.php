@@ -32,7 +32,7 @@ final class FormFactory implements FormFactoryInterface
      * @inheritdoc
      */
     public function fromHtml(
-        string $html,
+        $html,
         ?array $defaultValues = null,
         ?InputFilterInterface $inputFilter = null
     ) : FormInterface {
