@@ -1,13 +1,9 @@
 {
     "name": "xtreamwayz/html-form-validator",
-    "description": "A library validating and filtering submitted data by reusing html form attributes",
     "type": "project",
+    "description": "A library validating and filtering submitted data by reusing html form attributes",
     "homepage": "https://github.com/xtreamwayz/html-form-validator",
     "license": "MIT",
-    "support": {
-        "issues": "https://github.com/xtreamwayz/html-form-validator/issues",
-        "wiki": "https://github.com/xtreamwayz/html-form-validator/wiki"
-    },
     "authors": [
         {
             "name": "Geert Eltink",
@@ -16,15 +12,15 @@
     ],
     "require": {
         "php": "^7.1",
-        "zendframework/zend-inputfilter": "^2.7",
-        "zendframework/zend-validator": "^2.10.1",
-        "zendframework/zend-filter": "^2.7",
-        "zendframework/zend-i18n": "^2.7",
-        "zendframework/zend-uri": "^2.5",
-        "zendframework/zend-stdlib": "^2.7 || ^3.0",
-        "zendframework/zend-servicemanager": "^3.0",
+        "psr/container": "^1.0",
         "psr/http-message": "^1.0",
-        "psr/container": "^1.0"
+        "zendframework/zend-filter": "^2.7.2",
+        "zendframework/zend-i18n": "^2.7",
+        "zendframework/zend-inputfilter": "^2.8.1",
+        "zendframework/zend-servicemanager": "^3.0",
+        "zendframework/zend-stdlib": "^3.0",
+        "zendframework/zend-uri": "^2.5",
+        "zendframework/zend-validator": "^2.10.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.0",
@@ -33,15 +29,13 @@
     "suggest": {
         "zendframework/zend-servicemanager": "To support third-party validators and filters"
     },
-    "scripts": {
-        "check": [
-            "@cs-check",
-            "@test"
-        ],
-        "cs-check": "phpcs",
-        "cs-fix": "phpcbf",
-        "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        },
+        "zf": {
+            "config-provider": "Xtreamwayz\\HTMLFormValidator\\ConfigProvider"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -53,12 +47,18 @@
             "XtreamwayzTest\\HTMLFormValidator\\": "test/"
         }
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0.x-dev"
-        },
-        "zf": {
-            "config-provider": "Xtreamwayz\\HTMLFormValidator\\ConfigProvider"
-        }
+    "scripts": {
+        "check": [
+            "@cs-check",
+            "@test"
+        ],
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    },
+    "support": {
+        "issues": "https://github.com/xtreamwayz/html-form-validator/issues",
+        "wiki": "https://github.com/xtreamwayz/html-form-validator/wiki"
     }
 }
