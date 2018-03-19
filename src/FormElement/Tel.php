@@ -1,11 +1,6 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
@@ -13,17 +8,18 @@ use Zend\Filter\StripNewlines as StripNewlinesFilter;
 use Zend\I18n\Validator\PhoneNumber as PhoneNumberValidator;
 use Zend\Validator\Regex as RegexValidator;
 use Zend\Validator\StringLength as StringLengthValidator;
+use function sprintf;
 
 class Tel extends BaseFormElement
 {
-    protected function getFilters()
+    protected function getFilters() : array
     {
         return [
             ['name' => StripNewlinesFilter::class],
         ];
     }
 
-    protected function getValidators()
+    protected function getValidators() : array
     {
         $validators = [];
 
@@ -35,7 +31,7 @@ class Tel extends BaseFormElement
                     'country' => $this->node->getAttribute('data-validator-country') ?: null,
                 ],
             ];
-        } elseif (!$this->node->hasAttribute('pattern')) {
+        } elseif (! $this->node->hasAttribute('pattern')) {
             // Use a very loose pattern for validation
             $this->node->setAttribute('pattern', '^\+[0-9]{1,3}[0-9\s]{4,17}$');
         }

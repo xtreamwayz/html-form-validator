@@ -1,11 +1,6 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
@@ -14,7 +9,7 @@ use Zend\I18n\Validator\IsFloat as NumberValidator;
 
 class Range extends NumberElement
 {
-    protected function getValidators()
+    protected function getValidators() : array
     {
         $validators = [];
 
@@ -30,8 +25,8 @@ class Range extends NumberElement
             $validators[] = $this->getMaxValidator();
         }
 
-        if (!$this->node->hasAttribute('step')
-            || 'any' !== $this->node->getAttribute('step')
+        if (! $this->node->hasAttribute('step')
+            || $this->node->getAttribute('step') !== 'any'
         ) {
             $validators[] = $this->getStepValidator();
         }

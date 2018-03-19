@@ -1,22 +1,16 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace XtreamwayzTest\HTMLFormValidator;
 
+use PHPUnit\Framework\TestCase;
 use Xtreamwayz\HTMLFormValidator\FormFactory;
 use Xtreamwayz\HTMLFormValidator\ValidationResult;
 
-class FormElementsTest extends \PHPUnit_Framework_TestCase
+class FormElementsTest extends TestCase
 {
-    /**
-     * @dataProvider getIntegrationTests
-     */
+    /** @dataProvider getIntegrationTests */
     public function testIntegration(
         $htmlForm,
         $defaultValues,
@@ -30,7 +24,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
             $this->expectException($expectedException);
         }
 
-        $form   = FormFactory::fromHtml($htmlForm, $defaultValues);
+        $form   = (new FormFactory())->fromHtml($htmlForm, $defaultValues);
         $result = $form->validate($submittedValues);
 
         self::assertInstanceOf(ValidationResult::class, $result);
@@ -66,11 +60,11 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         }
 
         foreach ($array1 as $key => $val) {
-            if (!is_array($val)) {
+            if (! is_array($val)) {
                 continue;
             }
 
-            if (!array_key_exists($key, $array2)) {
+            if (! array_key_exists($key, $array2)) {
                 $result[$key] = $val;
                 continue;
             }
@@ -92,7 +86,7 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         $rdi = new \RecursiveDirectoryIterator($fixturesDir);
         $rii = new \RecursiveIteratorIterator($rdi, \RecursiveIteratorIterator::LEAVES_ONLY);
         foreach ($rii as $name => $file) {
-            if (!preg_match('/\.test$/', $name)) {
+            if (! preg_match('/\.test$/', $name)) {
                 continue;
             }
 
@@ -108,27 +102,27 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
             try {
                 $htmlForm = $testData['HTML-FORM'];
 
-                if (!empty($testData['DEFAULT-VALUES'])) {
+                if (! empty($testData['DEFAULT-VALUES'])) {
                     $defaultValues = json_decode($testData['DEFAULT-VALUES'], true);
                 }
 
-                if (!empty($testData['SUBMITTED-VALUES'])) {
+                if (! empty($testData['SUBMITTED-VALUES'])) {
                     $submittedValues = json_decode($testData['SUBMITTED-VALUES'], true);
                 }
 
-                if (!empty($testData['EXPECTED-VALUES'])) {
+                if (! empty($testData['EXPECTED-VALUES'])) {
                     $expectedValues = json_decode($testData['EXPECTED-VALUES'], true);
                 }
 
-                if (!empty($testData['EXPECTED-FORM'])) {
+                if (! empty($testData['EXPECTED-FORM'])) {
                     $expectedForm = $testData['EXPECTED-FORM'];
                 }
 
-                if (!empty($testData['EXPECTED-ERRORS'])) {
+                if (! empty($testData['EXPECTED-ERRORS'])) {
                     $expectedErrors = json_decode($testData['EXPECTED-ERRORS'], true);
                 }
 
-                if (!empty($testData['EXPECTED-EXCEPTION'])) {
+                if (! empty($testData['EXPECTED-EXCEPTION'])) {
                     $expectedException = trim($testData['EXPECTED-EXCEPTION']);
                 }
             } catch (\Exception $e) {
@@ -170,12 +164,12 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
         $data    = [];
         $section = null;
         foreach ($tokens as $i => $token) {
-            if (null === $section && !$token) {
+            if (null === $section && ! $token) {
                 continue; // skip leading blank
             }
 
             if (null === $section) {
-                if (!array_key_exists($token, $sectionInfo)) {
+                if (! array_key_exists($token, $sectionInfo)) {
                     throw new \RuntimeException(sprintf(
                         'The test file "%s" must not contain a section named "%s".',
                         str_replace($fixturesDir . '/', '', $file),
@@ -186,13 +180,12 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
                 continue;
             }
 
-            $sectionData    = $token;
-            $data[$section] = $sectionData;
-            $section        = $sectionData = null;
+            $data[$section] = $token;
+            $section        = null;
         }
 
         foreach ($sectionInfo as $section => $required) {
-            if ($required && !array_key_exists($section, $data)) {
+            if ($required && ! array_key_exists($section, $data)) {
                 throw new \RuntimeException(sprintf(
                     'The test file "%s" must have a section named "%s".',
                     str_replace($fixturesDir . '/', '', $file),
@@ -215,7 +208,8 @@ class FormElementsTest extends \PHPUnit_Framework_TestCase
 
     private function getDomDocument($html)
     {
-        $doc                     = new \DOMDocument('1.0', 'utf-8');
+        $doc = new \DOMDocument('1.0', 'utf-8');
+
         $doc->preserveWhiteSpace = false;
 
         // Don't add missing doctype, html and body

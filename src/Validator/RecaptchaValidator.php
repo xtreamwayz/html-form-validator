@@ -1,37 +1,40 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\Validator;
 
 use InvalidArgumentException;
 use Traversable;
 use Zend\Validator\AbstractValidator;
+use function array_key_exists;
+use function file_get_contents;
+use function is_array;
+use function iterator_to_array;
+use function json_decode;
+use function sprintf;
 
 class RecaptchaValidator extends AbstractValidator
 {
-    const RECAPTCHA_VERIFICATION_URI = 'https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s';
-    const INVALID                    = 'recaptcha';
+    protected const VERIFICATION_URI = 'https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s';
 
-    protected $messageTemplates = [
-        self::INVALID => 'ReCaptcha was invalid!',
-    ];
+    protected const INVALID = 'recaptcha';
 
-    protected $options          = [
-        'key' => null,
-    ];
+    /** @var array */
+    protected $messageTemplates = [self::INVALID => 'ReCaptcha was invalid!'];
+
+    /** @var array */
+    protected $options = ['key' => null];
 
     /**
      * Sets validator options
+     *
      * Accepts the following option keys:
      *   'key' => string, private recaptcha key
      *
      * @param array|Traversable $options
+     *
+     * @throws \InvalidArgumentException
      */
     public function __construct($options = null)
     {
@@ -39,27 +42,27 @@ class RecaptchaValidator extends AbstractValidator
             $options = iterator_to_array($options);
         }
 
-        if (!is_array($options) || !array_key_exists('key', $options)) {
+        if (! is_array($options) || ! array_key_exists('key', $options)) {
             throw new InvalidArgumentException('Missing private recaptcha key.');
         }
 
         parent::__construct($options);
     }
 
-    public function setKey($key)
+    public function setKey($key) : self
     {
         $this->options['key'] = $key;
 
         return $this;
     }
 
-    public function isValid($value)
+    public function isValid($value) : bool
     {
-        $uri      = sprintf(self::RECAPTCHA_VERIFICATION_URI, $this->options['key'], $value);
+        $uri      = sprintf(self::VERIFICATION_URI, $this->options['key'], $value);
         $json     = file_get_contents($uri);
         $response = json_decode($json);
 
-        if (!isset($response->success) || $response->success !== true) {
+        if (! isset($response->success) || $response->success !== true) {
             $this->error(self::INVALID);
 
             return false;
