@@ -2,7 +2,7 @@ There are only 4 steps needed to get you started.
 
 ```php
 // Build the form
-$form = FormFactory::fromHtml($htmlForm);
+$form = (new FormFactory())->fromHtml($htmlForm);
 
 // Validate the form
 $result = $form->validate($_POST);
@@ -52,7 +52,7 @@ injected.
 
 ```php
 // Build the form
-$form = FormFactory::fromHtml($this->template->render('app::form', [
+$form = (new FormFactory())->fromHtml($this->template->render('app::form', [
     'token' => $session->get('csrf'),
 ]));
 ```
@@ -139,18 +139,18 @@ You can check by the button name attribute if a specific button is clicked.
 $validationResult->isClicked('confirm');
 ```
 
-Without specifying a name, the name attribute value of the clicked button is returned.
+Or get the name of the clicked button.
 
 ```php
 // Returns the name of the clicked button or null if no named was clicked
-$validationResult->isClicked();
+$validationResult->getClicked();
 ```
 
 ## Custom Validators and Filters
 
 Setting up custom validators and filters is a bit more work but it isn't complicated. Instead of creating the
-FormFactory with its static `fromHtml` method, the constructor is needed with a configured Zend\InputFilter\Factory
-and a Interop\Container\ContainerInterface.
+FormFactory with its static `fromHtml` method, the constructor is needed with a configured `Zend\InputFilter\Factory`
+and a `Psr\Container\ContainerInterface`.
 
 ```php
 $config = [
@@ -178,7 +178,10 @@ $factory = new Xtreamwayz\HTMLFormValidator\InputFilterFactory();
 $inputFilterFactory = $factory($container);
 
 // Load the html form into the FormFactory
-$form = new FormFactory($htmlForm, $inputFilterFactory);
+$formFactory = new FormFactory($inputFilterFactory);
+
+// Create a form instance
+$form = $formFactory->fromHtml($html);
 
 // Validate the form
 $result = $form->validate($_POST);

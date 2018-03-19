@@ -67,14 +67,14 @@ class ContactAction
 {
     private $template;
 
-    private $inputFilterFactory;
+    private $formFactory;
 
     public function __construct(
         TemplateRendererInterface $template,
-        InputFilterFactory $inputFilterFactory
+        FormFactory $formFactory
     ) {
         $this->template = $template;
-        $this->inputFilterFactory = $inputFilterFactory;
+        $this->formFactory = $formFactory;
     }
 
     /**
@@ -96,11 +96,11 @@ class ContactAction
             $session->set('csrf', md5(random_bytes(32)));
         }
 
-        // Build the form validation from the template with the template renderer and inject the csrf token.
-        // The InputFilterFactory is added to have access to the custom recaptcha validator. 
-        $form = FormFactory::fromHtml($this->template->render('app::form', [
+        // Build the form validation from the template with the template renderer and inject the csrf token. Since the
+        // formFactory is used with a custom InputFilterFactory, you have access to the custom recaptcha validator. 
+        $form = $this->formFactory->fromHtml($this->template->render('app::form', [
             'token'  => $session->get('csrf'),
-        ]), $this->inputFilterFactory);
+        ]));
         
         // Validate PSR-7 request and get a validation result
         $validationResult = $form->validateRequest($request);
@@ -129,6 +129,9 @@ To register the custom validator it needs to be added to the configuration.
 <?php // config/autoload/forms.global.php
 
 return [
+    // The dependencies are setup automatically for you if you use the zend-component-installer in your project, or
+    // added manually the included ConfigProvider. 
+    /*
     'dependencies' => [
         'invokables' => [
         ],
@@ -137,6 +140,7 @@ return [
             Zend\InputFilter\Factory::class => Xtreamwayz\HTMLFormValidator\InputFilterFactory::class,
         ],
     ],
+    */
 
     'zend-inputfilter' => [
         'validators' => [

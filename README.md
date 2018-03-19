@@ -21,15 +21,17 @@ $ composer require xtreamwayz/html-form-validator
 
 ## How does it work?
 
-1. **Load the html form into the FormFactory**
+1. **Load the html form into the FormFactory and create a new Form instance**
 
     ```php
-    $form = FormFactory::fromHtml($htmlForm, $defaultValues);
+    $form = (new FormFactory())->fromHtml($htmlForm, $defaultValues);
     ```
 
-    - The FormFactory automatically creates default validators and filters for all input elements.
-    - The FormFactory extracts additional custom validation rules and filters from the form.
-    - The FormFactory optionally injects default data into the form input elements.
+    - The FormFactory creates and returns a Form instance with a new `Zend\InputFilter\Factory` and 
+      `Zend\InputFilter\InputFilter`.
+    - The Form automatically creates default validators and filters for all input elements.
+    - The Form extracts additional custom validation rules and filters from the form.
+    - The Form optionally injects default data into the form input elements.
 
 2. **Validate the form against submitted data**
 
@@ -56,6 +58,39 @@ $ composer require xtreamwayz/html-form-validator
     - The FormFactory adds error messages next to the input elements.
     - The FormFactory sets the `aria-invalid="true"` attribute for invalid input elements.
     - The FormFactory adds the bootstrap `has-danger` css class to the parent element.
+
+## Setting a default InputFilter Factory
+
+Sometimes you need custom filters or validators. To register those, a `Zend\InputFilter\Factory` can be used and 
+injected into the FormFactory. Or use the included `InputFilterFactory` to set this up for you from this config:
+
+```php
+return = [
+    'zend-inputfilter' => [
+        'validators' => [
+            // Attach custom validators or override standard validators
+            'invokables' => [
+                'recaptcha' => RecaptchaValidator::class,
+            ],
+        ],
+        'filters'    => [
+            // Attach custom filters or override standard filters
+            'invokables' => [],
+        ],
+    ],
+];
+```
+
+## Re-usable InputFilters
+
+Still want to use a html form instead of generating it with complicated classes, but you want to reuse the validation
+part? We got you covered. The `FormFactory` and `Form` accepts `Zend\InputFilter\InputFilterInterface`s so they can be 
+re-used everywhere in your app. The `Form` only creates new filters and validators for named input elements that do not 
+exist yet in the injected InputFilter.
+
+```php
+$form = (new FormFactory())->fromHtml($htmlForm, $defaultValues, $userInputFilter);
+```
 
 ## Documentation
 

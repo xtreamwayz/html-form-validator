@@ -88,7 +88,7 @@ class ContactAction
         }
 
         // Generate the form from the template with the template renderer and inject the csrf token
-        $form = FormFactory::fromHtml($this->template->render('contact-form.html.twig', [
+        $form = (new FormFactory())->fromHtml($this->template->render('contact-form.html.twig', [
             'token' => $session->get('csrf'),
         ]));
 
