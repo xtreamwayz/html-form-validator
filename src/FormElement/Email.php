@@ -1,11 +1,6 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
@@ -15,10 +10,13 @@ use Zend\Validator\EmailAddress as EmailAddressValidator;
 use Zend\Validator\Explode as ExplodeValidator;
 use Zend\Validator\Regex as RegexValidator;
 use Zend\Validator\StringLength as StringLengthValidator;
+use const FILTER_VALIDATE_BOOLEAN;
+use function filter_var;
+use function sprintf;
 
 class Email extends BaseFormElement
 {
-    protected function getFilters()
+    protected function getFilters() : array
     {
         return [
             ['name' => StripNewlinesFilter::class],
@@ -26,7 +24,7 @@ class Email extends BaseFormElement
         ];
     }
 
-    protected function getValidators()
+    protected function getValidators() : array
     {
         $validators = [];
 
@@ -63,7 +61,7 @@ class Email extends BaseFormElement
         return $validators;
     }
 
-    protected function getEmailValidator()
+    protected function getEmailValidator() : array
     {
         return [
             'name'    => EmailAddressValidator::class,

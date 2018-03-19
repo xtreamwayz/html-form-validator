@@ -1,46 +1,44 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace XtreamwayzTest\HTMLFormValidator\FormElement;
 
 use DOMDocument;
 use DOMElement;
+use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use Xtreamwayz\HTMLFormValidator\FormElement\Text;
+use function iterator_to_array;
 
-class BaseFormElementTest extends \PHPUnit_Framework_TestCase
+class BaseFormElementTest extends TestCase
 {
     public function dataAttributesProvider()
     {
         return [
-            'single-filter'                               => [
+            'single-filter' => [
                 'stringtrim',
                 [
                     'stringtrim' => [],
                 ],
             ],
-            'multiple-filters'                            => [
+
+            'multiple-filters' => [
                 'stringtrim|alpha',
                 [
                     'stringtrim' => [],
                     'alpha'      => [],
                 ],
             ],
-            'single-option'                               => [
+
+            'single-option' => [
                 'identical{token:password}',
                 [
-                    'identical' => [
-                        'token' => 'password',
-                    ],
+                    'identical' => ['token' => 'password'],
                 ],
             ],
-            'multiple-options'                            => [
+
+            'multiple-options' => [
                 'stringlength{min:2,max:140}',
                 [
                     'stringlength' => [
@@ -49,7 +47,8 @@ class BaseFormElementTest extends \PHPUnit_Framework_TestCase
                     ],
                 ],
             ],
-            'options-with-spaces'                         => [
+
+            'options-with-spaces' => [
                 'validator{key: va l ue , foo :  bar  , baz:qux }',
                 [
                     'validator' => [
@@ -59,7 +58,8 @@ class BaseFormElementTest extends \PHPUnit_Framework_TestCase
                     ],
                 ],
             ],
-            'options-with-double-quotes'                  => [
+
+            'options-with-double-quotes' => [
                 'validator{key: "va l ue" , "foo" : " bar ", "baz": qux }',
                 [
                     'validator' => [
@@ -69,7 +69,7 @@ class BaseFormElementTest extends \PHPUnit_Framework_TestCase
                     ],
                 ],
             ],
-            'options-with-single-quotes'                  => [
+            'options-with-single-quotes' => [
                 "validator{key: 'va l ue' , 'foo' : ' bar ', 'baz': qux }",
                 [
                     'validator' => [
@@ -79,6 +79,7 @@ class BaseFormElementTest extends \PHPUnit_Framework_TestCase
                     ],
                 ],
             ],
+
             'multiple-options-multiple-quotes-and-spaces' => [
                 'validator{key: "va l ue" , \'foo\' : " bar ", \'baz\': q.u.x. }',
                 [
@@ -89,7 +90,8 @@ class BaseFormElementTest extends \PHPUnit_Framework_TestCase
                     ],
                 ],
             ],
-            'multiple-options-and-validators'             => [
+
+            'multiple-options-and-validators' => [
                 'stringlength{min:2,max:140}|validator{key:val,foo:bar}|notempty',
                 [
                     'stringlength' => [
@@ -100,20 +102,20 @@ class BaseFormElementTest extends \PHPUnit_Framework_TestCase
                         'key' => 'val',
                         'foo' => 'bar',
                     ],
-                    'notempty'     => [
-                    ],
+                    'notempty'     => [],
                 ],
             ],
-            'invalid-filter'                              => [
+
+            'invalid-filter' => [
                 'invalid filter ++',
                 [
                     'invalid' => [],
                 ],
             ],
-            'empty-filter'                                => [
+
+            'empty-filter' => [
                 '',
-                [
-                ],
+                [],
             ],
         ];
     }
@@ -121,7 +123,7 @@ class BaseFormElementTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider dataAttributesProvider
      */
-    public function testParseDataAttribute($dataAttribute, array $expected)
+    public function testParseDataAttribute($dataAttribute, array $expected) : void
     {
         $reflectionMethod = new ReflectionMethod(Text::class, 'parseDataAttribute');
         $reflectionMethod->setAccessible(true);

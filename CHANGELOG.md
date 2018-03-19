@@ -6,10 +6,27 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
+- [#68](https://github.com/xtreamwayz/html-form-validator/pull/68) adds the option to inject a preconfigured
+  inputfilter. Sometimes you want to have an inputfilter and re-use it in several places.
+  
+  The injected inputfilter will be used as a base and missing filters and validators will be added from the form if
+  the base inputfilter doesn't have a filter with the same name.
+
+### Changed
+
 - [#65](https://github.com/xtreamwayz/html-form-validator/pull/65) changes the css classes to something more meaningful
   and generic. The parent class that contains the failing input now gets a `has-validation-error` css class. The div
   containing the error message can be styled with the `validation-error` css class. The failing input element already
-  got the `aria-invalid="true"` attribute. 
+  got the `aria-invalid="true"` attribute.
+
+- [#68](https://github.com/xtreamwayz/html-form-validator/pull/68) changes the `FormFactory::fromHtml()` method to
+  non-static. This is done so an optional `Zend\InputFilter\Factory` can be injected and shared.
+  
+  If you don't need this, you can use the FormFactory like this: `$form = (new FormFactory())->fromHtml($html, [])`.
+
+- [#68](https://github.com/xtreamwayz/html-form-validator/pull/68) changes the instance the `FormFactory::fromHtml()`
+  returns. It now returns a `FormInterface`, which has basically the same interface as the previous returned
+  `FormFactoryInterface`. Only the form related logic has moved from the `FormFactory` into a `Form` class.
 
 ### Deprecated
 
@@ -30,6 +47,7 @@ All notable changes to this project will be documented in this file, in reverse 
 - [#59](https://github.com/xtreamwayz/html-form-validator/pull/59) checks if a request method is set and if it's a post
   when calling `validate()`. If it wasn't a post, it skips validation.
   If the method isn't set, it always runs the validation.
+
 - [8035d4e](https://github.com/xtreamwayz/html-form-validator/commit/8035d4e) removes PHP 7 strict types and adds
   support for PHP 5.6. Version 1.0.0 will target PHP 5.6+ and version 2.0.0 will target PHP 7
 
@@ -99,6 +117,7 @@ Nothing.
 ### Removed
 
 - [#47](https://github.com/xtreamwayz/html-form-validator/pull/47) removes temp service manager 3 repositories.
+
 - [#49](https://github.com/xtreamwayz/html-form-validator/pull/49) removes obsolete ValidationResult functions.
 
 ### Fixed
@@ -130,6 +149,7 @@ Nothing.
 
 - [#36](https://github.com/xtreamwayz/html-form-validator/pull/36) adds the `FormFactory->validateRequest()` to handle
   PSR-7 requests and reduce boilerplate code needed to build, validate and render forms.
+
 - [#38](https://github.com/xtreamwayz/html-form-validator/pull/38) adds submit button detection.
 
   ```php
@@ -163,10 +183,13 @@ Nothing.
 
 - [#27](https://github.com/xtreamwayz/html-form-validator/pull/26) adds the FormFactoryInterface and
   ValidationResultInterface.
+
 - [#29](https://github.com/xtreamwayz/html-form-validator/pull/29) adds container-interop compatibility. This enables
   custom validators and filters.
+
 - [#29](https://github.com/xtreamwayz/html-form-validator/pull/29) adds the InputFilterFactory which can be used to
   instantiate a Zend\InputFilter\Factory from a container-interop compatible container.
+
 - [#30](https://github.com/xtreamwayz/html-form-validator/pull/30) adds
     - min, max and step attributes for Datetime input types
     - the multiple attribute on select and email elements
@@ -193,12 +216,17 @@ Nothing.
 
 - [#15](https://github.com/xtreamwayz/html-form-validator/pull/15) adds support for the maxlength attribute for
   specifc elements.
+
 - [#21](https://github.com/xtreamwayz/html-form-validator/pull/21) adds the `aria-invalid="true"` attribute if
   the validation result object is injected into the form renderer: `$form->asString($validationResult)`.
+
 - [#23](https://github.com/xtreamwayz/html-form-validator/pull/23) adds automatic GitHub
   [wiki pages](https://github.com/xtreamwayz/html-form-validator/wiki) generation from the docs.
+
 - [#26](https://github.com/xtreamwayz/html-form-validator/pull/26) adds default filters confirm the html specs.
+
 - [#26](https://github.com/xtreamwayz/html-form-validator/pull/26) adds support for the minlength attribute.
+
 - [#26](https://github.com/xtreamwayz/html-form-validator/pull/26) adds support for number float validation
   and `step="any"` to disable the step validator.
 
@@ -215,7 +243,9 @@ Nothing.
 
 - [#15](https://github.com/xtreamwayz/html-form-validator/pull/15) makes the pattern attribute trigger the regex
   plugin only for specific elements.
+
 - [#21](https://github.com/xtreamwayz/html-form-validator/pull/21) fixes adding multiple error classes.
+
 - [#24](https://github.com/xtreamwayz/html-form-validator/pull/24) fixes adding multiple error messages to elements
   with the same name.
 
@@ -224,6 +254,7 @@ Nothing.
 ### Added
 
 - [#7](https://github.com/xtreamwayz/html-form-validator/pull/7) adds tests.
+
 - [#7](https://github.com/xtreamwayz/html-form-validator/pull/7) adds country data attribute for telephone number
   validation.
 
@@ -238,10 +269,14 @@ Nothing.
 ### Fixed
 
 - [#7](https://github.com/xtreamwayz/html-form-validator/pull/7) fixes checkbox checking the submitted value.
+
 - [#7](https://github.com/xtreamwayz/html-form-validator/pull/7) fixes input radio type check for valid value.
+
 - [#7](https://github.com/xtreamwayz/html-form-validator/pull/7) adds missing zend-uri dependency.
+
 - [#7](https://github.com/xtreamwayz/html-form-validator/pull/7) fixes range step having min as a base value,
   otherwise it's 0.
+
 - [#7](https://github.com/xtreamwayz/html-form-validator/pull/7) fixes pattern attribute regex.
 
 ## 0.1.0 - 2016-02-08

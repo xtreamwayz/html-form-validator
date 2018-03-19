@@ -1,11 +1,6 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
@@ -14,12 +9,14 @@ use Zend\Validator\Date as DateValidator;
 use Zend\Validator\DateStep as DateStepValidator;
 use Zend\Validator\GreaterThan as GreaterThanValidator;
 use Zend\Validator\LessThan as LessThanValidator;
+use function date;
+use function sprintf;
 
 class DateTime extends BaseFormElement
 {
     protected $format = 'Y-m-d\TH:i';
 
-    protected function getValidators()
+    protected function getValidators() : array
     {
         $validators   = [];
         $validators[] = $this->getDateValidator();
@@ -45,7 +42,7 @@ class DateTime extends BaseFormElement
         }
 
         if (! $this->node->hasAttribute('step')
-            || 'any' !== $this->node->getAttribute('step')
+            || $this->node->getAttribute('step') !== 'any'
         ) {
             $validators[] = $this->getStepValidator();
         }
@@ -53,7 +50,7 @@ class DateTime extends BaseFormElement
         return $validators;
     }
 
-    protected function getDateValidator()
+    protected function getDateValidator() : array
     {
         return [
             'name'    => DateValidator::class,
@@ -63,7 +60,7 @@ class DateTime extends BaseFormElement
         ];
     }
 
-    protected function getStepValidator()
+    protected function getStepValidator() : array
     {
         $stepValue = $this->node->getAttribute('step') ?: 1; // Minutes
         $baseValue = $this->node->getAttribute('min') ?: date($this->format, 0);
@@ -73,7 +70,7 @@ class DateTime extends BaseFormElement
             'options' => [
                 'format'    => $this->format,
                 'baseValue' => $baseValue,
-                'step'      => new DateInterval("PT{$stepValue}M"),
+                'step'      => new DateInterval(sprintf('PT%dM', $stepValue)),
             ],
         ];
     }

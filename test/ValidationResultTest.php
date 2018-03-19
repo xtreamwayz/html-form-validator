@@ -1,36 +1,32 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace XtreamwayzTest\HTMLFormValidator;
 
+use PHPUnit\Framework\TestCase;
 use Xtreamwayz\HTMLFormValidator\ValidationResult;
 
-class ValidationResultTest extends \PHPUnit_Framework_TestCase
+class ValidationResultTest extends TestCase
 {
     private $rawValues = [
         'foo' => 'bar',
         'baz' => ' qux ',
     ];
 
-    private $values    = [
+    private $values = [
         'foo' => 'bar',
         'baz' => 'qux',
     ];
 
-    private $messages  = [
+    private $messages = [
         'foo' => [
             'regexNotMatch' => '',
             'notInArray'    => '',
         ],
     ];
 
-    public function testValuesAreAvailable()
+    public function testValuesAreAvailable() : void
     {
         $result = new ValidationResult($this->rawValues, $this->values, $this->messages, null);
 
@@ -39,56 +35,56 @@ class ValidationResultTest extends \PHPUnit_Framework_TestCase
         self::assertEquals($this->messages, $result->getMessages());
     }
 
-    public function testResultIsValid()
+    public function testResultIsValid() : void
     {
         $result = new ValidationResult($this->rawValues, $this->values, [], null);
 
         self::assertTrue($result->isValid());
     }
 
-    public function testPostResultIsValid()
+    public function testPostResultIsValid() : void
     {
         $result = new ValidationResult($this->rawValues, $this->values, [], 'POST');
 
         self::assertTrue($result->isValid());
     }
 
-    public function testResultWithMessagesIsNotValid()
+    public function testResultWithMessagesIsNotValid() : void
     {
         $result = new ValidationResult($this->rawValues, $this->values, $this->messages, null);
 
         self::assertFalse($result->isValid());
     }
 
-    public function testPostResultWithMessagesIsNotValid()
+    public function testPostResultWithMessagesIsNotValid() : void
     {
         $result = new ValidationResult($this->rawValues, $this->values, $this->messages, 'POST');
 
         self::assertFalse($result->isValid());
     }
 
-    public function testGetResultIsNotValid()
+    public function testGetResultIsNotValid() : void
     {
         $result = new ValidationResult($this->rawValues, $this->values, $this->messages, 'GET');
 
         self::assertFalse($result->isValid());
     }
 
-    public function testSubmitButtonIsClicked()
+    public function testSubmitButtonIsClicked() : void
     {
         $result = new ValidationResult($this->rawValues, $this->values, $this->messages, 'POST', 'confirm');
 
         self::assertTrue($result->isClicked('confirm'));
         self::assertFalse($result->isClicked('cancel'));
-        self::assertEquals('confirm', $result->isClicked());
+        self::assertEquals('confirm', $result->getClicked());
     }
 
-    public function testSubmitButtonIsNotClicked()
+    public function testSubmitButtonIsNotClicked() : void
     {
         $result = new ValidationResult($this->rawValues, $this->values, $this->messages, 'POST', null);
 
         self::assertFalse($result->isClicked('confirm'));
         self::assertFalse($result->isClicked('cancel'));
-        self::assertNull($result->isClicked());
+        self::assertNull($result->getClicked());
     }
 }

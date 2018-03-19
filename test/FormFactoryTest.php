@@ -1,133 +1,90 @@
 <?php
-/**
- * html-form-validator (https://github.com/xtreamwayz/html-form-validator)
- *
- * @see       https://github.com/xtreamwayz/html-form-validator for the canonical source repository
- * @copyright Copyright (c) 2016 Geert Eltink (https://xtreamwayz.com/)
- * @license   https://github.com/xtreamwayz/html-form-validator/blob/master/LICENSE.md MIT
- */
+
+declare(strict_types=1);
 
 namespace XtreamwayzTest\HTMLFormValidator;
 
-use Psr\Http\Message\ServerRequestInterface;
+use PHPUnit\Framework\TestCase;
+use ReflectionProperty;
+use Xtreamwayz\HTMLFormValidator\Form;
 use Xtreamwayz\HTMLFormValidator\FormFactory;
-use Xtreamwayz\HTMLFormValidator\ValidationResult;
+use Xtreamwayz\HTMLFormValidator\FormFactoryInterface;
+use Xtreamwayz\HTMLFormValidator\FormInterface;
+use Zend\InputFilter\Factory;
+use Zend\InputFilter\InputFilterInterface;
 
-class FormFactoryTest extends \PHPUnit_Framework_TestCase
+class FormFactoryTest extends TestCase
 {
-    private $rawValues = [
-        'foo' => 'bar',
-        'baz' => ' qux ',
-    ];
-
-    private $values    = [
-        'foo' => 'bar',
-        'baz' => 'qux',
-    ];
-
-    private $messages  = [
-        'foo' => [
-            'regexNotMatch' => 'The input does not match against pattern \'/^\d+$/\'',
-        ],
-    ];
-
-    public function testPsrPostRequestIsValid()
+    public function testConstructorWithNoArguments() : void
     {
-        $htmlForm = '
+        $formFactory = new FormFactory();
+
+        self::assertInstanceOf(FormFactoryInterface::class, $formFactory);
+        self::assertInstanceOf(FormFactory::class, $formFactory);
+    }
+
+    public function testConstructorWithArguments() : void
+    {
+        $factory = $this->prophesize(Factory::class);
+        $options = ['foo' => 'bar'];
+
+        $formFactory = new FormFactory($factory->reveal(), $options);
+
+        self::assertInstanceOf(FormFactoryInterface::class, $formFactory);
+        self::assertInstanceOf(FormFactory::class, $formFactory);
+    }
+
+    public function testCreatingFormFromHtml() : void
+    {
+        $html = '
             <form action="/" method="post">
                 <input type="text" name="foo" />
                 <input type="text" name="baz" data-filters="stringtrim" />
             </form>';
 
-        $form    = FormFactory::fromHtml($htmlForm);
-        $request = $this->prophesize(ServerRequestInterface::class);
-        $request->getMethod()->willReturn('POST');
-        $request->getParsedBody()->willReturn($this->rawValues);
+        $formFactory = new FormFactory();
+        $form        = $formFactory->fromHtml($html);
 
-        $result = $form->validateRequest($request->reveal());
-
-        self::assertInstanceOf(ValidationResult::class, $result);
-        self::assertEquals($this->rawValues, $result->getRawValues());
-        self::assertEquals($this->values, $result->getValues());
-        self::assertEquals([], $result->getMessages());
-        self::assertTrue($result->isValid());
+        self::assertInstanceOf(FormInterface::class, $form);
+        self::assertInstanceOf(Form::class, $form);
     }
 
-    public function testPsrGetRequestIsNotValid()
+    public function testCreatingFormUsesInjectedFactoryAndOptions() : void
     {
-        $htmlForm = '
+        $html = '
             <form action="/" method="post">
                 <input type="text" name="foo" />
                 <input type="text" name="baz" data-filters="stringtrim" />
             </form>';
 
-        $form    = FormFactory::fromHtml($htmlForm);
-        $request = $this->prophesize(ServerRequestInterface::class);
-        $request->getMethod()->willReturn('GET');
-        $request->getParsedBody()->willReturn($this->rawValues);
+        $factory     = $this->prophesize(Factory::class);
+        $inputFilter = $this->prophesize(InputFilterInterface::class);
+        $options     = [
+            'cssHasErrorClass' => 'has-error',
+            'cssErrorClass'    => 'error',
+        ];
+        $defaults    = ['foo' => 'bar'];
 
-        $result = $form->validateRequest($request->reveal());
+        $propFactory = new ReflectionProperty(Form::class, 'factory');
+        $propFactory->setAccessible(true);
 
-        self::assertInstanceOf(ValidationResult::class, $result);
-        self::assertEquals([], $result->getRawValues());
-        self::assertEquals([], $result->getValues());
-        self::assertEquals([], $result->getMessages());
-        self::assertFalse($result->isValid());
-    }
+        $propInputFilter = new ReflectionProperty(Form::class, 'inputFilter');
+        $propInputFilter->setAccessible(true);
 
-    public function testPsrPostRequestHasMessages()
-    {
-        $htmlForm = '
-            <form action="/" method="post">
-                <input type="text" name="foo" pattern="^\d+$" />
-                <input type="text" name="baz" data-filters="stringtrim" />
-            </form>';
+        $propCssHasErrorClass = new ReflectionProperty(Form::class, 'cssHasErrorClass');
+        $propCssHasErrorClass->setAccessible(true);
 
-        $form    = FormFactory::fromHtml($htmlForm);
-        $request = $this->prophesize(ServerRequestInterface::class);
-        $request->getMethod()->willReturn('POST');
-        $request->getParsedBody()->willReturn($this->rawValues);
+        $propCssErrorClass = new ReflectionProperty(Form::class, 'cssErrorClass');
+        $propCssErrorClass->setAccessible(true);
 
-        $result = $form->validateRequest($request->reveal());
+        $formFactory = new FormFactory($factory->reveal(), $options);
+        $form        = $formFactory->fromHtml($html, $defaults, $inputFilter->reveal());
 
-        self::assertInstanceOf(ValidationResult::class, $result);
-        self::assertEquals($this->rawValues, $result->getRawValues());
-        self::assertEquals($this->values, $result->getValues());
-        self::assertEquals($this->messages, $result->getMessages());
-        self::assertFalse($result->isValid());
-    }
-
-    public function testSetValuesStatically()
-    {
-        $htmlForm = '
-            <form action="/" method="post">
-                <input type="text" name="foo" data-reuse-submitted-value="true" />
-                <input type="text" name="baz" data-filters="stringtrim" />
-            </form>';
-
-        $form = FormFactory::fromHtml($htmlForm, [
-            'foo' => 'bar',
-            'baz' => 'qux',
-        ]);
-
-        self::assertContains('<input type="text" name="foo" value="bar">', $form->asString());
-        self::assertContains('<input type="text" name="baz" value="qux">', $form->asString());
-    }
-
-    public function testSetValuesWithConstructor()
-    {
-        $htmlForm = '
-            <form action="/" method="post">
-                <input type="text" name="foo" data-reuse-submitted-value="true" />
-                <input type="text" name="baz" data-filters="stringtrim" />
-            </form>';
-
-        $form = new FormFactory($htmlForm, null, [
-            'foo' => 'bar',
-            'baz' => 'qux',
-        ]);
-
-        self::assertContains('<input type="text" name="foo" value="bar">', $form->asString());
-        self::assertContains('<input type="text" name="baz" value="qux">', $form->asString());
+        self::assertInstanceOf(FormInterface::class, $form);
+        self::assertInstanceOf(Form::class, $form);
+        self::assertSame($factory->reveal(), $propFactory->getValue($form));
+        self::assertSame($inputFilter->reveal(), $propInputFilter->getValue($form));
+        self::assertSame($options['cssHasErrorClass'], $propCssHasErrorClass->getValue($form));
+        self::assertSame($options['cssErrorClass'], $propCssErrorClass->getValue($form));
     }
 }
