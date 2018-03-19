@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 1.0.0 - TBD
+## 1.0.0 - 2018-03-19
 
 ### Added
 
@@ -19,12 +19,14 @@ All notable changes to this project will be documented in this file, in reverse 
   containing the error message can be styled with the `validation-error` css class. The failing input element already
   got the `aria-invalid="true"` attribute.
 
-- [#68](https://github.com/xtreamwayz/html-form-validator/pull/68) changes the `FormFactory::fromHtml()` method to
+- [#68](https://github.com/xtreamwayz/html-form-validator/pull/68) drops PHP 5.6 support and requires PHP 7.1+.
+
+- [#69](https://github.com/xtreamwayz/html-form-validator/pull/69) changes the `FormFactory::fromHtml()` method to
   non-static. This is done so an optional `Zend\InputFilter\Factory` can be injected and shared.
   
   If you don't need this, you can use the FormFactory like this: `$form = (new FormFactory())->fromHtml($html, [])`.
 
-- [#68](https://github.com/xtreamwayz/html-form-validator/pull/68) changes the instance the `FormFactory::fromHtml()`
+- [#69](https://github.com/xtreamwayz/html-form-validator/pull/69) changes the instance the `FormFactory::fromHtml()`
   returns. It now returns a `FormInterface`, which has basically the same interface as the previous returned
   `FormFactoryInterface`. Only the form related logic has moved from the `FormFactory` into a `Form` class.
 
