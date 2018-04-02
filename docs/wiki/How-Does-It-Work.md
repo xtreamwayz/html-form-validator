@@ -4,7 +4,7 @@
     $form = (new FormFactory())->fromHtml($htmlForm, $defaultValues);
     ```
 
-    - The FormFactory creates and returns a Form instance with a new `Zend\InputFilter\Factory` and 
+    - The FormFactory creates and returns a Form instance with a new `Zend\InputFilter\Factory` and
       `Zend\InputFilter\InputFilter`.
     - The Form automatically creates default validators and filters for all input elements.
     - The Form extracts additional custom validation rules and filters from the form.
@@ -16,9 +16,9 @@
     $result = $form->validate($_POST);
     ```
 
-    Under the hood it uses [zend-inputfilter](https://zendframework.github.io/zend-inputfilter/) which makes all its
-    [validators](https://zendframework.github.io/zend-validator/set/) and
-    [filters](https://zendframework.github.io/zend-filter/standard-filters/) available to you.
+    Under the hood it uses [zend-inputfilter](https://docs.zendframework.com/zend-inputfilter/) which makes all its
+    [validators](https://docs.zendframework.com/zend-validator/set/) and
+    [filters](https://docs.zendframework.com/zend-filter/standard-filters/) available to you.
 
 3. **Render the form**
 
@@ -38,7 +38,7 @@
 
 ## Setting a default InputFilter Factory
 
-Sometimes you need custom filters or validators. To register those, a `Zend\InputFilter\Factory` can be used and 
+Sometimes you need custom filters or validators. To register those, a `Zend\InputFilter\Factory` can be used and
 injected into the FormFactory. Or use the included `InputFilterFactory` to set this up for you from this config:
 
 ```php
@@ -61,8 +61,8 @@ return = [
 ## Re-usable InputFilters
 
 Still want to use a html form instead of generating it with complicated classes, but you want to reuse the validation
-part? We got you covered. The `FormFactory` and `Form` accepts `Zend\InputFilter\InputFilterInterface`s so they can be 
-re-used everywhere in your app. The `Form` only creates new filters and validators for named input elements that do not 
+part? We got you covered. The `FormFactory` and `Form` accepts `Zend\InputFilter\InputFilterInterface`s so they can be
+re-used everywhere in your app. The `Form` only creates new filters and validators for named input elements that do not
 exist yet in the injected InputFilter.
 
 ```php

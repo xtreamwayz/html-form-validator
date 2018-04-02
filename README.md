@@ -1,9 +1,10 @@
 # html-form-validator
 
-[![Build Status](https://travis-ci.org/xtreamwayz/html-form-validator.svg?branch=master)](https://travis-ci.org/xtreamwayz/html-form-validator)
+[![Build Status](https://travis-ci.org/xtreamlabs/html-form-validator.svg?branch=master)](https://travis-ci.org/xtreamwayz/html-form-validator)
 [![Code Coverage](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/?branch=master)
-[![Dependency Status](https://www.versioneye.com/user/projects/57547dd57757a0003bd4afdc/badge.svg)](https://www.versioneye.com/user/projects/57547dd57757a0003bd4afdc)
+[![Packagist](https://img.shields.io/packagist/v/xtreamwayz/html-form-validator.svg)](https://packagist.org/packages/xtreamwayz/html-form-validator)
+[![Packagist](https://img.shields.io/packagist/vpre/xtreamwayz/html-form-validator.svg)](https://packagist.org/packages/xtreamwayz/html-form-validator)
 
 As challenged by a [tweet](https://twitter.com/Ocramius/status/680817040429592576), this library extracts validation
 rules and filters from a html form and validates submitted user data against it.
@@ -39,9 +40,9 @@ $ composer require xtreamwayz/html-form-validator
     $result = $form->validate($_POST);
     ```
 
-    Under the hood it uses [zend-inputfilter](https://zendframework.github.io/zend-inputfilter/) which makes all its
-    [validators](https://zendframework.github.io/zend-validator/set/) and
-    [filters](https://zendframework.github.io/zend-filter/standard-filters/) available to you.
+    Under the hood it uses [zend-inputfilter](https://docs.zendframework.com/zend-inputfilter/) which makes all its
+    [validators](https://docs.zendframework.com/zend-validator/set/) and
+    [filters](https://docs.zendframework.com/zend-filter/standard-filters/) available to you.
 
 3. **Render the form**
 
