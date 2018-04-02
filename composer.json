@@ -33,7 +33,7 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev",
-            "dev-develop": "1.1.x-dev"
+            "dev-develop": "2.0.x-dev"
         },
         "zf": {
             "config-provider": "Xtreamwayz\\HTMLFormValidator\\ConfigProvider"
