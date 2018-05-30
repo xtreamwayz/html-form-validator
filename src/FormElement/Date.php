@@ -13,6 +13,7 @@ use function sprintf;
 
 class Date extends DateTimeElement
 {
+    /** @var string */
     protected $format = 'Y-m-d';
 
     protected function getStepValidator() : array

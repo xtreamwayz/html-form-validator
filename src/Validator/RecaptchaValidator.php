@@ -49,7 +49,7 @@ class RecaptchaValidator extends AbstractValidator
         parent::__construct($options);
     }
 
-    public function setKey($key) : self
+    public function setKey(string $key) : self
     {
         $this->options['key'] = $key;
 
