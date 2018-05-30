@@ -12,6 +12,7 @@ use function sprintf;
 
 class Time extends DateTimeElement
 {
+    /** @var string */
     protected $format = 'H:i:s';
 
     protected function getStepValidator() : array
