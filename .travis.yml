@@ -14,7 +14,7 @@ matrix:
     - php: 7.1
       env:
         - DEPS=latest
-        - CHECK_CS=true
+        - CS_CHECK=true
     - php: 7.2
       env:
         - DEPS=lowest
@@ -23,6 +23,7 @@ matrix:
       env:
         - DEPS=latest
         - TEST_COVERAGE=true
+        - BC_CHECK=true
     - php: nightly
       env:
         - DEPS=lowest
@@ -35,13 +36,15 @@ matrix:
 install:
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer update --no-interaction ; fi
   - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable --no-interaction ; fi
+  - if [[ $BC_CHECK == 'true' ]]; then composer require --dev roave/backward-compatibility-check ; fi
   - travis_retry composer install --no-interaction
   - composer show --installed
 
 script:
-  - if [[ $EXECUTE_CS_CHECK == 'true' ]]; then composer cs-check ; fi
-  - if [[ $EXECUTE_TEST_COVERAGE == 'true' ]]; then composer test-coverage ; fi
-  - if [[ $EXECUTE_TEST_COVERAGE != 'true' ]]; then composer test ; fi
+  - if [[ $CS_CHECK == 'true' ]]; then composer cs-check ; fi
+  - if [[ $BC_CHECK == 'true' ]]; then vendor/bin/roave-backward-compatibility-check ; fi
+  - if [[ $TEST_COVERAGE == 'true' ]]; then composer test-coverage ; fi
+  - if [[ $TEST_COVERAGE != 'true' ]]; then composer test ; fi
   - composer analyse
 
 after_success:
