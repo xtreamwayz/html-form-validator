@@ -42,7 +42,7 @@ install:
 
 script:
   - if [[ $CS_CHECK == 'true' ]]; then composer cs-check ; fi
-  - if [[ $BC_CHECK == 'true' ]]; then vendor/bin/roave-backward-compatibility-check ; fi
+  - if [[ $BC_CHECK == 'true' ]]; then vendor/bin/roave-backward-compatibility-check --from=master --to=HEAD ; fi
   - if [[ $TEST_COVERAGE == 'true' ]]; then composer test-coverage ; fi
   - if [[ $TEST_COVERAGE != 'true' ]]; then composer test ; fi
   - composer analyse
