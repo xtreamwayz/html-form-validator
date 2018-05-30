@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
-<ruleset
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd"
-    name="HtmlFormFactory"
->
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="./vendor/squizlabs/php_codesniffer/phpcs.xsd"
+         name="HtmlFormFactory">
+
     <arg name="basepath" value="."/>
     <arg name="extensions" value="php"/>
     <arg name="parallel" value="80"/>
@@ -14,8 +13,15 @@
 
     <file>./src</file>
 
-    <rule ref="Doctrine"></rule>
-    <rule ref="PSR2">
-        <exclude name="Generic.Files.LineLength"/>
+    <!-- Paths to check -->
+    <file>./src</file>
+
+    <rule ref="PSR2"/>
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
+        <properties>
+            <property name="ignoreBlankLines" value="false"/>
+        </properties>
     </rule>
+    <rule ref="Doctrine"/>
 </ruleset>
