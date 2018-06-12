@@ -303,7 +303,7 @@ final class Form implements FormInterface
                 }
             } elseif ($node->nodeName === 'input') {
                 // Set value for input elements
-                $node->setAttribute('value', $value);
+                $node->setAttribute('value', (string) $value);
             } elseif ($node->nodeName === 'textarea') {
                 $node->nodeValue = $value;
             }
