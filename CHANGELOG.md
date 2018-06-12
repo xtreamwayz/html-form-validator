@@ -2,13 +2,36 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.0.1 - TBD
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#74](https://github.com/xtreamwayz/html-form-validator/pull/74) fixes setting non string values on a DOMElement
+  attribute.
+
 ## 1.0.0 - 2018-03-19
 
 ### Added
 
 - [#68](https://github.com/xtreamwayz/html-form-validator/pull/68) adds the option to inject a preconfigured
   inputfilter. Sometimes you want to have an inputfilter and re-use it in several places.
-  
+
   The injected inputfilter will be used as a base and missing filters and validators will be added from the form if
   the base inputfilter doesn't have a filter with the same name.
 
@@ -23,7 +46,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - [#69](https://github.com/xtreamwayz/html-form-validator/pull/69) changes the `FormFactory::fromHtml()` method to
   non-static. This is done so an optional `Zend\InputFilter\Factory` can be injected and shared.
-  
+
   If you don't need this, you can use the FormFactory like this: `$form = (new FormFactory())->fromHtml($html, [])`.
 
 - [#69](https://github.com/xtreamwayz/html-form-validator/pull/69) changes the instance the `FormFactory::fromHtml()`
