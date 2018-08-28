@@ -25,6 +25,23 @@ interface ValidationResultInterface
     public function getClicked() : ?string;
 
     /**
+     * Add custom validation messages
+     *
+     * Must have the same format as zend-validator messages:
+     *
+     *  [
+     *      '<field>' => [
+     *          '<error_code>' => '<message>',
+     *      ],
+     *      'email' => [
+     *          'emailAddressInvalidFormat' => 'The given email address is invalid',
+     *      ],
+     *  ]
+     *
+     */
+    public function addMessages(array $messages) : void;
+
+    /**
      * Get validation messages
      */
     public function getMessages() : array;

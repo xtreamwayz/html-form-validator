@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace XtreamwayzTest\HTMLFormValidator;
 
 use PHPUnit\Framework\TestCase;
+use function var_dump;
 use Xtreamwayz\HTMLFormValidator\ValidationResult;
 
 class ValidationResultTest extends TestCase
@@ -86,5 +87,33 @@ class ValidationResultTest extends TestCase
         self::assertFalse($result->isClicked('confirm'));
         self::assertFalse($result->isClicked('cancel'));
         self::assertNull($result->getClicked());
+    }
+
+    public function testMessagesCanBeAdded() : void
+    {
+        $result = new ValidationResult($this->rawValues, $this->values, $this->messages, 'POST');
+
+        $result->addMessages([
+            'foo' => [
+                'invalidUuid' => 'This is not a valid uuid',
+                'notInArray'  => 'This is not in array',
+            ],
+            'baz' => [
+                'isRequired' => 'This is required',
+            ],
+        ]);
+
+        $expected = [
+            'foo' => [
+                'regexNotMatch' => '',
+                'invalidUuid' => 'This is not a valid uuid',
+                'notInArray'  => 'This is not in array',
+            ],
+            'baz' => [
+                'isRequired' => 'This is required',
+            ],
+        ];
+
+        self::assertEquals($expected, $result->getMessages());
     }
 }

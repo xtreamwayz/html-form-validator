@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator;
 
+use function array_replace_recursive;
 use function count;
 
 final class ValidationResult implements ValidationResultInterface
@@ -59,6 +60,14 @@ final class ValidationResult implements ValidationResultInterface
     public function getClicked() : ?string
     {
         return $this->submitName;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function addMessages(array $messages) : void
+    {
+        $this->messages = array_replace_recursive($this->messages, $messages);
     }
 
     /**
