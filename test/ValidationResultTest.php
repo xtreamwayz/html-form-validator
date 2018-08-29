@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace XtreamwayzTest\HTMLFormValidator;
 
 use PHPUnit\Framework\TestCase;
-use function var_dump;
 use Xtreamwayz\HTMLFormValidator\ValidationResult;
 
 class ValidationResultTest extends TestCase
@@ -106,8 +105,8 @@ class ValidationResultTest extends TestCase
         $expected = [
             'foo' => [
                 'regexNotMatch' => '',
-                'invalidUuid' => 'This is not a valid uuid',
-                'notInArray'  => 'This is not in array',
+                'invalidUuid'   => 'This is not a valid uuid',
+                'notInArray'    => 'This is not in array',
             ],
             'baz' => [
                 'isRequired' => 'This is required',
