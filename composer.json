@@ -12,6 +12,8 @@
     ],
     "require": {
         "php": "^7.1",
+        "ext-dom": "*",
+        "ext-libxml": "*",
         "psr/container": "^1.0",
         "psr/http-message": "^1.0",
         "zendframework/zend-filter": "^2.7.2",
