@@ -1,6 +1,6 @@
 # html-form-validator
 
-[![Build Status](https://travis-ci.org/xtreamlabs/html-form-validator.svg?branch=master)](https://travis-ci.org/xtreamwayz/html-form-validator)
+[![Build Status](https://travis-ci.com/xtreamlabs/html-form-validator.svg?branch=master)](https://travis-ci.com/xtreamwayz/html-form-validator)
 [![Code Coverage](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/xtreamwayz/html-form-validator/?branch=master)
 [![Packagist](https://img.shields.io/packagist/v/xtreamwayz/html-form-validator.svg)](https://packagist.org/packages/xtreamwayz/html-form-validator)
