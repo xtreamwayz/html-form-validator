@@ -9,16 +9,19 @@ use DOMElement;
 use DOMXPath;
 use Generator;
 use Psr\Http\Message\ServerRequestInterface;
+use Zend\InputFilter\ArrayInput;
 use Zend\InputFilter\Factory;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputProviderInterface;
-use const FILTER_VALIDATE_BOOLEAN;
 use function array_key_exists;
 use function filter_var;
 use function in_array;
+use function is_array;
 use function sprintf;
 use function strpos;
+use function substr;
 use function trim;
+use const FILTER_VALIDATE_BOOLEAN;
 
 final class Form implements FormInterface
 {
@@ -193,6 +196,12 @@ final class Form implements FormInterface
                 $type = 'select';
             }
 
+            if (substr($name, -2) === '[]') {
+                $input = new ArrayInput();
+                $inputFilter->add($input, substr($name, 0, -2));
+                continue;
+            }
+
             // Add validation
             if (array_key_exists($type, $this->formElements)) {
                 $elementClass = $this->formElements[$type];
@@ -269,12 +278,27 @@ final class Form implements FormInterface
 
         /** @var DOMElement $node */
         foreach ($this->getNodeList() as $name => $node) {
-            if (! array_key_exists($name, $data)) {
+            $arrayName = null;
+            $value     = null;
+
+            // Strip the array notation from the field name
+            if (substr($name, -2) === '[]') {
+                $arrayName = substr($name, 0, -2);
+                // Check if it has a value set
+                if (! array_key_exists($arrayName, $data)) {
+                    continue;
+                }
+                $value = $data[$arrayName];
+            }
+
+            if (array_key_exists($name, $data)) {
+                $value = $data[$name];
+            }
+
+            if ($value === null) {
                 // No value set for this element
                 continue;
             }
-
-            $value = $data[$name];
 
             $reuseSubmittedValue = filter_var(
                 $node->getAttribute('data-reuse-submitted-value'),
@@ -287,7 +311,9 @@ final class Form implements FormInterface
             }
 
             if (in_array($node->getAttribute('type'), ['checkbox', 'radio'], true)) {
-                if ($value === $node->getAttribute('value')) {
+                if ($value === $node->getAttribute('value')
+                    || (is_array($value) && in_array($node->getAttribute('value'), $value, true))
+                ) {
                     $node->setAttribute('checked', 'checked');
                 } else {
                     $node->removeAttribute('checked');

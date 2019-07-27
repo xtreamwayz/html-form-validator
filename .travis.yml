@@ -23,14 +23,12 @@ matrix:
       env:
         - DEPS=latest
         - TEST_COVERAGE=true
-    - php: nightly
+    - php: 7.3
       env:
         - DEPS=lowest
-    - php: nightly
+    - php: 7.3
       env:
         - DEPS=latest
-  allow_failures:
-    - php: nightly
 
 install:
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer update --no-interaction ; fi

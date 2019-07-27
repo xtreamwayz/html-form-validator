@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.2.0 - 2019-07-27
+
+### Added
+
+- [#77](https://github.com/xtreamwayz/html-form-validator/pull/77) adds support for array input fields.
+  Input checkbox fields with names like `cars[]` will be treated as arrays.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 1.1.1 - 2018-08-29
 
 ### Added

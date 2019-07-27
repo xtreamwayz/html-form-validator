@@ -330,6 +330,16 @@ Resources:
 <input type="checkbox" name="checkbox" value="value" />
 ```
 
+Input arrays are supported. The following will return an array `['cars'=>['audi', 'bmw']]`.
+
+```html
+<form action="/" method="post">
+    <input type="checkbox" name="cars[]" value="audi" checked />
+    <input type="checkbox" name="cars[]" value="bmw" checked />
+    <input type="checkbox" name="cars[]" value="volkswagen" />
+</form>
+```
+
 Resources:
 [whatwg](https://html.spec.whatwg.org/multipage/forms.html#checkbox-state-(type=checkbox))
 
