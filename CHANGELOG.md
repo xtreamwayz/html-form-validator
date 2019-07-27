@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.2.1 - TBD
+
+### Fixed
+
+- Merged PR [#77](https://github.com/xtreamwayz/html-form-validator/pull/77)!!!
+
 ## 1.2.0 - 2019-07-27
 
 ### Added
