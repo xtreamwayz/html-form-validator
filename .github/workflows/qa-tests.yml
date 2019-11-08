@@ -1,0 +1,42 @@
+name: qa-tests
+
+on: [push, pull_request]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ['7.1', '7.2', '7.3']
+    name: PHP ${{ matrix.php-versions }} Test
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Setup PHP
+      uses: shivammathur/setup-php@master
+      with:
+        php-version: ${{ matrix.php-versions }}
+        coverage: xdebug #optional, setup coverage driver
+    - name: Check PHP Version
+      run: php -v
+    - name: Check Composer Version
+      run: composer -V
+    - name: Check PHP Extensions
+      run: php -m
+    - name: Set composer cache dir
+      id: composer-cache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+    - name: Cache composer
+      uses: actions/cache@v1
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: composer-
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+    - name: Install dependencies
+      run: composer install --no-interaction --no-suggest --no-progress --prefer-dist
+    - name: Run test suite
+      run: composer run-script test
+    - name: Run coding style check
+      run: composer run-script cs-check
