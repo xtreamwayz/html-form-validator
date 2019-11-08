@@ -1,4 +1,36 @@
+---
+title: "API form elements"
+type: "project"
+layout: "page"
+project: "html-form-validator"
+version: "1.0"
+---
+
 The form validator detects HTML5 form elements and adds default validators depending on the used attributes.
+Standard validation rules are added for you so you don't need to repeat those over and over again. And then
+there are the special attributes with trigger standard validation:
+- [[max|API Attributes#max]]
+- [[min|API Attributes#min]]
+- [[step|API Attributes#step]]
+- [[maxlength|API Attributes#maxlength]]
+- [[minlength|API Attributes#minlength]]
+- [[multiple|API Attributes#multiple]]
+- [[pattern|API Attributes#pattern]]
+- [[required|API Attributes#required]], [[aria-required|API Attributes#aria-required]]
+
+And if you need more validation or specific filters there is a [[data-filters|API Attributes#data-filters]] and
+[[data-validators|API Attributes#data-validators]] attribute.
+
+A full blown text input might look like:
+
+```html
+<input type="text" id="username" name="username" required
+       placeholder="Your username" class="form-control"
+       pattern="[a-z]{2,}" minlength="2" maxlength="16"
+       data-reuse-submitted-value="true"
+       data-filters="striptags|stringtrim"
+       data-validators="" />
+```
 
 ## The input element
 

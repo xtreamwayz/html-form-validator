@@ -1,3 +1,11 @@
+---
+title: "API attributes"
+type: "project"
+layout: "page"
+project: "html-form-validator"
+version: "1.0"
+---
+
 ## Special Attributes
 
 ### name and data-input-name
