@@ -1,9 +1,9 @@
 ---
-title: "Example: Expressive action"
-type: "project"
-layout: "page"
-project: "html-form-validator"
-version: "1.0"
+title: Example Expressive action
+type: project
+layout: page
+project: html-form-validator
+version: v1
 ---
 
 Let's take the contact form as an example and use it in a zend-expressive application with Twig as a renderer. The

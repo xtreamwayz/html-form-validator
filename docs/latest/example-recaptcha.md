@@ -1,9 +1,9 @@
 ---
-title: "Example: Recaptcha"
-type: "project"
-layout: "page"
-project: "html-form-validator"
-version: "1.0"
+title: Example Recaptcha
+type: project
+layout: page
+project: html-form-validator
+version: v1
 ---
 
 Sometimes you need to validate javascript generated from fields. This is easy with the `data-input-name` and

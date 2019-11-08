@@ -1,9 +1,9 @@
 ---
-title: "API form elements"
-type: "project"
-layout: "page"
-project: "html-form-validator"
-version: "1.0"
+title: API form elements
+type: project
+layout: page
+project: html-form-validator
+version: v1
 ---
 
 The form validator detects HTML5 form elements and adds default validators depending on the used attributes.

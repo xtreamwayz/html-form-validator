@@ -1,9 +1,9 @@
 ---
-title: "Example: Symfony action"
-type: "project"
-layout: "page"
-project: "html-form-validator"
-version: "1.0"
+title: Example Symfony action
+type: project
+layout: page
+project: html-form-validator
+version: v1
 ---
 
 Symfony forms can be a real pain to design and even worse to debug. Luckily you are not bound to use Symfony forms and

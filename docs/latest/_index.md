@@ -1,9 +1,9 @@
 ---
-title: "Getting started"
-type: "project"
-layout: "page"
-project: "html-form-validator"
-version: "1.0"
+title: Getting started
+type: project
+layout: page
+project: html-form-validator
+version: v1
 ---
 
 As challenged by a [tweet](https://twitter.com/Ocramius/status/680817040429592576), this library extracts validation

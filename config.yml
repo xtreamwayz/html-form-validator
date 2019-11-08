@@ -1,6 +1,6 @@
 params:
   html-form-validator:
-    name: "html-form-validator"
-    latest: "1.0"
-    develop:
+    name: html-form-validator
+    latest: v1
     versions:
+      - v1

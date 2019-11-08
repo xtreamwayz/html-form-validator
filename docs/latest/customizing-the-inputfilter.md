@@ -1,9 +1,9 @@
 ---
-title: "Customizing the InputFilter"
-type: "project"
-layout: "page"
-project: "html-form-validator"
-version: "1.0"
+title: Customizing the InputFilter
+type: project
+layout: page
+project: html-form-validator
+version: v1
 ---
 
 ## Setting a default InputFilter Factory

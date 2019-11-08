@@ -1,9 +1,9 @@
 ---
-title: "Known issues"
-type: "project"
-layout: "page"
-project: "html-form-validator"
-version: "1.0"
+title: Known issues
+type: project
+layout: page
+project: html-form-validator
+version: v1
 ---
 
 ## The form doesn't render all elements

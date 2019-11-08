@@ -1,9 +1,9 @@
 ---
-title: "API attributes"
-type: "project"
-layout: "page"
-project: "html-form-validator"
-version: "1.0"
+title: API attributes
+type: project
+layout: page
+project: html-form-validator
+version: v1
 ---
 
 ## Special Attributes

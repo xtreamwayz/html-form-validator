@@ -1,8 +1,8 @@
 ---
-title: "xtreamwayz/html-form-validator"
-type: "project"
-layout: "landingpage"
-project: "html-form-validator"
+title: xtreamwayz/html-form-validator
+type: project
+layout: landingpage
+project: html-form-validator
 ---
 
 As challenged by a [tweet](https://twitter.com/Ocramius/status/680817040429592576), this library extracts validation
