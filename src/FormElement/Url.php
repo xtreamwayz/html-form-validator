@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Filter\StripNewlines as StripNewlinesFilter;
-use Zend\Validator\Regex as RegexValidator;
-use Zend\Validator\StringLength as StringLengthValidator;
-use Zend\Validator\Uri as UriValidator;
+use Laminas\Filter\StripNewlines as StripNewlinesFilter;
+use Laminas\Validator\Regex as RegexValidator;
+use Laminas\Validator\StringLength as StringLengthValidator;
+use Laminas\Validator\Uri as UriValidator;
 use function sprintf;
 
 class Url extends BaseFormElement

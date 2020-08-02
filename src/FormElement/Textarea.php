@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Validator\StringLength as StringLengthValidator;
+use Laminas\Validator\StringLength as StringLengthValidator;
 
 class Textarea extends BaseFormElement
 {

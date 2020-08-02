@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Filter\StripNewlines as StripNewlinesFilter;
-use Zend\I18n\Validator\PhoneNumber as PhoneNumberValidator;
-use Zend\Validator\Regex as RegexValidator;
-use Zend\Validator\StringLength as StringLengthValidator;
+use Laminas\Filter\StripNewlines as StripNewlinesFilter;
+use Laminas\I18n\Validator\PhoneNumber as PhoneNumberValidator;
+use Laminas\Validator\Regex as RegexValidator;
+use Laminas\Validator\StringLength as StringLengthValidator;
 use function sprintf;
 
 class Tel extends BaseFormElement

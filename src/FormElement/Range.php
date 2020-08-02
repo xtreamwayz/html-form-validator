@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use Xtreamwayz\HTMLFormValidator\FormElement\Number as NumberElement;
-use Zend\I18n\Validator\IsFloat as NumberValidator;
+use Laminas\I18n\Validator\IsFloat as NumberValidator;
 
 class Range extends NumberElement
 {

@@ -27,7 +27,7 @@ interface ValidationResultInterface
     /**
      * Add custom validation messages
      *
-     * Must have the same format as zend-validator messages:
+     * Must have the same format as laminas-validator messages:
      *
      *  [
      *      '<field>' => [

@@ -7,8 +7,8 @@ namespace XtreamwayzTest\HTMLFormValidator;
 use PHPUnit\Framework\TestCase;
 use Xtreamwayz\HTMLFormValidator\InputFilterFactory;
 use Xtreamwayz\HTMLFormValidator\Validator\RecaptchaValidator;
-use Zend\InputFilter\Factory;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\InputFilter\Factory;
+use Laminas\ServiceManager\ServiceManager;
 
 class InputFilterFactoryTest extends TestCase
 {
@@ -18,7 +18,7 @@ class InputFilterFactoryTest extends TestCase
 
         if ($useConfig === true) {
             $config = [
-                'zend-inputfilter' => [
+                'laminas-inputfilter' => [
                     'validators' => [
                         // Attach custom validators or override standard validators
                         'invokables' => [

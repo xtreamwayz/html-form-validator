@@ -33,8 +33,8 @@ outside the first form element is ignored.
 $form = (new FormFactory())->fromHtml($htmlForm, $defaultValues);
 ```
 
-- The FormFactory creates and returns a Form instance with a new `Zend\InputFilter\Factory` and
-    `Zend\InputFilter\InputFilter`.
+- The FormFactory creates and returns a Form instance with a new `Laminas\InputFilter\Factory` and
+  `Laminas\InputFilter\InputFilter`.
 - The Form automatically creates default validators and filters for all input elements.
 - The Form extracts additional custom validation rules and filters from the form.
 - The Form optionally injects default data into the form input elements.
@@ -49,9 +49,9 @@ The easiest way is to use a framework that uses [PSR-7 requests](http://www.php-
 $validationResult = $form->validateRequest($request);
 ```
 
-Under the hood it uses [zend-inputfilter](https://docs.zendframework.com/zend-inputfilter/)
-which makes all its [validators](https://docs.zendframework.com/zend-validator/set/) and
-[filters](https://docs.zendframework.com/zend-filter/standard-filters/) available to you.
+Under the hood it uses [laminas-inputfilter](https://docs.laminas.dev/laminas-inputfilter/)
+which makes all its [validators](https://docs.laminas.dev/laminas-validator/set/) and
+[filters](https://docs.laminas.dev/laminas-filter/standard-filters/) available to you.
 
 If you use a framework that doesn't handle PSR-7 requests, you can still reduce boilerplate
 code by passing the request method yourself:
@@ -113,6 +113,7 @@ Before rendering, the FormFactory removes any data validation attributes used to
 the validators.
 
 The `$validationResult` is optional and triggers the following tasks:
+
 - The FormFactory injects filtered submitted data into the input elements.
 - The FormFactory adds error messages next to the input elements.
 - The FormFactory sets the `aria-invalid="true"` attribute for invalid input elements.
@@ -124,8 +125,8 @@ Who doesn't want to know which button is clicked? For this to work the submit bu
 
 ```html
 <form>
-    <input type="submit" name="confirm" value="Confirm" />
-    <button type="submit" name="cancel">Cancel</button>
+  <input type="submit" name="confirm" value="Confirm" />
+  <button type="submit" name="cancel">Cancel</button>
 </form>
 ```
 

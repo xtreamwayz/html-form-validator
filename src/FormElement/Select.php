@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Validator\Explode as ExplodeValidator;
-use Zend\Validator\InArray as InArrayValidator;
+use Laminas\Validator\Explode as ExplodeValidator;
+use Laminas\Validator\InArray as InArrayValidator;
 
 class Select extends BaseFormElement
 {

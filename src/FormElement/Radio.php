@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Validator\InArray as InArrayValidator;
+use Laminas\Validator\InArray as InArrayValidator;
 
 class Radio extends BaseFormElement
 {

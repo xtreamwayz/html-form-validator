@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Xtreamwayz\HTMLFormValidator;
 
 use Psr\Container\ContainerInterface;
-use Zend\InputFilter\Factory;
+use Laminas\InputFilter\Factory;
 
 class FormFactoryFactory
 {

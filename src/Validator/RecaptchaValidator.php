@@ -6,7 +6,7 @@ namespace Xtreamwayz\HTMLFormValidator\Validator;
 
 use InvalidArgumentException;
 use Traversable;
-use Zend\Validator\AbstractValidator;
+use Laminas\Validator\AbstractValidator;
 use function array_key_exists;
 use function file_get_contents;
 use function is_array;

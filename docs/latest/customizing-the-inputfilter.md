@@ -8,12 +8,12 @@ version: v1
 
 ## Setting a default InputFilter Factory
 
-Sometimes you need custom filters or validators. To register those, a `Zend\InputFilter\Factory` can be used and
+Sometimes you need custom filters or validators. To register those, a `Laminas\InputFilter\Factory` can be used and
 injected into the FormFactory. Or use the included `InputFilterFactory` to set this up for you from this config:
 
 ```php
 return = [
-    'zend-inputfilter' => [
+    'laminas-inputfilter' => [
         'validators' => [
             // Attach custom validators or override standard validators
             'invokables' => [
@@ -31,7 +31,7 @@ return = [
 ## Re-usable InputFilters
 
 Still want to use a html form instead of generating it with complicated classes, but you want to reuse the validation
-part? We got you covered. The `FormFactory` and `Form` accepts `Zend\InputFilter\InputFilterInterface`s so they can be
+part? We got you covered. The `FormFactory` and `Form` accepts `Laminas\InputFilter\InputFilterInterface`s so they can be
 re-used everywhere in your app. The `Form` only creates new filters and validators for named input elements that do not
 exist yet in the injected InputFilter.
 
@@ -42,12 +42,12 @@ $form = (new FormFactory())->fromHtml($htmlForm, $defaultValues, $userInputFilte
 ## Custom Validators and Filters
 
 Setting up custom validators and filters is a bit more work but it isn't complicated. Instead of creating the
-FormFactory with its static `fromHtml` method, the constructor is needed with a configured `Zend\InputFilter\Factory`
+FormFactory with its static `fromHtml` method, the constructor is needed with a configured `Laminas\InputFilter\Factory`
 and a `Psr\Container\ContainerInterface`.
 
 ```php
 $config = [
-    'zend-inputfilter' => [
+    'laminas-inputfilter' => [
         'validators' => [
             // Attach custom validators or override standard validators
             'invokables' => [
@@ -63,7 +63,7 @@ $config = [
 ];
 
 // Create a container-interop compatible container with the custom validator configuration
-$container = new Zend\ServiceManager\ServiceManager($dependencies);
+$container = new Laminas\ServiceManager\ServiceManager($dependencies);
 $container->setService('config', $config);
 
 // Use the InputFilterFactory to do all the work for you

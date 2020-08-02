@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Validator\Identical as IdenticalValidator;
+use Laminas\Validator\Identical as IdenticalValidator;
 
 class Checkbox extends BaseFormElement
 {

@@ -6,45 +6,77 @@ project: html-form-validator
 version: v1
 ---
 
-Let's take the contact form as an example and use it in a zend-expressive application with Twig as a renderer. The
+Let's take the contact form as an example and use it in a laminas-expressive application with Twig as a renderer. The
 form is pretty basic and has extra StringTrim and StripTags filters for the name and subject input fields. It also
 has csrf protection with a hidden token which is validated with the identical validator.
 
 ```html
 <!-- // templates/app/contact-form.html.twig -->
 <form action="{{ path() }}" method="post">
-    <div class="form-group">
-        <label class="form-control-label" for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Your name" required
-               data-reuse-submitted-value="true" data-filters="stringtrim|striptags"
-               class="form-control" />
-    </div>
+  <div class="form-group">
+    <label class="form-control-label" for="name">Name</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      placeholder="Your name"
+      required
+      data-reuse-submitted-value="true"
+      data-filters="stringtrim|striptags"
+      class="form-control"
+    />
+  </div>
 
-    <div class="form-group">
-        <label class="form-control-label" for="email">Email address</label>
-        <input type="email" id="email" name="email" placeholder="Your email address"
-               data-reuse-submitted-value="true" required
-               class="form-control" />
-    </div>
+  <div class="form-group">
+    <label class="form-control-label" for="email">Email address</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      placeholder="Your email address"
+      data-reuse-submitted-value="true"
+      required
+      class="form-control"
+    />
+  </div>
 
-    <div class="form-group">
-        <label class="form-control-label" for="subject">Subject</label>
-        <input type="text" id="subject" name="subject" placeholder="Subject" required
-               data-reuse-submitted-value="true" data-filters="stringtrim|striptags"
-               class="form-control" />
-    </div>
+  <div class="form-group">
+    <label class="form-control-label" for="subject">Subject</label>
+    <input
+      type="text"
+      id="subject"
+      name="subject"
+      placeholder="Subject"
+      required
+      data-reuse-submitted-value="true"
+      data-filters="stringtrim|striptags"
+      class="form-control"
+    />
+  </div>
 
-    <div class="form-group">
-        <label class="form-control-label" for="body">Message</label>
-        <textarea id="body" name="body" rows="5" required
-                  data-reuse-submitted-value="true"
-                  class="form-control" placeholder="Message"></textarea>
-    </div>
+  <div class="form-group">
+    <label class="form-control-label" for="body">Message</label>
+    <textarea
+      id="body"
+      name="body"
+      rows="5"
+      required
+      data-reuse-submitted-value="true"
+      class="form-control"
+      placeholder="Message"
+    ></textarea>
+  </div>
 
-    <!-- csrf protection -->
-    <input type="hidden" name="token" value="{{ token }}" data-validators="identical{token:{{ token }}" required />
+  <!-- csrf protection -->
+  <input
+    type="hidden"
+    name="token"
+    value="{{ token }}"
+    data-validators="identical{token:{{ token }}"
+    required
+  />
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 ```
 
@@ -59,9 +91,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use PSR7Session\Http\SessionMiddleware;
 use Xtreamwayz\HTMLFormValidator\FormFactory;
-use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Diactoros\Response\RedirectResponse;
-use Zend\Expressive\Template\TemplateRendererInterface;
+use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
+use Laminas\Expressive\Template\TemplateRendererInterface;
 
 class ContactAction
 {

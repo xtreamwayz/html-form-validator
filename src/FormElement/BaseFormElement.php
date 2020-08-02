@@ -7,7 +7,7 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 use DOMDocument;
 use DOMElement;
 use Generator;
-use Zend\InputFilter\InputProviderInterface;
+use Laminas\InputFilter\InputProviderInterface;
 use const PREG_SET_ORDER;
 use function explode;
 use function preg_match_all;
@@ -29,7 +29,7 @@ class BaseFormElement implements InputProviderInterface
 
     /**
      * Should return an array specification compatible with
-     * {@link Zend\InputFilter\Factory::createInput()}.
+     * {@link Laminas\InputFilter\Factory::createInput()}.
      *
      * @return array
      */
