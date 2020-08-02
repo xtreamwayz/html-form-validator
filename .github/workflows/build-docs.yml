@@ -1,17 +1,22 @@
 name: build-docs
 
 on:
+  milestone:
+    types:
+      - "closed"
+    paths:
+      - "docs/**"
   push:
     branches:
-      - master
+      - "master"
     paths:
-    - "docs/**"
+      - "docs/**"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Trigger build webhook on Netlify
-      run: curl -s -X POST "https://api.netlify.com/build_hooks/${TOKEN}"
-      env:
-        TOKEN: ${{ secrets.NETLIFY_DOCS_BUILD_HOOK }}
+      - name: Trigger build webhook on Netlify
+        run: curl -s -X POST "https://api.netlify.com/build_hooks/${TOKEN}"
+        env:
+          TOKEN: ${{ secrets.NETLIFY_DOCS_BUILD_HOOK }}
