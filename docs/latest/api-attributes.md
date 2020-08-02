@@ -22,13 +22,18 @@ The name is required to link validation messages and request data.
 Reuse the submitted value and inject it as a value.
 
 ```html
-<input type="text" name="username" data-reuse-submitted-value="true" value="xtreamwayz" />
+<input
+  type="text"
+  name="username"
+  data-reuse-submitted-value="true"
+  value="xtreamwayz"
+/>
 ```
 
 ### data-filters
 
 Apply filters to the submitted value. Multiple
-[standard filters](http://framework.zend.com/manual/current/en/modules/zend.filter.set.html)
+[standard filters](https://docs.laminas.dev/laminas-filter/standard-filters/)
 can be used, separated by a vertical bar. Options can be set with `{key:value,min:2,max:140}`.
 The attribute will be removed before rendering the form, including any sensitive options.
 
@@ -39,13 +44,17 @@ The attribute will be removed before rendering the form, including any sensitive
 ### data-validators
 
 Add extra validators. Multiple
-[standard validators](http://framework.zend.com/manual/current/en/modules/zend.validator.set.html)
+[standard validators](https://docs.laminas.dev/laminas-validator/standard-filters/)
 can be used, separated by a vertical bar. Options can be set with `{key:value,min:2,max:140}`.
 The attribute will be removed before rendering the form, including any sensitive options.
 
 ```html
-<input type="text" name="username" value=""
-       data-validators="stringlength{min:2,max:140}|validator{key:val,foo:bar}|notempty" />
+<input
+  type="text"
+  name="username"
+  value=""
+  data-validators="stringlength{min:2,max:140}|validator{key:val,foo:bar}|notempty"
+/>
 ```
 
 ### checked
@@ -75,11 +84,11 @@ element.
 ```html
 <input type="text" name="browser" list="browsers" />
 <datalist id="browsers">
-    <option value="Edge" />
-    <option value="Firefox" />
-    <option value="Chrome" />
-    <option value="Opera" />
-    <option value="Safari" />
+  <option value="Edge" />
+  <option value="Firefox" />
+  <option value="Chrome" />
+  <option value="Opera" />
+  <option value="Safari" />
 </datalist>
 ```
 
@@ -136,6 +145,7 @@ The readonly attribute is a boolean attribute that controls whether or not the u
 specified, the element is not mutable.
 
 ### required
+
 ### aria-required
 
 The required attribute is a boolean attribute. When specified, the element is required.

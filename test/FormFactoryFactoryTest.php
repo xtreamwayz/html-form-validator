@@ -9,7 +9,7 @@ use Prophecy\Prophecy\ProphecyInterface;
 use Psr\Container\ContainerInterface;
 use Xtreamwayz\HTMLFormValidator\FormFactoryFactory;
 use Xtreamwayz\HTMLFormValidator\FormFactoryInterface;
-use Zend\InputFilter\Factory;
+use Laminas\InputFilter\Factory;
 
 class FormFactoryFactoryTest extends TestCase
 {

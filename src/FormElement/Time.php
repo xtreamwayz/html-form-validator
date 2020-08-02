@@ -6,7 +6,7 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DateInterval;
 use Xtreamwayz\HTMLFormValidator\FormElement\DateTime as DateTimeElement;
-use Zend\Validator\DateStep as DateStepValidator;
+use Laminas\Validator\DateStep as DateStepValidator;
 use function date;
 use function sprintf;
 

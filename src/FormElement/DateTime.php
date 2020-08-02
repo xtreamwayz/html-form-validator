@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DateInterval;
-use Zend\Validator\Date as DateValidator;
-use Zend\Validator\DateStep as DateStepValidator;
-use Zend\Validator\GreaterThan as GreaterThanValidator;
-use Zend\Validator\LessThan as LessThanValidator;
+use Laminas\Validator\Date as DateValidator;
+use Laminas\Validator\DateStep as DateStepValidator;
+use Laminas\Validator\GreaterThan as GreaterThanValidator;
+use Laminas\Validator\LessThan as LessThanValidator;
 use function date;
 use function sprintf;
 

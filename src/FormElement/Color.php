@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Filter\StringToLower as StringToLowerFilter;
-use Zend\Validator\Regex as RegexValidator;
+use Laminas\Filter\StringToLower as StringToLowerFilter;
+use Laminas\Validator\Regex as RegexValidator;
 
 class Color extends BaseFormElement
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Filter\StripNewlines as StripNewlinesFilter;
-use Zend\Validator\Regex as RegexValidator;
-use Zend\Validator\StringLength as StringLengthValidator;
+use Laminas\Filter\StripNewlines as StripNewlinesFilter;
+use Laminas\Validator\Regex as RegexValidator;
+use Laminas\Validator\StringLength as StringLengthValidator;
 use function sprintf;
 
 class Text extends BaseFormElement

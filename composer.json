@@ -1,70 +1,70 @@
 {
-    "name": "xtreamwayz/html-form-validator",
-    "type": "project",
-    "description": "A library validating and filtering submitted data by reusing html form attributes",
-    "homepage": "https://github.com/xtreamwayz/html-form-validator",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Geert Eltink",
-            "homepage": "https://xtreamwayz.com/"
-        }
-    ],
-    "require": {
-        "php": "^7.1",
-        "ext-dom": "*",
-        "ext-libxml": "*",
-        "psr/container": "^1.0",
-        "psr/http-message": "^1.0",
-        "zendframework/zend-filter": "^2.7.2",
-        "zendframework/zend-i18n": "^2.7",
-        "zendframework/zend-inputfilter": "^2.8.1",
-        "zendframework/zend-servicemanager": "^3.0",
-        "zendframework/zend-stdlib": "^3.0",
-        "zendframework/zend-uri": "^2.5",
-        "zendframework/zend-validator": "^2.10.2"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^7.0",
-        "squizlabs/php_codesniffer": "^3.0",
-        "phpstan/phpstan": "^0.10"
-    },
-    "suggest": {
-        "zendframework/zend-servicemanager": "To support third-party validators and filters"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.3.x-dev"
-        },
-        "zf": {
-            "config-provider": "Xtreamwayz\\HTMLFormValidator\\ConfigProvider"
-        }
-    },
-    "autoload": {
-        "psr-4": {
-            "Xtreamwayz\\HTMLFormValidator\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "XtreamwayzTest\\HTMLFormValidator\\": "test/"
-        }
-    },
-    "scripts": {
-        "analyse": "phpstan analyse --level=0 src test",
-        "analyse-strict": "phpstan analyse -l 7 src",
-        "check": [
-            "@cs-check",
-            "@test",
-            "@analyse"
-        ],
-        "cs-check": "phpcs",
-        "cs-fix": "phpcbf",
-        "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
-    },
-    "support": {
-        "issues": "https://github.com/xtreamwayz/html-form-validator/issues",
-        "wiki": "https://github.com/xtreamwayz/html-form-validator/wiki"
+  "name": "xtreamwayz/html-form-validator",
+  "type": "project",
+  "description": "A library validating and filtering submitted data by reusing html form attributes",
+  "homepage": "https://github.com/xtreamwayz/html-form-validator",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Geert Eltink",
+      "homepage": "https://xtreamwayz.netlify.app/"
     }
+  ],
+  "require": {
+    "php": "^7.1",
+    "ext-dom": "*",
+    "ext-libxml": "*",
+    "psr/container": "^1.0",
+    "psr/http-message": "^1.0",
+    "laminas/laminas-filter": "^2.7.2",
+    "laminas/laminas-i18n": "^2.7",
+    "laminas/laminas-inputfilter": "^2.8.1",
+    "laminas/laminas-servicemanager": "^3.0",
+    "laminas/laminas-stdlib": "^3.0",
+    "laminas/laminas-uri": "^2.5",
+    "laminas/laminas-validator": "^2.10.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.0",
+    "squizlabs/php_codesniffer": "^3.0",
+    "phpstan/phpstan": "^0.10"
+  },
+  "suggest": {
+    "laminas/laminas-servicemanager": "To support third-party validators and filters"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.3.x-dev"
+    },
+    "zf": {
+      "config-provider": "Xtreamwayz\\HTMLFormValidator\\ConfigProvider"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Xtreamwayz\\HTMLFormValidator\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "XtreamwayzTest\\HTMLFormValidator\\": "test/"
+    }
+  },
+  "scripts": {
+    "analyse": "phpstan analyse --level=0 src test",
+    "analyse-strict": "phpstan analyse -l 7 src",
+    "check": [
+      "@cs-check",
+      "@test",
+      "@analyse"
+    ],
+    "cs-check": "phpcs",
+    "cs-fix": "phpcbf",
+    "test": "phpunit --colors=always",
+    "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+  },
+  "support": {
+    "issues": "https://github.com/xtreamwayz/html-form-validator/issues",
+    "wiki": "https://github.com/xtreamwayz/html-form-validator/wiki"
+  }
 }

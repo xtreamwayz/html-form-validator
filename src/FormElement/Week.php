@@ -6,8 +6,8 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DateInterval;
 use Xtreamwayz\HTMLFormValidator\FormElement\DateTime as DateTimeElement;
-use Zend\Validator\DateStep as DateStepValidator;
-use Zend\Validator\Regex as RegexValidator;
+use Laminas\Validator\DateStep as DateStepValidator;
+use Laminas\Validator\Regex as RegexValidator;
 use function sprintf;
 
 class Week extends DateTimeElement

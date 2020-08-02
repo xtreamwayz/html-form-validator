@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Filter\StringTrim as StringTrimFilter;
-use Zend\Filter\StripNewlines as StripNewlinesFilter;
-use Zend\Validator\EmailAddress as EmailAddressValidator;
-use Zend\Validator\Explode as ExplodeValidator;
-use Zend\Validator\Regex as RegexValidator;
-use Zend\Validator\StringLength as StringLengthValidator;
+use Laminas\Filter\StringTrim as StringTrimFilter;
+use Laminas\Filter\StripNewlines as StripNewlinesFilter;
+use Laminas\Validator\EmailAddress as EmailAddressValidator;
+use Laminas\Validator\Explode as ExplodeValidator;
+use Laminas\Validator\Regex as RegexValidator;
+use Laminas\Validator\StringLength as StringLengthValidator;
 use const FILTER_VALIDATE_BOOLEAN;
 use function filter_var;
 use function sprintf;

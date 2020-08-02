@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\Validator\GreaterThan as GreaterThanValidator;
-use Zend\Validator\LessThan as LessThanValidator;
-use Zend\Validator\Regex as RegexValidator;
-use Zend\Validator\Step as StepValidator;
+use Laminas\Validator\GreaterThan as GreaterThanValidator;
+use Laminas\Validator\LessThan as LessThanValidator;
+use Laminas\Validator\Regex as RegexValidator;
+use Laminas\Validator\Step as StepValidator;
 
 class Number extends BaseFormElement
 {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Xtreamwayz\HTMLFormValidator;
 
 use Psr\Http\Message\StreamInterface;
-use Zend\InputFilter\InputFilterInterface;
+use Laminas\InputFilter\InputFilterInterface;
 
 interface FormFactoryInterface
 {

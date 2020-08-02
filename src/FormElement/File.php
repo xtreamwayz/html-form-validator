@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Zend\InputFilter\FileInput;
-use Zend\Validator\File\MimeType as MimeTypeValidator;
+use Laminas\InputFilter\FileInput;
+use Laminas\Validator\File\MimeType as MimeTypeValidator;
 
 class File extends BaseFormElement
 {

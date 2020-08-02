@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Xtreamwayz\HTMLFormValidator;
 
 use Psr\Container\ContainerInterface;
-use Zend\Filter\FilterPluginManager;
-use Zend\InputFilter\Factory;
-use Zend\InputFilter\InputFilterPluginManager;
-use Zend\Validator\ValidatorPluginManager;
+use Laminas\Filter\FilterPluginManager;
+use Laminas\InputFilter\Factory;
+use Laminas\InputFilter\InputFilterPluginManager;
+use Laminas\Validator\ValidatorPluginManager;
 
 class InputFilterFactory
 {
     public function __invoke(ContainerInterface $container) : Factory
     {
-        $config     = $container->get('config')['zend-inputfilter'] ?? [];
+        $config     = $container->get('config')['laminas-inputfilter'] ?? [];
         $filters    = $config['filters'] ?? [];
         $validators = $config['validators'] ?? [];
 

@@ -10,8 +10,8 @@ use Xtreamwayz\HTMLFormValidator\Form;
 use Xtreamwayz\HTMLFormValidator\FormFactory;
 use Xtreamwayz\HTMLFormValidator\FormFactoryInterface;
 use Xtreamwayz\HTMLFormValidator\FormInterface;
-use Zend\InputFilter\Factory;
-use Zend\InputFilter\InputFilterInterface;
+use Laminas\InputFilter\Factory;
+use Laminas\InputFilter\InputFilterInterface;
 
 class FormFactoryTest extends TestCase
 {

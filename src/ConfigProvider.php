@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator;
 
-use Zend\InputFilter\Factory;
+use Laminas\InputFilter\Factory;
 
 class ConfigProvider
 {

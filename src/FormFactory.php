@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Xtreamwayz\HTMLFormValidator;
 
 use DOMDocument;
-use Zend\InputFilter\Factory;
-use Zend\InputFilter\InputFilterInterface;
+use Laminas\InputFilter\Factory;
+use Laminas\InputFilter\InputFilterInterface;
 use const LIBXML_HTML_NODEFDTD;
 use const LIBXML_HTML_NOIMPLIED;
 use function libxml_use_internal_errors;
