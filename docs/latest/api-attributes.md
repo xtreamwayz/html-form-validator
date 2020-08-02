@@ -33,7 +33,7 @@ Reuse the submitted value and inject it as a value.
 ### data-filters
 
 Apply filters to the submitted value. Multiple
-[standard filters](http://framework.laminas.com/manual/current/en/modules/laminas.filter.set.html)
+[standard filters](https://docs.laminas.dev/laminas-filter/standard-filters/)
 can be used, separated by a vertical bar. Options can be set with `{key:value,min:2,max:140}`.
 The attribute will be removed before rendering the form, including any sensitive options.
 
@@ -44,7 +44,7 @@ The attribute will be removed before rendering the form, including any sensitive
 ### data-validators
 
 Add extra validators. Multiple
-[standard validators](http://framework.laminas.com/manual/current/en/modules/laminas.validator.set.html)
+[standard validators](https://docs.laminas.dev/laminas-validator/standard-filters/)
 can be used, separated by a vertical bar. Options can be set with `{key:value,min:2,max:140}`.
 The attribute will be removed before rendering the form, including any sensitive options.
 
