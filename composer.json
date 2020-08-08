@@ -33,7 +33,7 @@
     "laminas/laminas-servicemanager": "To support third-party validators and filters"
   },
   "extra": {
-    "zf": {
+    "laminas": {
       "config-provider": "Xtreamwayz\\HTMLFormValidator\\ConfigProvider"
     }
   },
