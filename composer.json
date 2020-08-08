@@ -36,7 +36,7 @@
     "branch-alias": {
       "dev-master": "1.3.x-dev"
     },
-    "zf": {
+    "laminas": {
       "config-provider": "Xtreamwayz\\HTMLFormValidator\\ConfigProvider"
     }
   },
