@@ -1,7 +1,10 @@
 # html-form-validator
 
-[![Docs Status](https://github.com/xtreamwayz/html-form-validator/workflows/build-docs/badge.svg)](https://github.com/xtreamwayz/html-form-validator/actions)
-[![Build Status](https://github.com/xtreamwayz/html-form-validator/workflows/qa-tests/badge.svg)](https://github.com/xtreamwayz/html-form-validator/actions)
+[![PHPUnit tests](https://github.com/xtreamwayz/html-form-validator/workflows/PHPUnit%20tests/badge.svg)](https://github.com/xtreamwayz/html-form-validator/actions)
+[![Check Coding Standards](https://github.com/xtreamwayz/html-form-validator/workflows/Check%20Coding%20Standards/badge.svg)](https://github.com/xtreamwayz/html-form-validator/actions)
+[![Static Analysis](https://github.com/xtreamwayz/html-form-validator/workflows/Static%20Analysis/badge.svg)](https://github.com/xtreamwayz/html-form-validator/actions)
+[![Automatic Releases](https://github.com/xtreamwayz/html-form-validator/workflows/Automatic%20Releases/badge.svg)](https://github.com/xtreamwayz/html-form-validator/actions)
+[![Publish Docs](https://github.com/xtreamwayz/html-form-validator/workflows/Publish%20Docs/badge.svg)](https://github.com/xtreamwayz/html-form-validator/actions)
 [![Downloads](https://img.shields.io/packagist/dt/xtreamwayz/html-form-validator.svg)](https://packagist.org/packages/xtreamwayz/html-form-validator)
 [![Packagist](https://img.shields.io/packagist/v/xtreamwayz/html-form-validator.svg)](https://packagist.org/packages/xtreamwayz/html-form-validator)
 

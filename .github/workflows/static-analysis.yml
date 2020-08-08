@@ -53,5 +53,5 @@ jobs:
         if: ${{ matrix.dependencies == 'locked' }}
         run: "composer install --no-interaction --no-progress --no-suggest"
 
-      - name: "psalm"
+      - name: "Rub static analysis"
         run: "vendor/bin/phpstan analyse --level=0 src test"
