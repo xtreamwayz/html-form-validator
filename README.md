@@ -26,7 +26,7 @@ $ composer require xtreamwayz/html-form-validator
 
 All project documentation is located in the [./docs](./docs) folder. If you would like to contribute
 to the documentation, please submit a pull request. You can read the docs online:
-https://xtreamwayz.netlify.app/html-form-validator/
+https://xtreamwayz.github.io/html-form-validator/
 
 ## Contributing
 
