@@ -1,0 +1,28 @@
+ci:
+  - .github/*
+  - .github/**/*
+  - .circleci/*
+  - .circleci/**/*
+  - .travis.yml
+
+build:
+  - composer.json
+  - composer.lock
+  - package-lock.json
+  - package.json
+  - yarn.lock
+
+docs:
+  - docs/*
+  - docs/**/*
+
+feat:
+  - src/*
+  - src/**/*
+
+test:
+  - phpunit.*
+  - test/*
+  - test/**/*
+  - tests/*
+  - tests/**/*
