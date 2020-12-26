@@ -10,9 +10,12 @@ use Psr\Container\ContainerInterface;
 use Xtreamwayz\HTMLFormValidator\FormFactoryFactory;
 use Xtreamwayz\HTMLFormValidator\FormFactoryInterface;
 use Laminas\InputFilter\Factory;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class FormFactoryFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @var ContainerInterface|ProphecyInterface */
     private $container;
 
