@@ -7,12 +7,15 @@ namespace XtreamwayzTest\HTMLFormValidator\FormElement;
 use DOMDocument;
 use DOMElement;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use ReflectionMethod;
 use Xtreamwayz\HTMLFormValidator\FormElement\Text;
 use function iterator_to_array;
 
 class BaseFormElementTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function dataAttributesProvider()
     {
         return [

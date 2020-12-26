@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace XtreamwayzTest\HTMLFormValidator;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Message\ServerRequestInterface;
 use Xtreamwayz\HTMLFormValidator\FormFactory;
 use Xtreamwayz\HTMLFormValidator\ValidationResult;
@@ -15,6 +16,8 @@ use const LIBXML_NOBLANKS;
 
 class FormElementArraytest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testCheckboxArrayIsValid() : void
     {
         $html = '

@@ -12,9 +12,12 @@ use Xtreamwayz\HTMLFormValidator\FormFactoryInterface;
 use Xtreamwayz\HTMLFormValidator\FormInterface;
 use Laminas\InputFilter\Factory;
 use Laminas\InputFilter\InputFilterInterface;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class FormFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testConstructorWithNoArguments() : void
     {
         $formFactory = new FormFactory();

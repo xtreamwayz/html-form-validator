@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace XtreamwayzTest\HTMLFormValidator;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Message\ServerRequestInterface;
 use Xtreamwayz\HTMLFormValidator\FormFactory;
 use Xtreamwayz\HTMLFormValidator\ValidationResult;
 
 class FormTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $rawValues = [
         'foo' => 'bar',
         'baz' => ' qux ',
@@ -104,8 +107,8 @@ class FormTest extends TestCase
             'baz' => 'qux',
         ]);
 
-        self::assertContains('<input type="text" name="foo" value="bar">', $form->asString());
-        self::assertContains('<input type="text" name="baz" value="qux">', $form->asString());
+        self::assertStringContainsString('<input type="text" name="foo" value="bar">', $form->asString());
+        self::assertStringContainsString('<input type="text" name="baz" value="qux">', $form->asString());
     }
 
     public function testSetValuesWithConstructor() : void
@@ -121,7 +124,7 @@ class FormTest extends TestCase
             'baz' => 'qux',
         ]);
 
-        self::assertContains('<input type="text" name="foo" value="bar">', $form->asString());
-        self::assertContains('<input type="text" name="baz" value="qux">', $form->asString());
+        self::assertStringContainsString('<input type="text" name="foo" value="bar">', $form->asString());
+        self::assertStringContainsString('<input type="text" name="baz" value="qux">', $form->asString());
     }
 }
