@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
+use DOMElement;
 use Laminas\Validator\Explode as ExplodeValidator;
 use Laminas\Validator\InArray as InArrayValidator;
 
 class Select extends BaseFormElement
 {
-    protected function getValidators() : array
+    protected function getValidators(): array
     {
         $validators = [];
 
@@ -28,7 +29,7 @@ class Select extends BaseFormElement
         return $validators;
     }
 
-    private function getInArrayValidator() : array
+    private function getInArrayValidator(): array
     {
         return [
             'name'    => InArrayValidator::class,
@@ -39,11 +40,11 @@ class Select extends BaseFormElement
         ];
     }
 
-    private function getValueOptions() : array
+    private function getValueOptions(): array
     {
         $haystack = [];
 
-        /** @var \DOMElement $option */
+        /** @var DOMElement $option */
         foreach ($this->node->getElementsByTagName('option') as $option) {
             $haystack[] = $option->getAttribute('value');
         }

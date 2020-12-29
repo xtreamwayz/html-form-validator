@@ -8,7 +8,7 @@ use Laminas\InputFilter\Factory;
 
 class ConfigProvider
 {
-    public function __invoke() : array
+    public function __invoke(): array
     {
         return [
             'dependencies'        => $this->getDependencies(),
@@ -16,7 +16,7 @@ class ConfigProvider
         ];
     }
 
-    public function getDependencies() : array
+    public function getDependencies(): array
     {
         return [
             'factories' => [
@@ -26,7 +26,7 @@ class ConfigProvider
         ];
     }
 
-    public function getOptions() : array
+    public function getOptions(): array
     {
         return [
             'cssHasErrorClass' => 'has-validation-error',

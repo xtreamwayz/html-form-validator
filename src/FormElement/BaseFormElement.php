@@ -8,10 +8,12 @@ use DOMDocument;
 use DOMElement;
 use Generator;
 use Laminas\InputFilter\InputProviderInterface;
-use const PREG_SET_ORDER;
+
 use function explode;
 use function preg_match_all;
 use function trim;
+
+use const PREG_SET_ORDER;
 
 class BaseFormElement implements InputProviderInterface
 {
@@ -33,7 +35,7 @@ class BaseFormElement implements InputProviderInterface
      *
      * @return array
      */
-    public function getInputSpecification() : array
+    public function getInputSpecification(): array
     {
         $spec = [
             'name'     => $this->getName(),
@@ -73,7 +75,7 @@ class BaseFormElement implements InputProviderInterface
         return $spec;
     }
 
-    protected function getName() : string
+    protected function getName(): string
     {
         $name = $this->node->getAttribute('name');
         if (! $name) {
@@ -83,17 +85,17 @@ class BaseFormElement implements InputProviderInterface
         return $name;
     }
 
-    protected function isRequired() : bool
+    protected function isRequired(): bool
     {
         return $this->node->hasAttribute('required') || $this->node->getAttribute('aria-required') === 'true';
     }
 
-    protected function getFilters() : array
+    protected function getFilters(): array
     {
         return [];
     }
 
-    protected function getValidators() : array
+    protected function getValidators(): array
     {
         return [];
     }
@@ -101,7 +103,7 @@ class BaseFormElement implements InputProviderInterface
     /**
      * Parse data attribute value for validators, filters and options
      */
-    protected function parseDataAttribute(string $dataAttribute) : Generator
+    protected function parseDataAttribute(string $dataAttribute): Generator
     {
         $matches = [];
         preg_match_all('/([a-zA-Z]+)([^|]*)/', $dataAttribute, $matches, PREG_SET_ORDER);

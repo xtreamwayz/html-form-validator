@@ -39,57 +39,57 @@ final class ValidationResult implements ValidationResultInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function isValid() : bool
+    public function isValid(): bool
     {
         return count($this->messages) === 0 && ($this->method === null || $this->method === 'POST');
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function isClicked(string $name) : bool
+    public function isClicked(string $name): bool
     {
         return $this->submitName === $name;
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function getClicked() : ?string
+    public function getClicked(): ?string
     {
         return $this->submitName;
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function addMessages(array $messages) : void
+    public function addMessages(array $messages): void
     {
         $this->messages = array_replace_recursive($this->messages, $messages);
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function getMessages() : array
+    public function getMessages(): array
     {
         return $this->messages;
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function getRawValues() : array
+    public function getRawValues(): array
     {
         return $this->rawValues;
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function getValues() : array
+    public function getValues(): array
     {
         return $this->values;
     }

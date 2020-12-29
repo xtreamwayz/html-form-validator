@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator;
 
-use Psr\Http\Message\StreamInterface;
 use Laminas\InputFilter\InputFilterInterface;
+use Psr\Http\Message\StreamInterface;
 
 interface FormFactoryInterface
 {
@@ -18,5 +18,5 @@ interface FormFactoryInterface
         $html,
         ?array $defaultValues = null,
         ?InputFilterInterface $inputFilter = null
-    ) : FormInterface;
+    ): FormInterface;
 }

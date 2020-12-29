@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace XtreamwayzTest\HTMLFormValidator;
 
+use Laminas\InputFilter\Factory;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use Xtreamwayz\HTMLFormValidator\InputFilterFactory;
 use Xtreamwayz\HTMLFormValidator\Validator\RecaptchaValidator;
-use Laminas\InputFilter\Factory;
-use Laminas\ServiceManager\ServiceManager;
 
 class InputFilterFactoryTest extends TestCase
 {
-    public function createFactory(?bool $useConfig = null) : Factory
+    public function createFactory(?bool $useConfig = null): Factory
     {
         $config = [];
 
@@ -42,7 +42,7 @@ class InputFilterFactoryTest extends TestCase
         return $factory($container);
     }
 
-    public function testInputFilterFactoryCreation() : void
+    public function testInputFilterFactoryCreation(): void
     {
         $factory = $this->createFactory(false);
 
@@ -50,7 +50,7 @@ class InputFilterFactoryTest extends TestCase
         self::assertFalse($factory->getDefaultValidatorChain()->getPluginManager()->has('recaptcha'));
     }
 
-    public function testCustomValidatorIsRegistered() : void
+    public function testCustomValidatorIsRegistered(): void
     {
         $factory = $this->createFactory(true);
 
@@ -61,7 +61,7 @@ class InputFilterFactoryTest extends TestCase
         );
     }
 
-    public function testInputHasAccessToCustomValidator() : void
+    public function testInputHasAccessToCustomValidator(): void
     {
         $factory = $this->createFactory(true);
 

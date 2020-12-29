@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator;
 
-use Psr\Container\ContainerInterface;
 use Laminas\InputFilter\Factory;
+use Psr\Container\ContainerInterface;
 
 class FormFactoryFactory
 {
-    public function __invoke(ContainerInterface $container) : FormFactoryInterface
+    public function __invoke(ContainerInterface $container): FormFactoryInterface
     {
         $factory = null;
         if ($container->has(Factory::class)) {

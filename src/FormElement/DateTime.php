@@ -9,14 +9,16 @@ use Laminas\Validator\Date as DateValidator;
 use Laminas\Validator\DateStep as DateStepValidator;
 use Laminas\Validator\GreaterThan as GreaterThanValidator;
 use Laminas\Validator\LessThan as LessThanValidator;
+
 use function date;
 use function sprintf;
 
 class DateTime extends BaseFormElement
 {
+    /** @var string */
     protected $format = 'Y-m-d\TH:i';
 
-    protected function getValidators() : array
+    protected function getValidators(): array
     {
         $validators   = [];
         $validators[] = $this->getDateValidator();
@@ -41,7 +43,8 @@ class DateTime extends BaseFormElement
             ];
         }
 
-        if (! $this->node->hasAttribute('step')
+        if (
+            ! $this->node->hasAttribute('step')
             || $this->node->getAttribute('step') !== 'any'
         ) {
             $validators[] = $this->getStepValidator();
@@ -50,7 +53,7 @@ class DateTime extends BaseFormElement
         return $validators;
     }
 
-    protected function getDateValidator() : array
+    protected function getDateValidator(): array
     {
         return [
             'name'    => DateValidator::class,
@@ -60,7 +63,7 @@ class DateTime extends BaseFormElement
         ];
     }
 
-    protected function getStepValidator() : array
+    protected function getStepValidator(): array
     {
         $stepValue = $this->node->getAttribute('step') ?: 1; // Minutes
         $baseValue = $this->node->getAttribute('min') ?: date($this->format, 0);

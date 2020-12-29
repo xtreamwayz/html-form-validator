@@ -14,21 +14,24 @@ class FormTest extends TestCase
 {
     use ProphecyTrait;
 
+    /** @var string[] */
     private $rawValues = [
         'foo' => 'bar',
         'baz' => ' qux ',
     ];
 
+    /** @var string[] */
     private $values = [
         'foo' => 'bar',
         'baz' => 'qux',
     ];
 
+    /** @var string[] */
     private $messages = [
         'foo' => ['regexNotMatch' => 'The input does not match against pattern \'/^\d+$/\''],
     ];
 
-    public function testPsrPostRequestIsValid() : void
+    public function testPsrPostRequestIsValid(): void
     {
         $html = '
             <form action="/" method="post">
@@ -50,7 +53,7 @@ class FormTest extends TestCase
         self::assertTrue($result->isValid());
     }
 
-    public function testPsrGetRequestIsNotValid() : void
+    public function testPsrGetRequestIsNotValid(): void
     {
         $html = '
             <form action="/" method="post">
@@ -72,7 +75,7 @@ class FormTest extends TestCase
         self::assertFalse($result->isValid());
     }
 
-    public function testPsrPostRequestHasMessages() : void
+    public function testPsrPostRequestHasMessages(): void
     {
         $html = '
             <form action="/" method="post">
@@ -94,7 +97,7 @@ class FormTest extends TestCase
         self::assertFalse($result->isValid());
     }
 
-    public function testSetValuesStatically() : void
+    public function testSetValuesStatically(): void
     {
         $html = '
             <form action="/" method="post">
@@ -111,7 +114,7 @@ class FormTest extends TestCase
         self::assertStringContainsString('<input type="text" name="baz" value="qux">', $form->asString());
     }
 
-    public function testSetValuesWithConstructor() : void
+    public function testSetValuesWithConstructor(): void
     {
         $html = '
             <form action="/" method="post">

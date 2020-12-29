@@ -5,16 +5,18 @@ declare(strict_types=1);
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DateInterval;
-use Xtreamwayz\HTMLFormValidator\FormElement\DateTime as DateTimeElement;
 use Laminas\Validator\DateStep as DateStepValidator;
+use Xtreamwayz\HTMLFormValidator\FormElement\DateTime as DateTimeElement;
+
 use function date;
 use function sprintf;
 
 class Time extends DateTimeElement
 {
+    /** @var string */
     protected $format = 'H:i:s';
 
-    protected function getStepValidator() : array
+    protected function getStepValidator(): array
     {
         $stepValue = $this->node->getAttribute('step') ?: 60; // Seconds
         $baseValue = $this->node->getAttribute('min') ?: date($this->format, 0);

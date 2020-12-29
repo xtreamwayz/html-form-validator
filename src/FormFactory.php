@@ -7,9 +7,11 @@ namespace Xtreamwayz\HTMLFormValidator;
 use DOMDocument;
 use Laminas\InputFilter\Factory;
 use Laminas\InputFilter\InputFilterInterface;
+
+use function libxml_use_internal_errors;
+
 use const LIBXML_HTML_NODEFDTD;
 use const LIBXML_HTML_NOIMPLIED;
-use function libxml_use_internal_errors;
 
 final class FormFactory implements FormFactoryInterface
 {
@@ -20,7 +22,7 @@ final class FormFactory implements FormFactoryInterface
     private $options;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function __construct(?Factory $factory = null, ?array $options = null)
     {
@@ -29,13 +31,13 @@ final class FormFactory implements FormFactoryInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function fromHtml(
         $html,
         ?array $defaultValues = null,
         ?InputFilterInterface $inputFilter = null
-    ) : FormInterface {
+    ): FormInterface {
         // Create new doc
         $document = new DOMDocument('1.0', 'utf-8');
 

@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace XtreamwayzTest\HTMLFormValidator;
 
+use DOMDocument;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Message\ServerRequestInterface;
 use Xtreamwayz\HTMLFormValidator\FormFactory;
 use Xtreamwayz\HTMLFormValidator\ValidationResult;
+
 use function preg_replace;
+
 use const LIBXML_HTML_NODEFDTD;
 use const LIBXML_HTML_NOIMPLIED;
 use const LIBXML_NOBLANKS;
@@ -18,7 +21,7 @@ class FormElementArraytest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testCheckboxArrayIsValid() : void
+    public function testCheckboxArrayIsValid(): void
     {
         $html = '
             <form action="/" method="post">
@@ -56,9 +59,9 @@ class FormElementArraytest extends TestCase
         );
     }
 
-    private function getDomDocument($html)
+    private function getDomDocument(string $html): string
     {
-        $doc = new \DOMDocument('1.0', 'utf-8');
+        $doc = new DOMDocument('1.0', 'utf-8');
 
         $doc->preserveWhiteSpace = false;
         // Don't add missing doctype, html and body

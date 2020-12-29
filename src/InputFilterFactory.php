@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator;
 
-use Psr\Container\ContainerInterface;
 use Laminas\Filter\FilterPluginManager;
 use Laminas\InputFilter\Factory;
 use Laminas\InputFilter\InputFilterPluginManager;
 use Laminas\Validator\ValidatorPluginManager;
+use Psr\Container\ContainerInterface;
 
 class InputFilterFactory
 {
-    public function __invoke(ContainerInterface $container) : Factory
+    public function __invoke(ContainerInterface $container): Factory
     {
         $config     = $container->get('config')['laminas-inputfilter'] ?? [];
         $filters    = $config['filters'] ?? [];

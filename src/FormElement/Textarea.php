@@ -8,7 +8,7 @@ use Laminas\Validator\StringLength as StringLengthValidator;
 
 class Textarea extends BaseFormElement
 {
-    protected function getValidators() : array
+    protected function getValidators(): array
     {
         $validators = [];
 

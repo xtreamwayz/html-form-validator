@@ -9,14 +9,14 @@ use Laminas\Validator\Regex as RegexValidator;
 
 class Color extends BaseFormElement
 {
-    protected function getFilters() : array
+    protected function getFilters(): array
     {
         return [
             ['name' => StringToLowerFilter::class],
         ];
     }
 
-    protected function getValidators() : array
+    protected function getValidators(): array
     {
         return [
             [

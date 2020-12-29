@@ -8,7 +8,7 @@ use Laminas\Validator\Identical as IdenticalValidator;
 
 class Checkbox extends BaseFormElement
 {
-    protected function getValidators() : array
+    protected function getValidators(): array
     {
         return [
             [

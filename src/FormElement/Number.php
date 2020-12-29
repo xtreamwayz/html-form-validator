@@ -11,7 +11,7 @@ use Laminas\Validator\Step as StepValidator;
 
 class Number extends BaseFormElement
 {
-    protected function getValidators() : array
+    protected function getValidators(): array
     {
         $validators = [];
 
@@ -29,7 +29,8 @@ class Number extends BaseFormElement
             $validators[] = $this->getMaxValidator();
         }
 
-        if (! $this->node->hasAttribute('step')
+        if (
+            ! $this->node->hasAttribute('step')
             || $this->node->getAttribute('step') !== 'any'
         ) {
             $validators[] = $this->getStepValidator();
@@ -38,7 +39,7 @@ class Number extends BaseFormElement
         return $validators;
     }
 
-    protected function getMinValidator() : array
+    protected function getMinValidator(): array
     {
         return [
             'name'    => GreaterThanValidator::class,
@@ -49,7 +50,7 @@ class Number extends BaseFormElement
         ];
     }
 
-    protected function getMaxValidator() : array
+    protected function getMaxValidator(): array
     {
         return [
             'name'    => LessThanValidator::class,
@@ -60,7 +61,7 @@ class Number extends BaseFormElement
         ];
     }
 
-    protected function getStepValidator() : array
+    protected function getStepValidator(): array
     {
         return [
             'name'    => StepValidator::class,

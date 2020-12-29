@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DateInterval;
-use Xtreamwayz\HTMLFormValidator\FormElement\DateTime as DateTimeElement;
 use Laminas\Validator\DateStep as DateStepValidator;
 use Laminas\Validator\Regex as RegexValidator;
+use Xtreamwayz\HTMLFormValidator\FormElement\DateTime as DateTimeElement;
+
 use function sprintf;
 
 class Week extends DateTimeElement
 {
-    protected function getDateValidator() : array
+    protected function getDateValidator(): array
     {
         return [
             'name'    => RegexValidator::class,
@@ -20,7 +21,7 @@ class Week extends DateTimeElement
         ];
     }
 
-    protected function getStepValidator() : array
+    protected function getStepValidator(): array
     {
         $stepValue = $this->node->getAttribute('step') ?: 1; // Weeks
         $baseValue = $this->node->getAttribute('min') ?: '1970-W01';
