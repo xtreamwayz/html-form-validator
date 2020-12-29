@@ -7,18 +7,19 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 use Laminas\Filter\StripNewlines as StripNewlinesFilter;
 use Laminas\Validator\Regex as RegexValidator;
 use Laminas\Validator\StringLength as StringLengthValidator;
+
 use function sprintf;
 
 class Text extends BaseFormElement
 {
-    protected function getFilters() : array
+    protected function getFilters(): array
     {
         return [
             ['name' => StripNewlinesFilter::class],
         ];
     }
 
-    protected function getValidators() : array
+    protected function getValidators(): array
     {
         $validators = [];
 

@@ -6,16 +6,17 @@ namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
 use DateInterval;
 use DateTimeZone;
-use Xtreamwayz\HTMLFormValidator\FormElement\DateTime as DateTimeElement;
 use Laminas\Validator\DateStep as DateStepValidator;
+use Xtreamwayz\HTMLFormValidator\FormElement\DateTime as DateTimeElement;
+
 use function date;
 use function sprintf;
 
 class Date extends DateTimeElement
 {
-    protected $format = 'Y-m-d';
+    protected string $format = 'Y-m-d';
 
-    protected function getStepValidator() : array
+    protected function getStepValidator(): array
     {
         $stepValue = $this->node->getAttribute('step') ?: 1; // Days
         $baseValue = $this->node->getAttribute('min') ?: date($this->format, 0);

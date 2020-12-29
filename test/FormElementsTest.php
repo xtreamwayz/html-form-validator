@@ -4,22 +4,50 @@ declare(strict_types=1);
 
 namespace XtreamwayzTest\HTMLFormValidator;
 
+use DOMDocument;
+use Exception;
+use Generator;
 use PHPUnit\Framework\TestCase;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use RuntimeException;
+use SplFileInfo;
 use Xtreamwayz\HTMLFormValidator\FormFactory;
 use Xtreamwayz\HTMLFormValidator\ValidationResult;
+
+use function array_diff_key;
+use function array_key_exists;
+use function array_merge;
+use function basename;
+use function count;
+use function file_get_contents;
+use function is_array;
+use function json_decode;
+use function preg_match;
+use function preg_replace;
+use function preg_split;
+use function realpath;
+use function sprintf;
+use function str_replace;
+use function trim;
+
+use const LIBXML_HTML_NODEFDTD;
+use const LIBXML_HTML_NOIMPLIED;
+use const LIBXML_NOBLANKS;
+use const PREG_SPLIT_DELIM_CAPTURE;
 
 class FormElementsTest extends TestCase
 {
     /** @dataProvider getIntegrationTests */
     public function testIntegration(
-        $htmlForm,
-        $defaultValues,
-        $submittedValues,
-        $expectedValues,
-        $expectedForm,
-        $expectedErrors,
-        $expectedException
-    ) {
+        string $htmlForm,
+        array $defaultValues,
+        array $submittedValues,
+        array $expectedValues,
+        string $expectedForm,
+        array $expectedErrors,
+        string $expectedException
+    ): void {
         if ($expectedException) {
             $this->expectException($expectedException);
         }
@@ -51,7 +79,7 @@ class FormElementsTest extends TestCase
         );
     }
 
-    private function arrayDiff(array $array1, array $array2)
+    private function arrayDiff(array $array1, array $array2): array
     {
         $result = [];
 
@@ -79,12 +107,12 @@ class FormElementsTest extends TestCase
         return $result;
     }
 
-    public function getIntegrationTests()
+    public function getIntegrationTests(): Generator
     {
         $fixturesDir = realpath(__DIR__ . '/Fixtures/');
 
-        $rdi = new \RecursiveDirectoryIterator($fixturesDir);
-        $rii = new \RecursiveIteratorIterator($rdi, \RecursiveIteratorIterator::LEAVES_ONLY);
+        $rdi = new RecursiveDirectoryIterator($fixturesDir);
+        $rii = new RecursiveIteratorIterator($rdi, RecursiveIteratorIterator::LEAVES_ONLY);
         foreach ($rii as $name => $file) {
             if (! preg_match('/\.test$/', $name)) {
                 continue;
@@ -125,7 +153,7 @@ class FormElementsTest extends TestCase
                 if (! empty($testData['EXPECTED-EXCEPTION'])) {
                     $expectedException = trim($testData['EXPECTED-EXCEPTION']);
                 }
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 die(sprintf('Test "%s" is not valid: ' . $e->getMessage(), str_replace($fixturesDir . '/', '', $file)));
             }
 
@@ -141,7 +169,7 @@ class FormElementsTest extends TestCase
         }
     }
 
-    protected function readTestFile(\SplFileInfo $file, $fixturesDir)
+    protected function readTestFile(SplFileInfo $file, string $fixturesDir): array
     {
         $tokens = preg_split(
             '#(?:^|\n*)--([A-Z-]+)--\n#',
@@ -170,7 +198,7 @@ class FormElementsTest extends TestCase
 
             if (null === $section) {
                 if (! array_key_exists($token, $sectionInfo)) {
-                    throw new \RuntimeException(sprintf(
+                    throw new RuntimeException(sprintf(
                         'The test file "%s" must not contain a section named "%s".',
                         str_replace($fixturesDir . '/', '', $file),
                         $token
@@ -186,7 +214,7 @@ class FormElementsTest extends TestCase
 
         foreach ($sectionInfo as $section => $required) {
             if ($required && ! array_key_exists($section, $data)) {
-                throw new \RuntimeException(sprintf(
+                throw new RuntimeException(sprintf(
                     'The test file "%s" must have a section named "%s".',
                     str_replace($fixturesDir . '/', '', $file),
                     $section
@@ -197,7 +225,7 @@ class FormElementsTest extends TestCase
         return $data;
     }
 
-    private function assertEqualForms($expected, $actual)
+    private function assertEqualForms(string $expected, string $actual): void
     {
         self::assertEquals(
             $this->getDomDocument($expected),
@@ -206,9 +234,9 @@ class FormElementsTest extends TestCase
         );
     }
 
-    private function getDomDocument($html)
+    private function getDomDocument(string $html): string
     {
-        $doc = new \DOMDocument('1.0', 'utf-8');
+        $doc = new DOMDocument('1.0', 'utf-8');
 
         $doc->preserveWhiteSpace = false;
 

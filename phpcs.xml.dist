@@ -1,20 +1,20 @@
-<?xml version="1.0"?>
-<ruleset name="PSR2 coding standard">
-    <description>PSR2 coding standard</description>
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Project Coding Standards"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
 
-    <!-- display progress -->
-    <arg value="p"/>
+  <arg name="basepath" value="."/>
+  <arg name="cache" value=".phpcs-cache"/>
+  <arg name="colors"/>
+  <arg name="extensions" value="php"/>
+  <arg name="parallel" value="80"/>
+  <arg value="p"/>
 
-    <!-- inherit rules from: -->
-    <rule ref="PSR2"/>
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
-    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
-        <properties>
-            <property name="ignoreBlankLines" value="false"/>
-        </properties>
-    </rule>
+  <!-- Paths to check -->
+  <file>src</file>
+  <file>test</file>
+  <exclude-pattern>vendor</exclude-pattern>
 
-    <!-- Paths to check -->
-    <file>src</file>
-    <file>test</file>
+  <!-- Import rules -->
+  <rule ref="LaminasCodingStandard" />
 </ruleset>

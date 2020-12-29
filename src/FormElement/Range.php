@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Xtreamwayz\HTMLFormValidator\FormElement;
 
-use Xtreamwayz\HTMLFormValidator\FormElement\Number as NumberElement;
 use Laminas\I18n\Validator\IsFloat as NumberValidator;
+use Xtreamwayz\HTMLFormValidator\FormElement\Number as NumberElement;
 
 class Range extends NumberElement
 {
-    protected function getValidators() : array
+    protected function getValidators(): array
     {
         $validators = [];
 
@@ -25,7 +25,8 @@ class Range extends NumberElement
             $validators[] = $this->getMaxValidator();
         }
 
-        if (! $this->node->hasAttribute('step')
+        if (
+            ! $this->node->hasAttribute('step')
             || $this->node->getAttribute('step') !== 'any'
         ) {
             $validators[] = $this->getStepValidator();

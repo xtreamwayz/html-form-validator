@@ -10,13 +10,15 @@ use Laminas\Validator\EmailAddress as EmailAddressValidator;
 use Laminas\Validator\Explode as ExplodeValidator;
 use Laminas\Validator\Regex as RegexValidator;
 use Laminas\Validator\StringLength as StringLengthValidator;
-use const FILTER_VALIDATE_BOOLEAN;
+
 use function filter_var;
 use function sprintf;
 
+use const FILTER_VALIDATE_BOOLEAN;
+
 class Email extends BaseFormElement
 {
-    protected function getFilters() : array
+    protected function getFilters(): array
     {
         return [
             ['name' => StripNewlinesFilter::class],
@@ -24,7 +26,7 @@ class Email extends BaseFormElement
         ];
     }
 
-    protected function getValidators() : array
+    protected function getValidators(): array
     {
         $validators = [];
 
@@ -61,7 +63,7 @@ class Email extends BaseFormElement
         return $validators;
     }
 
-    protected function getEmailValidator() : array
+    protected function getEmailValidator(): array
     {
         return [
             'name'    => EmailAddressValidator::class,

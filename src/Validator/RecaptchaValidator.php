@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Xtreamwayz\HTMLFormValidator\Validator;
 
 use InvalidArgumentException;
-use Traversable;
 use Laminas\Validator\AbstractValidator;
+use Traversable;
+
 use function array_key_exists;
 use function file_get_contents;
 use function is_array;
@@ -33,8 +34,7 @@ class RecaptchaValidator extends AbstractValidator
      *   'key' => string, private recaptcha key
      *
      * @param array|Traversable $options
-     *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function __construct($options = null)
     {
@@ -49,14 +49,15 @@ class RecaptchaValidator extends AbstractValidator
         parent::__construct($options);
     }
 
-    public function setKey($key) : self
+    public function setKey(string $key): self
     {
         $this->options['key'] = $key;
 
         return $this;
     }
 
-    public function isValid($value) : bool
+    /** @param mixed $value */
+    public function isValid($value): bool
     {
         $uri      = sprintf(self::VERIFICATION_URI, $this->options['key'], $value);
         $json     = file_get_contents($uri);

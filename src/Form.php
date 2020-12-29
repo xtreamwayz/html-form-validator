@@ -8,11 +8,12 @@ use DOMDocument;
 use DOMElement;
 use DOMXPath;
 use Generator;
-use Psr\Http\Message\ServerRequestInterface;
 use Laminas\InputFilter\ArrayInput;
 use Laminas\InputFilter\Factory;
 use Laminas\InputFilter\InputFilterInterface;
 use Laminas\InputFilter\InputProviderInterface;
+use Psr\Http\Message\ServerRequestInterface;
+
 use function array_key_exists;
 use function filter_var;
 use function in_array;
@@ -21,6 +22,7 @@ use function sprintf;
 use function strpos;
 use function substr;
 use function trim;
+
 use const FILTER_VALIDATE_BOOLEAN;
 
 final class Form implements FormInterface
@@ -77,7 +79,7 @@ final class Form implements FormInterface
     ];
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function __construct(
         DOMDocument $document,
@@ -98,9 +100,9 @@ final class Form implements FormInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function asString(?ValidationResultInterface $result = null) : string
+    public function asString(?ValidationResultInterface $result = null): string
     {
         if ($result) {
             // Inject data if a result is set
@@ -125,17 +127,17 @@ final class Form implements FormInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function validateRequest(ServerRequestInterface $request) : ValidationResultInterface
+    public function validateRequest(ServerRequestInterface $request): ValidationResultInterface
     {
         return $this->validate((array) $request->getParsedBody(), $request->getMethod());
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function validate(array $data, ?string $method = null) : ValidationResultInterface
+    public function validate(array $data, ?string $method = null): ValidationResultInterface
     {
         if ($method !== null && $method !== 'POST') {
             // Not a post request, skip validation
@@ -180,7 +182,7 @@ final class Form implements FormInterface
     /**
      * Build the InputFilter, validators and filters from form fields
      */
-    private function buildInputFilterFromForm(InputFilterInterface $inputFilter) : void
+    private function buildInputFilterFromForm(InputFilterInterface $inputFilter): void
     {
         /** @var DOMElement $node */
         foreach ($this->getNodeList() as $name => $node) {
@@ -222,7 +224,7 @@ final class Form implements FormInterface
      *
      * return Generator<string, DOMElement>
      */
-    private function getNodeList() : Generator
+    private function getNodeList(): Generator
     {
         $xpath    = new DOMXPath($this->document);
         $nodeList = $xpath->query('//input | //textarea | //select | //div[@data-input-name]');
@@ -252,7 +254,7 @@ final class Form implements FormInterface
     /**
      * Get names of available named submit elements
      */
-    private function getSubmitStateNodeList() : Generator
+    private function getSubmitStateNodeList(): Generator
     {
         $xpath    = new DOMXPath($this->document);
         $nodeList = $xpath->query('//input[@type="submit"] | //button[@type="submit"]');
@@ -272,7 +274,7 @@ final class Form implements FormInterface
     /**
      * Set values and element checked and selected states
      */
-    private function setData(array $data, ?bool $force = null) : void
+    private function setData(array $data, ?bool $force = null): void
     {
         $force = $force ?? false;
 
@@ -311,7 +313,8 @@ final class Form implements FormInterface
             }
 
             if (in_array($node->getAttribute('type'), ['checkbox', 'radio'], true)) {
-                if ($value === $node->getAttribute('value')
+                if (
+                    $value === $node->getAttribute('value')
                     || (is_array($value) && in_array($node->getAttribute('value'), $value, true))
                 ) {
                     $node->setAttribute('checked', 'checked');
@@ -339,7 +342,7 @@ final class Form implements FormInterface
     /**
      * Set validation messages, bootstrap style
      */
-    private function setMessages(array $data) : void
+    private function setMessages(array $data): void
     {
         /**
          * @var string $name

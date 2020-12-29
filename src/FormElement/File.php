@@ -9,7 +9,7 @@ use Laminas\Validator\File\MimeType as MimeTypeValidator;
 
 class File extends BaseFormElement
 {
-    public function getInputSpecification() : array
+    public function getInputSpecification(): array
     {
         $spec = [
             'type'     => FileInput::class,

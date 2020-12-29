@@ -12,17 +12,17 @@ interface ValidationResultInterface
      * If there are no validation messages set and the request method is null or POST,
      * the validation result object is considered valid.
      */
-    public function isValid() : bool;
+    public function isValid(): bool;
 
     /**
      * Checks if submit button with a specific name is clicked
      */
-    public function isClicked(string $name) : bool;
+    public function isClicked(string $name): bool;
 
     /**
      * Returns the name of the clicked button
      */
-    public function getClicked() : ?string;
+    public function getClicked(): ?string;
 
     /**
      * Add custom validation messages
@@ -37,22 +37,21 @@ interface ValidationResultInterface
      *          'emailAddressInvalidFormat' => 'The given email address is invalid',
      *      ],
      *  ]
-     *
      */
-    public function addMessages(array $messages) : void;
+    public function addMessages(array $messages): void;
 
     /**
      * Get validation messages
      */
-    public function getMessages() : array;
+    public function getMessages(): array;
 
     /**
      * Get the raw input values
      */
-    public function getRawValues() : array;
+    public function getRawValues(): array;
 
     /**
      * Get the filtered input values
      */
-    public function getValues() : array;
+    public function getValues(): array;
 }

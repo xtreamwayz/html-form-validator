@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace XtreamwayzTest\HTMLFormValidator;
 
+use Laminas\InputFilter\Factory;
+use Laminas\InputFilter\InputFilterInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use ReflectionProperty;
 use Xtreamwayz\HTMLFormValidator\Form;
 use Xtreamwayz\HTMLFormValidator\FormFactory;
 use Xtreamwayz\HTMLFormValidator\FormFactoryInterface;
 use Xtreamwayz\HTMLFormValidator\FormInterface;
-use Laminas\InputFilter\Factory;
-use Laminas\InputFilter\InputFilterInterface;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 class FormFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testConstructorWithNoArguments() : void
+    public function testConstructorWithNoArguments(): void
     {
         $formFactory = new FormFactory();
 
@@ -26,7 +26,7 @@ class FormFactoryTest extends TestCase
         self::assertInstanceOf(FormFactory::class, $formFactory);
     }
 
-    public function testConstructorWithArguments() : void
+    public function testConstructorWithArguments(): void
     {
         $factory = $this->prophesize(Factory::class);
         $options = ['foo' => 'bar'];
@@ -37,7 +37,7 @@ class FormFactoryTest extends TestCase
         self::assertInstanceOf(FormFactory::class, $formFactory);
     }
 
-    public function testCreatingFormFromHtml() : void
+    public function testCreatingFormFromHtml(): void
     {
         $html = '
             <form action="/" method="post">
@@ -52,7 +52,7 @@ class FormFactoryTest extends TestCase
         self::assertInstanceOf(Form::class, $form);
     }
 
-    public function testCreatingFormUsesInjectedFactoryAndOptions() : void
+    public function testCreatingFormUsesInjectedFactoryAndOptions(): void
     {
         $html = '
             <form action="/" method="post">
