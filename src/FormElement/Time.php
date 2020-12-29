@@ -13,7 +13,8 @@ use function sprintf;
 
 class Time extends DateTimeElement
 {
-    protected string $format = 'H:i:s';
+    /** @var string */
+    protected $format = 'H:i:s';
 
     protected function getStepValidator(): array
     {

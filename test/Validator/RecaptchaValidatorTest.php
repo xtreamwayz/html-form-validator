@@ -15,9 +15,11 @@ class RecaptchaValidatorTest extends TestCase
     /** @var Validator\RecaptchaValidator */
     protected $validator;
 
-    protected string $privKey = 'secret_private_key';
+    /** @var string */
+    protected $privKey = 'secret_private_key';
 
-    protected string $pubKey = 'public_key';
+    /** @var string */
+    protected $pubKey = 'public_key';
 
     /**
      * Creates a new RecaptchaValidator object for each test method

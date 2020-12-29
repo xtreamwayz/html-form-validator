@@ -14,7 +14,8 @@ use function sprintf;
 
 class Date extends DateTimeElement
 {
-    protected string $format = 'Y-m-d';
+    /** @var string */
+    protected $format = 'Y-m-d';
 
     protected function getStepValidator(): array
     {

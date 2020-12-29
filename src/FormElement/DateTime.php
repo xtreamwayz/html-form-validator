@@ -15,7 +15,8 @@ use function sprintf;
 
 class DateTime extends BaseFormElement
 {
-    protected string $format = 'Y-m-d\TH:i';
+    /** @var string */
+    protected $format = 'Y-m-d\TH:i';
 
     protected function getValidators(): array
     {

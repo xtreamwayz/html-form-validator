@@ -12,7 +12,8 @@ use function sprintf;
 
 class Month extends DateTimeElement
 {
-    protected string $format = 'Y-m';
+    /** @var string */
+    protected $format = 'Y-m';
 
     protected function getStepValidator(): array
     {
