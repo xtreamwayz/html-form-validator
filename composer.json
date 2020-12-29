@@ -2,36 +2,42 @@
   "name": "xtreamwayz/html-form-validator",
   "type": "project",
   "description": "A library validating and filtering submitted data by reusing html form attributes",
-  "homepage": "https://github.com/xtreamwayz/html-form-validator",
+  "homepage": "https://xtreamwayz.github.io/",
   "license": "MIT",
   "authors": [
     {
       "name": "Geert Eltink",
-      "homepage": "https://xtreamwayz.netlify.app/"
+      "homepage": "https://github.com/geerteltink"
     }
   ],
   "require": {
     "php": "^7.3 || ^8.0",
     "ext-dom": "*",
     "ext-libxml": "*",
-    "psr/container": "^1.0",
-    "psr/http-message": "^1.0",
     "laminas/laminas-filter": "^2.9",
     "laminas/laminas-i18n": "^2.7",
     "laminas/laminas-inputfilter": "^2.8",
     "laminas/laminas-servicemanager": "^3.5",
     "laminas/laminas-stdlib": "^3.0",
     "laminas/laminas-uri": "^2.5",
-    "laminas/laminas-validator": "^2.13"
+    "laminas/laminas-validator": "^2.13",
+    "psr/container": "^1.0",
+    "psr/http-message": "^1.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.5",
-    "squizlabs/php_codesniffer": "^3.0",
+    "phpspec/prophecy-phpunit": "^2.0",
     "phpstan/phpstan": "^0.12",
-    "phpspec/prophecy-phpunit": "^2.0"
+    "phpunit/phpunit": "^9.4",
+    "squizlabs/php_codesniffer": "^3.0"
   },
   "suggest": {
     "laminas/laminas-servicemanager": "To support third-party validators and filters"
+  },
+  "config": {
+    "platform": {
+      "php": "7.4.13"
+    },
+    "sort-packages": true
   },
   "extra": {
     "laminas": {
@@ -63,6 +69,8 @@
   },
   "support": {
     "issues": "https://github.com/xtreamwayz/html-form-validator/issues",
-    "wiki": "https://github.com/xtreamwayz/html-form-validator/wiki"
+    "forum": "https://github.com/xtreamwayz/community/discussions",
+    "source": "https://github.com/xtreamwayz/html-form-validator",
+    "docs": "https://xtreamwayz.github.io/html-form-validator/"
   }
 }
