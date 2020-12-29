@@ -1,8 +1,7 @@
 {
   "name": "xtreamwayz/html-form-validator",
-  "type": "project",
+  "type": "library",
   "description": "A library validating and filtering submitted data by reusing html form attributes",
-  "homepage": "https://xtreamwayz.github.io/",
   "license": "MIT",
   "authors": [
     {
@@ -34,9 +33,6 @@
     "laminas/laminas-servicemanager": "To support third-party validators and filters"
   },
   "config": {
-    "platform": {
-      "php": "7.4.13"
-    },
     "sort-packages": true
   },
   "extra": {
