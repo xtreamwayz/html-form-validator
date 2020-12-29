@@ -15,19 +15,19 @@ class FormTest extends TestCase
     use ProphecyTrait;
 
     /** @var string[] */
-    private array $rawValues = [
+    private $rawValues = [
         'foo' => 'bar',
         'baz' => ' qux ',
     ];
 
     /** @var string[] */
-    private array $values = [
+    private $values = [
         'foo' => 'bar',
         'baz' => 'qux',
     ];
 
     /** @var string[] */
-    private array $messages = [
+    private $messages = [
         'foo' => ['regexNotMatch' => 'The input does not match against pattern \'/^\d+$/\''],
     ];
 

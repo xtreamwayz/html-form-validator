@@ -9,17 +9,20 @@ use Xtreamwayz\HTMLFormValidator\ValidationResult;
 
 class ValidationResultTest extends TestCase
 {
-    private array $rawValues = [
+    /** @var string[] */
+    private $rawValues = [
         'foo' => 'bar',
         'baz' => ' qux ',
     ];
 
-    private array $values = [
+    /** @var string[] */
+    private $values = [
         'foo' => 'bar',
         'baz' => 'qux',
     ];
 
-    private array $messages = [
+    /** @var string[][] */
+    private $messages = [
         'foo' => [
             'regexNotMatch' => '',
             'notInArray'    => '',
