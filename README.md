@@ -1,12 +1,6 @@
 # html-form-validator
 
-[![PHPUnit tests](https://github.com/xtreamwayz/html-form-validator/workflows/PHPUnit%20tests/badge.svg)](https://github.com/xtreamwayz/html-form-validator/actions)
-[![Check Coding Standards](https://github.com/xtreamwayz/html-form-validator/workflows/Check%20Coding%20Standards/badge.svg)](https://github.com/xtreamwayz/html-form-validator/actions)
-[![Static Analysis](https://github.com/xtreamwayz/html-form-validator/workflows/Static%20Analysis/badge.svg)](https://github.com/xtreamwayz/html-form-validator/actions)
-[![Automatic Releases](https://github.com/xtreamwayz/html-form-validator/workflows/Automatic%20Releases/badge.svg)](https://github.com/xtreamwayz/html-form-validator/actions)
-[![Publish Docs](https://github.com/xtreamwayz/html-form-validator/workflows/Publish%20Docs/badge.svg)](https://github.com/xtreamwayz/html-form-validator/actions)
-[![Downloads](https://img.shields.io/packagist/dt/xtreamwayz/html-form-validator.svg)](https://packagist.org/packages/xtreamwayz/html-form-validator)
-[![Packagist](https://img.shields.io/packagist/v/xtreamwayz/html-form-validator.svg)](https://packagist.org/packages/xtreamwayz/html-form-validator)
+[![Continuous Integration](https://github.com/xtreamwayz/html-form-validator/workflows/Continuous%20Integration/badge.svg)](https://github.com/xtreamwayz/html-form-validator/actions/workflows/continuous-integration.yml)
 
 As challenged by a [tweet](https://twitter.com/Ocramius/status/680817040429592576), this library extracts validation
 rules and filters from a html form and validates submitted user data against it.
