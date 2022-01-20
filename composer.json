@@ -26,7 +26,7 @@
   "require-dev": {
     "laminas/laminas-coding-standard": "^2.3",
     "phpspec/prophecy-phpunit": "^2.0",
-    "phpstan/phpstan": "^1.2",
+    "phpstan/phpstan": "^1.4",
     "phpunit/phpunit": "^9.5"
   },
   "suggest": {
