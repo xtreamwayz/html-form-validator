@@ -21,7 +21,7 @@
     "laminas/laminas-uri": "^2.9",
     "laminas/laminas-validator": "^2.15",
     "psr/container": "^1.0 || ^2.0",
-    "psr/http-message": "^1.0"
+    "psr/http-message": "^1.0 || ^2.0"
   },
   "require-dev": {
     "laminas/laminas-coding-standard": "^2.3",
